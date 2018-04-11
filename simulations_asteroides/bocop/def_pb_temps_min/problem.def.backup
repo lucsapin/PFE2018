@@ -1,0 +1,89 @@
+# This file defines all dimensions and parameters
+# values for your problem :
+
+# Initial and final time :
+time.free string none
+time.initial double 0
+time.final double 1
+
+# Dimensions :
+state.dimension integer 6
+control.dimension integer 3
+algebraic.dimension integer 0
+parameter.dimension integer 1
+constant.dimension integer 20
+boundarycond.dimension integer 12
+constraint.dimension integer 2
+
+# Discretization :
+discretization.steps integer 200
+discretization.method string gauss
+
+# Optimization :
+optimization.type string single
+batch.type integer 0
+batch.index integer 0
+batch.nrange integer 1
+batch.lowerbound double 0
+batch.upperbound double 0
+batch.directory string none
+
+# Initialization :
+initialization.type string from_sol_file_warm
+initialization.file string problem.sol
+
+# Parameter identification :
+paramid.type string false
+paramid.separator string ,
+paramid.file string no_directory
+paramid.dimension integer 0
+
+# Names :
+state.0 string q1
+state.1 string q2
+state.2 string q3
+state.3 string v1
+state.4 string v2
+state.5 string v3
+control.0 string u1
+control.1 string u2
+control.2 string u3
+parameter.0 string tf
+boundarycond.0 string q1(0)
+boundarycond.1 string q2(0)
+boundarycond.2 string q3(0)
+boundarycond.3 string v1(0)
+boundarycond.4 string v2(0)
+boundarycond.5 string v3(0)
+boundarycond.6 string q1(1)
+boundarycond.7 string q2(1)
+boundarycond.8 string q3(1)
+boundarycond.9 string v1(1)
+boundarycond.10 string v2(1)
+boundarycond.11 string v3(1)
+constraint.0 string constraint_control
+constraint.1 string constraint_dist_earth
+constant.0 string q1_0
+constant.1 string q2_0
+constant.2 string q3_0
+constant.3 string v1_0
+constant.4 string v2_0
+constant.5 string v3_0
+constant.6 string q1_f
+constant.7 string q2_f
+constant.8 string q3_f
+constant.9 string v1_f
+constant.10 string v2_f
+constant.11 string v3_f
+constant.12 string Tmax
+constant.13 string mu
+constant.14 string muSun
+constant.15 string rhoSun
+constant.16 string thetaSun_0
+constant.17 string omegaSun
+constant.18 string m0
+constant.19 string min_dist_2_earth
+
+# Solution file :
+solution.file string problem.sol
+

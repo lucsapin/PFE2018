@@ -1,0 +1,181 @@
+\documentclass[fleqn,% draft,
+a4paper,11pt]{scrbook}
+
+% Document language : english
+
+\newif\ifprinted
+\printedfalse
+
+% Police
+\usepackage[utf8]{inputenc}
+
+%% Serif font
+% \IfFileExists{stix.sty}{%
+%   \usepackage[upint]{stix}}%
+% {\usepackage{lmodern}
+%   \def\coloneq{:=}}
+
+%% Sans font
+%\usepackage[scaled=0.875]{helvet}
+
+\usepackage[tt=false]{libertine}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsthm}
+\usepackage[slantedGreek,cmintegrals,bigdelims,vvarbb,libertine,libaltvw,liby]{newtxmath}
+\useosf
+
+\ifprinted
+\KOMAoptions{BCOR=0.5cm}
+\fi
+
+\recalctypearea
+
+
+\let\forall\forallAlt
+\let\exists\existsAlt
+\let\nexists\nexistsAlt
+
+%% Monospace font
+%\usepackage[scaled=0.92,varqu,varl]{zi4}
+\usepackage[scaled=0.77]{beramono}
+
+
+% \usepackage{libertine}
+% \usepackage[varg,cmintegrals,bigdelims,varbb,libertine]{newtxmath}
+
+\usepackage{ifdraft}
+
+\usepackage{chngcntr}
+\usepackage{tocvsec2}
+
+\KOMAoptions{chapterprefix=true}
+\KOMAoptions{headsepline=true}
+\KOMAoptions{index=toc}
+%\KOMAoptions{bibliography=totocnumbered}
+%\addtokomafont{chapter}{\centering}
+% \ifdraft{\KOMAoptions{twoside=false}}{}
+\renewcommand*{\partformat}{\partname~\thepart}
+\renewcommand*{\partpagestyle}{empty}
+\renewcommand*{\chapterformat}{\chapappifchapterprefix~\thechapter\\\rule{\linewidth}{1.5pt}\\}
+
+
+%\KOMAoptions{numbers=noenddot}
+\renewcommand*{\figureformat}{\figurename~\thefigure}
+\renewcommand*{\tableformat}{\tablename~\thetable}
+%\renewcommand*{\captionformat}{.}
+
+%\KOMAoptions{parskip=half*}
+
+\newcommand{\chappreamble}[1]{\textit{\noindent #1}\leavevmode\vspace{\baselineskip}}
+
+\newenvironment{chapabstract}{}{}
+
+
+
+% \usepackage{titlesec}
+% \titleformat{\chapter}[display]
+
+\usepackage[final]{listings}
+
+\usepackage[style=alphabetic,maxnames=4,backend=bibtex,
+backref=true% ,noadjust
+,
+firstinits=true]{biblatex}
+%   \makeatletter
+%   \def\@citex#1[#2]#3{% 
+%     \@safe@activestrue\edef\@tempd{#1}\@safe@activesfalse
+%     \@safe@activestrue\edef\@tempe{#3}\@safe@activesfalse
+%     \org@@citex{\@tempd}[#2]{\@tempe}}%
+%   \makeatother
+%\addbibresource{MyBiblio.bib}
+
+%\makeatletter
+% \def\url@leostyle{%
+%   \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\footnotesize\ttfamily}}}
+% \makeatother
+%% Now actually use the newly defined style.
+% \urlstyle{leo}
+
+\usepackage{relsize}
+\appto{\bibsetup}{\emergencystretch=1em}
+\renewcommand*{\UrlFont}{\itshape}
+\appto{\biburlsetup}{%
+  \renewcommand*{\UrlFont}{\smaller[0.5]
+    \itshape% \ttfamily
+    %\normalfont\itshape
+  }}
+
+\makeindex
+
+\usepackage{titling}
+\title{Compte-rendu de réunion}
+\author{Luc Sapin}
+\date{\today}
+
+%Package pour avoir des liens hyper-texte dans les fichiers Pdf 
+%A mettre en dernier 
+%Pose parfois problÃÂ¨me 
+% \usepackage[unicode,final% ,ocgcolorlinks
+% ]{hyperref}
+% \usepackage{footnotebackref}
+
+\usepackage[final]{hyperref}
+
+\hypersetup{%
+  pdfinfo={
+    Title={\thetitle},
+    Author={\theauthor} },
+  % frenchlinks,
+  linkcolor=purple,
+  citecolor=teal,
+  %ocgcolorlinks
+  %urlcolor={magenta!50!black},
+  % menucolor=purple
+}
+\ifprinted
+\hypersetup{colorlinks=false}
+\else
+\hypersetup{colorlinks}
+\fi
+
+
+
+% \tikzexternalize[mode=list and make,up to date check=md5, prefix=figures/]
+% \pgfkeys{/pgf/images/include external/.code={\includegraphics{#1}}}
+
+
+\begin{document}
+\maketitle
+\chapter*{}
+\label{cha:cr-reu}
+\section*{Vendredi 23 mars 2018}
+Correction des objectifs \& de leur priorité :
+\begin{itemize}
+	\item Changement $EMB \rightarrow L_2$ pour l'aller, le retour et l'aller-retour. Lancer optimisation du modèle impulsionnel sur quelques astéroïdes en temps min seulement;
+	\item Construire algorithme de classification sur la base de données des 4000+ astéroïdes;
+	\item Étude de la phase de parking dans la sphère de Hill : modifier dynamique et résoudre problème de conso min. 
+\end{itemize} 
+
+\section*{Vendredi 6 avril 2018}
+\subsection*{Priorité semaine prochaine}
+\begin{itemize}
+	\item rendre aller \& aller-retour fonctionnels pour le point L2 (au départ et à l'arrivée avant de comparer les dynamiques dans la sphère de hill.
+	\item Regarder BOCOP avec l'interface graphique, comprendre les commandes matlab qui appellent BOCOP pour la phase parking (user guide sur \href{bocop.org}{bocop.org}) avant d’entamer la phase parking en temps min.
+\end{itemize}
+
+\subsection*{Priorité plus long terme}
+\begin{itemize}
+	\item comparaison des solutions entre les points L2 et EMB : tableau comparatif sur une dizaine d'astéroïdes
+	\item comparaison des solutions avec critères initial et critère sans le "max".
+	\item Étude de la phase de parking dans la sphère de Hill : modifier dynamique et résoudre problème de conso min en contrôle optimal.
+	Idée : impulsionnel sur la phase parking : comparer avec la solution en contrôle optimal. Si solutions proches, voir optimisation globale en impulsionnel ?
+	\item Construire algorithme de classification sur la base de données des 4000+ astéroïdes; 
+\end{itemize}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,9 @@
+# Starting point file.
+# This file contains initialization values
+# for variable control.1
+
+# Type of initialization :
+constant
+
+# Constant value for the starting point : 
+-0.200000
