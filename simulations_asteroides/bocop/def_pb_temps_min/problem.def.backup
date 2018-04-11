@@ -29,8 +29,8 @@ batch.upperbound double 0
 batch.directory string none
 
 # Initialization :
-initialization.type string from_sol_file_warm
-initialization.file string problem.sol
+initialization.type string from_init_file
+initialization.file string none
 
 # Parameter identification :
 paramid.type string false
@@ -61,8 +61,6 @@ boundarycond.8 string q3(1)
 boundarycond.9 string v1(1)
 boundarycond.10 string v2(1)
 boundarycond.11 string v3(1)
-constraint.0 string constraint_control
-constraint.1 string constraint_dist_earth
 constant.0 string q1_0
 constant.1 string q2_0
 constant.2 string q3_0
@@ -87,3 +85,5 @@ constant.19 string min_dist_2_earth
 # Solution file :
 solution.file string problem.sol
 
+# Iteration output frequency :
+iteration.output.frequency integer 0
