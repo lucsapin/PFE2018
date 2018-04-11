@@ -30,7 +30,7 @@ batch.directory string none
 
 # Initialization :
 initialization.type string from_sol_file_warm
-initialization.file string problem.sol
+initialization.file string ./min_energy_current.sol
 
 # Parameter identification :
 paramid.type string false
@@ -49,6 +49,7 @@ state.6 string cost
 control.0 string u1
 control.1 string u2
 control.2 string u3
+parameter.0 string tf
 boundarycond.0 string q1(0)
 boundarycond.1 string q2(0)
 boundarycond.2 string q3(0)
@@ -86,3 +87,5 @@ constant.19 string tf_par
 # Solution file :
 solution.file string problem.sol
 
+# Iteration output frequency :
+iteration.output.frequency integer 0
