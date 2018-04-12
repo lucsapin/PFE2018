@@ -16,7 +16,7 @@ boundarycond.dimension integer 12
 constraint.dimension integer 2
 
 # Discretization :
-discretization.steps integer 200
+discretization.steps integer 1000
 discretization.method string gauss
 
 # Optimization :
@@ -29,8 +29,8 @@ batch.upperbound double 0
 batch.directory string none
 
 # Initialization :
-initialization.type string from_init_file
-initialization.file string none
+initialization.type string from_sol_file_warm
+initialization.file string min_tf_current.sol
 
 # Parameter identification :
 paramid.type string false
@@ -61,6 +61,8 @@ boundarycond.8 string q3(1)
 boundarycond.9 string v1(1)
 boundarycond.10 string v2(1)
 boundarycond.11 string v3(1)
+constraint.0 string constraint.0
+constraint.1 string constraint.1
 constant.0 string q1_0
 constant.1 string q2_0
 constant.2 string q3_0
@@ -87,3 +89,4 @@ solution.file string problem.sol
 
 # Iteration output frequency :
 iteration.output.frequency integer 0
+

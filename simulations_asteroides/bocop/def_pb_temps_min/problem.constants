@@ -1,5 +1,5 @@
 # This file contains the values of the constants of your problem.
-# Number of constants used in your problem :
+# Number of constants used in your problem : 
 20
 
 # Values of the constants : 
@@ -10,16 +10,16 @@
 -4.646883
 0.002078
 1.155682
-0.000000
-0.000000
-0.000000
-0.000000
-0.000000
+0
+0
+0
+0
+0
 18366.181117
 0.012151
 328900.572632
-389.172400
+389.1724
 4.021358
 -0.921184
-10000.000000
-0.000000
+10000
+0
