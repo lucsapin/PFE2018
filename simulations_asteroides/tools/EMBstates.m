@@ -26,7 +26,7 @@ function [qEMB,qM,qE,thetaSun] = EMBstates(t, xG_EMB)
     qEMB        = Gauss2Cart(UC.mu0SunLD, [xG_EMB(1:5); L]);
 
     % Get Moon's and Earth's state at time t
-    [qM,qE]     = get_Moon_Earth_State_Cart_LD(t); % dans ref centre EMB en LD
+    [qM, qE, ~]     = get_Moon_Earth_L2_State_Cart_LD(t); % dans ref centre EMB en LD
 %    qM          = qM*UC.AU/UC.LD;
 %    qE          = qE*UC.AU/UC.LD;
 
