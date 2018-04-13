@@ -51,28 +51,29 @@ switch case_2_study
 
         error('No such case to study!');
 
-end;
+end
 
 % ----------------------------------------------------------------------------------------------------
 % Definition of all the parameters
 %
-dirLoad = 'results/total_impulse/';
-if(~exist(dirLoad,'dir')); error('Wrong directory name!'); end;
+destination = 'L2';
+dirLoad = ['results/total_impulse_' destination '/'];
+if(~exist(dirLoad,'dir')); error('Wrong directory name!'); end
 
 file2load = [dirLoad 'asteroid_no_' int2str(numAsteroid)];
 if(exist([file2load '.mat'],'file')~=2)
     error(['there is no total impulse optimization done for asteroid number ' int2str(numAsteroid)]);
-end;
+end
 
 load(file2load);
 nbOpti              = length(allResults);
 if(numOpti>nbOpti)
     error(['numOpti should be less than ' int2str(nbOpti)]);
-end;
+end
 outputOptimization  = allResults{numOpti};
 
 % Get initial condition
-[times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, hFigSpace] = propagate2Hill(outputOptimization, dist); % The solution is given in HELIO frame
+[times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, ~, hFigSpace] = propagate2Hill(outputOptimization, dist); % The solution is given in HELIO frame
 
 t0_day      = time_Hill;                % the initial time in Day
 q0_SUN_AU   = state_Hill(1:6);          % q0 in HELIO frame in AU unit
@@ -83,16 +84,19 @@ tf          = t0_r + dt1_r + dtf_r;
 tf_guess    = tf-times_out(end);         % Remaining time to reach EMB in Day
 
 % Drift compare ??
+Drift_compare(t0_day, dtf_r, q0_SUN_AU, hFigSpace)
 
-dv0_r_KM_S  = outputOptimization.dV0_r/UC.jour*UC.AU % km / s
-dv1_r_KM_S  = outputOptimization.dV1_r/UC.jour*UC.AU % km / s
+dv0_r_KM_S  = outputOptimization.dV0_r/UC.jour*UC.AU; % km / s
+fprintf('dv0_r_KM_S = \n'); disp(dv0_r_KM_S); 
+dv1_r_KM_S  = outputOptimization.dV1_r/UC.jour*UC.AU; % km / s
+fprintf('dv1_r_KM_S = \n'); disp(dv1_r_KM_S);
 
 % Define Bocop and HamPath parameters
 [q0_CR3BP,~,~,~,thetaS0] = Helio2CR3BP(q0_SUN_AU, t0_day); % q0 in LD/d
 q0          = q0_CR3BP(1:6); q0 = q0(:);
 qf          = [UC.xL2 0.0 0.0 0.0 0.0 0.0]';
 
-Tmax        = TmaxN*1e-3*(UC.time_syst)^2/UC.LD
+Tmax        = TmaxN*1e-3*(UC.time_syst)^2/UC.LD; fprintf('Tmax = %f \n', Tmax);
 muCR3BP     = UC.mu0MoonLD/(UC.mu0EarthLD+UC.mu0MoonLD);
 muSun       = UC.mu0SunLD/(UC.mu0EarthLD+UC.mu0MoonLD);
 rhoSun      = UC.AU/UC.LD;
@@ -101,9 +105,9 @@ tf_guess    = tf_guess*UC.jour/UC.time_syst; % time in UT
 
 g0          = 9.80665*1e-3*(UC.time_syst)^2/UC.LD;
 Isp         = 375/UC.time_syst; % 375 s
-beta        = 1.0/(Isp*g0)
+beta        = 1.0/(Isp*g0); fprintf('beta = %f \n', beta);
 
-beta*Tmax
+fprintf('beta*Tmax = %f \n', beta*Tmax);
 
 % ---------------
 min_dist_2_earth    = 0.0;      %
@@ -113,9 +117,9 @@ init_choice         = 'none1';  % 'none1' -- 'warm1' or 'warm2' if numAsteroid =
 case_name   = ['./min_tf_Tmax_' num22str(TmaxN,3) '_m0_' num22str(m0,6) '_ast_' int2str(numAsteroid) '_dist_' num22str(dist,4) ...
                 '_dist_min_2_earth_' num22str(min_dist_2_earth,2)];
 
-dir_results = ['./results/main_L2_return_non_constant_mass/in_progress_results/'];
+dir_results = './results/main_L2_return_non_constant_mass/in_progress_results/';
 
-if(~exist(dir_results,'dir')); error('Wrong dir_results name!'); end;
+if(~exist(dir_results,'dir')); error('Wrong dir_results name!'); end
 
 file_results= [dir_results case_name];
 
@@ -132,7 +136,7 @@ else
     results.exec_homotopy_tf                    = -1;
     results.exec_homotopy_m0                    = -1;
     save(file_results, 'results');
-end;
+end
 
 %results.exec_min_tf_bocop=-1;
 %results.exec_min_tf_hampath=-1;
@@ -147,7 +151,7 @@ results.exec_min_conso_free_tf = -1;
 % ----------------------------------------------------------------------------------------------------
 % Bocop solution : min tf
 %
-
+disp('Bocop solution : min tf');
 %
 min_tf_bocop        = [];
 
@@ -158,8 +162,8 @@ par_bocop   = [q0; qf; Tmax; muCR3BP; muSun; rhoSun; thetaS0; omegaS; m0_init; m
 n           = 6;
 dimStates   = n;
 inc         = 1;
-iq0         = [inc:inc+dimStates-1];    inc = inc + dimStates;
-iqf         = [inc:inc+dimStates-1];    inc = inc + dimStates;
+iq0         = inc:inc+dimStates-1;      inc = inc + dimStates;
+iqf         = inc:inc+dimStates-1;      inc = inc + dimStates;
 iTmax       = inc;                      inc = inc + 1;
 imuCR3BP    = inc;                      inc = inc + 1;
 imuSun      = inc;                      inc = inc + 1;
@@ -174,7 +178,7 @@ valueSet    = {iq0, iqf, iTmax, imuCR3BP, imuSun, irhoSun, ithetaS0, iomegaS, im
 map_indices_par_bocop = containers.Map(keySet, valueSet);
 
 % Initialization
-defPbBocop  = ['./bocop/'];                                                 % Directory where main bocop pb directory is: ./bocop/def_pb_temps_min/
+defPbBocop  = './bocop/';                                                 % Directory where main bocop pb directory is: ./bocop/def_pb_temps_min/
 
 if(strcmp(init_choice, 'none1')==1)
 
@@ -182,7 +186,7 @@ if(strcmp(init_choice, 'none1')==1)
     options.disc_steps  = '200';
     options.disc_method = 'gauss';
 
-    solFileSave = ['./min_tf_current.sol'];
+    solFileSave = './min_tf_current.sol';
 
     init.type   = 'from_init_file';
     init.file   = 'none';
@@ -202,17 +206,17 @@ else
 
     error('No such init_choix!');
 
-end;
+end
 
 % Computation
 if(results.exec_min_tf_bocop==-1)
 
     [toutB,stageB,zB,uB,optimvarsB,outputB] = exec_bocop_min_tf(defPbBocop, init, par_bocop, options, solFileSave);
-    outputB
+    fprintf('outputB = '); disp(outputB);
 
     if(outputB.status ~= 0)
         error('Bocop did not converge for the minimal time problem!');
-    end;
+    end
 
     % useful
     min_tf_bocop.indices        = map_indices_par_bocop;
@@ -235,7 +239,7 @@ if(results.exec_min_tf_bocop==-1)
     results.min_tf_bocop        = min_tf_bocop;
     save(file_results, 'results');
 
-end;
+end
 
 
 
@@ -244,7 +248,7 @@ end;
 % ----------------------------------------------------------------------------------------------------
 % HamPath solution : min tf
 %
-
+disp('HamPath solution : min tf');
 min_tf_bocop        = results.min_tf_bocop;
 min_tf_hampath      = [];
 
@@ -283,7 +287,7 @@ if(results.exec_min_tf_hampath==-1)
 
     if(flag~=1)
         error('ssolve did not converge for the minimal time problem!');
-    end;
+    end
 
     % useful
     min_tf_hampath.indices      = map_indices_par_ham;
@@ -305,7 +309,7 @@ if(results.exec_min_tf_hampath==-1)
     results.min_tf_hampath      = min_tf_hampath;
     save(file_results, 'results');
 
-end;
+end
 
 % ----------------------------------------------------------------------------------------------------
 % ----------------------------------------------------------------------------------------------------
@@ -313,7 +317,7 @@ end;
 %
 % with no variation of mass
 %
-
+disp('HamPath : homotopy from min tf to min consumption by barrier logarithmic');
 min_tf_hampath  = results.min_tf_hampath;
 regul_log       = [];
 
@@ -381,7 +385,7 @@ if(results.exec_regul_log == -1)
 
     if(flag~=1)
         error('ssolve did not converge during log regularization: par = par_init!');
-    end;
+    end
 
     % useful
     regul_log.indices           = indices;
@@ -405,7 +409,7 @@ if(results.exec_regul_log == -1)
 
     if(flag~=1 && flag~=-5 || parout(ilambda,end)<0.9)
         error('hampath did not finished the log regularization homotopy!');
-    end;
+    end
 
     % inputs
     regul_log.parspan           = parspan;
@@ -440,11 +444,11 @@ if(results.exec_min_conso_free_tf == -1)
     y0              = regul_log.yout(:,end);
     par             = regul_log.parout(:,end);
 
-    [ysol,ssol,nfev,njev,flag] = ssolve(y0, options_shoot, par);
+    [ysol,~,~,~,flag] = ssolve(y0, options_shoot, par);
 
     if(flag~=1)
         error('ssolve did not converge during log regularization: par = par_end!');
-    end;
+    end
 
     % Detection of the structure
     % regul log: x = (q1, q2, q3, v1, v2, v3, m)
@@ -455,7 +459,7 @@ if(results.exec_min_conso_free_tf == -1)
     tspan            = [0.0 tf];
     z0               = [q0; m0; p0]; % il faut ajouter la masse initiale
     options_exphv    = hampathset('TolOdeAbs',1e-12,'TolOdeRel',1e-12,'ode','dopri5');
-    [tout, z, flag ] = exphvfun(tspan, z0, options_exphv, par);
+    [tout, z, ~ ]   = exphvfun(tspan, z0, options_exphv, par);
     u                = control(tout, z, par);
     nu               = sqrt(u(1,:).^2+u(2,:).^2+u(3,:).^2);
     sf              = switchfun(tout, z, par);
@@ -463,14 +467,14 @@ if(results.exec_min_conso_free_tf == -1)
     h=figure;
     plot(tout,sf);
 
-    [ti, seq, flag]  = detectStructure(tout, nu);
+    [~, seq, flag]  = detectStructure(tout, nu);
 
-    ii = find(sf(2:end).*sf(1:end-1)<0)
-    ti = [0.0 tout(ii) tf]
+    ii = find(sf(2:end).*sf(1:end-1)<0); fprintf('ii = %f \n', ii);
+    ti = [0.0 tout(ii) tf]; fprintf('ti = '); disp(ti);
 
     if(flag~=1)
         error('problem during struture detection for the minimal consumption problem with free tf');
-    end;
+    end
 
     % Shooting for the minimal consumption problem with free tf
     nnodes = input('Number of nodes per arc for multiple shooting: ');
@@ -480,10 +484,10 @@ if(results.exec_min_conso_free_tf == -1)
     for i=1:length(ti)-1
         times = linspace(ti(i), ti(i+1), 2+nnodes);
         tspan = [tspan times(2:end)];
-    end;
+    end
     tspan           = tspan(1:end-1); % on enleve tf
     options_exphv   = hampathset('TolOdeAbs',1e-12,'TolOdeRel',1e-12,'ode','dopri5');
-    [tout, z_init, flag ] = exphvfun(tspan, z0, options_exphv, par);
+    [tout, z_init, ~ ] = exphvfun(tspan, z0, options_exphv, par);
     z_init          = z_init(:,2:end); % on enlever z0
 
     % par
@@ -501,18 +505,18 @@ if(results.exec_min_conso_free_tf == -1)
     y0  = [p0; ti(2:end)'];
     for i=1:length(z_init(1,:))
         y0 = [y0; z_init(:,i)];
-    end;
+    end
 
     % shooting
     options_shoot   = hampathset('TolOdeAbs',1e-12,'TolOdeRel',1e-12,'ode','radau','TolX',1e-12,'MaxFEval',300);
     s               = sfun(y0, options_shoot, par_conso_min);
-    ns              = norm(s)
+    ns              = norm(s); fprintf('ns = %f \n', ns);
 
     [ysol,ssol,nfev,njev,flag] = ssolve(y0, options_shoot, par_conso_min);
 
     if(flag~=1)
         error('ssolve did not converge for the minimal consumption problem with free tf!');
-    end;
+    end
 
     nbarcs          = length(ti)-1;
 
@@ -547,7 +551,7 @@ return
 % Minimal consumption with variation of the mass and free tf
 %
 
-homotopy_on_beta    = [];
+homotopy_on_beta = [];
 
 min_conso_free_tf   = results.min_conso_free_tf;
 indices             = min_conso_free_tf.indices;
@@ -564,7 +568,7 @@ inc                 = n+nbarcs+1+2*n*nnodes;
 for i=1:nbarcs-1
     y0  = [y0; ysol_prec(inc:inc+2*n-1)]; inc = inc + 2*n;
     inc = inc + 2*n*nnodes;
-end;
+end
 
 % for homotopy on beta
 options_hampath     = hampathset('TolOdeAbs',1e-10,'TolOdeRel',1e-10,'TolOdeHamAbs',1e-10,'TolOdeHamRel',1e-10, ...
@@ -585,7 +589,7 @@ if(results.exec_min_conso_non_constant_mass == -1)
 
     if(flag~=1)
         error('ssolve did not converge during minimal consumption shooting with par = par_init!');
-    end;
+    end
 
     % useful
     homotopy_on_beta.indices           = indices;
@@ -610,7 +614,7 @@ if(results.exec_min_conso_non_constant_mass == -1)
 
     if(flag~=1 && flag~=-5 || parout(ilambda,end)<0.9)
         error('hampath did not finished the log regularization homotopy!');
-    end;
+    end
 
     % inputs
     homotopy_on_beta.parspan           = parspan;
@@ -628,7 +632,7 @@ if(results.exec_min_conso_non_constant_mass == -1)
     results.homotopy_on_beta                    = homotopy_on_beta;
     save(file_results, 'results');
 
-end;
+end
 
 % ----------------------------------------------------------------------------------------------------
 % Calcul et affichage de la solution conso min
@@ -650,7 +654,8 @@ tspan           = ti(1);
 for i=1:length(ti)-1
     times = linspace(ti(i), ti(i+1), Nbsteps);
     tspan = [tspan times(1)+1e-8 times(2:end)]; % On ajoute le 1e-8 juste pour l'affichage des discontinuites
-end;
+end
+
 indices             = min_conso_free_tf.indices;
 im0                 = indices('m0');
 initial_mass        = par_conso_min(im0);
@@ -662,14 +667,14 @@ sf                  = switchfun(tout, z, ti, par_conso_min);
 hFig    = figure;
 lc      = {3,2};
 
-subplot(lc{:}, [1]); plot3(z(1,:), z(2,:), z(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+subplot(lc{:}, 1); plot3(z(1,:), z(2,:), z(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
 
-subplot(lc{:}, [2])   ; plot(tout, u(1,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
-subplot(lc{:}, [4])   ; plot(tout, u(2,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
-subplot(lc{:}, [6]) ; plot(tout, u(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+subplot(lc{:}, 2)   ; plot(tout, u(1,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+subplot(lc{:}, 4)   ; plot(tout, u(2,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+subplot(lc{:}, 6) ; plot(tout, u(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
 
-subplot(lc{:}, [3]); plot(tout, sqrt(u(1,:).^2+u(2,:).^2+u(3,:).^2), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
-subplot(lc{:}, [5]); plot(tout, sf, 'Color', DC.rouge, 'LineWidth', DC.LW); hold on; daxes(0,0,axisColor);
+subplot(lc{:}, 3); plot(tout, sqrt(u(1,:).^2+u(2,:).^2+u(3,:).^2), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+subplot(lc{:}, 5); plot(tout, sf, 'Color', DC.rouge, 'LineWidth', DC.LW); hold on; daxes(0,0,axisColor);
 
 masse_initiale  = initial_mass
 masse_finale    = z(n,end)
@@ -899,7 +904,7 @@ if(results.exec_homotopy_m0 == -1)
 
     if(flag~=1 && flag~=-5 && flag~=-7 || parout(im0,end)<5000)
         error('hampath did not finished the homotopy on tf!');
-    end;
+    end
 
     % inputs
     homotopy_on_m0.parspan          = parspan;
@@ -964,7 +969,7 @@ if(0)
         masses_finales(i)   = final_mass;
         m0s(i)              = initial_mass;
 
-    end;
+    end
 
     temps_final = yout(n+1+nbarcs-1,:);
 
@@ -972,7 +977,7 @@ if(0)
     subplot(3,1,1); hold on; plot(m0s, masses_finales, 'Color', DC.rouge, 'LineWidth', DC.LW);
     subplot(3,1,2); hold on; plot(m0s, delta_Vs, 'Color', DC.bleu, 'LineWidth', DC.LW);
     subplot(3,1,3); hold on; plot(m0s, temps_final, 'Color', DC.vert, 'LineWidth', DC.LW);
-end;
+end
 
 % m0 = 0.3*m0_on_ast
 
@@ -1022,7 +1027,7 @@ tspan           = ti(1);
 for i=1:length(ti)-1
     times = linspace(ti(i), ti(i+1), Nbsteps);
     tspan = [tspan times(1)+1e-8 times(2:end)]; % On ajoute le 1e-8 juste pour l'affichage des discontinuites
-end;
+end
 indices             = min_conso_free_tf.indices;
 im0                 = indices('m0');
 initial_mass        = par_conso_min(im0);
@@ -1034,14 +1039,14 @@ sf                  = switchfun(tout, z, ti, par_conso_min);
 hFig    = figure;
 lc      = {3,2};
 
-subplot(lc{:}, [1]); plot3(z(1,:), z(2,:), z(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+subplot(lc{:}, 1); plot3(z(1,:), z(2,:), z(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
 
-subplot(lc{:}, [2])   ; plot(tout, u(1,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
-subplot(lc{:}, [4])   ; plot(tout, u(2,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
-subplot(lc{:}, [6]) ; plot(tout, u(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+subplot(lc{:}, 2)   ; plot(tout, u(1,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+subplot(lc{:}, 4)   ; plot(tout, u(2,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+subplot(lc{:}, 6) ; plot(tout, u(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
 
-subplot(lc{:}, [3]); plot(tout, sqrt(u(1,:).^2+u(2,:).^2+u(3,:).^2), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
-subplot(lc{:}, [5]); plot(tout, sf, 'Color', DC.rouge, 'LineWidth', DC.LW); hold on; daxes(0,0,axisColor);
+subplot(lc{:}, 3); plot(tout, sqrt(u(1,:).^2+u(2,:).^2+u(3,:).^2), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+subplot(lc{:}, 5); plot(tout, sf, 'Color', DC.rouge, 'LineWidth', DC.LW); hold on; daxes(0,0,axisColor);
 
 return
 

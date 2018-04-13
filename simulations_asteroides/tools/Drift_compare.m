@@ -19,9 +19,9 @@ DC          = get_Display_Constants(); % Display constants
 UC          = get_Univers_Constants(); % Univers constants
 
 
-Isp     = 375/UC.time_syst
-g0      = 9.80665*1e-3*(UC.time_syst)^2/UC.LD
-Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD
+Isp     = 375/UC.time_syst; fprintf('Isp = %f \n', Isp);
+g0      = 9.80665*1e-3*(UC.time_syst)^2/UC.LD; fprintf('g0 = %f \n', g0);
+Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD; fprintf('Tmax = %f \n', Tmax);
 
 %
 
@@ -29,7 +29,7 @@ Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD
 [q0_CR3BP,~,~,~,thetaS0]    = Helio2CR3BP(q0_SUN_AU, t0);       % q en LD/d
 q0_EMB_LD_old               = CR3BP2EMB(q0_CR3BP,t0);
 
-q0_CR3BP
+fprintf('q0_CR3BP = \n'); disp(q0_CR3BP);
 
 % On definit les parametres d'integration
 Nstep       = 100;
@@ -63,7 +63,7 @@ L_EMB = Q_SUN_LD(7,:);
 for i = 1:Nstep
     qS              = -Gauss2Cart(UC.mu0SunLD, [xG_EMB0_LD(1:5); L_EMB(i)]); % Dans le repere inertiel centre EMB
     Q_SUN_LD(1:6,i) = Q_SUN_LD(1:6,i) + qS(1:6);
-end;
+end
 
 q0_SUN_LD_aux = Q_SUN_LD(1:6,1);
 
@@ -77,7 +77,7 @@ subplot(3,2,2); plot(Times, Q_SUN_LD(4,:), color, 'LineWidth', LW); ylabel('q_4'
 subplot(3,2,4); plot(Times, Q_SUN_LD(5,:), color, 'LineWidth', LW); ylabel('q_5'); hold on;
 subplot(3,2,6); plot(Times, Q_SUN_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'); hold on;
 the_legend{1} = 'SUN\_LD';
-end;
+end
 
 % -------------------------------------------------------------------------------------------------
 % On integre avec la dynamique 4 corps (dans le ref inertiel centre Soleil en AU)
@@ -91,7 +91,7 @@ for i = 1:Nstep
     qS              = -Gauss2Cart(UC.mu0SunAU, [xG_EMB0_AU(1:5); L_EMB(i)]); % Dans le repere inertiel centre EMB
     Q_SUN_LD(:,i)   = Q_SUN_AU(1:6,i) + qS(1:6);
     Q_SUN_LD(:,i)   = Q_SUN_LD(:,i)*UC.AU/UC.LD;
-end;
+end
 
 q0_SUN_AU_aux = Q_SUN_LD(1:6,1);
 
@@ -105,7 +105,7 @@ subplot(3,2,2); plot(Times, Q_SUN_LD(4,:), color, 'LineWidth', LW); ylabel('q_4'
 subplot(3,2,4); plot(Times, Q_SUN_LD(5,:), color, 'LineWidth', LW); ylabel('q_5'); hold on;
 subplot(3,2,6); plot(Times, Q_SUN_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'); hold on;
 the_legend{end+1} = 'SUN\_AU';
-end;
+end
 
 % -------------------------------------------------------------------------------------------------
 % On integre avec la dynamique 4 corps (dans le ref inertiel centre en EMB en LD)
@@ -136,7 +136,7 @@ for i = 1:Nstep
     qS              = -Gauss2Cart(UC.mu0SunLD, [xG_EMB0_LD(1:5); L_EMB(i)]); % Dans le repere inertiel centre EMB
     Q_EMB_SUN(:,i)  = Q_EMB_LD(1:3,i) - qS(1:3);
     Q_EMB_SUN(:,i)  = Q_EMB_SUN(:,i)*UC.LD/UC.AU;
-end;
+end
 figure(hFigSpace.figure);
 subplot(hFigSpace.subplot{:});
 plot3(Q_EMB_SUN(1,:), Q_EMB_SUN(2,:), Q_EMB_SUN(3,:), 'Color', DC.bleu, 'LineWidth', DC.LW); hold on;
@@ -164,11 +164,6 @@ subplot(3,2,6); plot(Times, Q_EMB_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'
 
 the_legend{end+1} = 'EMB\_AU';
 
-q0_SUN_LD_aux;
-q0_SUN_AU_aux;
-q0_EMB_LD_aux;
-q0_EMB_AU_aux;
-
 diff_SUN_EMB_LD = q0_SUN_LD_aux - q0_EMB_LD_aux;
 diff_SUN_EMB_AU = q0_SUN_AU_aux - q0_EMB_AU_aux;
 diff_EMB_LD_AU  = q0_EMB_LD_aux - q0_EMB_AU_aux;
@@ -194,12 +189,13 @@ T_CR3BP     = linspace(0.0, dt_CR3BP, Nstep);
 % Dynamique des 3 corps perturbe a Thomas
 %
 
-muCR3BP
-muSun
-rhoS
-thetaS0
-omegaS
-tf_guess = dt_CR3BP
+fprintf('muCR3BP = %f \n', muCR3BP);
+fprintf('muSun = %f \n', muSun);
+fprintf('rhoS = %f \n', rhoS);
+fprintf('thetaS0 = %f \n', thetaS0);
+fprintf('omegaS = %f \n', omegaS);
+
+tf_guess = dt_CR3BP; fprintf('tf_guess = %f \n', tf_guess);
 
 odefun          = @(t,x) rhs_CR3BP(t, x, muCR3BP, muSun, rhoS, thetaS0, omegaS, 2);
 [~, Q_CR3BP]    = ode45(odefun, T_CR3BP, q0_CR3BP, OptionsOde);
@@ -211,11 +207,11 @@ Q_CR3BP         = Q_CR3BP';
 Q_CR3BP_in_EMB = Q_CR3BP;
 T_CR3BP_in_EMB = T_CR3BP*UC.time_syst/UC.jour;
 T_CR3BP_in_EMB = t0 + T_CR3BP_in_EMB;
-for i = 1:length(T_CR3BP),
+for i = 1:length(T_CR3BP)
     Q_CR3BP_in_EMB(:,i) = CR3BP2EMB(Q_CR3BP(:,i), T_CR3BP_in_EMB(i));
 end
 
-Q_CR3BP_in_EMB_2 = Q_CR3BP_in_EMB(:,end);
+% Q_CR3BP_in_EMB_2 = Q_CR3BP_in_EMB(:,end);
 
 color   = 'y';
 LW      = 1.5;
@@ -227,7 +223,7 @@ subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), color, 'LineWidth', LW
 subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), color, 'LineWidth', LW); ylabel('q_5');
 subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), color, 'LineWidth', LW); ylabel('q_6');
 the_legend{end+1} = 'CR3BP\_Pert\_Thomas';
-end;
+end
 
 % -------------------------------------------------------------------------------------------------
 % Dynamique des 3 corps non perturbe
@@ -242,11 +238,11 @@ Q_CR3BP     = Q_CR3BP';
 Q_CR3BP_in_EMB = Q_CR3BP;
 T_CR3BP_in_EMB = T_CR3BP*UC.time_syst/UC.jour;
 T_CR3BP_in_EMB = t0 + T_CR3BP_in_EMB;
-for i = 1:length(T_CR3BP),
+for i = 1:length(T_CR3BP)
     Q_CR3BP_in_EMB(:,i) = CR3BP2EMB(Q_CR3BP(:,i), T_CR3BP_in_EMB(i));
 end
 
-Q_CR3BP_in_EMB_1 = Q_CR3BP_in_EMB(:,end);
+% Q_CR3BP_in_EMB_1 = Q_CR3BP_in_EMB(:,end);
 
 color   = 'g';
 LW      = 1.5;
@@ -258,7 +254,7 @@ subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), color, 'LineWidth', LW
 subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), color, 'LineWidth', LW); ylabel('q_5');
 subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), color, 'LineWidth', LW); ylabel('q_6');
 the_legend{end+1} = 'CR3BP\_No\_Pert';
-end;
+end
 
 % -------------------------------------------------------------------------------------------------
 % Dynamique des 3 corps perturbe
@@ -273,11 +269,11 @@ Q_CR3BP         = Q_CR3BP';
 Q_CR3BP_in_EMB = Q_CR3BP;
 T_CR3BP_in_EMB = T_CR3BP*UC.time_syst/UC.jour;
 T_CR3BP_in_EMB = t0 + T_CR3BP_in_EMB;
-for i = 1:length(T_CR3BP),
+for i = 1:length(T_CR3BP)
     Q_CR3BP_in_EMB(:,i) = CR3BP2EMB(Q_CR3BP(:,i), T_CR3BP_in_EMB(i));
 end
 
-Q_CR3BP_in_EMB_3 = Q_CR3BP_in_EMB(:,end);
+% Q_CR3BP_in_EMB_3 = Q_CR3BP_in_EMB(:,end);
 
 color   = 'm--';
 LW      = 1.5;
@@ -289,7 +285,7 @@ subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), color, 'LineWidth', LW
 subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), color, 'LineWidth', LW); ylabel('q_5');
 subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), color, 'LineWidth', LW); ylabel('q_6');
 the_legend{end+1} = 'CR3BP\_Pert';
-end;
+end
 
 subplot(3,2,1); legend(the_legend{:}, 'Location', 'NorthWest');
 subplot(3,2,3);
@@ -339,7 +335,7 @@ function qdot = rhs_CR3BP(t,q,mu,muSun,rhoS,thetaS0,omegaS,choix)
         qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3;
         qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
 
-    end;
+    end
 
 return
 
@@ -367,7 +363,7 @@ function qLdot = rhs_4B_EMB_LD(t, qL)
     qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB en LD
 
     % Moon and Earth position
-    [qM,qE]     = get_Moon_Earth_State_Cart_LD(t); % Dans ref centre EMB en AU
+    [qM,qE,~]     = get_Moon_Earth_L2_State_Cart_LD(t); % Dans ref centre EMB en AU
 %    qM          = qM*UC.AU/UC.LD;
 %    qE          = qE*UC.AU/UC.LD;
 
@@ -411,7 +407,7 @@ function qLdot = rhs_4B_EMB_AU(t, qL)
     qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB
 
     % Moon and Earth position
-    [qM,qE]     = get_Moon_Earth_State_Cart_LD(t); % Dans ref centre EMB en AU
+    [qM,qE, ~]     = get_Moon_Earth_L2_State_Cart_LD(t); % Dans ref centre EMB en AU
     qM          = qM*UC.LD/UC.AU;
     qE          = qE*UC.LD/UC.AU;
 
@@ -456,7 +452,7 @@ function qLdot = rhs_4B_Sun_LD(t, qL)
     qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB
 
     % Moon and Earth position
-    [qM,qE]     = get_Moon_Earth_State_Cart_LD(t);  % Dans ref centre EMB en AU
+    [qM, qE, qL2]     = get_Moon_Earth_L2_State_Cart_LD(t);  % Dans ref centre EMB en AU
 %    qM          = qM*UC.AU/UC.LD;
 %    qE          = qE*UC.AU/UC.LD;
 
@@ -464,16 +460,18 @@ function qLdot = rhs_4B_Sun_LD(t, qL)
     qS(1:3)     = qS(1:3) - qS(1:3);
     qM(1:3)     = qM(1:3) - qS(1:3);
     qE(1:3)     = qE(1:3) - qS(1:3);
+    qL2(1:3)    = qL2(1:3) - qS(1:3);
 
     rSun        = sqrt((r(1)-qS(1))^2 + (r(2)-qS(2))^2 + (r(3)-qS(3))^2);
     rE          = sqrt((r(1)-qE(1))^2 + (r(2)-qE(2))^2 + (r(3)-qE(3))^2);
     rM          = sqrt((r(1)-qM(1))^2 + (r(2)-qM(2))^2 + (r(3)-qM(3))^2);
+%     rL2         = sqrt((r(1)-qL2(1))^2 + (r(2)-qL2(2))^2 + (r(3)-qL2(3))^2);
 
     % Dynamics
     qLdot       = zeros(7,1);
     qLdot(1:3)  = v;
-    qLdot(4:6)  = -mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3; % ...
-                  +mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
+    qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3; % ...
+                   + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
     qLdot(7)    = Ldot;
 
 return
@@ -501,14 +499,16 @@ function qLdot = rhs_4B_Sun_AU(t, qL)
     qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB
 
     % Moon and Earth position
-    [qM,qE]     = get_Moon_Earth_State_Cart_LD(t);  % Dans ref centre EMB
+    [qM, qE, qL2]     = get_Moon_Earth_L2_State_Cart_LD(t);  % Dans ref centre EMB
     qM          = qM*UC.LD/UC.AU;
     qE          = qE*UC.LD/UC.AU;
+    qL2         = qL2*UC.LD/UC.AU;
 
     % Replace the position in the frame centered in the Sun
     qS(1:3)     = qS(1:3) - qS(1:3);
     qM(1:3)     = qM(1:3) - qS(1:3);
     qE(1:3)     = qE(1:3) - qS(1:3);
+    qL2(1:3)    = qL2(1:3) - qS(1:3);
 
     rSun        = sqrt((r(1)-qS(1))^2 + (r(2)-qS(2))^2 + (r(3)-qS(3))^2);
     rE          = sqrt((r(1)-qE(1))^2 + (r(2)-qE(2))^2 + (r(3)-qE(3))^2);
@@ -517,8 +517,8 @@ function qLdot = rhs_4B_Sun_AU(t, qL)
     % Dynamics
     qLdot       = zeros(7,1);
     qLdot(1:3)  = v;
-    qLdot(4:6)  = -mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3; % ...
-                  +mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
+    qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3; % ...
+                   + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
     qLdot(7)    = Ldot;
 
 return
