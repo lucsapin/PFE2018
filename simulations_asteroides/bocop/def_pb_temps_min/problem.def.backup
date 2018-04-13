@@ -30,7 +30,7 @@ batch.directory string none
 
 # Initialization :
 initialization.type string from_sol_file_warm
-initialization.file string min_tf_current.sol
+initialization.file string problem.sol
 
 # Parameter identification :
 paramid.type string false
