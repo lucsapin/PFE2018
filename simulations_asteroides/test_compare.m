@@ -59,9 +59,10 @@ end
 % ----------------------------------------------------------------------------------------------------
 % Definition of all the parameters
 %
-destination = 'L2';
-dirLoad = ['results/total_impulse_' destination '/'];
-if(~exist(dirLoad,'dir')); error('Wrong directory name!'); end
+dirLoadL2 = ['results/total_impulse_L2/'];
+dirLoadEMB = ['results/total_impulse_EMB/'];
+if(~exist(dirLoadL2,'dir')); error('Wrong directory name!'); end
+if(~exist(dirLoadEMB,'dir')); error('Wrong directory name!'); end
 
 file2load = [dirLoad 'asteroid_no_' int2str(numAsteroid)];
 if(exist([file2load '.mat'],'file')~=2)

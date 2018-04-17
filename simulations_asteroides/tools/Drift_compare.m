@@ -13,6 +13,7 @@ format long;
 doPlot3B                = false;
 doPlot3B_Pert           = true;
 doPlot3B_Pert_Thomas    = false;
+doPlot4B                = false;
 
 % ----------------------------------------------------------------------------------------------------
 DC          = get_Display_Constants(); % Display constants
@@ -67,16 +68,16 @@ end
 
 % q0_SUN_LD_aux = Q_SUN_LD(1:6,1);
 
-if(1)
-color   = 'r';
-LW      = 1.5;
-subplot(3,2,1); plot(Times, Q_SUN_LD(1,:), color, 'LineWidth', LW); ylabel('q_1'); hold on;
-subplot(3,2,3); plot(Times, Q_SUN_LD(2,:), color, 'LineWidth', LW); ylabel('q_2'); hold on;
-subplot(3,2,5); plot(Times, Q_SUN_LD(3,:), color, 'LineWidth', LW); ylabel('q_3'); hold on;
-subplot(3,2,2); plot(Times, Q_SUN_LD(4,:), color, 'LineWidth', LW); ylabel('q_4'); hold on;
-subplot(3,2,4); plot(Times, Q_SUN_LD(5,:), color, 'LineWidth', LW); ylabel('q_5'); hold on;
-subplot(3,2,6); plot(Times, Q_SUN_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'); hold on;
-the_legend{1} = 'SUN\_LD';
+if (doPlot4B)
+    color   = 'r';
+    LW      = 1.5;
+    subplot(3,2,1); plot(Times, Q_SUN_LD(1,:), color, 'LineWidth', LW); ylabel('q_1'); hold on;
+    subplot(3,2,3); plot(Times, Q_SUN_LD(2,:), color, 'LineWidth', LW); ylabel('q_2'); hold on;
+    subplot(3,2,5); plot(Times, Q_SUN_LD(3,:), color, 'LineWidth', LW); ylabel('q_3'); hold on;
+    subplot(3,2,2); plot(Times, Q_SUN_LD(4,:), color, 'LineWidth', LW); ylabel('q_4'); hold on;
+    subplot(3,2,4); plot(Times, Q_SUN_LD(5,:), color, 'LineWidth', LW); ylabel('q_5'); hold on;
+    subplot(3,2,6); plot(Times, Q_SUN_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'); hold on;
+    the_legend{1} = 'SUN\_LD';
 end
 
 % -------------------------------------------------------------------------------------------------
@@ -95,16 +96,16 @@ end
 
 % q0_SUN_AU_aux = Q_SUN_LD(1:6,1);
 
-if(1)
-color   = 'k--';
-LW      = 1.5;
-subplot(3,2,1); plot(Times, Q_SUN_LD(1,:), color, 'LineWidth', LW); ylabel('q_1'); hold on;
-subplot(3,2,3); plot(Times, Q_SUN_LD(2,:), color, 'LineWidth', LW); ylabel('q_2'); hold on;
-subplot(3,2,5); plot(Times, Q_SUN_LD(3,:), color, 'LineWidth', LW); ylabel('q_3'); hold on;
-subplot(3,2,2); plot(Times, Q_SUN_LD(4,:), color, 'LineWidth', LW); ylabel('q_4'); hold on;
-subplot(3,2,4); plot(Times, Q_SUN_LD(5,:), color, 'LineWidth', LW); ylabel('q_5'); hold on;
-subplot(3,2,6); plot(Times, Q_SUN_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'); hold on;
-the_legend{end+1} = 'SUN\_AU';
+if (doPlot4B)
+    color   = 'k--';
+    LW      = 1.5;
+    subplot(3,2,1); plot(Times, Q_SUN_LD(1,:), color, 'LineWidth', LW); ylabel('q_1'); hold on;
+    subplot(3,2,3); plot(Times, Q_SUN_LD(2,:), color, 'LineWidth', LW); ylabel('q_2'); hold on;
+    subplot(3,2,5); plot(Times, Q_SUN_LD(3,:), color, 'LineWidth', LW); ylabel('q_3'); hold on;
+    subplot(3,2,2); plot(Times, Q_SUN_LD(4,:), color, 'LineWidth', LW); ylabel('q_4'); hold on;
+    subplot(3,2,4); plot(Times, Q_SUN_LD(5,:), color, 'LineWidth', LW); ylabel('q_5'); hold on;
+    subplot(3,2,6); plot(Times, Q_SUN_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'); hold on;
+    the_legend{end+1} = 'SUN\_AU';
 end
 
 % -------------------------------------------------------------------------------------------------
@@ -118,16 +119,19 @@ qL0_EMB_LD      = [q0_EMB_LD; L_EMB0_LD];
 
 % q0_EMB_LD_aux = Q_EMB_LD(1:6,1);
 
-color   = 'b';
-LW      = 1.5;
-subplot(3,2,1); plot(Times, Q_EMB_LD(1,:), color, 'LineWidth', LW); ylabel('q_1'); hold on;
-subplot(3,2,3); plot(Times, Q_EMB_LD(2,:), color, 'LineWidth', LW); ylabel('q_2'); hold on;
-subplot(3,2,5); plot(Times, Q_EMB_LD(3,:), color, 'LineWidth', LW); ylabel('q_3'); hold on;
-subplot(3,2,2); plot(Times, Q_EMB_LD(4,:), color, 'LineWidth', LW); ylabel('q_4'); hold on;
-subplot(3,2,4); plot(Times, Q_EMB_LD(5,:), color, 'LineWidth', LW); ylabel('q_5'); hold on;
-subplot(3,2,6); plot(Times, Q_EMB_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'); hold on;
+if doPlot4B
+    color   = 'b';
+    LW      = 1.5;
+    subplot(3,2,1); plot(Times, Q_EMB_LD(1,:), color, 'LineWidth', LW); ylabel('q_1'); hold on;
+    subplot(3,2,3); plot(Times, Q_EMB_LD(2,:), color, 'LineWidth', LW); ylabel('q_2'); hold on;
+    subplot(3,2,5); plot(Times, Q_EMB_LD(3,:), color, 'LineWidth', LW); ylabel('q_3'); hold on;
+    subplot(3,2,2); plot(Times, Q_EMB_LD(4,:), color, 'LineWidth', LW); ylabel('q_4'); hold on;
+    subplot(3,2,4); plot(Times, Q_EMB_LD(5,:), color, 'LineWidth', LW); ylabel('q_5'); hold on;
+    subplot(3,2,6); plot(Times, Q_EMB_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'); hold on;
+    the_legend{end+1} = 'EMB\_LD';
+end
 
-the_legend{end+1} = 'EMB\_LD';
+
 
 % Dans le repere centre soleil et en AU
 L_EMB       = Q_EMB_LD(7,:);
@@ -153,16 +157,17 @@ Q_EMB_LD(1:6,:) = Q_EMB_AU(1:6,:)*UC.AU/UC.LD;
 
 % q0_EMB_AU_aux = Q_EMB_LD(1:6,1);
 
-color   = 'g--';
-LW      = 1.5;
-subplot(3,2,1); plot(Times, Q_EMB_LD(1,:), color, 'LineWidth', LW); ylabel('q_1'); hold on;
-subplot(3,2,3); plot(Times, Q_EMB_LD(2,:), color, 'LineWidth', LW); ylabel('q_2'); hold on;
-subplot(3,2,5); plot(Times, Q_EMB_LD(3,:), color, 'LineWidth', LW); ylabel('q_3'); hold on;
-subplot(3,2,2); plot(Times, Q_EMB_LD(4,:), color, 'LineWidth', LW); ylabel('q_4'); hold on;
-subplot(3,2,4); plot(Times, Q_EMB_LD(5,:), color, 'LineWidth', LW); ylabel('q_5'); hold on;
-subplot(3,2,6); plot(Times, Q_EMB_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'); hold on;
-
-the_legend{end+1} = 'EMB\_AU';
+if doPlot4B
+    color   = 'g--';
+    LW      = 1.5;
+    subplot(3,2,1); plot(Times, Q_EMB_LD(1,:), color, 'LineWidth', LW); ylabel('q_1'); hold on;
+    subplot(3,2,3); plot(Times, Q_EMB_LD(2,:), color, 'LineWidth', LW); ylabel('q_2'); hold on;
+    subplot(3,2,5); plot(Times, Q_EMB_LD(3,:), color, 'LineWidth', LW); ylabel('q_3'); hold on;
+    subplot(3,2,2); plot(Times, Q_EMB_LD(4,:), color, 'LineWidth', LW); ylabel('q_4'); hold on;
+    subplot(3,2,4); plot(Times, Q_EMB_LD(5,:), color, 'LineWidth', LW); ylabel('q_5'); hold on;
+    subplot(3,2,6); plot(Times, Q_EMB_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'); hold on;
+    the_legend{end+1} = 'EMB\_AU';
+end
 
 % diff_SUN_EMB_LD = q0_SUN_LD_aux - q0_EMB_LD_aux;
 % diff_SUN_EMB_AU = q0_SUN_AU_aux - q0_EMB_AU_aux;
@@ -215,14 +220,14 @@ end
 
 
 if (doPlot3B_Pert_Thomas)
-%     color = 'y';
-%     LW      = 1.5;
-    subplot(3,2,1); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(1,:), 'y', 'LineWidth', 1.5); ylabel('q_1');
-    subplot(3,2,3); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(2,:), 'y', 'LineWidth', 1.5); ylabel('q_2');
-    subplot(3,2,5); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(3,:), 'y', 'LineWidth', 1.5); ylabel('q_3');
-    subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), 'y', 'LineWidth', 1.5); ylabel('q_4');
-    subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), 'y', 'LineWidth', 1.5); ylabel('q_5');
-    subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), 'y', 'LineWidth', 1.5); ylabel('q_6');
+    color = 'y';
+    LW      = 1.5;
+    subplot(3,2,1); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(1,:), color, 'LineWidth', LW); ylabel('q_1');
+    subplot(3,2,3); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(2,:), color, 'LineWidth', LW); ylabel('q_2');
+    subplot(3,2,5); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(3,:), color, 'LineWidth', LW); ylabel('q_3');
+    subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), color, 'LineWidth', LW); ylabel('q_4');
+    subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), color, 'LineWidth', LW); ylabel('q_5');
+    subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), color, 'LineWidth', LW); ylabel('q_6');
     the_legend{end+1} = 'CR3BP\_Pert\_Thomas';
 end
 
@@ -247,14 +252,14 @@ end
 
 
 if (doPlot3B)
-%     color   = 'g';
-%     LW      = 1.5;
-    subplot(3,2,1); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(1,:), 'g', 'LineWidth', 1.5); ylabel('q_1');
-    subplot(3,2,3); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(2,:), 'g', 'LineWidth', 1.5); ylabel('q_2');
-    subplot(3,2,5); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(3,:), 'g', 'LineWidth', 1.5); ylabel('q_3');
-    subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), 'g', 'LineWidth', 1.5); ylabel('q_4');
-    subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), 'g', 'LineWidth', 1.5); ylabel('q_5');
-    subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), 'g', 'LineWidth', 1.5); ylabel('q_6');
+    color   = 'g';
+    LW      = 1.5;
+    subplot(3,2,1); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(1,:), color, 'LineWidth', LW); ylabel('q_1');
+    subplot(3,2,3); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(2,:), color, 'LineWidth', LW); ylabel('q_2');
+    subplot(3,2,5); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(3,:), color, 'LineWidth', LW); ylabel('q_3');
+    subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), color, 'LineWidth', LW); ylabel('q_4');
+    subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), color, 'LineWidth', LW); ylabel('q_5');
+    subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), color, 'LineWidth', LW); ylabel('q_6');
     the_legend{end+1} = 'CR3BP\_No\_Pert';
 end
 
