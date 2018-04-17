@@ -1,3 +1,5 @@
+% Display trajectories & results of simulation and computation of trajectories with bocop & hampath for different problems
+% ----------------------------------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------------------------------
 % Display settings
@@ -148,7 +150,6 @@ results.exec_min_conso_free_tf = -1;
 %results.exec_homotopy_m0 = -1;
 
 % ----------------------------------------------------------------------------------------------------
-% ----------------------------------------------------------------------------------------------------
 % Bocop solution : min tf
 %
 disp('Bocop solution : min tf');
@@ -245,7 +246,6 @@ end
 
 
 % ----------------------------------------------------------------------------------------------------
-% ----------------------------------------------------------------------------------------------------
 % HamPath solution : min tf
 %
 disp('HamPath solution : min tf');
@@ -311,7 +311,6 @@ if(results.exec_min_tf_hampath==-1)
 
 end
 
-% ----------------------------------------------------------------------------------------------------
 % ----------------------------------------------------------------------------------------------------
 % HamPath : homotopy from min tf to min consumption by barrier logarithmic
 %
@@ -430,7 +429,6 @@ if(results.exec_regul_log == -1)
 end
 
 % ----------------------------------------------------------------------------------------------------
-% ----------------------------------------------------------------------------------------------------
 % Detection of the structure for the minimal consumption problem with free tf + solution
 %
 
@@ -546,7 +544,6 @@ end
 
 return
 
-% ----------------------------------------------------------------------------------------------------
 % ----------------------------------------------------------------------------------------------------
 % Minimal consumption with variation of the mass and free tf
 %
@@ -679,13 +676,13 @@ subplot(lc{:}, 5); plot(tout, sf, 'Color', DC.rouge, 'LineWidth', DC.LW); hold o
 masse_initiale  = initial_mass
 masse_finale    = z(n,end)
 
-%% delta_V
+% delta_V
 ibeta           = indices('beta');
 beta            = par_conso_min(ibeta);
 conso           = masse_initiale-masse_finale
 delta_V_variable_mass   = - (1.0/beta) * (log(masse_finale) - log(m0)) * UC.LD / UC.time_syst
 
-%% On calcule delta_V pour la sol a masse constante avec une formule ad-hoc
+% On calcule delta_V pour la sol a masse constante avec une formule ad-hoc
 par             = homotopy_on_beta.parout(:,1);
 ysol            = homotopy_on_beta.yout(:,1);
 nbarcs          = min_conso_free_tf.nbarcs;
@@ -701,10 +698,9 @@ im0             = indices('m0');
 m0              = par(im0);
 delta_V_constant_mass   = (Tmax*cost/m0)*UC.LD/UC.time_syst
 
-%% ----------------------------------------------------------------------------------------------------
-%% ----------------------------------------------------------------------------------------------------
-%% Minimal consumption with variation of the mass and fixed tf
-%%
+% ----------------------------------------------------------------------------------------------------
+% Minimal consumption with variation of the mass and fixed tf
+%
 %
 %if(results.exec_min_conso_fixed_tf == -1)
 %
@@ -733,7 +729,7 @@ delta_V_constant_mass   = (Tmax*cost/m0)*UC.LD/UC.time_syst
 %
 %    options_shoot       = hampathset('TolOdeAbs',1e-12,'TolOdeRel',1e-12,'ode','dop853','TolX',1e-12,'MaxFEval',200);
 %
-%%    s = sfun(y0, options_shoot, par)
+%    s = sfun(y0, options_shoot, par)
 %    [ysol,ssol,nfev,njev,flag] = ssolve(y0, options_shoot, par);
 %
 %    if(flag~=1)
@@ -763,11 +759,10 @@ delta_V_constant_mass   = (Tmax*cost/m0)*UC.LD/UC.time_syst
 %    save(file_results, 'results');
 %
 %end;
+
+% ----------------------------------------------------------------------------------------------------
+% Minimal consumption with variation of the mass and fixed tf: homotopy on tf
 %
-%% ----------------------------------------------------------------------------------------------------
-%% ----------------------------------------------------------------------------------------------------
-%% Minimal consumption with variation of the mass and fixed tf: homotopy on tf
-%%
 %
 %if(results.exec_homotopy_tf == -1)
 %
@@ -819,10 +814,10 @@ delta_V_constant_mass   = (Tmax*cost/m0)*UC.LD/UC.time_syst
 %    save(file_results, 'results');
 %
 %end
+
+% ----------------------------------------------------------------------------------------------------
+% Affichage de delta_V et masse finale en fonction de tf
 %
-%%
-%% Affichage de delta_V et masse finale en fonction de tf
-%%
 %homotopy_on_tf      = results.homotopy_on_tf;
 %min_conso_fixed_tf  = results.min_conso_fixed_tf;
 %
@@ -869,7 +864,6 @@ delta_V_constant_mass   = (Tmax*cost/m0)*UC.LD/UC.time_syst
 %subplot(2,1,1); hold on; plot(tfs, masses_finales, 'Color', DC.rouge, 'LineWidth', DC.LW);
 %subplot(2,1,2); hold on; plot(tfs, delta_Vs, 'Color', DC.bleu, 'LineWidth', DC.LW);
 
-% ----------------------------------------------------------------------------------------------------
 % ----------------------------------------------------------------------------------------------------
 % Minimal consumption with variation of the mass and free tf: homotopy on m0
 %

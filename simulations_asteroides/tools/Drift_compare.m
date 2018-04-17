@@ -27,7 +27,7 @@ Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD; fprintf('Tmax = %f \n', Tmax);
 
 % On transforme q0 dans les 2 referentiels
 [q0_CR3BP,~,~,~,thetaS0]    = Helio2CR3BP(q0_SUN_AU, t0);       % q en LD/d
-q0_EMB_LD_old               = CR3BP2EMB(q0_CR3BP,t0);
+% q0_EMB_LD_old               = CR3BP2EMB(q0_CR3BP,t0);
 
 fprintf('q0_CR3BP = \n'); disp(q0_CR3BP);
 
@@ -51,7 +51,7 @@ qS              = -Gauss2Cart(UC.mu0SunAU, [xG_EMB0_AU(1:5); L_EMB0_AU]); % Dans
 q0_EMB_AU       = q0_SUN_AU + qS(1:6);
 q0_EMB_LD       = q0_EMB_AU*UC.AU/UC.LD;
 
-diff_q0         = q0_EMB_LD_old - q0_EMB_LD;
+% diff_q0         = q0_EMB_LD_old - q0_EMB_LD;
 
 % -------------------------------------------------------------------------------------------------
 % On integre avec la dynamique 4 corps (dans le ref inertiel centre Soleil en LD)
@@ -65,7 +65,7 @@ for i = 1:Nstep
     Q_SUN_LD(1:6,i) = Q_SUN_LD(1:6,i) + qS(1:6);
 end
 
-q0_SUN_LD_aux = Q_SUN_LD(1:6,1);
+% q0_SUN_LD_aux = Q_SUN_LD(1:6,1);
 
 if(1)
 color   = 'r';
@@ -86,14 +86,14 @@ qL0_SUN_AU      = [q0_SUN_AU; L_EMB0_AU];
 
 % On revient dans le repere centre EMB et en LD
 L_EMB       = Q_SUN_AU(7,:);
-Q_SUN_LD    = [];
+Q_SUN_LD    = zeros(6,Nstep);
 for i = 1:Nstep
     qS              = -Gauss2Cart(UC.mu0SunAU, [xG_EMB0_AU(1:5); L_EMB(i)]); % Dans le repere inertiel centre EMB
     Q_SUN_LD(:,i)   = Q_SUN_AU(1:6,i) + qS(1:6);
     Q_SUN_LD(:,i)   = Q_SUN_LD(:,i)*UC.AU/UC.LD;
 end
 
-q0_SUN_AU_aux = Q_SUN_LD(1:6,1);
+% q0_SUN_AU_aux = Q_SUN_LD(1:6,1);
 
 if(1)
 color   = 'k--';
@@ -116,7 +116,7 @@ end
 qL0_EMB_LD      = [q0_EMB_LD; L_EMB0_LD];
 [~, Q_EMB_LD]   = ode45(@(t,x) rhs_4B_EMB_LD(t, x), Times, qL0_EMB_LD, OptionsOde); Q_EMB_LD = Q_EMB_LD';
 
-q0_EMB_LD_aux = Q_EMB_LD(1:6,1);
+% q0_EMB_LD_aux = Q_EMB_LD(1:6,1);
 
 color   = 'b';
 LW      = 1.5;
@@ -131,7 +131,7 @@ the_legend{end+1} = 'EMB\_LD';
 
 % Dans le repere centre soleil et en AU
 L_EMB       = Q_EMB_LD(7,:);
-Q_EMB_SUN   = [];
+Q_EMB_SUN   = zeros(3, Nstep);
 for i = 1:Nstep
     qS              = -Gauss2Cart(UC.mu0SunLD, [xG_EMB0_LD(1:5); L_EMB(i)]); % Dans le repere inertiel centre EMB
     Q_EMB_SUN(:,i)  = Q_EMB_LD(1:3,i) - qS(1:3);
@@ -151,7 +151,7 @@ qL0_EMB_AU      = [q0_EMB_LD*UC.LD/UC.AU; L_EMB0_AU];
 Q_EMB_LD        = [];
 Q_EMB_LD(1:6,:) = Q_EMB_AU(1:6,:)*UC.AU/UC.LD;
 
-q0_EMB_AU_aux = Q_EMB_LD(1:6,1);
+% q0_EMB_AU_aux = Q_EMB_LD(1:6,1);
 
 color   = 'g--';
 LW      = 1.5;
@@ -164,10 +164,10 @@ subplot(3,2,6); plot(Times, Q_EMB_LD(6,:), color, 'LineWidth', LW); ylabel('q_6'
 
 the_legend{end+1} = 'EMB\_AU';
 
-diff_SUN_EMB_LD = q0_SUN_LD_aux - q0_EMB_LD_aux;
-diff_SUN_EMB_AU = q0_SUN_AU_aux - q0_EMB_AU_aux;
-diff_EMB_LD_AU  = q0_EMB_LD_aux - q0_EMB_AU_aux;
-diff_SUN_LD_AU  = q0_SUN_LD_aux - q0_SUN_AU_aux;
+% diff_SUN_EMB_LD = q0_SUN_LD_aux - q0_EMB_LD_aux;
+% diff_SUN_EMB_AU = q0_SUN_AU_aux - q0_EMB_AU_aux;
+% diff_EMB_LD_AU  = q0_EMB_LD_aux - q0_EMB_AU_aux;
+% diff_SUN_LD_AU  = q0_SUN_LD_aux - q0_SUN_AU_aux;
 
 
 % -------------------------------------------------------------------------------------------------
@@ -213,16 +213,17 @@ end
 
 % Q_CR3BP_in_EMB_2 = Q_CR3BP_in_EMB(:,end);
 
-color   = 'y';
-LW      = 1.5;
-if(doPlot3B_Pert_Thomas)
-subplot(3,2,1); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(1,:), color, 'LineWidth', LW); ylabel('q_1');
-subplot(3,2,3); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(2,:), color, 'LineWidth', LW); ylabel('q_2');
-subplot(3,2,5); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(3,:), color, 'LineWidth', LW); ylabel('q_3');
-subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), color, 'LineWidth', LW); ylabel('q_4');
-subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), color, 'LineWidth', LW); ylabel('q_5');
-subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), color, 'LineWidth', LW); ylabel('q_6');
-the_legend{end+1} = 'CR3BP\_Pert\_Thomas';
+
+if (doPlot3B_Pert_Thomas)
+%     color = 'y';
+%     LW      = 1.5;
+    subplot(3,2,1); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(1,:), 'y', 'LineWidth', 1.5); ylabel('q_1');
+    subplot(3,2,3); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(2,:), 'y', 'LineWidth', 1.5); ylabel('q_2');
+    subplot(3,2,5); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(3,:), 'y', 'LineWidth', 1.5); ylabel('q_3');
+    subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), 'y', 'LineWidth', 1.5); ylabel('q_4');
+    subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), 'y', 'LineWidth', 1.5); ylabel('q_5');
+    subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), 'y', 'LineWidth', 1.5); ylabel('q_6');
+    the_legend{end+1} = 'CR3BP\_Pert\_Thomas';
 end
 
 % -------------------------------------------------------------------------------------------------
@@ -244,16 +245,17 @@ end
 
 % Q_CR3BP_in_EMB_1 = Q_CR3BP_in_EMB(:,end);
 
-color   = 'g';
-LW      = 1.5;
-if(doPlot3B)
-subplot(3,2,1); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(1,:), color, 'LineWidth', LW); ylabel('q_1');
-subplot(3,2,3); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(2,:), color, 'LineWidth', LW); ylabel('q_2');
-subplot(3,2,5); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(3,:), color, 'LineWidth', LW); ylabel('q_3');
-subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), color, 'LineWidth', LW); ylabel('q_4');
-subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), color, 'LineWidth', LW); ylabel('q_5');
-subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), color, 'LineWidth', LW); ylabel('q_6');
-the_legend{end+1} = 'CR3BP\_No\_Pert';
+
+if (doPlot3B)
+%     color   = 'g';
+%     LW      = 1.5;
+    subplot(3,2,1); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(1,:), 'g', 'LineWidth', 1.5); ylabel('q_1');
+    subplot(3,2,3); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(2,:), 'g', 'LineWidth', 1.5); ylabel('q_2');
+    subplot(3,2,5); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(3,:), 'g', 'LineWidth', 1.5); ylabel('q_3');
+    subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), 'g', 'LineWidth', 1.5); ylabel('q_4');
+    subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), 'g', 'LineWidth', 1.5); ylabel('q_5');
+    subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), 'g', 'LineWidth', 1.5); ylabel('q_6');
+    the_legend{end+1} = 'CR3BP\_No\_Pert';
 end
 
 % -------------------------------------------------------------------------------------------------
@@ -275,16 +277,17 @@ end
 
 % Q_CR3BP_in_EMB_3 = Q_CR3BP_in_EMB(:,end);
 
-color   = 'm--';
-LW      = 1.5;
+
 if(doPlot3B_Pert)
-subplot(3,2,1); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(1,:), color, 'LineWidth', LW); ylabel('q_1');
-subplot(3,2,3); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(2,:), color, 'LineWidth', LW); ylabel('q_2');
-subplot(3,2,5); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(3,:), color, 'LineWidth', LW); ylabel('q_3');
-subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), color, 'LineWidth', LW); ylabel('q_4');
-subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), color, 'LineWidth', LW); ylabel('q_5');
-subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), color, 'LineWidth', LW); ylabel('q_6');
-the_legend{end+1} = 'CR3BP\_Pert';
+    color   = 'm--';
+    LW      = 1.5;
+    subplot(3,2,1); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(1,:), color, 'LineWidth', LW); ylabel('q_1');
+    subplot(3,2,3); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(2,:), color, 'LineWidth', LW); ylabel('q_2');
+    subplot(3,2,5); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(3,:), color, 'LineWidth', LW); ylabel('q_3');
+    subplot(3,2,2); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(4,:), color, 'LineWidth', LW); ylabel('q_4');
+    subplot(3,2,4); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(5,:), color, 'LineWidth', LW); ylabel('q_5');
+    subplot(3,2,6); plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB(6,:), color, 'LineWidth', LW); ylabel('q_6');
+    the_legend{end+1} = 'CR3BP\_Pert';
 end
 
 subplot(3,2,1); legend(the_legend{:}, 'Location', 'NorthWest');
@@ -452,7 +455,7 @@ function qLdot = rhs_4B_Sun_LD(t, qL)
     qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB
 
     % Moon and Earth position
-    [qM, qE, qL2]     = get_Moon_Earth_L2_State_Cart_LD(t);  % Dans ref centre EMB en AU
+    [qM, qE, ~]     = get_Moon_Earth_L2_State_Cart_LD(t);  % Dans ref centre EMB en AU
 %    qM          = qM*UC.AU/UC.LD;
 %    qE          = qE*UC.AU/UC.LD;
 
@@ -460,7 +463,7 @@ function qLdot = rhs_4B_Sun_LD(t, qL)
     qS(1:3)     = qS(1:3) - qS(1:3);
     qM(1:3)     = qM(1:3) - qS(1:3);
     qE(1:3)     = qE(1:3) - qS(1:3);
-    qL2(1:3)    = qL2(1:3) - qS(1:3);
+%     qL2(1:3)    = qL2(1:3) - qS(1:3);
 
     rSun        = sqrt((r(1)-qS(1))^2 + (r(2)-qS(2))^2 + (r(3)-qS(3))^2);
     rE          = sqrt((r(1)-qE(1))^2 + (r(2)-qE(2))^2 + (r(3)-qE(3))^2);
@@ -471,7 +474,7 @@ function qLdot = rhs_4B_Sun_LD(t, qL)
     qLdot       = zeros(7,1);
     qLdot(1:3)  = v;
     qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3; % ...
-                   + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
+                  % + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
     qLdot(7)    = Ldot;
 
 return
@@ -499,16 +502,16 @@ function qLdot = rhs_4B_Sun_AU(t, qL)
     qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB
 
     % Moon and Earth position
-    [qM, qE, qL2]     = get_Moon_Earth_L2_State_Cart_LD(t);  % Dans ref centre EMB
+    [qM, qE, ~]     = get_Moon_Earth_L2_State_Cart_LD(t);  % Dans ref centre EMB
     qM          = qM*UC.LD/UC.AU;
     qE          = qE*UC.LD/UC.AU;
-    qL2         = qL2*UC.LD/UC.AU;
+%     qL2         = qL2*UC.LD/UC.AU;
 
     % Replace the position in the frame centered in the Sun
     qS(1:3)     = qS(1:3) - qS(1:3);
     qM(1:3)     = qM(1:3) - qS(1:3);
     qE(1:3)     = qE(1:3) - qS(1:3);
-    qL2(1:3)    = qL2(1:3) - qS(1:3);
+%     qL2(1:3)    = qL2(1:3) - qS(1:3);
 
     rSun        = sqrt((r(1)-qS(1))^2 + (r(2)-qS(2))^2 + (r(3)-qS(3))^2);
     rE          = sqrt((r(1)-qE(1))^2 + (r(2)-qE(2))^2 + (r(3)-qE(3))^2);
@@ -518,7 +521,7 @@ function qLdot = rhs_4B_Sun_AU(t, qL)
     qLdot       = zeros(7,1);
     qLdot(1:3)  = v;
     qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3; % ...
-                   + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
+                   % + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
     qLdot(7)    = Ldot;
 
 return
