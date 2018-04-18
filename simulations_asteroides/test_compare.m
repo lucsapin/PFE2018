@@ -1,11 +1,8 @@
 % Comparaison des simulations entre L2 et EMB
-% ----------------------------------------------------------------------------------------------------
-
-
-% ----------------------------------------------------------------------------------------------------
-% Display settings
 %
 close all;
+% ----------------------------------------------------------------------------------------------------
+% Display settings
 set(0,  'defaultaxesfontsize'   ,  16     , ...
     'DefaultTextVerticalAlignment'  , 'bottom', ...
     'DefaultTextHorizontalAlignment', 'left'  , ...
@@ -27,6 +24,15 @@ addpath('hampath/libhampath3Mex/');
 % ----------------------------------------------------------------------------------------------------
 DC          = get_Display_Constants(); % Display constants
 UC          = get_Univers_Constants(); % Univers constants
+
+Isp     = 375/UC.time_syst; fprintf('Isp = %f \n', Isp);
+g0      = 9.80665*1e-3*(UC.time_syst)^2/UC.LD; fprintf('g0 = %f \n', g0);
+Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD; fprintf('Tmax = %f \n\n', Tmax);
+
+doPlot3B                = false;
+doPlot3B_Pert           = true;
+doPlot3B_Pert_Thomas    = false;
+doPlot4B                = false;
 
 % ----------------------------------------------------------------------------------------------------
 % User Parameters
@@ -56,97 +62,57 @@ switch case_2_study
 
 end
 
+
 % ----------------------------------------------------------------------------------------------------
 % Definition of all the parameters
-%
-dirLoadL2 = ['results/total_impulse_L2/'];
-dirLoadEMB = ['results/total_impulse_EMB/'];
-if(~exist(dirLoadL2,'dir')); error('Wrong directory name!'); end
-if(~exist(dirLoadEMB,'dir')); error('Wrong directory name!'); end
 
-file2load = [dirLoad 'asteroid_no_' int2str(numAsteroid)];
-if(exist([file2load '.mat'],'file')~=2)
-    error(['there is no total impulse optimization done for asteroid number ' int2str(numAsteroid)]);
+% La figure pour l'affichage des trajectoires a comparer
+hFigTraj = figure(1);
+the_legend  = {};
+
+
+% Computation of trajectories for each destination
+disp('EMB Computation');
+[T_CR3BP_in_EMB, Q_EMB_SUN_EMB, Q_CR3BP_in_EMB_EMB, color_EMB, LW_EMB, hFigSpace] = propagateCompare('EMB',numAsteroid, numOpti, dist, true);
+
+disp('L2 Computation');
+[             ~,  Q_EMB_SUN_L2,  Q_CR3BP_in_EMB_L2,  color_L2,  LW_L2,         ~] = propagateCompare('L2',numAsteroid, numOpti, dist, false);
+
+
+figure(hFigSpace.figure);
+subplot(hFigSpace.subplot{:});
+plot3(Q_EMB_SUN_EMB(1,:), Q_EMB_SUN_EMB(2,:), Q_EMB_SUN_EMB(3,:), 'Color', DC.bleu, 'LineWidth', DC.LW); hold on;
+plot3(Q_EMB_SUN_L2(1,:), Q_EMB_SUN_L2(2,:), Q_EMB_SUN_L2(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW); hold on;
+figure(hFigTraj);
+
+if (doPlot3B_Pert)
+    subplot(3,2,1);
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_EMB(1,:), color_EMB, 'LineWidth', LW_EMB); hold on;
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_L2(1,:), color_L2, 'LineWidth', LW_L2); ylabel('q_1');
+    subplot(3,2,3);
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_EMB(2,:), color_EMB, 'LineWidth', LW_EMB); hold on;
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_L2(2,:), color_L2, 'LineWidth', LW_L2); ylabel('q_2');
+    subplot(3,2,5);
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_EMB(3,:), color_EMB, 'LineWidth', LW_EMB); hold on;
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_L2(3,:), color_L2, 'LineWidth', LW_L2); ylabel('q_3');
+    subplot(3,2,2);
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_EMB(4,:), color_EMB, 'LineWidth', LW_EMB); hold on;
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_L2(4,:), color_L2, 'LineWidth', LW_L2); ylabel('q_4');
+    subplot(3,2,4);
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_EMB(5,:), color_EMB, 'LineWidth', LW_EMB); hold on;
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_L2(5,:), color_L2, 'LineWidth', LW_L2); ylabel('q_5');
+    subplot(3,2,6);
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_EMB(6,:), color_EMB, 'LineWidth', LW_EMB); hold on;
+    plot(T_CR3BP_in_EMB, Q_CR3BP_in_EMB_L2(6,:), color_L2, 'LineWidth', LW_L2); ylabel('q_6');
+    % plot(Q_CR3BP_in_EMB_EMB(2,:), Q_CR3BP_in_EMB_EMB(1,:), color_EMB, 'LineWidth', LW_EMB); hold on;
+    % plot(Q_CR3BP_in_EMB_L2(2,:), Q_CR3BP_in_EMB_L2(1,:), color_L2, 'LineWidth', LW_L2); ylabel('q_2=f(q_1)');
+    the_legend{end+1} = 'CR3BP\_Pert\_EMB';
+    the_legend{end+1} = 'CR3BP\_Pert\_L2';
 end
 
-load(file2load);
-nbOpti              = length(allResults);
-if(numOpti>nbOpti)
-    error(['numOpti should be less than ' int2str(nbOpti)]);
-end
-outputOptimization  = allResults{numOpti};
-
-% Get initial condition
-[times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, ~, hFigSpace] = propagate2Hill(outputOptimization, dist); % The solution is given in HELIO frame
-
-t0_day      = time_Hill;                % the initial time in Day
-q0_SUN_AU   = state_Hill(1:6);          % q0 in HELIO frame in AU unit
-t0_r        = outputOptimization.t0_r;
-dt1_r       = outputOptimization.dt1_r;
-dtf_r       = outputOptimization.dtf_r;
-tf          = t0_r + dt1_r + dtf_r;
-tf_guess    = tf-times_out(end);         % Remaining time to reach EMB in Day
-
-% Drift compare
-Drift_compare(t0_day, dtf_r, q0_SUN_AU, hFigSpace)
-
-dv0_r_KM_S  = outputOptimization.dV0_r/UC.jour*UC.AU; % km / s
-fprintf('dv0_r_KM_S = \n'); disp(dv0_r_KM_S); 
-dv1_r_KM_S  = outputOptimization.dV1_r/UC.jour*UC.AU; % km / s
-fprintf('dv1_r_KM_S = \n'); disp(dv1_r_KM_S);
-
-% Define Bocop and HamPath parameters
-[q0_CR3BP,~,~,~,thetaS0] = Helio2CR3BP(q0_SUN_AU, t0_day); % q0 in LD/d
-q0          = q0_CR3BP(1:6); q0 = q0(:);
-qf          = [UC.xL2 0.0 0.0 0.0 0.0 0.0]';
-
-Tmax        = TmaxN*1e-3*(UC.time_syst)^2/UC.LD; fprintf('Tmax = %f \n', Tmax);
-muCR3BP     = UC.mu0MoonLD/(UC.mu0EarthLD+UC.mu0MoonLD);
-muSun       = UC.mu0SunLD/(UC.mu0EarthLD+UC.mu0MoonLD);
-rhoSun      = UC.AU/UC.LD;
-omegaS      = (-(UC.speedMoon+UC.NoeudMoonDot)+2*pi/UC.Period_EMB)/UC.jour*UC.time_syst;
-tf_guess    = tf_guess*UC.jour/UC.time_syst; % time in UT
-
-g0          = 9.80665*1e-3*(UC.time_syst)^2/UC.LD;
-Isp         = 375/UC.time_syst; % 375 s
-beta        = 1.0/(Isp*g0); fprintf('beta = %f \n', beta);
-
-fprintf('beta*Tmax = %f \n', beta*Tmax);
-
-% ---------------
-min_dist_2_earth    = 0.0;      %
-init_choice         = 'none1';  % 'none1' -- 'warm1' or 'warm2' if numAsteroid = numOpti = 1
-
-% Unique name to save intermediate results
-case_name   = ['./min_tf_Tmax_' num22str(TmaxN,3) '_m0_' num22str(m0,6) '_ast_' int2str(numAsteroid) '_dist_' num22str(dist,4) ...
-                '_dist_min_2_earth_' num22str(min_dist_2_earth,2)];
-
-dir_results = './results/main_L2_return_non_constant_mass/in_progress_results/';
-
-if(~exist(dir_results,'dir')); error('Wrong dir_results name!'); end
-
-file_results= [dir_results case_name];
-
-if(exist([file_results '.mat'],'file')==2)
-    load(file_results);
-else
-    results = [];
-    results.exec_min_tf_bocop                   = -1;
-    results.exec_min_tf_hampath                 = -1;
-    results.exec_regul_log                      = -1;
-    results.exec_min_conso_free_tf              = -1;
-    results.exec_min_conso_non_constant_mass    = -1;
-    results.exec_min_conso_fixed_tf             = -1;
-    results.exec_homotopy_tf                    = -1;
-    results.exec_homotopy_m0                    = -1;
-    save(file_results, 'results');
-end
-
-%results.exec_min_tf_bocop=-1;
-%results.exec_min_tf_hampath=-1;
-%results.exec_regul_log = -1;
-results.exec_min_conso_free_tf = -1;
-%results.exec_min_conso_non_constant_mass    = -1;
-%results.exec_min_conso_fixed_tf = -1;
-%results.exec_homotopy_tf = -1;
-%results.exec_homotopy_m0 = -1;
+subplot(3,2,1); legend(the_legend{:}, 'Location', 'NorthWest');
+subplot(3,2,3);
+subplot(3,2,5);
+subplot(3,2,2);
+subplot(3,2,4);
+subplot(3,2,6);

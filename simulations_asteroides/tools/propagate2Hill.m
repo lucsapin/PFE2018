@@ -1,4 +1,4 @@
-function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, hFigSpace] = propagate2Hill(outputTotalOpti, dist)
+function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, hFigSpace] = propagate2Hill(outputTotalOpti, dist, display)
 
 % state_Hill : centré au soleil
 %
@@ -53,12 +53,15 @@ tf_r                = t0_r + dt1_r + dtf_r;
 % ----------------------------------------------------------------------------------------------------
 % Display trajectory to compare
 
-hFig = figure; lc = {2,1};
+  hFig = figure(2); lc = {2,1};
 
-hFigSpace.figure    = hFig;
-hFigSpace.subplot   = {lc{:}, 1};
-
-subplot(lc{:}, 1); hold on;
+  hFigSpace.figure    = hFig;
+  hFigSpace.subplot   = {lc{:}, 1};
+if display
+  subplot(lc{:}, 1); hold on;
+% else
+  % hFigSpace = null;
+end
 %figure('DefaultAxesColor', DC.blanc, 'Units', 'normalized');
 %set(hFigSpace_r, 'OuterPosition', [ 0.0   0.0   0.49   0.45 ]); hold on; %axis equal;
 
@@ -72,8 +75,9 @@ subplot(lc{:}, 1); hold on;
 %subplot(3,2,2); plot(times, states(4,:), 'g--', 'LineWidth', 2); ylabel('q_4');
 %subplot(3,2,4); plot(times, states(5,:), 'g--', 'LineWidth', 2); ylabel('q_5');
 %subplot(3,2,6); plot(times, states(6,:), 'g--', 'LineWidth', 2); ylabel('q_6');
-
-display_Trajectory_Spacecraft(states, 'return_compare');
+if display
+  display_Trajectory_Spacecraft(states, 'return_compare');
+end
 
 % ----------------------------------------------------------------------------------------------------
 % Get initial point on the asteroid
@@ -101,7 +105,9 @@ odefun              = @(t,x) rhs_SEMB_Sun(t, x);
 times       = times(:)';
 states_q_L  = transpose(states_q_L);
 
-display_Trajectory_Spacecraft(states_q_L, 'return');
+if display
+  display_Trajectory_Spacecraft(states_q_L, 'return');
+end
 
 times_out   = times;
 traj_out    = states_q_L(1:7,:);
@@ -138,7 +144,10 @@ state_q_L_init  = [q1; states_q_L(7,end)];
 [times, states_q_L, time_event, state_q_L_event] = ode45(odefun, [t0_r+dt1_r t0_r+dt1_r+dtf_r], state_q_L_init, OptionsOde);
 times       = times(:)';
 states_q_L  = transpose(states_q_L);
-display_Trajectory_Spacecraft(states_q_L, 'return');
+
+if display
+  display_Trajectory_Spacecraft(states_q_L, 'return');
+end
 
 times_out   = [times_out    times(2:end)];
 traj_out    = [traj_out     states_q_L(1:7,2:end)];
@@ -168,13 +177,16 @@ d=[];
 for i=1:length(times_out)
     [value,isterminal,direction] = HillTouch(times_out(i), traj_out(:,i), UC.mu0SunAU, xG_EMB, dist);
     d(i) = value;
-end;
+end
 
-subplot(lc{:}, 2); hold on;
+if display
+  subplot(lc{:}, 2); hold on;
+  plot(times_out, d);
+end
 %hFig = figure('Units', 'normalized');
 %set(hFig, 'OuterPosition', [ 0.0   0.5   0.49   0.45 ]); hold on; %axis equal;
 
-plot(times_out, d);
+
 
 return
 
@@ -191,7 +203,7 @@ return
 
 % ----------------------------------------------------------------------------------------------------
 % ----------------------------------------------------------------------------------------------------
-%% dynamics of body and Earth-Moon barycenter longitude. Body is subjected 
+%% dynamics of body and Earth-Moon barycenter longitude. Body is subjected
 % to Sun and EMB gravities (so Moon ~included). In Heliocentric ecliptic
 function xdot = rhs_SEMB_Sun(t, x)
 
@@ -254,5 +266,3 @@ function qLdot = rhs_4B_Sun_AU(t, qL)
     qLdot(7)    = Ldot;
 
 return
-
-
