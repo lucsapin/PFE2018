@@ -4,7 +4,7 @@ destination = 'L2';
 repOutput = ['results/return_impulse_' destination '/'];
 if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
 
-for numAsteroid=1:1
+for numAsteroid=6:6
 
     file2load = [repOutput 'asteroid_no_' int2str(numAsteroid)];
     if(exist([file2load '.mat'],'file')==2)
