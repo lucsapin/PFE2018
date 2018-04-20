@@ -1,8 +1,8 @@
-function [ outputOptimization ] = loadFile( destination, numAsteroid, numOpti )
+function [ outputOptimization, nbOpti ] = loadFile( destination, typeSimu, numAsteroid, numOpti )
 % function: Short description
 %
 % Extended description
-dirLoad = ['results/total_impulse_' destination '/'];
+dirLoad = ['results/' typeSimu '_impulse_' destination '/'];
 if(~exist(dirLoad,'dir')); error('Wrong directory name!'); end
 
 file2load = [dirLoad 'asteroid_no_' int2str(numAsteroid)];

@@ -85,11 +85,11 @@ Q_CR3BP         = Q_CR3BP';
 %
 % Change of coordinates from CR3BP to EMB for comparison
 Q_CR3BP_in_EMB = Q_CR3BP;
-T_CR3BP_in_EMB = T_CR3BP*UC.time_syst/UC.jour;
-T_CR3BP_in_EMB = t0 + T_CR3BP_in_EMB;
-for i = 1:length(T_CR3BP)
-    Q_CR3BP_in_EMB(:,i) = CR3BP2EMB(Q_CR3BP(:,i), T_CR3BP_in_EMB(i));
-end
+T_CR3BP_in_EMB = T_CR3BP; %*UC.time_syst/UC.jour;
+% T_CR3BP_in_EMB = t0 + T_CR3BP_in_EMB;
+% for i = 1:length(T_CR3BP)
+%     Q_CR3BP_in_EMB(:,i) = CR3BP2EMB(Q_CR3BP(:,i), T_CR3BP_in_EMB(i));
+% end
 
 % Q_CR3BP_in_EMB_3 = Q_CR3BP_in_EMB(:,end);
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.9.22)  13 APR 2018 18:17
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.9.22)  20 APR 2018 14:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1321,18 +1321,18 @@ LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-OsF/b/n' will be
 (Font)              scaled to size 12.0pt on input line 161.
 
 [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 185.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 197.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-OsF/m/sl' in size <10.95> no
 t available
 (Font)              Font shape `T1/LinuxLibertineT-OsF/m/it' tried instead on i
-nput line 185.
+nput line 197.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-OsF/m/it' will be
-(Font)              scaled to size 10.95pt on input line 185.
+(Font)              scaled to size 10.95pt on input line 197.
  [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 185.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 197.
  (./Reunions_IRIT_APO_2018.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 185.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 185.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 197.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 197.
 Package rerunfilecheck Info: File `Reunions_IRIT_APO_2018.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
@@ -1341,26 +1341,28 @@ Package logreq Info: Writing requests to 'Reunions_IRIT_APO_2018.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 16283 strings out of 493304
- 258040 string characters out of 6139871
+ 16300 strings out of 493304
+ 258173 string characters out of 6139871
  612452 words of memory out of 5000000
  19485 multiletter control sequences out of 15000+600000
- 98130 words of font info for 95 fonts, out of 8000000 for 9000
+ 104412 words of font info for 111 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  47i,8n,101p,812b,709s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/us
-r/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texlive/texm
-f-dist/fonts/enc/dvips/libertine/lbtn_75c3wo.enc}{/usr/share/texlive/texmf-dist
-/fonts/enc/dvips/libertine/lbtn_ouu7z6.enc}{/usr/share/texlive/texmf-dist/fonts
-/enc/dvips/libertine/lbtn_ulngvd.enc}</usr/share/texlive/texmf-dist/fonts/type1
-/public/libertine/LinBiolinumTB.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/libertine/LinLibertineT.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/txfonts/txsy.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtx/
-zxlri.pfb>
-Output written on Reunions_IRIT_APO_2018.pdf (4 pages, 170406 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/usr/s
+hare/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/share/t
+exlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texlive/texmf-dist/fo
+nts/enc/dvips/libertine/lbtn_75c3wo.enc}{/usr/share/texlive/texmf-dist/fonts/en
+c/dvips/libertine/lbtn_ouu7z6.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvip
+s/libertine/lbtn_ulngvd.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/l
+ibertine/LinBiolinumTB.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/li
+bertine/LinLibertineT.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txf
+onts/rtxmi.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/rtxr.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/newtx/zxlri.pfb>
+Output written on Reunions_IRIT_APO_2018.pdf (4 pages, 176151 bytes).
 PDF statistics:
- 60 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
- 12 named destinations out of 1000 (max. 500000)
+ 73 PDF objects out of 1000 (max. 8388607)
+ 60 compressed objects within 1 object stream
+ 13 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

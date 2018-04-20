@@ -75,7 +75,7 @@ end
 outputOptimization  = allResults{numOpti};
 
 % Get initial condition
-[times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, ~, hFigSpace] = propagate2Hill(outputOptimization, dist); % The solution is given in HELIO frame
+[times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, ~, hFigSpace] = propagate2Hill(outputOptimization, dist, true); % The solution is given in HELIO frame
 
 t0_day      = time_Hill;                % the initial time in Day
 q0_SUN_AU   = state_Hill(1:6);          % q0 in HELIO frame in AU unit
@@ -89,7 +89,7 @@ tf_guess    = tf-times_out(end);         % Remaining time to reach EMB in Day
 Drift_compare(t0_day, dtf_r, q0_SUN_AU, hFigSpace)
 
 dv0_r_KM_S  = outputOptimization.dV0_r/UC.jour*UC.AU; % km / s
-fprintf('dv0_r_KM_S = \n'); disp(dv0_r_KM_S); 
+fprintf('dv0_r_KM_S = \n'); disp(dv0_r_KM_S);
 dv1_r_KM_S  = outputOptimization.dV1_r/UC.jour*UC.AU; % km / s
 fprintf('dv1_r_KM_S = \n'); disp(dv1_r_KM_S);
 
@@ -1043,4 +1043,3 @@ subplot(lc{:}, 3); plot(tout, sqrt(u(1,:).^2+u(2,:).^2+u(3,:).^2), 'Color', DC.r
 subplot(lc{:}, 5); plot(tout, sf, 'Color', DC.rouge, 'LineWidth', DC.LW); hold on; daxes(0,0,axisColor);
 
 return
-
