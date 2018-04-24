@@ -5,15 +5,13 @@ function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, hFigSpa
 % dist in AU : we stop the integration when the spacecraft is at a distance dist from EMB
 %
 
-times_out   = [];
-traj_out    = [];
 time_Hill   = 0;
 state_Hill  = [];
 xC_EMB_HIll = [];
 flag        = -1;
 
 % ----------------------------------------------------------------------------------------------------
-DC          = get_Display_Constants(); % Display constants
+% DC          = get_Display_Constants(); % Display constants
 UC          = get_Univers_Constants(); % Univers constants
 
 % get Data
@@ -65,7 +63,7 @@ end
 %figure('DefaultAxesColor', DC.blanc, 'Units', 'normalized');
 %set(hFigSpace_r, 'OuterPosition', [ 0.0   0.0   0.49   0.45 ]); hold on; %axis equal;
 
-[times, states, q0, q1, qf] = get_Trajectory_SpaceCraft(xOrb_epoch_t0_Ast, t0_r, dt1_r, dtf_r, dV0_r, dV1_r, dVf_r);
+[~, states, ~, ~, ~] = get_Trajectory_SpaceCraft(xOrb_epoch_t0_Ast, t0_r, dt1_r, dtf_r, dV0_r, dV1_r, dVf_r);
 
 %hFigTraj = figure;
 %figure(hFigTraj)
@@ -101,7 +99,7 @@ odefun              = @(t,x) rhs_SEMB_Sun(t, x);
 %ii                  = find(times<=t0_r+dt1_r);
 %[times, states_q_L, time_event, state_q_L_event] = ode45(odefun, times(ii), state_q_L_init, OptionsOde);
 
-[times, states_q_L, time_event, state_q_L_event] = ode45(odefun, [t0_r t0_r+dt1_r], state_q_L_init, OptionsOde);
+[times, states_q_L, time_event, ~] = ode45(odefun, [t0_r t0_r+dt1_r], state_q_L_init, OptionsOde);
 times       = times(:)';
 states_q_L  = transpose(states_q_L);
 
@@ -114,7 +112,7 @@ traj_out    = states_q_L(1:7,:);
 
 if(~isempty(time_event))
     error('We reach the required distance to EMB at time t0_r + dt1_r!');
-end;
+end
 
 %subplot(3,2,1); plot(times, abs(states_q_L(1,:)-states(1,ii)), 'r'); ylabel('q_1'); hold on;
 %subplot(3,2,3); plot(times, abs(states_q_L(2,:)-states(2,ii)), 'r'); ylabel('q_2'); hold on;
@@ -159,8 +157,8 @@ if(~isempty(time_event))
     L_EMB       = state_q_L_event(7);
     xC_EMB_HIll = Gauss2Cart(UC.mu0SunAU, [xG_EMB(1:5); L_EMB]);
     flag    = 1;
-    [value,isterminal,direction] = HillTouch(time_Hill, [state_Hill; L_EMB], UC.mu0SunAU, xG_EMB, dist);
-end;
+    [~,~,~] = HillTouch(time_Hill, [state_Hill; L_EMB], UC.mu0SunAU, xG_EMB, dist);
+end
 
 %hFigTraj = figure;
 %figure(hFigTraj)
@@ -175,7 +173,7 @@ end;
 % On affiche la distance en fonction du temps
 d=[];
 for i=1:length(times_out)
-    [value,isterminal,direction] = HillTouch(times_out(i), traj_out(:,i), UC.mu0SunAU, xG_EMB, dist);
+    [value,~,~] = HillTouch(times_out(i), traj_out(:,i), UC.mu0SunAU, xG_EMB, dist);
     d(i) = value;
 end
 
@@ -202,8 +200,7 @@ function [value,isterminal,direction] = HillTouch(t, x, mu0_Sun, xG_EMB, dist)
 return
 
 % ----------------------------------------------------------------------------------------------------
-% ----------------------------------------------------------------------------------------------------
-%% dynamics of body and Earth-Moon barycenter longitude. Body is subjected
+% dynamics of body and Earth-Moon barycenter longitude. Body is subjected 
 % to Sun and EMB gravities (so Moon ~included). In Heliocentric ecliptic
 function xdot = rhs_SEMB_Sun(t, x)
 
@@ -222,7 +219,6 @@ function xdot = rhs_SEMB_Sun(t, x)
     xdot    = [v; -mu0_Sun*r/norm(r,2)^3 - 1.0*mu0_EMB*(r-r_EMB)/norm(r-r_EMB,2)^3; Ldot];
 return
 
-% ----------------------------------------------------------------------------------------------------
 % ----------------------------------------------------------------------------------------------------
 function qLdot = rhs_4B_Sun_AU(t, qL)
     % dans ref inertiel centre soleil
@@ -262,7 +258,7 @@ function qLdot = rhs_4B_Sun_AU(t, qL)
     qLdot       = zeros(7,1);
     qLdot(1:3)  = v;
     qLdot(4:6)  = -mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3; % ...
-                  +mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
+                  %+mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
     qLdot(7)    = Ldot;
 
 return

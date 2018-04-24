@@ -10,13 +10,13 @@ format long;
 %
 
 % ----------------------------------------------------------------------------------------------------
-DC          = get_Display_Constants(); % Display constants
+% DC          = get_Display_Constants(); % Display constants
 UC          = get_Univers_Constants(); % Univers constants
 
 
-Isp     = 375/UC.time_syst;
-g0      = 9.80665*1e-3*(UC.time_syst)^2/UC.LD;
-Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD;
+% Isp     = 375/UC.time_syst;
+% g0      = 9.80665*1e-3*(UC.time_syst)^2/UC.LD;
+% Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD;
 
 %
 
