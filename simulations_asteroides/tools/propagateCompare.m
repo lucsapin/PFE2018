@@ -1,6 +1,6 @@
-function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP_in_EMB, color, LW, hFigSpace, qM, qE, qL2, tf, t0_day, q0_SUN_AU] = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, display)
+function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP_in_EMB, color, LW, hFigSpace, qM, qE, qL2, tf, t0_day] = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, display, Sansmax, TmaxN, m0)
 
-  [outputOptimization, ~] = loadFile(destination, typeSimu, numAsteroid, numOpti);
+  [outputOptimization, ~] = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax);
 
 
   % Get initial condition
@@ -29,5 +29,6 @@ function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP_in_EMB, color, LW, hFigSpace, qM, q
     error('Wrong destination name!');
   end
 
+  do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN, tf_guess, m0, dist)
 
 return

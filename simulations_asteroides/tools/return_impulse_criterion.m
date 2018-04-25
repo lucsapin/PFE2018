@@ -1,4 +1,4 @@
-function [F_EMB, delta_v_EMB] = return_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination)
+function [F_EMB, delta_v_EMB] = return_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination, Sansmax)
 
 UC          = get_Univers_Constants();
 
@@ -18,9 +18,15 @@ else
     error('Wrong destination name!');
 end
 
-max_delta_V_EMB = 0.5*sqrt(max(0.0, norm(delta_Vf_r_EMB)-UC.v0AUJour)^2+1e-12);
+if Sansmax
+    delta_v_EMB     = norm(delta_Vf_r_EMB) + norm(delta_V1_r) + norm(delta_V0_r);
+    
+else
+    max_delta_V_EMB = 0.5*sqrt(max(0.0, norm(delta_Vf_r_EMB)-UC.v0AUJour)^2+1e-12);
+    delta_v_EMB     = max_delta_V_EMB + norm(delta_V1_r) + norm(delta_V0_r);
+    
+end
 
-delta_v_EMB     = max_delta_V_EMB + norm(delta_V1_r) + norm(delta_V0_r);
 %F           = scaling*(max_delta_V^2 + norm(delta_V1_r)^2 + norm(delta_V0_r)^2) + poids*(t0_r + dt1_r + dtf_r);
 F_EMB           = delta_v_EMB + poids*(t0_r + dt1_r + dtf_r);
 

@@ -1,45 +1,67 @@
+close all;
+set(0,  'defaultaxesfontsize'   ,  16     , ...
+    'DefaultTextVerticalAlignment'  , 'bottom', ...
+    'DefaultTextHorizontalAlignment', 'left'  , ...
+    'DefaultTextFontSize'           ,  16     , ...
+    'DefaultFigureWindowStyle','docked');
+
+axisColor = 'k--';
+
 addpath('tools');
 
 
+%% Comparaison entre L2 sans max, L2 avec max et EMB avec max
+typeSimu = 'outbound';
+Sansmax = true;
+[delta_VL2_Sansmax, nbOptiL2_Sansmax, t0L2_Sansmax, dt1L2_Sansmax, dtfL2_Sansmax] = getResults('L2', typeSimu, Sansmax);
+[delta_VL2_max, nbOptiL2_max, t0L2_max, dt1L2_max, dtfL2_max] = getResults('L2', typeSimu, ~Sansmax);
+[delta_VEMB_Sansmax, nbOptiEMB_Sansmax, t0EMB_Sansmax, dt1EMB_Sansmax, dtfEMB_Sansmax] = getResults('EMB', typeSimu, Sansmax);
+[delta_VEMB_max, nbOptiEMB_max, t0EMB_max, dt1EMB_max, dtfEMB_max] = getResults('EMB', typeSimu, ~Sansmax);
 
-delta_V_EMB = zeros(1, 10);
-nbOpti_EMB = zeros(1, 10);
-delta_V_L2 = zeros(1, 10);
-nbOpti_L2 = zeros(1, 10);
+%% Comparaison resultats BOCOP entre L2 et EMB
+[~, iterationsL2, objectiveL2, constraintsL2] = loadResultsBocop('L2');
+[~, iterationsEMB, objectiveEMB, constraintsEMB] = loadResultsBocop('EMB');
 
-t0_EMB = zeros(1, 10);
-t0_L2 = zeros(1, 10);
 
-dt1_EMB = zeros(1, 10);
-dt1_L2 = zeros(1, 10);
+%% Figures
 
-dtf_EMB = zeros(1, 10);
-dtf_L2 = zeros(1, 10);
+% Plot opti results
 
-typeSimu = 'return';
-for numAst=1:10
-    [delta_V_EMB(numAst), nbOpti_EMB(numAst), t0_EMB(numAst), dt1_EMB(numAst), dtf_EMB(numAst)] = storeResults('EMB', typeSimu, numAst);
-    [delta_V_L2(numAst), nbOpti_L2(numAst), t0_L2(numAst), dt1_L2(numAst), dtf_L2(numAst)] = storeResults('L2', typeSimu, numAst);
-end
-
-abscisse = linspace(1, 10, 10);
 figure;
-scatter(abscisse, delta_V_EMB); hold on; scatter(abscisse, delta_V_L2);
-legend('EMB', 'L2');
-title([typeSimu ' : \Delta V = f(Asteroid)']);
+scatter(abscisse, delta_VL2_Sansmax); hold on; scatter(abscisse, delta_VL2_max); hold on; 
+scatter(abscisse, delta_VEMB_Sansmax); hold on; scatter(abscisse, delta_VEMB_max);
+legend('L2 without max', 'L2 with max', 'EMB without max', 'EMB with max'); title([typeSimu ' : \Delta V = f(Asteroid)']);
+
 figure;
-scatter(abscisse, nbOpti_EMB); hold on; scatter(abscisse, nbOpti_L2);
-legend('EMB', 'L2');
-title([typeSimu ' : nbOpti = f(Asteroid)']);
+scatter(abscisse, nbOptiL2_Sansmax); hold on; scatter(abscisse, nbOptiL2_max); hold on;
+scatter(abscisse, nbOptiEMB_Sansmax); hold on; scatter(abscisse, nbOptiEMB_max);
+legend('L2 without max', 'L2 with max', 'EMB without max', 'EMB with max'); title([typeSimu ' : nbOpti = f(Asteroid)']);
+
 figure;
-scatter(abscisse, t0_EMB); hold on; scatter(abscisse, t0_L2);
-legend('EMB', 'L2');
-title([typeSimu ' : t0 = f(Asteroid)']);
+scatter(abscisse, t0L2_Sansmax); hold on; scatter(abscisse, t0L2_max); hold on;
+scatter(abscisse, t0EMB_Sansmax); hold on; scatter(abscisse, t0EMB_max);
+legend('L2 without max', 'L2 with max', 'EMB without max', 'EMB with max'); title([typeSimu ' : t0 = f(Asteroid)']);
+
 figure;
-scatter(abscisse, dt1_EMB); hold on; scatter(abscisse, dt1_L2);
-legend('EMB', 'L2');
-title([typeSimu ' : dt1 = f(Asteroid)']);
+scatter(abscisse, dt1L2_Sansmax); hold on; scatter(abscisse, dt1L2_max); hold on;
+scatter(abscisse, dt1EMB_Sansmax); hold on; scatter(abscisse, dt1EMB_max);
+legend('L2 without max', 'L2 with max', 'EMB without max', 'EMB with max'); title([typeSimu ' : dt1 = f(Asteroid)']);
+
 figure;
-scatter(abscisse, dtf_EMB); hold on; scatter(abscisse, dtf_L2);
-legend('EMB', 'L2');
-title([typeSimu ' : dtf = f(Asteroid)']);
+scatter(abscisse, dtfL2_Sansmax); hold on; scatter(abscisse, dtfL2_max); hold on;
+scatter(abscisse, dtfEMB_Sansmax); hold on; scatter(abscisse, dt1EMB_max);
+legend('L2 without max', 'L2 with max', 'EMB without max', 'EMB with max'); title([typeSimu ' : dtf = f(Asteroid)']);
+
+% Plot bocop results
+
+figure;
+scatter(abscisse, iterationsEMB); hold on; scatter(abscisse, iterationsL2);
+legend('EMB', 'L2'); title('Bocop results : iterations');
+
+figure;
+scatter(abscisse, objectiveEMB); hold on; scatter(abscisse, objectiveL2);
+legend('EMB', 'L2'); title('Bocop results : objective');
+
+figure;
+scatter(abscisse, constraintsEMB); hold on; scatter(abscisse, constraintsL2);
+legend('EMB', 'L2'); title('Bocop results : constraints');

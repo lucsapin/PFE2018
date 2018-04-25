@@ -1,7 +1,7 @@
 % Script to optimize the outbound 3 impulse manoeuver: from EMB to asteroid
 %
 
-function outbound_impulse_optimization(numAsteroid, numOptiReturn, destination)
+function outbound_impulse_optimization(numAsteroid, numOptiReturn, destination, Sansmax)
 
 % numAsteroid: the numero of the asteroid for which we perform the optimization
 % numOptiReturn: the outbound trip is optimize with the constraint that the spacecraft must
@@ -23,11 +23,15 @@ format shortE;
 addpath('tools/');
 
 %
-repOutput = ['results/outbound_impulse_' destination '/'];
-if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
+if Sansmax
+    repOutput = ['results/outbound_impulse_' destination '_Sansmax/'];
+    repOutputReturn  = ['results/return_impulse_' destination '_Sansmax/'];
+else
+    repOutput = ['results/outbound_impulse_' destination '/'];
+    repOutputReturn  = ['results/return_impulse_' destination '/'];
+end
 
-% Directory of the return data
-repOutputReturn = ['results/return_impulse_' destination '/'];
+if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
 if(~exist(repOutputReturn,'dir')); error('Wrong result directory name!'); end
 
 file2loadReturn = [repOutputReturn 'asteroid_no_' int2str(numAsteroid)];
@@ -137,7 +141,7 @@ else
 end
 
 % Criterion
-F0                  = @(X) outbound_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination);
+F0                  = @(X) outbound_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination, Sansmax);
 
 % Solver
 [Xsol,Fsol,exitflag,output,~,~,~] = fmincon(F0,X0,[],[],[],[],LB,UB,nonlc,optionsFmincon);
@@ -159,7 +163,7 @@ if(exitflag == 1)
         error('Wrong destination name!');
     end
     
-    [~, delta_V          ]  = outbound_impulse_criterion(Xsol, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination);
+    [~, delta_V          ]  = outbound_impulse_criterion(Xsol, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination, Sansmax);
 
     % We construct the output to save
     outputOptimization.xOrb_epoch_t0_Ast = xOrb_epoch_t0_Ast;

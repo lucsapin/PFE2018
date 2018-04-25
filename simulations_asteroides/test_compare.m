@@ -1,5 +1,6 @@
 % Comparaison des simulations entre L2 et EMB
 %
+clear all;
 close all;
 % ----------------------------------------------------------------------------------------------------
 % Display settings
@@ -29,47 +30,45 @@ Isp     = 375/UC.time_syst; fprintf('Isp = %f \n', Isp);
 g0      = 9.80665*1e-3*(UC.time_syst)^2/UC.LD; fprintf('g0 = %f \n', g0);
 Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD; fprintf('Tmax = %f \n\n', Tmax);
 
-doPlot3B                = false;
 doPlot3B_Pert           = true;
-doPlot3B_Pert_Thomas    = false;
-doPlot4B                = false;
 
 % ----------------------------------------------------------------------------------------------------
 % User Parameters
-case_2_study = 8;
+case_2_study = 10;
 
 switch case_2_study
-
     case 1
-
         numAsteroid         = 1;        % Numero of the asteroid
-        numOpti             = 1;        % Numero of optimization for this asteroid
-        dist                = 0.01;     % We propagate the trajectory to the distance dist (in AU) of EMB
-        m0                  = 1000;      % kg
-        TmaxN               = 50;       % Newton
-
     case 2
-
-        numAsteroid         = 2;        % Numero of the asteroid
-        numOpti             = 1;        % Numero of optimization for this asteroid
-        dist                = 0.01;     % We propagate the trajectory to the distance dist (in AU) of EMB
-        m0                  = 500;      % kg
-        TmaxN               = 50;       % Newton
-
+        numAsteroid         = 2;
+    case 3
+        numAsteroid         = 3;
+    case 4
+        numAsteroid         = 4;
+    case 5
+        numAsteroid         = 5;
+    case 6
+        numAsteroid         = 6;
+    case 7
+        numAsteroid         = 7;
     case 8
-
-        numAsteroid         = 8;        % Numero of the asteroid
-        numOpti             = 1;        % Numero of optimization for this asteroid
-        dist                = 0.01;     % We propagate the trajectory to the distance dist (in AU) of EMB
-        m0                  = 500;      % kg
-        TmaxN               = 50;       % Newton
-
+        numAsteroid         = 8;
+    case 9
+        numAsteroid         = 9;
+    case 10
+        numAsteroid         = 10;
     otherwise
-
         error('No such case to study!');
-
 end
 
+if numAsteroid==1
+    m0 = 1000; % kg
+else
+    m0 = 500;  % kg
+end
+TmaxN               = 50;       % Newton
+dist                = 0.01;     % We propagate the trajectory to the distance dist (in AU) of EMB
+numOpti             = 1;        % Numero of optimization for this asteroid
 
 % ----------------------------------------------------------------------------------------------------
 % Definition of all the parameters
@@ -81,10 +80,10 @@ the_legend  = {};
 typeSimu = 'total';
 % Computation of trajectories for each destination
 disp('EMB Computation');
-[T_CR3BP_in_EMB, Q_EMB_SUN_EMB, Q_CR3BP_in_EMB_EMB, color_EMB, LW_EMB, hFigSpace, qM, qE, qL2, tfEMB, t0_day_EMB, q0_SUN_AU_EMB] = propagateCompare('EMB', typeSimu, numAsteroid, numOpti, dist, true);
+[T_CR3BP_in_EMB, Q_EMB_SUN_EMB, Q_CR3BP_in_EMB_EMB, color_EMB, LW_EMB, hFigSpace, qM, qE, qL2, tfEMB, t0_day_EMB] = propagateCompare('EMB', typeSimu, numAsteroid, numOpti, dist, true, false, TmaxN, m0);
 
 disp('L2 Computation');
-[             ~,  Q_EMB_SUN_L2,  Q_CR3BP_in_EMB_L2,  color_L2,  LW_L2,         ~, ~, ~, ~, tfL2, t0_day_L2, q0_SUN_AU_L2] = propagateCompare('L2', typeSimu, numAsteroid, numOpti, dist, false);
+[             ~, Q_EMB_SUN_L2, Q_CR3BP_in_EMB_L2,  color_L2,  LW_L2, ~, ~, ~, ~, tfL2, t0_day_L2] = propagateCompare('L2', typeSimu, numAsteroid, numOpti, dist, false, false, TmaxN, m0);
 
 figure(hFigSpace.figure);
 subplot(hFigSpace.subplot{:});
@@ -97,15 +96,15 @@ figure(hFigTraj);
 
 qEarth_SUN = [Q_EMB_SUN_EMB(:, end); zeros(3,1)]*UC.AU/UC.LD + qE;
 [qEarth_CR3BP,~, ~, ~, ~] = Helio2CR3BP(qEarth_SUN, tfEMB);
-[qEarthHill_CR3BP,~, ~, ~, ~] = Helio2CR3BP([Q_EMB_SUN_EMB(:, end); zeros(3,1)]*UC.AU/UC.LD + qEHill_EMB, t0_day);
+[qEarthHill_CR3BP,~, ~, ~, ~] = Helio2CR3BP([Q_EMB_SUN_EMB(:, end); zeros(3,1)]*UC.AU/UC.LD + qEHill_EMB, t0_day_EMB);
 
 qMoon_SUN = [Q_EMB_SUN_EMB(:, end); zeros(3,1)]*UC.AU/UC.LD + qM;
 [qMoon_CR3BP,~, ~, ~, ~] = Helio2CR3BP(qMoon_SUN, tfEMB);
-[qMoonHill_CR3BP,~, ~, ~, ~] = Helio2CR3BP([Q_EMB_SUN_EMB(:, end); zeros(3,1)]*UC.AU/UC.LD + qMHill_EMB, t0_day);
+[qMoonHill_CR3BP,~, ~, ~, ~] = Helio2CR3BP([Q_EMB_SUN_EMB(:, end); zeros(3,1)]*UC.AU/UC.LD + qMHill_EMB, t0_day_EMB);
 
 qL2_SUN = [Q_EMB_SUN_EMB(:, end); zeros(3,1)]*UC.AU/UC.LD + qL2;
 [qL2_CR3BP,~, ~, ~, ~] = Helio2CR3BP(qL2_SUN, tfEMB);
-[qL2Hill_CR3BP,~, ~, ~, ~] = Helio2CR3BP([Q_EMB_SUN_EMB(:, end); zeros(3,1)]*UC.AU/UC.LD + qL2Hill_EMB, t0_day);
+[qL2Hill_CR3BP,~, ~, ~, ~] = Helio2CR3BP([Q_EMB_SUN_EMB(:, end); zeros(3,1)]*UC.AU/UC.LD + qL2Hill_EMB, t0_day_EMB);
 
 
 if (doPlot3B_Pert)
@@ -147,6 +146,3 @@ plot(Q_CR3BP_in_EMB_L2(2,1), Q_CR3BP_in_EMB_L2(1,1), 'o');
 % plot(qMoonHill_CR3BP(2), qMoonHill_CR3BP(1), '+'); hold on;
 % plot(qL2Hill_CR3BP(2), qL2Hill_CR3BP(1), '+');
 ylabel('q_2=f(q_1)');
-
-Q_CR3BP_in_EMB_EMB(1,1)
-Q_CR3BP_in_EMB_EMB(2,1)

@@ -1,8 +1,13 @@
-function [ outputOptimization, nbOpti ] = loadFile( destination, typeSimu, numAsteroid, numOpti )
+function [ outputOptimization, nbOpti ] = loadFile( destination, typeSimu, numAsteroid, numOpti, Sansmax )
 % function: Short description
 %
 % Extended description
-dirLoad = ['results/' typeSimu '_impulse_' destination '/'];
+if Sansmax && strcmp(destination, 'L2')
+    dirLoad = ['results/' typeSimu '_impulse_' destination '_Sansmax/'];
+else
+    dirLoad = ['results/' typeSimu '_impulse_' destination '/'];    
+end
+
 if(~exist(dirLoad,'dir')); error('Wrong directory name!'); end
 
 file2load = [dirLoad 'asteroid_no_' int2str(numAsteroid)];

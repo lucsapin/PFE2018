@@ -47,7 +47,7 @@ delta_Vf_o      = final_state_Ast(4:6)-qf(4:6);
 v0_EMB = delta_V0_o*UC.AU/UC.LD; % = (xC0(4:6)-xEMB0(4:6))*AU/LD;
 
 % Moon's state in EMB
-[qM,~] = get_Moon_Earth_State_Cart_LD(t0);
+[qM, ~, ~] = get_Moon_Earth_L2_State_Cart_LD(t0);
 
 % Normal to Moon's orbital plane in EMB centric
 normal = cross(qM(1:3),qM(4:6));
