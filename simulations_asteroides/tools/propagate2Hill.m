@@ -5,11 +5,8 @@ function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, hFigSpa
 % dist in AU : we stop the integration when the spacecraft is at a distance dist from EMB
 %
 
-<<<<<<< HEAD
-=======
 % times_out   = [];
 % traj_out    = [];
->>>>>>> 7abd35156ab6972b1631614f348d5ebc721726f1
 time_Hill   = 0;
 state_Hill  = [];
 xC_EMB_HIll = [];
@@ -47,7 +44,7 @@ dVf_r               =   outputTotalOpti.dVf_r       ;
 % Fsol                =   outputTotalOpti.Fsol        ;
 % exitflag            =   outputTotalOpti.exitflag    ;
 % output              =   outputTotalOpti.output      ;
-% 
+%
 % duration_o          = dt1_o + dtf_o;
 % duration_r          = dt1_r + dtf_r;
 % tf_o                = t0_o + dt1_o + dtf_r;
@@ -162,11 +159,7 @@ if(~isempty(time_event))
     L_EMB       = state_q_L_event(7);
     xC_EMB_HIll = Gauss2Cart(UC.mu0SunAU, [xG_EMB(1:5); L_EMB]);
     flag    = 1;
-<<<<<<< HEAD
-    [~,~,~] = HillTouch(time_Hill, [state_Hill; L_EMB], UC.mu0SunAU, xG_EMB, dist);
-=======
 %     [value,isterminal,direction] = HillTouch(time_Hill, [state_Hill; L_EMB], UC.mu0SunAU, xG_EMB, dist);
->>>>>>> 7abd35156ab6972b1631614f348d5ebc721726f1
 end
 
 %hFigTraj = figure;
@@ -182,11 +175,7 @@ end
 % On affiche la distance en fonction du temps
 d=zeros(1, length(times_out));
 for i=1:length(times_out)
-<<<<<<< HEAD
-    [value,~,~] = HillTouch(times_out(i), traj_out(:,i), UC.mu0SunAU, xG_EMB, dist);
-=======
     [value, ~, ~] = HillTouch(times_out(i), traj_out(:,i), UC.mu0SunAU, xG_EMB, dist);
->>>>>>> 7abd35156ab6972b1631614f348d5ebc721726f1
     d(i) = value;
 end
 
@@ -213,7 +202,7 @@ function [value,isterminal,direction] = HillTouch(t, x, mu0_Sun, xG_EMB, dist)
 return
 
 % ----------------------------------------------------------------------------------------------------
-% dynamics of body and Earth-Moon barycenter longitude. Body is subjected 
+% dynamics of body and Earth-Moon barycenter longitude. Body is subjected
 % to Sun and EMB gravities (so Moon ~included). In Heliocentric ecliptic
 function xdot = rhs_SEMB_Sun(t, x)
 

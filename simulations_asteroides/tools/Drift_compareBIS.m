@@ -10,7 +10,6 @@ format long;
 %
 
 % ----------------------------------------------------------------------------------------------------
-<<<<<<< HEAD
 % DC          = get_Display_Constants(); % Display constants
 UC          = get_Univers_Constants(); % Univers constants
 
@@ -21,10 +20,6 @@ UC          = get_Univers_Constants(); % Univers constants
 
 %
 
-=======
-UC          = get_Univers_Constants(); % Univers constants
-
->>>>>>> 7abd35156ab6972b1631614f348d5ebc721726f1
 % On transforme q0 dans les 2 referentiels
 [q0_CR3BP,~,~,~,thetaS0]    = Helio2CR3BP(q0_SUN_AU, t0);       % q en LD/d
 
