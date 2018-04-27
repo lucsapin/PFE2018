@@ -34,11 +34,11 @@ doPlot3B_Pert           = true;
 
 % ----------------------------------------------------------------------------------------------------
 % User Parameters
-numAsteroid         = 1;
+numAsteroid         = 10;
 TmaxN               = 50;       % Newton
 dist                = 0.01;     % We propagate the trajectory to the distance dist (in AU) of EMB
 numOpti             = 1;        % Numero of optimization for this asteroid
-m0 = 1000; % kg
+m0                  = 500; % kg
 
 % ----------------------------------------------------------------------------------------------------
 % Definition of all the parameters
@@ -100,9 +100,9 @@ subplot(3,2,4);
 subplot(3,2,6);
 
 figure;
-display_Moon();
-display_Earth();
-display_L2();
+display_Moon(); hold on;
+display_Earth(); hold on;
+display_L2(); hold on;
 plot3(zB_L2(1,:), zB_L2(2,:), zB_L2(3,:)); hold on;
 plot3(zB_EMB(1,:), zB_EMB(2,:), zB_EMB(3,:)); hold on;
 plot3(Q_CR3BP_EMB(1,:), Q_CR3BP_EMB(2,:), Q_CR3BP_EMB(3,:), color_EMB, 'LineWidth', LW_EMB); hold on;
@@ -112,6 +112,7 @@ plot3(Q_CR3BP_L2(1,:), Q_CR3BP_L2(2,:), Q_CR3BP_L2(3,:), color_L2, 'LineWidth', 
 % plot(qEarthHill_CR3BP(2), qEarthHill_CR3BP(1), '+'); hold on;
 % plot(qMoonHill_CR3BP(2), qMoonHill_CR3BP(1), '+'); hold on;
 % plot(qL2Hill_CR3BP(2), qL2Hill_CR3BP(1), '+');
+legend('Moon', 'Earth', 'L2', 'zB L2', 'zB EMB', 'Drift Compare EMB', 'Drift Compare L2');
 xlabel('q_1');
 ylabel('q_2');
 zlabel('q_3');
