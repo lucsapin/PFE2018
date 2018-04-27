@@ -5,50 +5,50 @@ function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, hFigSpa
 % dist in AU : we stop the integration when the spacecraft is at a distance dist from EMB
 %
 
-times_out   = [];
-traj_out    = [];
+% times_out   = [];
+% traj_out    = [];
 time_Hill   = 0;
 state_Hill  = [];
 xC_EMB_HIll = [];
 flag        = -1;
 
 % ----------------------------------------------------------------------------------------------------
-DC          = get_Display_Constants(); % Display constants
+% DC          = get_Display_Constants(); % Display constants
 UC          = get_Univers_Constants(); % Univers constants
 
 % get Data
 %
 xOrb_epoch_t0_Ast   =   outputTotalOpti.xOrb_epoch_t0_Ast;
-numAsteroid         =   outputTotalOpti.numAsteroid ;
-dVmax               =   outputTotalOpti.dVmax       ;
-ratio               =   outputTotalOpti.ratio       ;
-LB                  =   outputTotalOpti.LB          ;
-UB                  =   outputTotalOpti.UB          ;
-X0                  =   outputTotalOpti.X0          ;
-Xsol                =   outputTotalOpti.Xsol        ;
-t0_o                =   outputTotalOpti.t0_o        ;
-dt1_o               =   outputTotalOpti.dt1_o       ;
-dtf_o               =   outputTotalOpti.dtf_o       ;
+% numAsteroid         =   outputTotalOpti.numAsteroid ;
+% dVmax               =   outputTotalOpti.dVmax       ;
+% ratio               =   outputTotalOpti.ratio       ;
+% LB                  =   outputTotalOpti.LB          ;
+% UB                  =   outputTotalOpti.UB          ;
+% X0                  =   outputTotalOpti.X0          ;
+% Xsol                =   outputTotalOpti.Xsol        ;
+% t0_o                =   outputTotalOpti.t0_o        ;
+% dt1_o               =   outputTotalOpti.dt1_o       ;
+% dtf_o               =   outputTotalOpti.dtf_o       ;
 t0_r                =   outputTotalOpti.t0_r        ;
 dt1_r               =   outputTotalOpti.dt1_r       ;
 dtf_r               =   outputTotalOpti.dtf_r       ;
-dV0_o               =   outputTotalOpti.dV0_o       ;
-dV1_o               =   outputTotalOpti.dV1_o       ;
+% dV0_o               =   outputTotalOpti.dV0_o       ;
+% dV1_o               =   outputTotalOpti.dV1_o       ;
 dV0_r               =   outputTotalOpti.dV0_r       ;
 dV1_r               =   outputTotalOpti.dV1_r       ;
-dVf_o               =   outputTotalOpti.dVf_o       ;
+% dVf_o               =   outputTotalOpti.dVf_o       ;
 dVf_r               =   outputTotalOpti.dVf_r       ;
-delta_V             =   outputTotalOpti.delta_V     ;
-delta_V_o           =   outputTotalOpti.delta_V_o   ;
-delta_V_r           =   outputTotalOpti.delta_V_r   ;
-Fsol                =   outputTotalOpti.Fsol        ;
-exitflag            =   outputTotalOpti.exitflag    ;
-output              =   outputTotalOpti.output      ;
-
-duration_o          = dt1_o + dtf_o;
-duration_r          = dt1_r + dtf_r;
-tf_o                = t0_o + dt1_o + dtf_r;
-tf_r                = t0_r + dt1_r + dtf_r;
+% delta_V             =   outputTotalOpti.delta_V     ;
+% delta_V_o           =   outputTotalOpti.delta_V_o   ;
+% delta_V_r           =   outputTotalOpti.delta_V_r   ;
+% Fsol                =   outputTotalOpti.Fsol        ;
+% exitflag            =   outputTotalOpti.exitflag    ;
+% output              =   outputTotalOpti.output      ;
+% 
+% duration_o          = dt1_o + dtf_o;
+% duration_r          = dt1_r + dtf_r;
+% tf_o                = t0_o + dt1_o + dtf_r;
+% tf_r                = t0_r + dt1_r + dtf_r;
 
 % ----------------------------------------------------------------------------------------------------
 % Display trajectory to compare
@@ -65,7 +65,7 @@ end
 %figure('DefaultAxesColor', DC.blanc, 'Units', 'normalized');
 %set(hFigSpace_r, 'OuterPosition', [ 0.0   0.0   0.49   0.45 ]); hold on; %axis equal;
 
-[times, states, q0, q1, qf] = get_Trajectory_SpaceCraft(xOrb_epoch_t0_Ast, t0_r, dt1_r, dtf_r, dV0_r, dV1_r, dVf_r);
+[~, states, ~, ~, ~] = get_Trajectory_SpaceCraft(xOrb_epoch_t0_Ast, t0_r, dt1_r, dtf_r, dV0_r, dV1_r, dVf_r);
 
 %hFigTraj = figure;
 %figure(hFigTraj)
@@ -101,7 +101,7 @@ odefun              = @(t,x) rhs_SEMB_Sun(t, x);
 %ii                  = find(times<=t0_r+dt1_r);
 %[times, states_q_L, time_event, state_q_L_event] = ode45(odefun, times(ii), state_q_L_init, OptionsOde);
 
-[times, states_q_L, time_event, state_q_L_event] = ode45(odefun, [t0_r t0_r+dt1_r], state_q_L_init, OptionsOde);
+[times, states_q_L, time_event, ~] = ode45(odefun, [t0_r t0_r+dt1_r], state_q_L_init, OptionsOde);
 times       = times(:)';
 states_q_L  = transpose(states_q_L);
 
@@ -114,7 +114,7 @@ traj_out    = states_q_L(1:7,:);
 
 if(~isempty(time_event))
     error('We reach the required distance to EMB at time t0_r + dt1_r!');
-end;
+end
 
 %subplot(3,2,1); plot(times, abs(states_q_L(1,:)-states(1,ii)), 'r'); ylabel('q_1'); hold on;
 %subplot(3,2,3); plot(times, abs(states_q_L(2,:)-states(2,ii)), 'r'); ylabel('q_2'); hold on;
@@ -159,8 +159,8 @@ if(~isempty(time_event))
     L_EMB       = state_q_L_event(7);
     xC_EMB_HIll = Gauss2Cart(UC.mu0SunAU, [xG_EMB(1:5); L_EMB]);
     flag    = 1;
-    [value,isterminal,direction] = HillTouch(time_Hill, [state_Hill; L_EMB], UC.mu0SunAU, xG_EMB, dist);
-end;
+%     [value,isterminal,direction] = HillTouch(time_Hill, [state_Hill; L_EMB], UC.mu0SunAU, xG_EMB, dist);
+end
 
 %hFigTraj = figure;
 %figure(hFigTraj)
@@ -173,9 +173,9 @@ end;
 %
 % ----------------------------------------------------------------------------------------------------
 % On affiche la distance en fonction du temps
-d=[];
+d=zeros(1, length(times_out));
 for i=1:length(times_out)
-    [value,isterminal,direction] = HillTouch(times_out(i), traj_out(:,i), UC.mu0SunAU, xG_EMB, dist);
+    [value, ~, ~] = HillTouch(times_out(i), traj_out(:,i), UC.mu0SunAU, xG_EMB, dist);
     d(i) = value;
 end
 

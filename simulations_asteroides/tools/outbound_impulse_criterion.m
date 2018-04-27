@@ -25,6 +25,7 @@ if Sansmax
     
 else
     max_delta_V = 0.5*sqrt((max(0.0,norm(delta_V0_o)-UC.v0AUJour))^2+veps);
+    
     delta_V     = max_delta_V + norm(delta_V1_o) + norm(delta_Vf_o) + poids*(t0 + dt1_o + dtf_o);
     
 end

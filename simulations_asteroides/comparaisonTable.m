@@ -13,10 +13,11 @@ addpath('tools');
 %% Comparaison entre L2 sans max, L2 avec max et EMB avec max
 typeSimu = 'outbound';
 Sansmax = true;
-[delta_VL2_Sansmax, nbOptiL2_Sansmax, t0L2_Sansmax, dt1L2_Sansmax, dtfL2_Sansmax] = getResults('L2', typeSimu, Sansmax);
-[delta_VL2_max, nbOptiL2_max, t0L2_max, dt1L2_max, dtfL2_max] = getResults('L2', typeSimu, ~Sansmax);
-[delta_VEMB_Sansmax, nbOptiEMB_Sansmax, t0EMB_Sansmax, dt1EMB_Sansmax, dtfEMB_Sansmax] = getResults('EMB', typeSimu, Sansmax);
-[delta_VEMB_max, nbOptiEMB_max, t0EMB_max, dt1EMB_max, dtfEMB_max] = getResults('EMB', typeSimu, ~Sansmax);
+[delta_VOutbound_L2, delta_VReturn_L2, t0Outbound_L2, tfOutbound_L2, t0Return_L2, tfReturn_L2] = getResults('L2', typeSimu, Sansmax);
+[delta_VOutbound_L2_max, delta_VReturn_L2_max, t0Outbound_L2_max, tfOutbound_L2_max, t0Return_L2_max, tfReturn_L2_max] = getResults('L2', typeSimu, ~Sansmax);
+
+[delta_VOutbound_EMB, delta_VReturn_EMB, t0Outbound_EMB, tfOutbound_EMB, t0Return_EMB, tfReturn_EMB] = getResults('EMB', typeSimu, Sansmax);
+[delta_VOutbound_EMB_max, delta_VReturn_EMB_max, t0Outbound_EMB_max, tfOutbound_EMB_max, t0Return_EMB_max, tfReturn_EMB_max] = getResults('EMB', typeSimu, ~Sansmax);
 
 %% Comparaison resultats BOCOP entre L2 et EMB
 [~, iterationsL2, objectiveL2, constraintsL2] = loadResultsBocop('L2');
@@ -26,31 +27,27 @@ Sansmax = true;
 %% Figures
 
 % Plot opti results
+abscisse = linspace(1,10,10);
+figure;
+plot(delta_VOutbound_L2, 'r+'); hold on; plot(delta_VOutbound_L2_max, 'b+'); hold on;
+plot(delta_VOutbound_EMB, 'g+'); hold on; plot(delta_VOutbound_EMB_max, 'm+'); hold on;
+plot(delta_VReturn_L2, 'ro'); hold on; plot(delta_VReturn_L2_max, 'bo'); hold on;
+plot(delta_VReturn_EMB, 'go'); hold on; plot(delta_VReturn_EMB_max, 'mo');
+legend('Outbound L2', 'Outbound L2 max', 'Outbound EMB', 'Outbound EMB max', 'Return L2', 'Return L2 max', 'Return EMB', 'Return EMB max'); title(['\Delta V = f(Asteroid)']);
 
 figure;
-scatter(abscisse, delta_VL2_Sansmax); hold on; scatter(abscisse, delta_VL2_max); hold on; 
-scatter(abscisse, delta_VEMB_Sansmax); hold on; scatter(abscisse, delta_VEMB_max);
-legend('L2 without max', 'L2 with max', 'EMB without max', 'EMB with max'); title([typeSimu ' : \Delta V = f(Asteroid)']);
+plot(t0Outbound_L2, 'r+'); hold on; plot(t0Outbound_L2_max, 'b+'); hold on;
+plot(t0Outbound_EMB, 'g+'); hold on; plot(t0Outbound_EMB_max, 'm+'); hold on;
+plot(t0Return_L2, 'ro'); hold on; plot(t0Return_L2_max, 'bo'); hold on;
+plot(t0Return_EMB, 'go'); hold on; plot(t0Return_EMB_max, 'mo');
+legend('Outbound L2', 'Outbound L2 max', 'Outbound EMB', 'Outbound EMB max', 'Return L2', 'Return L2 max', 'Return EMB', 'Return EMB max'); title(['t0 = f(Asteroid)']);
 
 figure;
-scatter(abscisse, nbOptiL2_Sansmax); hold on; scatter(abscisse, nbOptiL2_max); hold on;
-scatter(abscisse, nbOptiEMB_Sansmax); hold on; scatter(abscisse, nbOptiEMB_max);
-legend('L2 without max', 'L2 with max', 'EMB without max', 'EMB with max'); title([typeSimu ' : nbOpti = f(Asteroid)']);
-
-figure;
-scatter(abscisse, t0L2_Sansmax); hold on; scatter(abscisse, t0L2_max); hold on;
-scatter(abscisse, t0EMB_Sansmax); hold on; scatter(abscisse, t0EMB_max);
-legend('L2 without max', 'L2 with max', 'EMB without max', 'EMB with max'); title([typeSimu ' : t0 = f(Asteroid)']);
-
-figure;
-scatter(abscisse, dt1L2_Sansmax); hold on; scatter(abscisse, dt1L2_max); hold on;
-scatter(abscisse, dt1EMB_Sansmax); hold on; scatter(abscisse, dt1EMB_max);
-legend('L2 without max', 'L2 with max', 'EMB without max', 'EMB with max'); title([typeSimu ' : dt1 = f(Asteroid)']);
-
-figure;
-scatter(abscisse, dtfL2_Sansmax); hold on; scatter(abscisse, dtfL2_max); hold on;
-scatter(abscisse, dtfEMB_Sansmax); hold on; scatter(abscisse, dt1EMB_max);
-legend('L2 without max', 'L2 with max', 'EMB without max', 'EMB with max'); title([typeSimu ' : dtf = f(Asteroid)']);
+plot(tfOutbound_L2, 'r+'); hold on; plot(tfOutbound_L2_max, 'b+'); hold on;
+plot(tfOutbound_EMB, 'g+'); hold on; plot(tfOutbound_EMB_max, 'm+'); hold on;
+plot(tfReturn_L2, 'ro'); hold on; plot(tfReturn_L2_max, 'bo'); hold on;
+plot(tfReturn_EMB, 'go'); hold on; plot(tfReturn_EMB_max, 'mo');
+legend('Outbound L2', 'Outbound L2 max', 'Outbound EMB', 'Outbound EMB max', 'Return L2', 'Return L2 max', 'Return EMB', 'Return EMB max'); title(['tf = f(Asteroid)']);
 
 % Plot bocop results
 

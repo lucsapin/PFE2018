@@ -1,4 +1,4 @@
-function [liste_status, liste_iterations, liste_objective, liste_constraints] = loadResultsBocop(destination)
+function [liste_status, liste_iterations, liste_objective, liste_constraints, traj_out] = loadResultsBocop(destination)
 
     liste_status = zeros(1, 10);
     liste_iterations = zeros(1, 10);
@@ -24,12 +24,10 @@ function [liste_status, liste_iterations, liste_objective, liste_constraints] = 
 
         file_results= [dirLoad case_name];
 
-        if(exist([file_results '.mat'],'file')==2)
-            load(file_results);
-        end
+        if(exist([file_results '.mat'],'file')==2); load(file_results); end
 
+        zB = results.min_tf_bocop.zB;
         outputB = results.min_tf_bocop.outputB;
-
         liste_status(numAst) = outputB.status;
         liste_iterations(numAst) = outputB.iterations;
         liste_objective(numAst) = outputB.objective;

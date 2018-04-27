@@ -1,6 +1,5 @@
 % Script pour lancer les optimisations aller
-destination = 'L2
-';
+destination = 'L2';
 Sansmax = true;
 
 if Sansmax

@@ -1,4 +1,4 @@
-function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP_in_EMB] = Drift_compareBIS(t0, dt, q0_SUN_AU)
+function [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_compareBIS(t0, dt, q0_SUN_AU)
 
 format long;
 
@@ -10,28 +10,15 @@ format long;
 %
 
 % ----------------------------------------------------------------------------------------------------
-DC          = get_Display_Constants(); % Display constants
 UC          = get_Univers_Constants(); % Univers constants
-
-
-Isp     = 375/UC.time_syst;
-g0      = 9.80665*1e-3*(UC.time_syst)^2/UC.LD;
-Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD;
-
-%
 
 % On transforme q0 dans les 2 referentiels
 [q0_CR3BP,~,~,~,thetaS0]    = Helio2CR3BP(q0_SUN_AU, t0);       % q en LD/d
-% q0_EMB_LD_old               = CR3BP2EMB(q0_CR3BP,t0);
-
-fprintf('q0_CR3BP = \n'); disp(q0_CR3BP);
 
 % On definit les parametres d'integration
 Nstep       = 100;
-Times       = linspace(t0,t0+dt,Nstep);
+Times       = linspace(t0, t0+dt, Nstep);
 OptionsOde  = odeset('AbsTol',1.e-12,'RelTol',1.e-12);
-
-
 
 % Quelques parametres
 xG_EMB0_AU  = UC.xG_EMB0;
@@ -44,9 +31,6 @@ qS              = -Gauss2Cart(UC.mu0SunAU, [xG_EMB0_AU(1:5); L_EMB0_AU]); % Dans
 q0_EMB_AU       = q0_SUN_AU + qS(1:6);
 q0_EMB_LD       = q0_EMB_AU*UC.AU/UC.LD;
 
-% diff_q0         = q0_EMB_LD_old - q0_EMB_LD;
-
-
 % Dans le repere centre soleil et en AU
 qL0_EMB_LD      = [q0_EMB_LD; L_EMB0_LD];
 [~, Q_EMB_LD]   = ode45(@(t,x) rhs_4B_EMB_LD(t, x), Times, qL0_EMB_LD, OptionsOde); Q_EMB_LD = Q_EMB_LD';
@@ -58,9 +42,6 @@ for i = 1:Nstep
     Q_EMB_SUN(:,i)  = Q_EMB_SUN(:,i)*UC.LD/UC.AU;
 end
 
-
-
-% -------------------------------------------------------------------------------------------------
 % -------------------------------------------------------------------------------------------------
 % Dynamique des 3 corps : initialisation
 %
@@ -69,11 +50,7 @@ muCR3BP     = UC.mu0MoonLD/(UC.mu0EarthLD+UC.mu0MoonLD);
 rhoS        = UC.AU/UC.LD;
 omegaS      = (-(UC.speedMoon+UC.NoeudMoonDot)+2*pi/UC.Period_EMB)/UC.jour*UC.time_syst;
 dt_CR3BP    = dt*UC.jour/UC.time_syst;
-%t0_CR3BP    = t0*UC.jour/UC.time_syst;
-%T_CR3BP     = linspace(t0_CR3BP,t0_CR3BP+dt_CR3BP,Nstep);
 T_CR3BP     = linspace(0.0, dt_CR3BP, Nstep);
-% q0_CR3BP = [1.155681950839609; zeros(5,1)]; % Lagrange L2
-% q0_CR3BP = [1.119353017735519 0 0.011933614199998 0 0.179037935127886 0]'; % Halo-L2
 
 % -------------------------------------------------------------------------------------------------
 % Dynamique des 3 corps perturbe
@@ -84,14 +61,12 @@ Q_CR3BP         = Q_CR3BP';
 
 %
 % Change of coordinates from CR3BP to EMB for comparison
-Q_CR3BP_in_EMB = Q_CR3BP;
-T_CR3BP_in_EMB = T_CR3BP; %*UC.time_syst/UC.jour;
-% T_CR3BP_in_EMB = t0 + T_CR3BP_in_EMB;
+T_CR3BP = T_CR3BP*UC.time_syst/UC.jour;
+T_CR3BP = t0 + T_CR3BP;
+
 % for i = 1:length(T_CR3BP)
 %     Q_CR3BP_in_EMB(:,i) = CR3BP2EMB(Q_CR3BP(:,i), T_CR3BP_in_EMB(i));
 % end
-
-% Q_CR3BP_in_EMB_3 = Q_CR3BP_in_EMB(:,end);
 
 return
 

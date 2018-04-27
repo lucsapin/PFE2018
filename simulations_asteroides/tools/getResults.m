@@ -1,16 +1,32 @@
-function [delta_V, nbOpti, t0, dt1, dtf] = getResults(destination, typeSimu, Sansmax)
-    
-    delta_V= zeros(1, 10);
-    nbOpti = zeros(1, 10);
-    t0 = zeros(1, 10);
-    dt1 = zeros(1, 10);
-    dtf = zeros(1, 10);
+function [delta_V_o, delta_V_r, t0_o, tf_o, t0_r, tf_r] = getResults(destination, typeSimu, Sansmax)
+
+    delta_V_o = zeros(1, 10);
+    delta_V_r = zeros(1, 10);
+    t0_o = zeros(1, 10);
+    tf_o = zeros(1, 10);
+    t0_r = zeros(1, 10);
+    tf_r = zeros(1, 10);
 
     for numAst=1:10
-        [outputOptimization, nbOpti(numAst)] = loadFile(destination, typeSimu, numAst, 1, Sansmax);
-        delta_V(numAst) = outputOptimization.delta_V;
-        t0(numAst) = outputOptimization.t0;
-        dt1(numAst) = outputOptimization.dt1;
-        dtf(numAst) = outputOptimization.dtf;
+        [outputOptimization, ~] = loadFile(destination, typeSimu, numAst, 1, Sansmax);
+        if typeSimu == 'outbound'
+            delta_V_o(numAst) = outputOptimization.delta_V;
+            delta_V_r(numAst) = outputOptimization.optiReturn.delta_V;
+            t0_o(numAst) = outputOptimization.t0;
+            tf_o(numAst) = t0_o(numAst) + outputOptimization.dt1 + outputOptimization.dtf;
+
+            t0_r(numAst) = outputOptimization.optiReturn.t0;
+            tf_r(numAst) = t0_r(numAst) + outputOptimization.optiReturn.dt1 + outputOptimization.optiReturn.dtf;
+        elseif typeSimu == 'total'
+            delta_V_o(numAst) = outputOptimization.delta_V_o;
+            delta_V_r(numAst) = outputOptimization.delta_V_r;
+            t0_o(numAst) = outputOptimization.t0_o;
+            tf_o(numAst) = t0_o(numAst) + outputOptimization.dt1_o + outputOptimization.dtf_o;
+
+            t0_r(numAst) = outputOptimization.t0_r;
+            tf_r(numAst) = t0_r(numAst) + outputOptimization.dt1_r + outputOptimization.dtf_r;
+        else
+            error('Wrong typeSimu name !');
+        end
     end
 return

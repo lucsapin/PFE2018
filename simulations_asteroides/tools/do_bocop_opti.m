@@ -1,18 +1,16 @@
-function do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN, tf_guess, m0, dist)
+function [toutB,stageB,zB,uB,optimvarsB,outputB] = do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN, tf_guess, m0, dist)
 
     UC          = get_Univers_Constants(); % Univers constants
 
     dv0_r_KM_S  = outputOptimization.dV0_r/UC.jour*UC.AU; % km / s
-    fprintf('dv0_r_KM_S = \n'); disp(dv0_r_KM_S);
     dv1_r_KM_S  = outputOptimization.dV1_r/UC.jour*UC.AU; % km / s
-    fprintf('dv1_r_KM_S = \n'); disp(dv1_r_KM_S);
 
     % Define Bocop and HamPath parameters
     [q0_CR3BP,~,~,~,thetaS0] = Helio2CR3BP(q0_SUN_AU, t0_day); % q0 in LD/d
     q0          = q0_CR3BP(1:6); q0 = q0(:);
     qf          = [UC.xL2 0.0 0.0 0.0 0.0 0.0]';
 
-    Tmax        = TmaxN*1e-3*(UC.time_syst)^2/UC.LD; fprintf('Tmax = %f \n', Tmax);
+    Tmax        = TmaxN*1e-3*(UC.time_syst)^2/UC.LD;
     muCR3BP     = UC.mu0MoonLD/(UC.mu0EarthLD+UC.mu0MoonLD);
     muSun       = UC.mu0SunLD/(UC.mu0EarthLD+UC.mu0MoonLD);
     rhoSun      = UC.AU/UC.LD;
@@ -21,9 +19,7 @@ function do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN
 
     g0          = 9.80665*1e-3*(UC.time_syst)^2/UC.LD;
     Isp         = 375/UC.time_syst; % 375 s
-    beta        = 1.0/(Isp*g0); fprintf('beta = %f \n', beta);
-
-    fprintf('beta*Tmax = %f \n', beta*Tmax);
+    beta        = 1.0/(Isp*g0);
 
     % ---------------
     min_dist_2_earth    = 0.0;      %
@@ -54,7 +50,7 @@ function do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN
         save(file_results, 'results');
     end
 
-    results.exec_min_tf_bocop=-1;
+    % results.exec_min_tf_bocop=-1;
     %results.exec_min_tf_hampath=-1;
     %results.exec_regul_log = -1;
     %results.exec_min_conso_free_tf = -1;
@@ -66,7 +62,6 @@ function do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN
     % ----------------------------------------------------------------------------------------------------
     % Bocop solution : min tf
     %
-    disp('Bocop solution : min tf');
     %
     min_tf_bocop        = [];
 
@@ -125,7 +120,7 @@ function do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN
 
     % Computation
     if(results.exec_min_tf_bocop==-1)
-
+        disp('Compute solutions...');
         [toutB,stageB,zB,uB,optimvarsB,outputB] = exec_bocop_min_tf(defPbBocop, init, par_bocop, options, solFileSave);
         fprintf('outputB = '); disp(outputB);
 
@@ -153,5 +148,15 @@ function do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN
         results.exec_min_tf_bocop   = 1;
         results.min_tf_bocop        = min_tf_bocop;
         save(file_results, 'results');
-
+    else
+        disp('Get stored solutions...');
+        min_tf_bocop = results.min_tf_bocop;
+        toutB = min_tf_bocop.toutB;
+        stageB = min_tf_bocop.stageB;
+        zB = min_tf_bocop.zB;
+        uB = min_tf_bocop.uB;
+        optimvarsB = min_tf_bocop.optimvarsB;
+        outputB = min_tf_bocop.outputB;
     end
+
+return

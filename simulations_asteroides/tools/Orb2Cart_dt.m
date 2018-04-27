@@ -26,10 +26,10 @@ function [q,nu] = Orb2Cart_dt(mu0,xOrb,dt)
     while (abs(E-e*sin(E)-M) > tol)&&(j<jMax)
         E = E - (E-e*sin(E)-M)/(1-e*cos(E));
         j = j+1;
-    end;
+    end
     if abs(E-e*sin(E)-M) > tol
         fprintf(1,'[Orb2Cart_dt] Could not compute mean eccentricity !\n');
-    end;
+    end
     % true eccentricity at time dt,
     % N/B : the real part extraction is for when the orbit is not elliptic,
     % result is then not valid but does not provoke an error
