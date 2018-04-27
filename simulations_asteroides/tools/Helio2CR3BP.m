@@ -19,7 +19,7 @@ function [qCR3BP,qEMB,qM,qE,theta_Sun] = Helio2CR3BP(q,t,xG_EMB)
     if (nargin < 3)
         xG_EMB = UC.xG_EMB0;
         xG_EMB(1) = xG_EMB(1)*UC.AU/UC.LD; % En LD
-    end;
+    end
 
     [qEMB, qM, qE, theta_Sun] = EMBstates(t, xG_EMB); % Tout en LD
 

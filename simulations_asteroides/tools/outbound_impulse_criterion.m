@@ -1,4 +1,4 @@
-function [F, delta_V] = outbound_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination)
+function [F, delta_V] = outbound_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination, Sansmax)
 
 UC          = get_Univers_Constants();
 
@@ -19,9 +19,19 @@ else
 end
 
 veps        = 1e-12;
-max_delta_V = 0.5*sqrt((max(0.0,norm(delta_V0_o)-UC.v0AUJour))^2+veps);
 
-delta_V     = max_delta_V + norm(delta_V1_o) + norm(delta_Vf_o) + poids*(t0 + dt1_o + dtf_o);
+if Sansmax
+   delta_V     = norm(delta_V0_o) + norm(delta_V1_o) + norm(delta_Vf_o) + poids*(t0 + dt1_o + dtf_o);
+    
+else
+    max_delta_V = 0.5*sqrt((max(0.0,norm(delta_V0_o)-UC.v0AUJour))^2+veps);
+    
+    delta_V     = max_delta_V + norm(delta_V1_o) + norm(delta_Vf_o) + poids*(t0 + dt1_o + dtf_o);
+    
+end
+
+
+
 %F           = scaling*(max_delta_V^2 + norm(delta_V1_o)^2 + norm(delta_Vf_o)^2) + poids*(t0 + dt1_o + dtf_o);
 F           = delta_V + poids*(t0 + dt1_o + dtf_o);
 

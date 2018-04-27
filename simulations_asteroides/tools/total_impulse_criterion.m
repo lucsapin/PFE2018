@@ -1,4 +1,4 @@
-function [F, delta_V, delta_V_o, delta_V_r] = total_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, scaling, time_min_on_ast, time_max_on_ast, destination)
+function [F, delta_V, delta_V_o, delta_V_r] = total_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, scaling, time_min_on_ast, time_max_on_ast, destination, Sansmax)
 
 UC          = get_Univers_Constants();
 
@@ -23,12 +23,19 @@ else
     error('Wrong destination name!');
 end
 
-max_delta_V_o   = 0.5*sqrt((max(0.0,norm(delta_V0_o)-UC.v0AUJour))^2+1e-12);
-max_delta_V_r   = 0.5*sqrt((max(0.0,norm(delta_Vf_r)-UC.v0AUJour))^2+1e-12);
+if Sansmax
+    delta_V_r     = norm(delta_Vf_r) + norm(delta_V1_r) + norm(delta_V0_r);
+    delta_V_o     = norm(delta_Vf_o) + norm(delta_V1_o) + norm(delta_V0_o);
+    delta_V       = delta_V_o +delta_V_r;
+    
+else
+    max_delta_V_o   = 0.5*sqrt((max(0.0,norm(delta_V0_o)-UC.v0AUJour))^2+1e-12);
+    max_delta_V_r   = 0.5*sqrt((max(0.0,norm(delta_Vf_r)-UC.v0AUJour))^2+1e-12);
 
-delta_V_r       = norm(delta_V0_r)  + norm(delta_V1_r) + max_delta_V_r   ;
-delta_V_o       = max_delta_V_o     + norm(delta_V1_o) + norm(delta_Vf_o);
-delta_V         = delta_V_o + delta_V_r;
+    delta_V_r       = norm(delta_V0_r)  + norm(delta_V1_r) + max_delta_V_r   ;
+    delta_V_o       = max_delta_V_o     + norm(delta_V1_o) + norm(delta_Vf_o);
+    delta_V         = delta_V_o + delta_V_r;
+end
 %F               = scaling*(norm(delta_V0_r)^2  + norm(delta_V1_r)^2 + max_delta_V_r^2 + max_delta_V_o^2 + norm(delta_V1_o)^2 + norm(delta_Vf_o)^2);
 F               = delta_V;
 

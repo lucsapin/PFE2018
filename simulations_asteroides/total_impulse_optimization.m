@@ -1,7 +1,7 @@
 % Script to optimize the outbound-return 3+3 impulse manoeuver: from EMB to asteroid, stay on it and back to EMB
 %
 
-function total_impulse_optimization(numAsteroid, numOptiOutbound, destination)
+function total_impulse_optimization(numAsteroid, numOptiOutbound, destination, Sansmax)
 
 % numAsteroid: the numero of the asteroid for which we perform the optimization
 % numOptiOutbound: the numero of outbound (and so return has been performed) optimization
@@ -15,14 +15,25 @@ format shortE;
 addpath('tools/');
 
 %
-repOutput = ['results/total_impulse_' destination '/'];
+if Sansmax
+    repOutput = ['results/total_impulse_' destination '_Sansmax/'];  
+else
+    repOutput = ['results/total_impulse_' destination '/'];
+end
+
 if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
 
 % Directory of the outbound-return data
-repOutputOutbound = ['results/outbound_impulse_' destination '/'];
+if Sansmax
+    repOutputOutbound = ['results/outbound_impulse_' destination '_Sansmax/'];  
+else
+    repOutputOutbound = ['results/outbound_impulse_' destination '/'];
+end
+
 if(~exist(repOutputOutbound,'dir')); error('Wrong result directory name!'); end
 
 file2loadOutbound = [repOutputOutbound 'asteroid_no_' int2str(numAsteroid)];
+
 if(exist([file2loadOutbound '.mat'],'file')~=2)
     error(['there is no outbound optimization done for asteroid number ' int2str(numAsteroid)]);
 end
@@ -102,7 +113,7 @@ else
 end
 
 % Criterion
-F0                  = @(X) total_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, scaling, time_min_on_ast, time_max_on_ast, destination);
+F0                  = @(X) total_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, scaling, time_min_on_ast, time_max_on_ast, destination, Sansmax);
 
 % Solver
 [Xsol,Fsol,exitflag,output,~,~,~] = fmincon(F0,X0,[],[],[],[],LB,UB,nonlc,optionsFmincon);
@@ -124,7 +135,7 @@ if(exitflag == 1)
         error('Wrong destination name!');
     end
     
-    [~, delta_V, delta_V_o, delta_V_r]  = total_impulse_criterion(Xsol, xOrb_epoch_t0_Ast, ratio, scaling, time_min_on_ast, time_max_on_ast, destination);
+    [~, delta_V, delta_V_o, delta_V_r]  = total_impulse_criterion(Xsol, xOrb_epoch_t0_Ast, ratio, scaling, time_min_on_ast, time_max_on_ast, destination, Sansmax);
 
     % We construct the output to save
     outputOptimization.xOrb_epoch_t0_Ast = xOrb_epoch_t0_Ast;

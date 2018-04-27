@@ -1,60 +1,21 @@
-function display_L2(position_L2, etat)
+function display_L2()
+% In CR3BP frame
 
 UC      = get_Univers_Constants();
 DC      = get_Display_Constants();
 
-[X,Y,Z] = sphere;
+muCR3BP = UC.xL2;
 
-if strcmp(etat, 'epoch_t0')
-    ratio   = 2;
-    X       = X*UC.radiusSunAU10/ratio; % On utilise le rayon du soleil pour harmoniser les tailles mais ce n'est pas à l'échelle
-    Y       = Y*UC.radiusSunAU10/ratio;
-    Z       = Z*UC.radiusSunAU10/ratio;
-    surf(position_L2(1)+X,position_L2(2)+Y,position_L2(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.blanc);
-elseif strcmp(etat, 'current')
-    ratio   = 2;
-    X       = X*UC.radiusSunAU10/ratio; % On utilise le rayon du soleil pour harmoniser les tailles mais ce n'est pas à l'échelle
-    Y       = Y*UC.radiusSunAU10/ratio;
-    Z       = Z*UC.radiusSunAU10/ratio;
-    surf(position_L2(1)+X,position_L2(2)+Y,position_L2(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.color_L2);
-elseif strcmp(etat, 'outbound_t0')
-    ratio   = 1;
-    X       = X*UC.radiusSunAU10/ratio; % On utilise le rayon du soleil pour harmoniser les tailles mais ce n'est pas à l'échelle
-    Y       = Y*UC.radiusSunAU10/ratio;
-    Z       = Z*UC.radiusSunAU10/ratio;
-    surf(position_L2(1)+X,position_L2(2)+Y,position_L2(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.color_L2);
-elseif strcmp(etat, 'outbound_t0_dt1')
-    ratio   = 2;
-    X       = X*UC.radiusSunAU10/ratio; % On utilise le rayon du soleil pour harmoniser les tailles mais ce n'est pas à l'échelle
-    Y       = Y*UC.radiusSunAU10/ratio;
-    Z       = Z*UC.radiusSunAU10/ratio;
-    surf(position_L2(1)+X,position_L2(2)+Y,position_L2(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.color_L2);
-elseif strcmp(etat, 'outbound_t0_dt1_dtf')
-    ratio   = 3;
-    X       = X*UC.radiusSunAU10/ratio; % On utilise le rayon du soleil pour harmoniser les tailles mais ce n'est pas à l'échelle
-    Y       = Y*UC.radiusSunAU10/ratio;
-    Z       = Z*UC.radiusSunAU10/ratio;
-    surf(position_L2(1)+X,position_L2(2)+Y,position_L2(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.color_L2);
-elseif strcmp(etat, 'return_t0')
-    ratio   = 1;
-    X       = X*UC.radiusSunAU10/ratio; % On utilise le rayon du soleil pour harmoniser les tailles mais ce n'est pas à l'échelle
-    Y       = Y*UC.radiusSunAU10/ratio;
-    Z       = Z*UC.radiusSunAU10/ratio;
-    surf(position_L2(1)+X,position_L2(2)+Y,position_L2(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.color_L2);
-elseif strcmp(etat, 'return_t0_dt1')
-    ratio   = 2;
-    X       = X*UC.radiusSunAU10/ratio; % On utilise le rayon du soleil pour harmoniser les tailles mais ce n'est pas à l'échelle
-    Y       = Y*UC.radiusSunAU10/ratio;
-    Z       = Z*UC.radiusSunAU10/ratio;
-    surf(position_L2(1)+X,position_L2(2)+Y,position_L2(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.color_L2);
-elseif strcmp(etat, 'return_t0_dt1_dtf')
-    ratio   = 3;
-    X       = X*UC.radiusSunAU10/ratio; % On utilise le rayon du soleil pour harmoniser les tailles mais ce n'est pas à l'échelle
-    Y       = Y*UC.radiusSunAU10/ratio;
-    Z       = Z*UC.radiusSunAU10/ratio;
-    surf(position_L2(1)+X,position_L2(2)+Y,position_L2(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.color_L2);
-else
-    error('Wrong argument to display the L2 point');
-end
+position_CR3BP = [muCR3BP; 0.0; 0.0];
+
+[X,Y,Z] = sphere(100);
+
+L2_radius = 6371.0/UC.LD;
+
+ratio   = 10;
+X       = L2_radius*X/(ratio);
+Y       = L2_radius*Y/(ratio);
+Z       = L2_radius*Z/(ratio);
+s       = surf(position_CR3BP(1)+X,position_CR3BP(2)+Y,position_CR3BP(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.bleu);
 
 return

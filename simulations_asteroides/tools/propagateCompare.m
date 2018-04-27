@@ -1,9 +1,10 @@
-function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP_in_EMB, color, LW, hFigSpace, qM, qE, qL2, tf, t0_day, q0_SUN_AU] = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, display)
+function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP, color, LW, hFigSpace, zB, optimvarsB] = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, display, Sansmax, TmaxN, m0)
 
-  [outputOptimization, ~] = loadFile(destination, typeSimu, numAsteroid, numOpti);
+  outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax);
 
 
   % Get initial condition
+  disp('Propagate to Hill');
   [times_out, ~, time_Hill, state_Hill, ~, ~, hFigSpace] = propagate2Hill(outputOptimization, dist, display); % The solution is given in HELIO frame
 
   t0_day      = time_Hill;                % the initial time in Day
@@ -12,12 +13,11 @@ function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP_in_EMB, color, LW, hFigSpace, qM, q
   dt1_r       = outputOptimization.dt1_r;
   dtf_r       = outputOptimization.dtf_r;
   tf          = t0_r + dt1_r + dtf_r;
-  tf_guess    = tf-times_out(end);         % Remaining time to reach EMB in Day
+  difftime    = tf-times_out(end);         % Remaining time to reach EMB in Day
 
+  disp('Drift Compare');
+  [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP] = Drift_compareBIS(t0_day, difftime, q0_SUN_AU);
 
-  [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP_in_EMB] = Drift_compareBIS(t0_day, dt1_r, q0_SUN_AU);
-
-  [qM, qE, qL2] = get_Moon_Earth_L2_State_Cart_LD(tf); % EMB inertial frame
 
   if strcmp(destination, 'L2')
     color   = 'm--';
@@ -29,5 +29,7 @@ function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP_in_EMB, color, LW, hFigSpace, qM, q
     error('Wrong destination name!');
   end
 
+  disp('Bocop resolution');
+  [~, ~,zB, ~, optimvarsB, ~] = do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN, difftime, m0, dist);
 
 return

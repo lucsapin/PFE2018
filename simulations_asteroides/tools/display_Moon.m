@@ -12,7 +12,7 @@ position_CR3BP = [1.0-muCR3BP; 0.0; 0.0];
 
 Moon_radius = 1737.0/UC.LD;
 
-ratio   = 3; % not scaled if ne 1
+ratio   = 2; % not scaled if ne 1
 X       = Moon_radius*X*(ratio);
 Y       = Moon_radius*Y*(ratio);
 Z       = Moon_radius*Z*(ratio);

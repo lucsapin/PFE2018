@@ -6,7 +6,7 @@ DC      = get_Display_Constants();
 
 muCR3BP = UC.mu0MoonLD/(UC.mu0EarthLD+UC.mu0MoonLD);
 
-position_CR3BP = [muCR3BP; 0.0; 0.0];
+position_CR3BP = [-muCR3BP; 0.0; 0.0];
 
 [X,Y,Z] = sphere(100);
 

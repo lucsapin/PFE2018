@@ -1,45 +1,64 @@
+close all;
+set(0,  'defaultaxesfontsize'   ,  16     , ...
+    'DefaultTextVerticalAlignment'  , 'bottom', ...
+    'DefaultTextHorizontalAlignment', 'left'  , ...
+    'DefaultTextFontSize'           ,  16     , ...
+    'DefaultFigureWindowStyle','docked');
+
+axisColor = 'k--';
+
 addpath('tools');
 
 
+%% Comparaison entre L2 sans max, L2 avec max et EMB avec max
+typeSimu = 'outbound';
+Sansmax = true;
+[delta_VOutbound_L2, delta_VReturn_L2, t0Outbound_L2, tfOutbound_L2, t0Return_L2, tfReturn_L2] = getResults('L2', typeSimu, Sansmax);
+[delta_VOutbound_L2_max, delta_VReturn_L2_max, t0Outbound_L2_max, tfOutbound_L2_max, t0Return_L2_max, tfReturn_L2_max] = getResults('L2', typeSimu, ~Sansmax);
 
-delta_V_EMB = zeros(1, 10);
-nbOpti_EMB = zeros(1, 10);
-delta_V_L2 = zeros(1, 10);
-nbOpti_L2 = zeros(1, 10);
+[delta_VOutbound_EMB, delta_VReturn_EMB, t0Outbound_EMB, tfOutbound_EMB, t0Return_EMB, tfReturn_EMB] = getResults('EMB', typeSimu, Sansmax);
+[delta_VOutbound_EMB_max, delta_VReturn_EMB_max, t0Outbound_EMB_max, tfOutbound_EMB_max, t0Return_EMB_max, tfReturn_EMB_max] = getResults('EMB', typeSimu, ~Sansmax);
 
-t0_EMB = zeros(1, 10);
-t0_L2 = zeros(1, 10);
+%% Comparaison resultats BOCOP entre L2 et EMB
+[~, iterationsL2, objectiveL2, constraintsL2] = loadResultsBocop('L2');
+[~, iterationsEMB, objectiveEMB, constraintsEMB] = loadResultsBocop('EMB');
 
-dt1_EMB = zeros(1, 10);
-dt1_L2 = zeros(1, 10);
 
-dtf_EMB = zeros(1, 10);
-dtf_L2 = zeros(1, 10);
+%% Figures
 
-typeSimu = 'return';
-for numAst=1:10
-    [delta_V_EMB(numAst), nbOpti_EMB(numAst), t0_EMB(numAst), dt1_EMB(numAst), dtf_EMB(numAst)] = storeResults('EMB', typeSimu, numAst);
-    [delta_V_L2(numAst), nbOpti_L2(numAst), t0_L2(numAst), dt1_L2(numAst), dtf_L2(numAst)] = storeResults('L2', typeSimu, numAst);
-end
-
-abscisse = linspace(1, 10, 10);
+% Plot opti results
+abscisse = linspace(1,10,10);
 figure;
-scatter(abscisse, delta_V_EMB); hold on; scatter(abscisse, delta_V_L2);
-legend('EMB', 'L2');
-title([typeSimu ' : \Delta V = f(Asteroid)']);
+plot(delta_VOutbound_L2, 'r+'); hold on; plot(delta_VOutbound_L2_max, 'b+'); hold on;
+plot(delta_VOutbound_EMB, 'g+'); hold on; plot(delta_VOutbound_EMB_max, 'm+'); hold on;
+plot(delta_VReturn_L2, 'ro'); hold on; plot(delta_VReturn_L2_max, 'bo'); hold on;
+plot(delta_VReturn_EMB, 'go'); hold on; plot(delta_VReturn_EMB_max, 'mo');
+legend('Outbound L2', 'Outbound L2 max', 'Outbound EMB', 'Outbound EMB max', 'Return L2', 'Return L2 max', 'Return EMB', 'Return EMB max'); title(['\Delta V = f(Asteroid)']);
+
 figure;
-scatter(abscisse, nbOpti_EMB); hold on; scatter(abscisse, nbOpti_L2);
-legend('EMB', 'L2');
-title([typeSimu ' : nbOpti = f(Asteroid)']);
+plot(t0Outbound_L2, 'r+'); hold on; plot(t0Outbound_L2_max, 'b+'); hold on;
+plot(t0Outbound_EMB, 'g+'); hold on; plot(t0Outbound_EMB_max, 'm+'); hold on;
+plot(t0Return_L2, 'ro'); hold on; plot(t0Return_L2_max, 'bo'); hold on;
+plot(t0Return_EMB, 'go'); hold on; plot(t0Return_EMB_max, 'mo');
+legend('Outbound L2', 'Outbound L2 max', 'Outbound EMB', 'Outbound EMB max', 'Return L2', 'Return L2 max', 'Return EMB', 'Return EMB max'); title(['t0 = f(Asteroid)']);
+
 figure;
-scatter(abscisse, t0_EMB); hold on; scatter(abscisse, t0_L2);
-legend('EMB', 'L2');
-title([typeSimu ' : t0 = f(Asteroid)']);
+plot(tfOutbound_L2, 'r+'); hold on; plot(tfOutbound_L2_max, 'b+'); hold on;
+plot(tfOutbound_EMB, 'g+'); hold on; plot(tfOutbound_EMB_max, 'm+'); hold on;
+plot(tfReturn_L2, 'ro'); hold on; plot(tfReturn_L2_max, 'bo'); hold on;
+plot(tfReturn_EMB, 'go'); hold on; plot(tfReturn_EMB_max, 'mo');
+legend('Outbound L2', 'Outbound L2 max', 'Outbound EMB', 'Outbound EMB max', 'Return L2', 'Return L2 max', 'Return EMB', 'Return EMB max'); title(['tf = f(Asteroid)']);
+
+% Plot bocop results
+
 figure;
-scatter(abscisse, dt1_EMB); hold on; scatter(abscisse, dt1_L2);
-legend('EMB', 'L2');
-title([typeSimu ' : dt1 = f(Asteroid)']);
+scatter(abscisse, iterationsEMB); hold on; scatter(abscisse, iterationsL2);
+legend('EMB', 'L2'); title('Bocop results : iterations');
+
 figure;
-scatter(abscisse, dtf_EMB); hold on; scatter(abscisse, dtf_L2);
-legend('EMB', 'L2');
-title([typeSimu ' : dtf = f(Asteroid)']);
+scatter(abscisse, objectiveEMB); hold on; scatter(abscisse, objectiveL2);
+legend('EMB', 'L2'); title('Bocop results : objective');
+
+figure;
+scatter(abscisse, constraintsEMB); hold on; scatter(abscisse, constraintsL2);
+legend('EMB', 'L2'); title('Bocop results : constraints');
