@@ -1,4 +1,4 @@
-function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP, color, LW, hFigSpace, zB, optimvarsB] = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, display, Sansmax, TmaxN, m0)
+function [T_CR3BP, Q_EMB_SUN, Q_CR3BP, color, LW, hFigSpace, zB, optimvarsB] = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, display, Sansmax, TmaxN, m0)
 
   outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax);
 
@@ -16,8 +16,9 @@ function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP, color, LW, hFigSpace, zB, optimvar
   difftime    = tf-times_out(end);         % Remaining time to reach EMB in Day
 
   disp('Drift Compare');
-  [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP] = Drift_compareBIS(t0_day, difftime, q0_SUN_AU);
+  [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_compareBIS(t0_day, difftime, q0_SUN_AU);
 
+  timeMinDistL2 = getTimeMinDistL2(T_CR3BP, Q_CR3BP)
 
   if strcmp(destination, 'L2')
     color   = 'm--';
@@ -30,6 +31,6 @@ function [T_CR3BP_in_EMB, Q_EMB_SUN, Q_CR3BP, color, LW, hFigSpace, zB, optimvar
   end
 
   disp('Bocop resolution');
-  [~, ~,zB, ~, optimvarsB, ~] = do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN, difftime, m0, dist);
+  [~, ~,zB, ~, optimvarsB, ~] = do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN, timeMinDistL2, m0, dist);
 
 return
