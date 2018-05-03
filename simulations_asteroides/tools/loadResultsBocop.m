@@ -4,7 +4,7 @@ function [liste_status, liste_iterations, liste_objective, liste_constraints, tr
     liste_iterations = zeros(1, 10);
     liste_objective = zeros(1, 10);
     liste_constraints = zeros(1, 10);
-    
+
     TmaxN               = 50;       % Newton
     dist                = 0.01;     % We propagate the trajectory to the distance dist (in AU) of EMB
     min_dist_2_earth    = 0.0;
@@ -15,6 +15,7 @@ function [liste_status, liste_iterations, liste_objective, liste_constraints, tr
         else
             m0 = 500;  % kg
         end
+        
         case_name   = ['./min_tf_Tmax_' num22str(TmaxN,3) '_m0_' num22str(m0,6) '_ast_' int2str(numAst) ...
                     '_dist_' num22str(dist,4) '_dist_min_2_earth_' num22str(min_dist_2_earth,2)];
 

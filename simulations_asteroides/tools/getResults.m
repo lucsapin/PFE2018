@@ -8,7 +8,7 @@ function [delta_V_o, delta_V_r, t0_o, tf_o, t0_r, tf_r] = getResults(destination
     tf_r = zeros(1, 10);
 
     for numAst=1:10
-        [outputOptimization, ~] = loadFile(destination, typeSimu, numAst, 1, Sansmax);
+        outputOptimization = loadFile(destination, typeSimu, numAst, 1, Sansmax);
         if typeSimu == 'outbound'
             delta_V_o(numAst) = outputOptimization.delta_V;
             delta_V_r(numAst) = outputOptimization.optiReturn.delta_V;

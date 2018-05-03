@@ -1,12 +1,10 @@
-function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, hFigSpace] = propagate2Hill(outputTotalOpti, dist, display)
+function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, states, states_q_L1, states_q_L2, dist2Hill] = propagate2Hill(outputTotalOpti, dist)
 
 % state_Hill : centré au soleil
 %
 % dist in AU : we stop the integration when the spacecraft is at a distance dist from EMB
 %
 
-% times_out   = [];
-% traj_out    = [];
 time_Hill   = 0;
 state_Hill  = [];
 xC_EMB_HIll = [];
@@ -53,31 +51,7 @@ dVf_r               =   outputTotalOpti.dVf_r       ;
 % ----------------------------------------------------------------------------------------------------
 % Display trajectory to compare
 
-  hFig = figure(2); lc = {2,1};
-
-  hFigSpace.figure    = hFig;
-  hFigSpace.subplot   = {lc{:}, 1};
-if display
-  subplot(lc{:}, 1); hold on;
-% else
-  % hFigSpace = null;
-end
-%figure('DefaultAxesColor', DC.blanc, 'Units', 'normalized');
-%set(hFigSpace_r, 'OuterPosition', [ 0.0   0.0   0.49   0.45 ]); hold on; %axis equal;
-
 [~, states, ~, ~, ~] = get_Trajectory_SpaceCraft(xOrb_epoch_t0_Ast, t0_r, dt1_r, dtf_r, dV0_r, dV1_r, dVf_r);
-
-%hFigTraj = figure;
-%figure(hFigTraj)
-%subplot(3,2,1); plot(times, states(1,:), 'g--', 'LineWidth', 2); ylabel('q_1');
-%subplot(3,2,3); plot(times, states(2,:), 'g--', 'LineWidth', 2); ylabel('q_2');
-%subplot(3,2,5); plot(times, states(3,:), 'g--', 'LineWidth', 2); ylabel('q_3');
-%subplot(3,2,2); plot(times, states(4,:), 'g--', 'LineWidth', 2); ylabel('q_4');
-%subplot(3,2,4); plot(times, states(5,:), 'g--', 'LineWidth', 2); ylabel('q_5');
-%subplot(3,2,6); plot(times, states(6,:), 'g--', 'LineWidth', 2); ylabel('q_6');
-if display
-  display_Trajectory_Spacecraft(states, 'return_compare');
-end
 
 % ----------------------------------------------------------------------------------------------------
 % Get initial point on the asteroid
@@ -103,54 +77,27 @@ odefun              = @(t,x) rhs_SEMB_Sun(t, x);
 
 [times, states_q_L, time_event, ~] = ode45(odefun, [t0_r t0_r+dt1_r], state_q_L_init, OptionsOde);
 times       = times(:)';
-states_q_L  = transpose(states_q_L);
-
-if display
-  display_Trajectory_Spacecraft(states_q_L, 'return');
-end
+states_q_L1  = transpose(states_q_L);
 
 times_out   = times;
-traj_out    = states_q_L(1:7,:);
+traj_out    = states_q_L1(1:7,:);
 
 if(~isempty(time_event))
     error('We reach the required distance to EMB at time t0_r + dt1_r!');
 end
 
-%subplot(3,2,1); plot(times, abs(states_q_L(1,:)-states(1,ii)), 'r'); ylabel('q_1'); hold on;
-%subplot(3,2,3); plot(times, abs(states_q_L(2,:)-states(2,ii)), 'r'); ylabel('q_2'); hold on;
-%subplot(3,2,5); plot(times, abs(states_q_L(3,:)-states(3,ii)), 'r'); ylabel('q_3'); hold on;
-%subplot(3,2,2); plot(times, abs(states_q_L(4,:)-states(4,ii)), 'r'); ylabel('q_4'); hold on;
-%subplot(3,2,4); plot(times, abs(states_q_L(5,:)-states(5,ii)), 'r'); ylabel('q_5'); hold on;
-%subplot(3,2,6); plot(times, abs(states_q_L(6,:)-states(6,ii)), 'r'); ylabel('q_6'); hold on;
-
-% With dynamics with Sun-EMB
-%odefun              = @(t,x) rhs_SEMB_Sun(t, x, UC.mu0SunAU, xG_EMB, UC.mu0EMBAU);
-%
-%[times, states_q_L_bis, time_event, state_q_L_event] = ode45(odefun, times, state_q_L_init, OptionsOde);
-%states_q_L_bis          = transpose(states_q_L_bis);
-%
-%subplot(3,2,1); plot(times, abs(states_q_L(1,:)-states_q_L_bis(1,ii)), 'b'); ylabel('q_1');
-%subplot(3,2,3); plot(times, abs(states_q_L(2,:)-states_q_L_bis(2,ii)), 'b'); ylabel('q_2');
-%subplot(3,2,5); plot(times, abs(states_q_L(3,:)-states_q_L_bis(3,ii)), 'b'); ylabel('q_3');
-%subplot(3,2,2); plot(times, abs(states_q_L(4,:)-states_q_L_bis(4,ii)), 'b'); ylabel('q_4');
-%subplot(3,2,4); plot(times, abs(states_q_L(5,:)-states_q_L_bis(5,ii)), 'b'); ylabel('q_5');
-%subplot(3,2,6); plot(times, abs(states_q_L(6,:)-states_q_L_bis(6,ii)), 'b'); ylabel('q_6');
-
 % Second boost !
-q1          = states_q_L(1:6,end);
+q1          = states_q_L1(1:6,end);
 q1(4:6)     = q1(4:6) + dV1_r(:);
-state_q_L_init  = [q1; states_q_L(7,end)];
+state_q_L_init  = [q1; states_q_L1(7,end)];
 
 [times, states_q_L, time_event, state_q_L_event] = ode45(odefun, [t0_r+dt1_r t0_r+dt1_r+dtf_r], state_q_L_init, OptionsOde);
 times       = times(:)';
-states_q_L  = transpose(states_q_L);
+states_q_L2  = transpose(states_q_L);
 
-if display
-  display_Trajectory_Spacecraft(states_q_L, 'return');
-end
 
 times_out   = [times_out    times(2:end)];
-traj_out    = [traj_out     states_q_L(1:7,2:end)];
+traj_out    = [traj_out     states_q_L2(1:7,2:end)];
 
 if(~isempty(time_event))
     state_q_L_event = state_q_L_event(:);
@@ -159,32 +106,17 @@ if(~isempty(time_event))
     L_EMB       = state_q_L_event(7);
     xC_EMB_HIll = Gauss2Cart(UC.mu0SunAU, [xG_EMB(1:5); L_EMB]);
     flag    = 1;
-%     [value,isterminal,direction] = HillTouch(time_Hill, [state_Hill; L_EMB], UC.mu0SunAU, xG_EMB, dist);
 end
 
-%hFigTraj = figure;
-%figure(hFigTraj)
-%subplot(3,2,1); plot(times_out, traj_out(1,:), 'g', 'LineWidth', 2); ylabel('q_1');
-%subplot(3,2,3); plot(times_out, traj_out(2,:), 'g', 'LineWidth', 2); ylabel('q_2');
-%subplot(3,2,5); plot(times_out, traj_out(3,:), 'g', 'LineWidth', 2); ylabel('q_3');
-%subplot(3,2,2); plot(times_out, traj_out(4,:), 'g', 'LineWidth', 2); ylabel('q_4');
-%subplot(3,2,4); plot(times_out, traj_out(5,:), 'g', 'LineWidth', 2); ylabel('q_5');
-%subplot(3,2,6); plot(times_out, traj_out(6,:), 'g', 'LineWidth', 2); ylabel('q_6');
-%
 % ----------------------------------------------------------------------------------------------------
-% On affiche la distance en fonction du temps
+% On affiche la distance à la sphère de Hill en fonction du temps
 d=zeros(1, length(times_out));
 for i=1:length(times_out)
     [value, ~, ~] = HillTouch(times_out(i), traj_out(:,i), UC.mu0SunAU, xG_EMB, dist);
     d(i) = value;
 end
 
-if display
-  subplot(lc{:}, 2); hold on;
-  plot(times_out, d);
-end
-%hFig = figure('Units', 'normalized');
-%set(hFig, 'OuterPosition', [ 0.0   0.5   0.49   0.45 ]); hold on; %axis equal;
+dist2Hill = d;
 
 
 

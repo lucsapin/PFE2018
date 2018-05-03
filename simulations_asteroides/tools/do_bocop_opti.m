@@ -122,7 +122,6 @@ function [toutB,stageB,zB,uB,optimvarsB,outputB] = do_bocop_opti(destination, ou
     if(results.exec_min_tf_bocop==-1)
         disp('Compute solutions...');
         [toutB,stageB,zB,uB,optimvarsB,outputB] = exec_bocop_min_tf(defPbBocop, init, par_bocop, options, solFileSave);
-        fprintf('outputB = '); disp(outputB);
 
         if(outputB.status ~= 0)
             error('Bocop did not converge for the minimal time problem!');

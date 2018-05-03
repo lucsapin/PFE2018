@@ -11,7 +11,7 @@ elseif strcmp(etat, 'return')
 elseif strcmp(etat, 'return_compare')
     plot3(states(1,:), states(2,:), states(3,:), 'Color', DC.color_SC, 'LineWidth', DC.LW, 'LineStyle', '--'); hold on;
 else
-    error('Wrong argument to display the asteroid');
+    error('Wrong argument to display the spacecraft');
 end
 
 %figure(h);

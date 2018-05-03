@@ -1,4 +1,4 @@
-function timeMinDistL2 = getTimeMinDistL2(T_CR3BP, Q_CR3BP)
+function [timeMinDistL2, correspondingPoint] = getTimeMinDistL2(T_CR3BP, Q_CR3BP)
 
 % Get the time corresponding to the minimum distance between the spacecraft
 % (trajectoriy computed by DriftCompare) and the point L2.
@@ -18,4 +18,7 @@ function timeMinDistL2 = getTimeMinDistL2(T_CR3BP, Q_CR3BP)
 
   [value, ind] = min(normDiff);
 
+  correspondingPoint = Q_CR3BP(1:3, ind);
   timeMinDistL2 = T_CR3BP(ind);
+
+return

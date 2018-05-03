@@ -1,24 +1,23 @@
-function [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_compareBIS(t0, dt, q0_SUN_AU)
-
+function [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_3PB(t0, dt, q0_SUN_AU)
+% This function should be called otherwise
 format long;
 
-% On compare les dynamiques 3 corps perturbes 3BP avec 3 corps 3B et 4B
+% On calcule les trajectoires en comparant les dynamiques 3 corps perturbes 3BP avec 3 corps 3B et 4B
 % Attention :
 %   les dynamiques 3BP et 3B sont dans le repere tournant centre EMB
 %   le 4B est dans le repere inertiel centre EMB
 %   q0 est dans le repere inertiel centre soleil
 %
 
+% Careful : Q_EMB_SUN is computed in Heliocentric frame (AU) !!
+%           Q_CR3BP is computed in Rotating frame (LD) !!
+%           T_CR3BP is computed in Days !!
+
+
+
 % ----------------------------------------------------------------------------------------------------
 % DC          = get_Display_Constants(); % Display constants
 UC          = get_Univers_Constants(); % Univers constants
-
-
-% Isp     = 375/UC.time_syst;
-% g0      = 9.80665*1e-3*(UC.time_syst)^2/UC.LD;
-% Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD;
-
-%
 
 % On transforme q0 dans les 2 referentiels
 [q0_CR3BP,~,~,~,thetaS0]    = Helio2CR3BP(q0_SUN_AU, t0);       % q en LD/d
@@ -41,7 +40,8 @@ q0_EMB_LD       = q0_EMB_AU*UC.AU/UC.LD;
 
 % Dans le repere centre soleil et en AU
 qL0_EMB_LD      = [q0_EMB_LD; L_EMB0_LD];
-[~, Q_EMB_LD]   = ode45(@(t,x) rhs_4B_EMB_LD(t, x), Times, qL0_EMB_LD, OptionsOde); Q_EMB_LD = Q_EMB_LD';
+[~, Q_EMB_LD]   = ode45(@(t,x) rhs_4B_EMB_LD(t, x), Times, qL0_EMB_LD, OptionsOde);
+Q_EMB_LD = Q_EMB_LD';
 L_EMB       = Q_EMB_LD(7,:);
 Q_EMB_SUN   = zeros(3, Nstep);
 for i = 1:Nstep
@@ -65,7 +65,7 @@ T_CR3BP     = linspace(0.0, dt_CR3BP, Nstep);
 %
 odefun          = @(t,x) rhs_CR3BP(t, x, muCR3BP, muSun, rhoS, thetaS0, omegaS, 3);
 [~, Q_CR3BP]    = ode45(odefun, T_CR3BP, q0_CR3BP, OptionsOde);
-Q_CR3BP         = Q_CR3BP';
+Q_CR3BP         = Q_CR3BP'; % ROTATING FRAME (LD) !
 
 %
 % Change of coordinates from CR3BP to EMB for comparison
@@ -80,7 +80,7 @@ return
 
 % ----------------------------------------------------------------------------------------------------
 % ----------------------------------------------------------------------------------------------------
-function qdot = rhs_CR3BP(t,q,mu,muSun,rhoS,thetaS0,omegaS,choix)
+function qdot = rhs_CR3BP(t,q,mu,muSun,rhoS,thetaS0,omegaS)
 
     q1          = q(1);
     q2          = q(2);
@@ -99,25 +99,9 @@ function qdot = rhs_CR3BP(t,q,mu,muSun,rhoS,thetaS0,omegaS,choix)
 
     cSun = 1.0;
 
-    if(choix==1) % eq 3 corps pas perturbé
-
-        qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3 - mu*(q1-1+mu)/r2^3;
-        qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3 - mu*q2/r2^3;
-        qdot(6) = -(1-mu)*q3/r1^3 - mu*q3/r2^3;
-
-    elseif(choix==3) % eq 3 : 3 corps perturbé
-
-        qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3 - cSun*muSun*cos(thetaS)/rhoS^2;
-        qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3 - cSun*muSun*sin(thetaS)/rhoS^2;
-        qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
-
-    elseif(choix==2) % eq 2 : 3 corps perturbé et modifié par Thomas
-
-        qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3;
-        qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3;
-        qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
-
-    end
+    qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3 - cSun*muSun*cos(thetaS)/rhoS^2;
+    qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3 - cSun*muSun*sin(thetaS)/rhoS^2;
+    qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
 
 return
 
