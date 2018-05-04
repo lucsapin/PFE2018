@@ -1,4 +1,4 @@
-function [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_2B(t0, dt, q0_SUN_AU)
+function [T_CR2B, Q_EMB_SUN, Q_CR2B] = Drift_2B(t0, dt, q0_SUN_AU)
 % This function should be called otherwise
 format long;
 
@@ -51,26 +51,23 @@ for i = 1:Nstep
 end
 
 % -------------------------------------------------------------------------------------------------
-% Dynamique des 3 corps : initialisation
+% Dynamique des 2 corps : initialisation
 %
-muSun       = UC.mu0SunLD/(UC.mu0EarthLD+UC.mu0MoonLD);
-muCR3BP     = UC.mu0MoonLD/(UC.mu0EarthLD+UC.mu0MoonLD);
-rhoS        = UC.AU/UC.LD;
-omegaS      = (-(UC.speedMoon+UC.NoeudMoonDot)+2*pi/UC.Period_EMB)/UC.jour*UC.time_syst;
+% muCR2B     = UC.mu0MoonLD/(UC.mu0EarthLD+UC.mu0MoonLD);
 dt_CR3BP    = dt*UC.jour/UC.time_syst;
-T_CR3BP     = linspace(0.0, dt_CR3BP, Nstep);
+T_CR2B     = linspace(0.0, dt_CR3BP, Nstep);
 
 % -------------------------------------------------------------------------------------------------
-% Dynamique des 3 corps perturbe
+% Dynamique des 2 corps
 %
-odefun          = @(t,x) rhs_CR3BP(t, x, muCR3BP, muSun, rhoS, thetaS0, omegaS, 3);
-[~, Q_CR3BP]    = ode45(odefun, T_CR3BP, q0_CR3BP, OptionsOde);
-Q_CR3BP         = Q_CR3BP'; % ROTATING FRAME (LD) !
+odefun          = @(t,x) rhs_CR2B(t, x);
+[~, Q_CR2B]    = ode45(odefun, T_CR2B, q0_CR3BP, OptionsOde);
+Q_CR2B         = Q_CR2B'; % ROTATING FRAME (LD) !
 
 %
 % Change of coordinates from CR3BP to EMB for comparison
-T_CR3BP = T_CR3BP*UC.time_syst/UC.jour;
-T_CR3BP = t0 + T_CR3BP;
+T_CR2B = T_CR2B*UC.time_syst/UC.jour;
+T_CR2B = t0 + T_CR2B;
 
 % for i = 1:length(T_CR3BP)
 %     Q_CR3BP_in_EMB(:,i) = CR3BP2EMB(Q_CR3BP(:,i), T_CR3BP_in_EMB(i));
@@ -80,7 +77,7 @@ return
 
 % ----------------------------------------------------------------------------------------------------
 % ----------------------------------------------------------------------------------------------------
-function qdot = rhs_CR2B(t,q,mu,muSun,rhoS,thetaS0,omegaS)
+function qdot = rhs_CR2B(t,q)
 
     q1          = q(1);
     q2          = q(2);
@@ -88,18 +85,14 @@ function qdot = rhs_CR2B(t,q,mu,muSun,rhoS,thetaS0,omegaS)
     q4          = q(4);
     q5          = q(5);
 
-    r1          = sqrt((q1+mu)^2+q2^2+q3^2);
-    r2          = sqrt((q1-1+mu)^2+q2^2+q3^2);
-
-    thetaS      = thetaS0 + omegaS*t;
-    rS          = sqrt((q1-rhoS*cos(thetaS))^2+(q2-rhoS*sin(thetaS))^2+q3^2);
+    r1          = sqrt(q1^2+q2^2+q3^2);
 
     qdot        = zeros(6,1);
     qdot(1:3)   = q(4:6);
 
-    qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3 - mu*(q1-1+mu)/r2^3;
-    qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3 - mu*q2/r2^3;
-    qdot(6) = -(1-mu)*q3/r1^3 - mu*q3/r2^3;
+    qdot(4) =  2*q5 + q1 ;%- q1/r1^3;
+    qdot(5) = -2*q4 + q2 ;%- q2/r1^3;
+    qdot(6) =           0;% - q3/r1^3;
 
 
 return

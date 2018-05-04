@@ -63,7 +63,7 @@ T_CR3BP     = linspace(0.0, dt_CR3BP, Nstep);
 % -------------------------------------------------------------------------------------------------
 % Dynamique des 3 corps perturbe
 %
-odefun          = @(t,x) rhs_CR3BP(t, x, muCR3BP, muSun, rhoS, thetaS0, omegaS, 3);
+odefun          = @(t,x) rhs_CR3BP(t, x, muCR3BP, muSun, rhoS, thetaS0, omegaS, 4);
 [~, Q_CR3BP]    = ode45(odefun, T_CR3BP, q0_CR3BP, OptionsOde);
 Q_CR3BP         = Q_CR3BP'; % ROTATING FRAME (LD) !
 
@@ -80,7 +80,7 @@ return
 
 % ----------------------------------------------------------------------------------------------------
 % ----------------------------------------------------------------------------------------------------
-function qdot = rhs_CR3BP(t,q,mu,muSun,rhoS,thetaS0,omegaS)
+function qdot = rhs_CR3BP(t,q,mu,muSun,rhoS,thetaS0,omegaS,choix)
 
     q1          = q(1);
     q2          = q(2);
@@ -88,6 +88,7 @@ function qdot = rhs_CR3BP(t,q,mu,muSun,rhoS,thetaS0,omegaS)
     q4          = q(4);
     q5          = q(5);
 
+    r           = sqrt(q1^2+q2^2+q3^2);
     r1          = sqrt((q1+mu)^2+q2^2+q3^2);
     r2          = sqrt((q1-1+mu)^2+q2^2+q3^2);
 
@@ -99,9 +100,31 @@ function qdot = rhs_CR3BP(t,q,mu,muSun,rhoS,thetaS0,omegaS)
 
     cSun = 1.0;
 
-    qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3 - cSun*muSun*cos(thetaS)/rhoS^2;
-    qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3 - cSun*muSun*sin(thetaS)/rhoS^2;
-    qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
+    if(choix==1) % eq 3 corps pas perturbé
+
+        qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3 - mu*(q1-1+mu)/r2^3;
+        qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3 - mu*q2/r2^3;
+        qdot(6) =            - (1-mu)*q3/r1^3 - mu*q3/r2^3;
+
+    elseif(choix==3) % eq 3 : 3 corps perturbé
+
+        qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3 - cSun*muSun*cos(thetaS)/rhoS^2;
+        qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3 - cSun*muSun*sin(thetaS)/rhoS^2;
+        qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
+
+    elseif(choix==2) % eq 2 : 3 corps perturbé et modifié par Thomas
+
+        qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3;
+        qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3;
+        qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
+
+    elseif(choix==4) % eq 4 : 2 corps
+
+        qdot(4) =  2*q5 + q1 - q1/r^3;
+        qdot(5) = -2*q4 + q2 - q2/r^3;
+        qdot(6) =            - q3/r^3;
+
+    end
 
 return
 

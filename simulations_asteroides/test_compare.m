@@ -50,31 +50,31 @@ typeSimu = 'total';
 disp('------------------------------------------------------------------------');
 
 disp('Propagate Compare : target = EMB before Hill');
-[resDriftCompare_EMB, resFig_EMB, resB_EMB, resP2H_EMB, pointMinDistL2_EMB] = propagateCompare('EMB', typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxEMB);
+[resDrift_EMB, resFig_EMB, resB_EMB, resP2H_EMB, pointMinDistL2_EMB] = propagateCompare('EMB', typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxEMB);
 
 fprintf('\n');
 
 disp('Propagate Compare : target = L2 before Hill');
-[resDriftCompare_L2,  resFig_L2,  resB_L2,  resP2H_L2,  pointMinDistL2_L2]  = propagateCompare('L2', typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2);
+[resDrift_L2,  resFig_L2,  resB_L2,  resP2H_L2,  pointMinDistL2_L2]  = propagateCompare('L2', typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2);
 
 disp('------------------------------------------------------------------------');
 
 % ----------------------------------------------------------------------------------------------------
 % Affectation des résultats
-T_CR3BP       = resDriftCompare_EMB.T_CR3BP; % vecteur de temps
+T_CR3BP       = resDrift_EMB.T_CR3BP; % vecteur de temps
 %
 states_EMB    = resP2H_EMB.states;
 statesqL1_EMB = resP2H_EMB.states_q_L1;
 statesqL2_EMB = resP2H_EMB.states_q_L2;
-Q_EMB_SUN_EMB = resDriftCompare_EMB.Q_EMB_SUN; % trajectory in Heliocentric frame
-Q_CR3BP_EMB   = resDriftCompare_EMB.Q_CR3BP; % trajectory in rotating frame
+Q_EMB_SUN_EMB = resDrift_EMB.Q_EMB_SUN; % trajectory in Heliocentric frame
+Q_CR3BP_EMB   = resDrift_EMB.Q_CR3BP; % trajectory in rotating frame
 zB_EMB        = resB_EMB.zB; % trajectory in rotating frame
 %
 states_L2     = resP2H_L2.states;
 statesqL1_L2  = resP2H_L2.states_q_L1;
 statesqL2_L2  = resP2H_L2.states_q_L2;
-Q_EMB_SUN_L2  = resDriftCompare_L2.Q_EMB_SUN; % trajectory in Heliocentric frame
-Q_CR3BP_L2    = resDriftCompare_L2.Q_CR3BP; % trajectory in rotating frame
+Q_EMB_SUN_L2  = resDrift_L2.Q_EMB_SUN; % trajectory in Heliocentric frame
+Q_CR3BP_L2    = resDrift_L2.Q_CR3BP; % trajectory in rotating frame
 zB_L2         = resB_L2.zB; % trajectory in rotating frame
 
 % ----------------------------------------------------------------------------------------------------
