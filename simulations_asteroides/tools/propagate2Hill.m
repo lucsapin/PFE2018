@@ -1,4 +1,4 @@
-function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, states, states_q_L1, states_q_L2, dist2Hill] = propagate2Hill(outputTotalOpti, dist)
+function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, states, states_q_L1, states_q_L2, dist2Hill] = propagate2Hill(outputTotalOpti, dist, propagation)
 
 % state_Hill : centré au soleil
 %
@@ -69,8 +69,12 @@ state_q_L_init      = [q0; xG_EMB(6)];
 % With dynamics with Sun-Earth-Moon
 odefun_event        = @(t,x) HillTouch(t, x, UC.mu0SunAU, xG_EMB, dist);
 OptionsOde          = odeset('Events', odefun_event, 'AbsTol', 1.e-12, 'RelTol', 1.e-12);
-%odefun              = @(t,x) rhs_4B_Sun_AU(t, x);
-odefun              = @(t,x) rhs_SEMB_Sun(t, x);
+if propagation == '2B'
+  odefun              = @(t,x) rhs_2B_Sun_AU(t, x);
+else
+  odefun              = @(t,x) rhs_4B_Sun_AU(t, x);
+  % odefun              = @(t,x) rhs_SEMB_Sun(t, x);
+end
 
 %ii                  = find(times<=t0_r+dt1_r);
 %[times, states_q_L, time_event, state_q_L_event] = ode45(odefun, times(ii), state_q_L_init, OptionsOde);
@@ -123,7 +127,6 @@ dist2Hill = d;
 return
 
 % ----------------------------------------------------------------------------------------------------
-% ----------------------------------------------------------------------------------------------------
 function [value,isterminal,direction] = HillTouch(t, x, mu0_Sun, xG_EMB, dist)
     L_EMB       = x(7);
     qEMB        = Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]);
@@ -134,10 +137,9 @@ function [value,isterminal,direction] = HillTouch(t, x, mu0_Sun, xG_EMB, dist)
 return
 
 % ----------------------------------------------------------------------------------------------------
-% dynamics of body and Earth-Moon barycenter longitude. Body is subjected
-% to Sun and EMB gravities (so Moon ~included). In Heliocentric ecliptic
 function xdot = rhs_SEMB_Sun(t, x)
-
+  % dynamics of body and Earth-Moon barycenter longitude. Body is subjected
+  % to Sun and EMB gravities (so Moon ~included). In Heliocentric ecliptic
     UC      = get_Univers_Constants();
 
     mu0_Sun = UC.mu0SunAU;
@@ -175,7 +177,7 @@ function qLdot = rhs_4B_Sun_AU(t, qL)
     qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB
 
     % Moon and Earth position
-    [qM,qE]     = get_Moon_Earth_State_Cart_LD(t);  % Dans ref centre EMB
+    [qM,qE]     = get_Moon_Earth_L2_State_Cart_LD(t);  % Dans ref centre EMB
     qM          = qM*UC.LD/UC.AU;
     qE          = qE*UC.LD/UC.AU;
 
@@ -191,8 +193,44 @@ function qLdot = rhs_4B_Sun_AU(t, qL)
     % Dynamics
     qLdot       = zeros(7,1);
     qLdot(1:3)  = v;
-    qLdot(4:6)  = -mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3; % ...
-                  +mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
+    qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3 ...
+                  - mu0_Earth*(r-qE(1:3))/rE^3 ...
+                  - mu0_Moon*(r-qM(1:3))/rM^3 ;%...
+                  + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 ...
+                  + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
+    qLdot(7)    = Ldot;
+
+return
+
+
+% ----------------------------------------------------------------------------------------------------
+function qLdot = rhs_2B_Sun_AU(t, qL)
+    % dans ref inertiel centre soleil
+    % Be careful, the dynamics is not autonomous!!
+
+    UC          = get_Univers_Constants(); % Univers constants
+
+    mu0_Sun     = UC.mu0SunAU;
+
+    xG_EMB0_AU  = UC.xG_EMB0;
+    xG_EMB      = xG_EMB0_AU;
+
+    %
+    r           = qL(1:3);
+    v           = qL(4:6);
+    L_EMB       = qL(7);
+    Ldot        = rhsLGauss(t,L_EMB,xG_EMB,mu0_Sun);
+    qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB
+
+    % Replace the position in the frame centered in the Sun
+    qS(1:3)     = qS(1:3) - qS(1:3);
+
+    rSun        = sqrt((r(1)-qS(1))^2 + (r(2)-qS(2))^2 + (r(3)-qS(3))^2);
+
+    % Dynamics
+    qLdot       = zeros(7,1);
+    qLdot(1:3)  = v;
+    qLdot(4:6)  = -mu0_Sun*(r-qS(1:3))/rSun^3;
     qLdot(7)    = Ldot;
 
 return

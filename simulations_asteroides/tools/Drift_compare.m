@@ -478,8 +478,8 @@ function qLdot = rhs_4B_Sun_LD(t, qL)
     % Dynamics
     qLdot       = zeros(7,1);
     qLdot(1:3)  = v;
-    qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3; % ...
-                  % + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
+    qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3 ...
+                  + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
     qLdot(7)    = Ldot;
 
 return
@@ -525,8 +525,11 @@ function qLdot = rhs_4B_Sun_AU(t, qL)
     % Dynamics
     qLdot       = zeros(7,1);
     qLdot(1:3)  = v;
-    qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3; % ...
-                   % + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
+    qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3 ...
+                  - mu0_Earth*(r-qE(1:3))/rE^3 ...
+                  - mu0_Moon*(r-qM(1:3))/rM^3 ...
+                  + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 ...
+                  + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
     qLdot(7)    = Ldot;
 
 return

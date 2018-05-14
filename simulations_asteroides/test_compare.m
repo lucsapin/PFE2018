@@ -48,14 +48,16 @@ typeSimu = 'total';
 % ----------------------------------------------------------------------------------------------------
 % Computation of trajectories for each destination
 disp('------------------------------------------------------------------------');
-
-disp('Propagate Compare : target = EMB before Hill');
-[resDrift_EMB, resFig_EMB, resB_EMB, resP2H_EMB, pointMinDistL2_EMB] = propagateCompare('L2', typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, 3);
+destination = 'EMB';
+choix = 3; dynamic = '3B Perturbated';
+disp(['Propagate Compare : ' dynamic]);
+[resDrift_EMB, resFig_EMB, resB_EMB, resP2H_EMB, pointMinDistL2_EMB] = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, '4B');
 
 fprintf('\n');
-
-disp('Propagate Compare : target = L2 before Hill');
-[resDrift_L2,  resFig_L2,  resB_L2,  resP2H_L2,  pointMinDistL2_L2]  = propagateCompare('L2', typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, 4);
+destination = 'L2';
+choix = 3; dynamic = '3B Perturbated';
+disp(['Propagate Compare : ' dynamic]);
+[resDrift_L2,  resFig_L2,  resB_L2,  resP2H_L2,  pointMinDistL2_L2]  = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, '4B');
 
 disp('------------------------------------------------------------------------');
 
@@ -90,15 +92,16 @@ LW_L2     = resFig_L2.LW;
 % Plot
 
 figure;
-display_Trajectory_Spacecraft(states_EMB, 'return_compare'); hold on;
-display_Trajectory_Spacecraft(states_L2, 'return_compare'); hold on;
-display_Trajectory_Spacecraft(statesqL1_EMB, 'return'); hold on;
+% display_Trajectory_Spacecraft(states_EMB, 'return_compare'); hold on;
+% display_Trajectory_Spacecraft(states_L2, 'return_compare'); hold on;
+% display_Trajectory_Spacecraft(statesqL1_EMB, 'return'); hold on;
 display_Trajectory_Spacecraft(statesqL2_EMB, 'return'); hold on;
-display_Trajectory_Spacecraft(statesqL1_L2, 'return'); hold on;
+% display_Trajectory_Spacecraft(statesqL1_L2, 'return'); hold on;
 display_Trajectory_Spacecraft(statesqL2_L2, 'return'); hold on;
 plot3(Q_EMB_SUN_EMB(1,:), Q_EMB_SUN_EMB(2,:), Q_EMB_SUN_EMB(3,:), 'Color', DC.bleu, 'LineWidth', DC.LW); hold on;
 plot3(Q_EMB_SUN_L2(1,:), Q_EMB_SUN_L2(2,:), Q_EMB_SUN_L2(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW);
-xlabel('q_1'); ylabel('q_2'); zlabel('q_3'); view(0,90); legend('return_compare EMB', 'return_compare L2', 'return1EMB', 'return2EMB', 'return1L2', 'return2L2', 'EMB', 'L2');
+xlabel('q_1'); ylabel('q_2'); zlabel('q_3'); view(0,90);
+legend('return\_compare EMB', 'return\_compare L2', 'return1EMB', 'return2EMB', 'return1L2', 'return2L2', 'EMB', 'L2');
 
 figure;
 the_legend  = {};
@@ -150,7 +153,7 @@ plot3(pointMinDistL2_L2(1), pointMinDistL2_L2(2), pointMinDistL2_L2(3), 'o');
 % plot(qEarthHill_CR3BP(2), qEarthHill_CR3BP(1), '+'); hold on;
 % plot(qMoonHill_CR3BP(2), qMoonHill_CR3BP(1), '+'); hold on;
 % plot(qL2Hill_CR3BP(2), qL2Hill_CR3BP(1), '+');
-legend('Moon', 'Earth', 'L2', 'zB L2', 'zB EMB', 'Drift Compare EMB', 'Drift Compare L2', 'minPointEMB', 'minPointL2');
+legend('Moon', 'Earth', 'L2', 'zB L2', 'zB EMB', '3BP', '2 Body Moon', 'minPointEMB', 'minPointL2');
 xlabel('q_1');
 ylabel('q_2');
 zlabel('q_3');

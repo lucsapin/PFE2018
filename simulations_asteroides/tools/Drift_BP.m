@@ -88,7 +88,6 @@ function qdot = rhs_BP(t,q,mu,muSun,rhoS,thetaS0,omegaS,choix)
     q4          = q(4);
     q5          = q(5);
 
-    r           = sqrt(q1^2+q2^2+q3^2);
     r1          = sqrt((q1+mu)^2+q2^2+q3^2);
     r2          = sqrt((q1-1+mu)^2+q2^2+q3^2);
 
@@ -100,29 +99,35 @@ function qdot = rhs_BP(t,q,mu,muSun,rhoS,thetaS0,omegaS,choix)
 
     cSun = 1.0;
 
-    if(choix==1) % eq 3 corps pas perturbé
+    if(choix==1) % eq 3 corps pas perturbe
 
         qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3 - mu*(q1-1+mu)/r2^3;
         qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3 - mu*q2/r2^3;
         qdot(6) =            - (1-mu)*q3/r1^3 - mu*q3/r2^3;
 
-    elseif(choix==3) % eq 3 : 3 corps perturbé
+    elseif(choix==3) % eq 3 : 3 corps perturbe
 
         qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3 - cSun*muSun*cos(thetaS)/rhoS^2;
         qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3 - cSun*muSun*sin(thetaS)/rhoS^2;
         qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
 
-    elseif(choix==2) % eq 2 : 3 corps perturbé et modifié par Thomas
+    elseif(choix==2) % eq 2 : 3 corps perturbe et modifie par Thomas
 
         qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3;
         qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3;
         qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
 
-    elseif(choix==4) % eq 4 : 2 corps
+    elseif(choix==4) % 2 corps Terre
 
-        qdot(4) =  2*q5 + q1 ;%- q1/r^3;
-        qdot(5) = -2*q4 + q2 ;%- q2/r^3;
-        qdot(6) = 0;           - q3/r^3;
+        qdot(4) =  2*q5 + q1 - q1/r1^3;
+        qdot(5) = -2*q4 + q2 - q2/r1^3;
+        qdot(6) =            - q3/r1^3;
+
+    elseif (choix==5) % 2 corps Lune
+
+        qdot(4) =  2*q5 + q1 - q1/r2^3;
+        qdot(5) = -2*q4 + q2 - q2/r2^3;
+        qdot(6) =            - q3/r2^3;
 
     end
 
@@ -163,12 +168,12 @@ function qLdot = rhs_4B_EMB_LD(t, qL)
     % Dynamics
     qLdot       = zeros(7,1);
     qLdot(1:3)  = v;
-    qLdot(4:6)  =   - mu0_Sun*(r-qS(1:3))/rSun^3 - mu0_Earth*(r-qE(1:3))/rE^3 - mu0_Moon*(r-qM(1:3))/rM^3 ...
+    qLdot(4:6)  =   - mu0_Sun*(r-qS(1:3))/rSun^3 ...
+                    - mu0_Earth*(r-qE(1:3))/rE^3 ...
+                    - mu0_Moon*(r-qM(1:3))/rM^3 ...
                     - (mu0_Sun/(mu0_Earth+mu0_Moon))* ...
-                    (   ...
-                            mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 ...
-                        +   mu0_Moon *(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ...
-                    );
+                      (mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 ...
+                      +mu0_Moon *(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3);
     qLdot(7)    = Ldot;
 
 return
