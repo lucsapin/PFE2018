@@ -1,5 +1,5 @@
-function [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_3PB(t0, dt, q0_SUN_AU)
-% This function should be called otherwise
+function [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_PB(t0, dt, q0_SUN_AU, choix)
+
 format long;
 
 % On calcule les trajectoires en comparant les dynamiques 3 corps perturbes 3BP avec 3 corps 3B et 4B
@@ -63,15 +63,15 @@ T_CR3BP     = linspace(0.0, dt_CR3BP, Nstep);
 % -------------------------------------------------------------------------------------------------
 % Dynamique des 3 corps perturbe
 %
-odefun          = @(t,x) rhs_CR3BP(t, x, muCR3BP, muSun, rhoS, thetaS0, omegaS, 4);
+odefun          = @(t,x) rhs_BP(t, x, muCR3BP, muSun, rhoS, thetaS0, omegaS, choix);
 [~, Q_CR3BP]    = ode45(odefun, T_CR3BP, q0_CR3BP, OptionsOde);
 Q_CR3BP         = Q_CR3BP'; % ROTATING FRAME (LD) !
 
 %
-% Change of coordinates from CR3BP to EMB for comparison
 T_CR3BP = T_CR3BP*UC.time_syst/UC.jour;
 T_CR3BP = t0 + T_CR3BP;
 
+% Change of coordinates from CR3BP to EMB for comparison
 % for i = 1:length(T_CR3BP)
 %     Q_CR3BP_in_EMB(:,i) = CR3BP2EMB(Q_CR3BP(:,i), T_CR3BP_in_EMB(i));
 % end
@@ -80,7 +80,7 @@ return
 
 % ----------------------------------------------------------------------------------------------------
 % ----------------------------------------------------------------------------------------------------
-function qdot = rhs_CR3BP(t,q,mu,muSun,rhoS,thetaS0,omegaS,choix)
+function qdot = rhs_BP(t,q,mu,muSun,rhoS,thetaS0,omegaS,choix)
 
     q1          = q(1);
     q2          = q(2);
@@ -120,9 +120,9 @@ function qdot = rhs_CR3BP(t,q,mu,muSun,rhoS,thetaS0,omegaS,choix)
 
     elseif(choix==4) % eq 4 : 2 corps
 
-        qdot(4) =  2*q5 + q1 - q1/r^3;
-        qdot(5) = -2*q4 + q2 - q2/r^3;
-        qdot(6) =            - q3/r^3;
+        qdot(4) =  2*q5 + q1 ;%- q1/r^3;
+        qdot(5) = -2*q4 + q2 ;%- q2/r^3;
+        qdot(6) = 0;           - q3/r^3;
 
     end
 

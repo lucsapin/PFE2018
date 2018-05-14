@@ -50,12 +50,12 @@ typeSimu = 'total';
 disp('------------------------------------------------------------------------');
 
 disp('Propagate Compare : target = EMB before Hill');
-[resDrift_EMB, resFig_EMB, resB_EMB, resP2H_EMB, pointMinDistL2_EMB] = propagateCompare('EMB', typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxEMB);
+[resDrift_EMB, resFig_EMB, resB_EMB, resP2H_EMB, pointMinDistL2_EMB] = propagateCompare('L2', typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, 3);
 
 fprintf('\n');
 
 disp('Propagate Compare : target = L2 before Hill');
-[resDrift_L2,  resFig_L2,  resB_L2,  resP2H_L2,  pointMinDistL2_L2]  = propagateCompare('L2', typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2);
+[resDrift_L2,  resFig_L2,  resB_L2,  resP2H_L2,  pointMinDistL2_L2]  = propagateCompare('L2', typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, 4);
 
 disp('------------------------------------------------------------------------');
 
@@ -98,37 +98,35 @@ display_Trajectory_Spacecraft(statesqL1_L2, 'return'); hold on;
 display_Trajectory_Spacecraft(statesqL2_L2, 'return'); hold on;
 plot3(Q_EMB_SUN_EMB(1,:), Q_EMB_SUN_EMB(2,:), Q_EMB_SUN_EMB(3,:), 'Color', DC.bleu, 'LineWidth', DC.LW); hold on;
 plot3(Q_EMB_SUN_L2(1,:), Q_EMB_SUN_L2(2,:), Q_EMB_SUN_L2(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW);
-xlabel('q_1'); ylabel('q_2'); zlabel('q_3'); view(0,90);
+xlabel('q_1'); ylabel('q_2'); zlabel('q_3'); view(0,90); legend('return_compare EMB', 'return_compare L2', 'return1EMB', 'return2EMB', 'return1L2', 'return2L2', 'EMB', 'L2');
 
 figure;
 the_legend  = {};
-if (doPlot3B_Pert)
-    subplot(3,2,1);
-    plot(T_CR3BP, Q_CR3BP_EMB(1,:), color_EMB, 'LineWidth', LW_EMB); hold on;
-    plot(T_CR3BP, Q_CR3BP_L2(1,:), color_L2, 'LineWidth', LW_L2); ylabel('q_1');
+subplot(3,2,1);
+plot(T_CR3BP, Q_CR3BP_EMB(1,:), 'r', 'LineWidth', LW_EMB); hold on;
+plot(T_CR3BP, Q_CR3BP_L2(1,:), color_L2, 'LineWidth', LW_L2); ylabel('q_1');
 
-    subplot(3,2,3);
-    plot(T_CR3BP, Q_CR3BP_EMB(2,:), color_EMB, 'LineWidth', LW_EMB); hold on;
-    plot(T_CR3BP, Q_CR3BP_L2(2,:), color_L2, 'LineWidth', LW_L2); ylabel('q_2');
+subplot(3,2,3);
+plot(T_CR3BP, Q_CR3BP_EMB(2,:), 'r', 'LineWidth', LW_EMB); hold on;
+plot(T_CR3BP, Q_CR3BP_L2(2,:), color_L2, 'LineWidth', LW_L2); ylabel('q_2');
 
-    subplot(3,2,5);
-    plot(T_CR3BP, Q_CR3BP_EMB(3,:), color_EMB, 'LineWidth', LW_EMB); hold on;
-    plot(T_CR3BP, Q_CR3BP_L2(3,:), color_L2, 'LineWidth', LW_L2); ylabel('q_3');
+subplot(3,2,5);
+plot(T_CR3BP, Q_CR3BP_EMB(3,:), 'r', 'LineWidth', LW_EMB); hold on;
+plot(T_CR3BP, Q_CR3BP_L2(3,:), color_L2, 'LineWidth', LW_L2); ylabel('q_3');
 
-    subplot(3,2,2);
-    plot(T_CR3BP, Q_CR3BP_EMB(4,:), color_EMB, 'LineWidth', LW_EMB); hold on;
-    plot(T_CR3BP, Q_CR3BP_L2(4,:), color_L2, 'LineWidth', LW_L2); ylabel('q_4');
+subplot(3,2,2);
+plot(T_CR3BP, Q_CR3BP_EMB(4,:), 'r', 'LineWidth', LW_EMB); hold on;
+plot(T_CR3BP, Q_CR3BP_L2(4,:), color_L2, 'LineWidth', LW_L2); ylabel('q_4');
 
-    subplot(3,2,4);
-    plot(T_CR3BP, Q_CR3BP_EMB(5,:), color_EMB, 'LineWidth', LW_EMB); hold on;
-    plot(T_CR3BP, Q_CR3BP_L2(5,:), color_L2, 'LineWidth', LW_L2); ylabel('q_5');
+subplot(3,2,4);
+plot(T_CR3BP, Q_CR3BP_EMB(5,:), 'r', 'LineWidth', LW_EMB); hold on;
+plot(T_CR3BP, Q_CR3BP_L2(5,:), color_L2, 'LineWidth', LW_L2); ylabel('q_5');
 
-    subplot(3,2,6);
-    plot(T_CR3BP, Q_CR3BP_EMB(6,:), color_EMB, 'LineWidth', LW_EMB); hold on;
-    plot(T_CR3BP, Q_CR3BP_L2(6,:), color_L2, 'LineWidth', LW_L2); ylabel('q_6');
+subplot(3,2,6);
+plot(T_CR3BP, Q_CR3BP_EMB(6,:), 'r', 'LineWidth', LW_EMB); hold on;
+plot(T_CR3BP, Q_CR3BP_L2(6,:), color_L2, 'LineWidth', LW_L2); ylabel('q_6');
 
-    the_legend{end+1} = 'CR3BP\_Pert\_EMB'; the_legend{end+1} = 'CR3BP\_Pert\_L2';
-end
+the_legend{end+1} = 'CR3BP\_Pert\_EMB'; the_legend{end+1} = 'CR3BP\_Pert\_L2';
 
 subplot(3,2,1); legend(the_legend{:}, 'Location', 'NorthWest');
 subplot(3,2,3);
@@ -141,9 +139,9 @@ figure;
 display_Moon(); hold on;
 display_Earth(); hold on;
 display_L2(); hold on;
-plot3(zB_L2(1,:), zB_L2(2,:), zB_L2(3,:)); hold on;
-plot3(zB_EMB(1,:), zB_EMB(2,:), zB_EMB(3,:)); hold on;
-plot3(Q_CR3BP_EMB(1,:), Q_CR3BP_EMB(2,:), Q_CR3BP_EMB(3,:), color_EMB, 'LineWidth', LW_EMB); hold on;
+plot3(zB_L2(1,:), zB_L2(2,:), zB_L2(3,:), '-'); hold on;
+plot3(zB_EMB(1,:), zB_EMB(2,:), zB_EMB(3,:),'--'); hold on;
+plot3(Q_CR3BP_EMB(1,:), Q_CR3BP_EMB(2,:), Q_CR3BP_EMB(3,:), 'r', 'LineWidth', LW_EMB); hold on;
 plot3(Q_CR3BP_L2(1,:), Q_CR3BP_L2(2,:), Q_CR3BP_L2(3,:), color_L2, 'LineWidth', LW_L2); hold on;
 plot3(pointMinDistL2_EMB(1), pointMinDistL2_EMB(2), pointMinDistL2_EMB(3), 'o'); hold on;
 plot3(pointMinDistL2_L2(1), pointMinDistL2_L2(2), pointMinDistL2_L2(3), 'o');

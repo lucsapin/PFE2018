@@ -1,4 +1,4 @@
-function [resDrift, resFig, resB, resP2H, correspondingPoint] = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, Sansmax)
+function [resDrift, resFig, resB, resP2H, correspondingPoint] = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, Sansmax, choix)
 
   outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax);
 
@@ -23,8 +23,7 @@ function [resDrift, resFig, resB, resP2H, correspondingPoint] = propagateCompare
   % ----------------------------------------------------------------------------------------------------
   % Drift Compare : compute the trajectory inside the Hill's sphere, considering a certain dynamics
   disp('Drift Compare');
-  [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_3BP(t0_day, difftime, q0_SUN_AU);
-  % [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_2B(t0_day, difftime, q0_SUN_AU);
+  [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_BP(t0_day, difftime, q0_SUN_AU, choix);
 
   % Compute time and position of the trajectory corresponding to the min distance of L2's point
   [timeMinDistL2, correspondingPoint] = getTimeMinDistL2(T_CR3BP, Q_CR3BP);
