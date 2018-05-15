@@ -1,4 +1,4 @@
-function [resDrift, correspondingPoint] = propagateDrift(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, Sansmax, choix, propagation)
+function [resDrift, correspondingPoint] = computeCR3BP(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, Sansmax, choix, propagation)
 
   outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax);
 
@@ -29,5 +29,6 @@ function [resDrift, correspondingPoint] = propagateDrift(destination, typeSimu, 
   resDrift.T_CR3BP = T_CR3BP;
   resDrift.Q_EMB_SUN = Q_EMB_SUN;
   resDrift.Q_CR3BP = Q_CR3BP;
+  resDrift.q0_SUN_AU = q0_SUN_AU;
 
 return

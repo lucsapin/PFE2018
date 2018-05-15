@@ -212,14 +212,13 @@ function qLdot = rhs_2B_Sun_AU(t, qL)
 
     mu0_Sun     = UC.mu0SunAU;
 
-    xG_EMB0_AU  = UC.xG_EMB0;
-    xG_EMB      = xG_EMB0_AU;
+    xG_EMB      = UC.xG_EMB0;
 
     %
     r           = qL(1:3);
     v           = qL(4:6);
     L_EMB       = qL(7);
-    Ldot        = rhsLGauss(t,L_EMB,xG_EMB,mu0_Sun);
+    Ldot        = rhsLGauss(t, L_EMB, xG_EMB, mu0_Sun);
     qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB
 
     % Replace the position in the frame centered in the Sun

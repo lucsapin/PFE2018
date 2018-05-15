@@ -49,56 +49,69 @@ typeSimu = 'total';
 % Computation of trajectories for each destination
 
 disp('------------------------------------------------------------------------');
-propagation = '4B'
+propagation1 = '4B'
 
-choix = 3; dynamic = '3B Perturbated';
-disp(['Propagate Compare : ' dynamic]);
-[resDrift3BP, pointMinDistL23BP4B] = propagateDrift(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation);
-
-fprintf('\n');
-choix = 4; dynamic = '2B Earth';
-disp(['Propagate Compare : ' dynamic]);
-[resDrift2BE, pointMinDistL22BE4B] = propagateDrift(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation);
+choix = 3; dynamic11 = '3B Perturbated'; traj11 = [propagation1 '+' dynamic11];
+disp(['Propagate Compare : ' dynamic11]);
+[resDrift_3BP, pointMinDistL2_3BP4B] = computeCR3BP(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation1);
 
 fprintf('\n');
-choix = 5; dynamic = '2B Moon';
-disp(['Propagate Compare : ' dynamic]);
-[resDrift2BM, pointMinDistL22BM4B] = propagateDrift(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation);
+choix = 6; dynamic12 = '2B Sun'; traj12 = [propagation1 '+' dynamic12];
+disp(['Propagate Compare : ' dynamic12]);
+[resDrift_2BS, pointMinDistL2_2BS4B] = computeCR3BP(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation1);
+
+fprintf('\n');
+choix = 7; dynamic13 = '2B Ad Hoc'; traj13 = [propagation1 '+' dynamic13];
+disp(['Propagate Compare : ' dynamic13]);
+[resDrift_2BAH, pointMinDistL2_2BAH4B] = computeCR3BP(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation1);
 
 disp('------------------------------------------------------------------------');
 
 % ----------------------------------------------------------------------------------------------------
 % Affectation des résultats
-T_CR3BP4B       = resDrift3BP.T_CR3BP; % vecteur de temps
-Q_CR3BP4B   = resDrift3BP.Q_CR3BP; % trajectory in rotating frame
-Q_CR3BP2BE4B    = resDrift2BE.Q_CR3BP; % trajectory in rotating frame
-Q_CR3BP2BM4B    = resDrift2BM.Q_CR3BP; % trajectory in rotating frame
+T_CR3BP_4B       = resDrift_3BP.T_CR3BP; % vecteur de temps
 
+Q_CR3BP_4B       = resDrift_3BP.Q_CR3BP; % trajectory in rotating frame
+Q_CR3BP_2BS4B    = resDrift_2BS.Q_CR3BP; % trajectory in rotating frame
+Q_CR3BP_2BAH4B   = resDrift_2BAH.Q_CR3BP % trajectory in rotating frame
+
+% q0_SUN_AU3BP4B  = resDrift_3BP.q0_SUN_AU;
+% q0_SUN_AU2BS4B  = resDrift_2BS.q0_SUN_AU;
+% q0_SUN_AU2BAH4B  = resDrift_2BAH.q0_SUN_AU;
+
+% ----------------------------------------------------------------------------------------------------
+% Computation of trajectories for each destination
 disp('------------------------------------------------------------------------');
-propagation = '2B'
+propagation2 = '2B'
 
-choix = 3; dynamic = '3B Perturbated';
-disp(['Propagate Compare : ' dynamic]);
-[resDrift3BP, pointMinDistL23BP2B] = propagateDrift(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation);
+choix = 3; dynamic21 = '3B Perturbated'; traj21 = [propagation2 '+' dynamic21];
+disp(['Propagate Compare : ' dynamic21]);
+[resDrift_3BP, pointMinDistL2_3BP2B] = computeCR3BP(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation2);
 
-fprintf('\n');
-choix = 4; dynamic = '2B Earth';
-disp(['Propagate Compare : ' dynamic]);
-[resDrift2BE, pointMinDistL22BE2B]  = propagateDrift(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation);
 
 fprintf('\n');
-choix = 5; dynamic = '2B Moon';
-disp(['Propagate Compare : ' dynamic]);
-[resDrift2BM, pointMinDistL22BM2B]  = propagateDrift(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation);
+choix = 6; dynamic22 = '2B SUN'; traj22 = [propagation2 '+' dynamic22];
+disp(['Propagate Compare : ' dynamic22]);
+[resDrift_2BS, pointMinDistL2_2BS2B]  = computeCR3BP(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation2);
+
+fprintf('\n');
+choix = 7; dynamic23 = '2B Ad Hoc'; traj23 = [propagation2 '+' dynamic23];
+disp(['Propagate Compare : ' dynamic23]);
+[resDrift_2BAH, pointMinDistL2_2BAH2B] = computeCR3BP(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choix, propagation2);
 
 disp('------------------------------------------------------------------------');
 
 % ----------------------------------------------------------------------------------------------------
 % Affectation des résultats
-T_CR3BP2B       = resDrift3BP.T_CR3BP; % vecteur de temps
-Q_CR3BP2B   = resDrift3BP.Q_CR3BP; % trajectory in rotating frame
-Q_CR3BP2BE2B    = resDrift2BE.Q_CR3BP; % trajectory in rotating frame
-Q_CR3BP2BM2B    = resDrift2BM.Q_CR3BP; % trajectory in rotating frame
+T_CR3BP_2B       = resDrift_3BP.T_CR3BP; % vecteur de temps
+
+Q_CR3BP_2B       = resDrift_3BP.Q_CR3BP; % trajectory in rotating frame
+Q_CR3BP_2BS2B    = resDrift_2BS.Q_CR3BP; % trajectory in rotating frame
+Q_CR3BP_2BAH2B    = resDrift_2BAH.Q_CR3BP % trajectory in rotating frame
+
+% q0_SUN_AU_3BP2B  = resDrift_3BP.q0_SUN_AU;
+% q0_SUN_AU_2BS2B  = resDrift_2BS.q0_SUN_AU;
+% q0_SUN_AU_2BAH2B  = resDrift2_BAH.q0_SUN_AU;
 % ----------------------------------------------------------------------------------------------------
 % Plot results
 figure;
@@ -106,24 +119,22 @@ display_Moon(); hold on;
 display_Earth(); hold on;
 display_L2(); hold on;
 
-plot3(Q_CR3BP4B(1,:), Q_CR3BP4B(2,:), Q_CR3BP4B(3,:), 'r', 'LineWidth', DC.LW); hold on;
-plot3(Q_CR3BP2BE4B(1,:), Q_CR3BP2BE4B(2,:), Q_CR3BP2BE4B(3,:), 'b', 'LineWidth', DC.LW); hold on;
-plot3(Q_CR3BP2BM4B(1,:), Q_CR3BP2BM4B(2,:), Q_CR3BP2BM4B(3,:), 'm', 'LineWidth', DC.LW); hold on;
+% plot3(Q_CR3BP_4B(1,:), Q_CR3BP_4B(2,:), Q_CR3BP_4B(3,:), 'r', 'LineWidth', DC.LW); hold on;
+% plot3(Q_CR3BP_2BS4B(1,:), Q_CR3BP_2BS4B(2,:), Q_CR3BP_2BS4B(3,:), 'm', 'LineWidth', DC.LW); hold on;
+plot3(Q_CR3BP_2BAH4B(1,:), Q_CR3BP_2BAH4B(2,:), Q_CR3BP_2BAH4B(3,:), 'b', 'LineWidth', DC.LW); hold on;
 
-plot3(Q_CR3BP2B(1,:), Q_CR3BP2B(2,:), Q_CR3BP2B(3,:), 'r--', 'LineWidth', DC.LW); hold on;
-plot3(Q_CR3BP2BE2B(1,:), Q_CR3BP2BE2B(2,:), Q_CR3BP2BE2B(3,:), 'b--', 'LineWidth', DC.LW); hold on;
-plot3(Q_CR3BP2BM2B(1,:), Q_CR3BP2BM2B(2,:), Q_CR3BP2BM2B(3,:), 'm--', 'LineWidth', DC.LW); hold on;
+% plot3(Q_CR3BP_2B(1,:), Q_CR3BP_2B(2,:), Q_CR3BP_2B(3,:), 'r--', 'LineWidth', DC.LW); hold on;
+% plot3(Q_CR3BP_2BS2B(1,:), Q_CR3BP_2BS2B(2,:), Q_CR3BP_2BS2B(3,:), 'm--', 'LineWidth', DC.LW); hold on;
+plot3(Q_CR3BP_2BAH2B(1,:), Q_CR3BP_2BAH2B(2,:), Q_CR3BP_2BAH2B(3,:), 'b--', 'LineWidth', DC.LW); % hold on;
 
 
-plot3(pointMinDistL23BP4B(1), pointMinDistL23BP4B(2), pointMinDistL23BP4B(3), 'o'); hold on;
-plot3(pointMinDistL22BE4B(1), pointMinDistL22BE4B(2), pointMinDistL22BE4B(3), 'o'); hold on;
-plot3(pointMinDistL22BM4B(1), pointMinDistL22BM4B(2), pointMinDistL22BM4B(3), 'o'); hold on;
+% plot3(pointMinDistL2_3BP4B(1), pointMinDistL2_3BP4B(2), pointMinDistL2_3BP4B(3), 'o'); hold on;
+% plot3(pointMinDistL2_2BS4B(1), pointMinDistL2_2BS4B(2), pointMinDistL2_2BS4B(3), 'o'); hold on;
+%
+% plot3(pointMinDistL23BP2B(1), pointMinDistL23BP2B(2), pointMinDistL23BP2B(3), 'o'); hold on;
+% plot3(pointMinDistL22BS2B(1), pointMinDistL22BS2B(2), pointMinDistL22BS2B(3), 'o');
 
-plot3(pointMinDistL23BP2B(1), pointMinDistL23BP2B(2), pointMinDistL23BP2B(3), 'o'); hold on;
-plot3(pointMinDistL22BE2B(1), pointMinDistL22BE2B(2), pointMinDistL22BE2B(3), 'o'); hold on;
-plot3(pointMinDistL22BM2B(1), pointMinDistL22BM2B(2), pointMinDistL22BM2B(3), 'o');
-
-legend('Moon', 'Earth', 'L2', '4B + 3BP', '4B + 2BEarth', '4B + 2BMoon', '2B + 3BP', '2B + 2BEarth', '2B + 2BMoon');
+% legend('Moon', 'Earth', 'L2', traj11, traj12, traj13, traj21, traj22, traj23);
 title('Compare Dynamics : 2B or 4B before Hill then 3BP or 2B')
 xlabel('q_1');
 ylabel('q_2');

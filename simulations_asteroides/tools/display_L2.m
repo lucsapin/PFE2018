@@ -12,7 +12,7 @@ position_CR3BP = [muCR3BP; 0.0; 0.0];
 
 L2_radius = 6371.0/UC.LD;
 
-ratio   = 10;
+ratio   = 5;
 X       = L2_radius*X/(ratio);
 Y       = L2_radius*Y/(ratio);
 Z       = L2_radius*Z/(ratio);
