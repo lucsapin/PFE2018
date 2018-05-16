@@ -53,12 +53,12 @@ choixDyn = 6; dynamic = '2 Body Sun';
 disp('------------------------------------------------------------------------');
 destination = 'EMB';
 disp(['Propagate Compare : ' dynamic]);
-[resDrift_EMB, resFig_EMB, resB_EMB, resP2H_EMB, pointMinDistL2_EMB] = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choixDyn, propagation);
+[resDrift_EMB, resFig_EMB, resB_EMB, resP2H_EMB, pointMinDistL2_EMB] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choixDyn);
 
 fprintf('\n');
 destination = 'L2';
 disp(['Propagate Compare : ' dynamic]);
-[resDrift_L2,  resFig_L2,  resB_L2,  resP2H_L2,  pointMinDistL2_L2]  = propagateCompare(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choixDyn, propagation);
+[resDrift_L2,  resFig_L2,  resB_L2,  resP2H_L2,  pointMinDistL2_L2]  = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, SansmaxL2, choixDyn);
 
 disp('------------------------------------------------------------------------');
 

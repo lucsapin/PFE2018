@@ -12,10 +12,10 @@ position_CR3BP = [1.0-muCR3BP; 0.0; 0.0];
 
 Moon_radius = 1737.0/UC.LD;
 
-ratio   = 2; % not scaled if ne 1
-X       = Moon_radius*X*(ratio);
-Y       = Moon_radius*Y*(ratio);
-Z       = Moon_radius*Z*(ratio);
+ratio   = 0.25; % not scaled if ne 1
+X       = Moon_radius*X/(ratio);
+Y       = Moon_radius*Y/(ratio);
+Z       = Moon_radius*Z/(20*ratio);
 s       = surf(position_CR3BP(1)+X,position_CR3BP(2)+Y,position_CR3BP(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.gris);
 
 return

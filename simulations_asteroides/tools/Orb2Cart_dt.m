@@ -3,7 +3,7 @@ function [q,nu] = Orb2Cart_dt(mu0,xOrb,dt)
     %   mu0 : gravitational parameters (same units as xOrb and dt)
     %   xOrb : classical orbital elements (a,e,i,Omega,argper,nu) at time 0
     %   dt : time duration at which cartesian coordinates have to be
-    %       computed
+    %       computed (IN DAYS !!)
     % Outputs :
     %   q : position/velocity at time dt
     %   nu : true anomaly at time dt

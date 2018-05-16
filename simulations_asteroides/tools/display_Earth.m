@@ -12,10 +12,10 @@ position_CR3BP = [-muCR3BP; 0.0; 0.0];
 
 Earth_radius = 6371.0/UC.LD;
 
-ratio   = 1;
+ratio   = 0.25;
 X       = Earth_radius*X/(ratio);
 Y       = Earth_radius*Y/(ratio);
-Z       = Earth_radius*Z/(ratio);
+Z       = Earth_radius*Z/(20*ratio);
 s       = surf(position_CR3BP(1)+X,position_CR3BP(2)+Y,position_CR3BP(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.bleu);
 
 return

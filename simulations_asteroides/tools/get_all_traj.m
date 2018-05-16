@@ -1,4 +1,4 @@
-function [resDrift, correspondingPoint] = computeCR3BP(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, Sansmax, choix, propagation)
+function [resDrift, resFig, resB, resP2H, correspondingPoint] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, Sansmax, choixDyn)
 
   outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax);
 
@@ -6,7 +6,11 @@ function [resDrift, correspondingPoint] = computeCR3BP(destination, typeSimu, nu
 
   % Get initial condition
   disp('Propagate to Hill');
-  [times_out, ~, time_Hill, state_Hill, ~, ~, states, states_q_L1, states_q_L2] = propagate2Hill(outputOptimization, dist, propagation); % The solution is given in HELIO frame
+  [times_out, ~, time_Hill, state_Hill, ~, ~, states, states_q_L1, states_q_L2, ~] = propagate2Hill(outputOptimization, dist); % The solution is given in HELIO frame
+
+  resP2H.states = states;
+  resP2H.states_q_L1 = states_q_L1;
+  resP2H.states_q_L2 = states_q_L2;
 
   t0_day      = time_Hill;                % the initial time in Day
   q0_SUN_AU   = state_Hill(1:6);          % q0 in HELIO frame in AU unit
@@ -19,7 +23,7 @@ function [resDrift, correspondingPoint] = computeCR3BP(destination, typeSimu, nu
   % ----------------------------------------------------------------------------------------------------
   % Drift Compare : compute the trajectory inside the Hill's sphere, considering a certain dynamics
   disp('Drift Compare');
-  [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_BP(t0_day, difftime, q0_SUN_AU, choix);
+  [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_BP(t0_day, difftime, q0_SUN_AU, choixDyn);
 
   % Compute time and position of the trajectory corresponding to the min distance of L2's point
   [timeMinDistL2, correspondingPoint] = getTimeMinDistL2(T_CR3BP, Q_CR3BP);
@@ -30,5 +34,23 @@ function [resDrift, correspondingPoint] = computeCR3BP(destination, typeSimu, nu
   resDrift.Q_EMB_SUN = Q_EMB_SUN;
   resDrift.Q_CR3BP = Q_CR3BP;
   resDrift.q0_SUN_AU = q0_SUN_AU;
+  
+  if strcmp(destination, 'L2')
+    color   = 'm--';
+    LW      = 1.5;
+  elseif strcmp(destination, 'EMB')
+    color   = 'b--';
+    LW      = 1.5;
+  else
+    error('Wrong destination name!');
+  end
 
+  resFig.color = color;
+  resFig.LW = LW;
+
+  disp('Bocop resolution');
+  [~, ~,zB, ~, optimvarsB, ~] = do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN, difftime, m0, dist);
+  resB.zB = zB;
+  resB.optimvarsB = optimvarsB;
+  solutionBocop = t0_day + optimvarsB*UC.time_syst/UC.jour; % en jour
 return

@@ -1,4 +1,4 @@
-function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, states, states_q_L1, states_q_L2, dist2Hill] = propagate2Hill(outputTotalOpti, dist, propagation)
+function [times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, flag, states, states_q_L1, states_q_L2, dist2Hill] = propagate2Hill(outputTotalOpti, dist)
 
 % state_Hill : centré au soleil
 %
@@ -56,25 +56,24 @@ dVf_r               =   outputTotalOpti.dVf_r       ;
 % ----------------------------------------------------------------------------------------------------
 % Get initial point on the asteroid
 %
-q0                  = get_Current_State_Cart(xOrb_epoch_t0_Ast, t0_r);
+q0                  = get_Current_State_Cart(xOrb_epoch_t0_Ast, t0_r); % Heliocentric frame !!
 q0(4:6)             = q0(4:6) + dV0_r(:);
 
 % On integre le systeme jusqu'au temps t0_r + dt1_r
 %
-xOrb_epoch_t0_EMB   = get_EMB_init_Orbital_elements();
+xOrb_epoch_t0_EMB   = get_EMB_init_Orbital_elements(); % Heliocentric frame !!
 xC_EMB              = get_Current_State_Cart(xOrb_epoch_t0_EMB, t0_r);
-xG_EMB              = Cart2Gauss(UC.mu0SunAU, xC_EMB);
+xG_EMB              = Cart2Gauss(UC.mu0SunAU, xC_EMB); % Orbital elements
 state_q_L_init      = [q0; xG_EMB(6)];
 
 % With dynamics with Sun-Earth-Moon
 odefun_event        = @(t,x) HillTouch(t, x, UC.mu0SunAU, xG_EMB, dist);
 OptionsOde          = odeset('Events', odefun_event, 'AbsTol', 1.e-12, 'RelTol', 1.e-12);
-if propagation == '2B'
-  odefun              = @(t,x) rhs_2B_Sun_AU(t, x);
-else
-  odefun              = @(t,x) rhs_4B_Sun_AU(t, x);
-  % odefun              = @(t,x) rhs_SEMB_Sun(t, x);
-end
+
+odefun              = @(t,x) rhs_2B_Sun_AU(t, x);
+
+% odefun            = @(t,x) rhs_4B_Sun_AU(t, x); % 4 body dynamic
+% odefun            = @(t,x) rhs_SEMB_Sun(t, x);  % 3 body dynamic
 
 %ii                  = find(times<=t0_r+dt1_r);
 %[times, states_q_L, time_event, state_q_L_event] = ode45(odefun, times(ii), state_q_L_init, OptionsOde);

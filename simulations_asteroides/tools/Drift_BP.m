@@ -1,4 +1,4 @@
-function [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_PB(t0, dt, q0_SUN_AU, choix)
+function [Times, Q_EMB_SUN, Q_CR3BP] = Drift_PB(t0, dt, q0_SUN_AU, choix)
 
 format long;
 
@@ -16,7 +16,7 @@ format long;
 % DC          = get_Display_Constants(); % Display constants
 UC          = get_Univers_Constants(); % Univers constants
 
-% On transforme q0 dans les 2 referentiels
+% On transforme q0 dans le référentiel CR3BP
 [q0_CR3BP,~,~,~,thetaS0]    = Helio2CR3BP(q0_SUN_AU, t0);       % q en LD/d
 
 % On definit les parametres d'integration
@@ -33,14 +33,15 @@ L_EMB0_AU   = drift_L(t0, xG_EMB0_AU, UC.mu0SunAU);
 % q0_EMB_LD
 qS              = -Gauss2Cart(UC.mu0SunAU, [xG_EMB0_AU(1:5); L_EMB0_AU]); % Dans le repere inertiel centre EMB
 q0_EMB_AU       = q0_SUN_AU + qS(1:6);
-q0_EMB_LD       = q0_EMB_AU*UC.AU/UC.LD;
+q0_EMB_LD       = q0_EMB_AU*UC.AU/UC.LD; % Dans ref inertiel centré EMB !!
 
 % Dans le repere centre soleil et en AU
 qL0_EMB_LD      = [q0_EMB_LD; L_EMB0_LD];
 [~, Q_EMB_LD]   = ode45(@(t,x) rhs_4B_EMB_LD(t, x), Times, qL0_EMB_LD, OptionsOde);
-Q_EMB_LD = Q_EMB_LD';
-L_EMB       = Q_EMB_LD(7,:);
-Q_EMB_SUN   = zeros(3, Nstep);
+Q_EMB_LD        = Q_EMB_LD';
+L_EMB           = Q_EMB_LD(7,:);
+Q_EMB_SUN       = zeros(3, Nstep);
+
 for i = 1:Nstep
     qS              = -Gauss2Cart(UC.mu0SunLD, [xG_EMB0_LD(1:5); L_EMB(i)]); % Dans le repere inertiel centre EMB
     Q_EMB_SUN(:,i)  = Q_EMB_LD(1:3,i) - qS(1:3);
@@ -48,52 +49,57 @@ for i = 1:Nstep
 end
 
 % -------------------------------------------------------------------------------------------------
-% Dynamique des 3 corps : initialisation
+% Choix des dynamiques : initialisation
 %
 muSun       = UC.mu0SunLD/(UC.mu0EarthLD+UC.mu0MoonLD);
 muCR3BP     = UC.mu0MoonLD/(UC.mu0EarthLD+UC.mu0MoonLD);
 rhoS        = UC.AU/UC.LD;
 omegaS      = (-(UC.speedMoon+UC.NoeudMoonDot)+2*pi/UC.Period_EMB)/UC.jour*UC.time_syst;
-dt_CR3BP    = dt*UC.jour/UC.time_syst;
-T_CR3BP     = linspace(0.0, dt_CR3BP, Nstep);
 
+% dt_CR3BP    = dt*UC.jour/UC.time_syst;
+% T_CR3BP     = linspace(0.0, dt_CR3BP, Nstep);
+% T_CR3BP = T_CR3BP*UC.time_syst/UC.jour;
+% T_CR3BP = t0 + T_CR3BP;
+T_CR3BP     = (Times-t0)*UC.jour/UC.time_syst;
 % -------------------------------------------------------------------------------------------------
-% Dynamique des 3 corps perturbe
-%
+% Choix des dynamiques : calcul
 %
 
-if (choix < 6)
+
+if (choix == 3)
+
   odefun          = @(t,x) rhs_BP(t, x, muCR3BP, muSun, rhoS, thetaS0, omegaS, choix);
   [~, Q_CR3BP]    = ode45(odefun, T_CR3BP, q0_CR3BP, OptionsOde);
   Q_CR3BP         = Q_CR3BP'; % ROTATING FRAME (LD) !
-  T_CR3BP = T_CR3BP*UC.time_syst/UC.jour;
-  T_CR3BP = t0 + T_CR3BP;
 
-elseif (choix == 6)
+
+elseif (choix == 4) % 2 corps Soleil
+
   odefun          = @(t,x) rhs_2B_Sun_AU(t,x);
-  % q0_SUN_AU        = [q0_SUN_AU; L_EMB0_AU];
-  q0_SUN_LD        = [q0_SUN_AU*UC.AU/UC.LD ; L_EMB0_LD];
+
+  % q0_SUN_AU       = [q0_SUN_AU; L_EMB0_AU];
+  % q0_SUN_LD       = q0_SUN_AU*UC.AU/UC.LD;
+  q0_SUN_LD       = [q0_SUN_AU*UC.AU/UC.LD ; L_EMB0_LD];
+
   [~, Q_SUN_LD]   = ode45(odefun, Times, q0_SUN_LD, OptionsOde);
   Q_SUN_LD        = Q_SUN_LD';
   Q_SUN_AU        = Q_SUN_LD*UC.LD/UC.AU; % Inertial Frame  (AU) !
 
-  T_CR3BP = T_CR3BP*UC.time_syst/UC.jour;
-  T_CR3BP = t0 + T_CR3BP;
   % Conversion in CR3BP Rotating frame (LD)
   for i=1:Nstep
-    [Q_CR3BP(1:6, i), ~, ~, ~, ~]  = Helio2CR3BP(Q_SUN_AU(1:6,i), T_CR3BP(i));
+    [Q_CR3BP(1:6, i), ~, ~, ~, ~]  = Helio2CR3BP(Q_SUN_AU(1:6,i), Times(i));
   end
 
-else
+
+elseif (choix==6)
   % Test avec les méthodes ad hoc
   xOrb    = Cart2Orb(UC.mu0SunAU, q0_SUN_AU);
-  T_CR3BP = T_CR3BP*UC.time_syst/UC.jour;
-  T_CR3BP = t0 + T_CR3BP;
 
   for i=1:Nstep
-    Q_SUN_AU(1:6, i) = get_Current_State_Cart(xOrb, T_CR3BP(i));
-    Q_CR3BP(1:6, i)  = Helio2CR3BP(Q_SUN_AU(1:6,i), T_CR3BP(i));
+    Q_SUN_AU(1:6, i) = get_Current_State_Cart(xOrb, Times(i)-t0);
+    [Q_CR3BP(1:6, i), ~, ~, ~, ~]  = Helio2CR3BP(Q_SUN_AU(1:6,i), Times(i));
   end
+
 end
 
 % Change of coordinates from CR3BP to EMB for comparison
@@ -129,16 +135,16 @@ function qdot = rhs_BP(t, q, mu, muSun, rhoS, thetaS0, omegaS, choix)
         qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3 - mu*q2/r2^3;
         qdot(6) =            - (1-mu)*q3/r1^3 - mu*q3/r2^3;
 
-    elseif(choix==3) % eq 3 : 3 corps perturbe
-
-        qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3 - cSun*muSun*cos(thetaS)/rhoS^2;
-        qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3 - cSun*muSun*sin(thetaS)/rhoS^2;
-        qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
-
     elseif(choix==2) % eq 2 : 3 corps perturbe et modifie par Thomas
 
         qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3;
         qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3;
+        qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
+
+    elseif(choix==3) % eq 3 : 3 corps perturbe
+
+        qdot(4) =  2*q5 + q1 - (1-mu)*(q1+mu)/r1^3  - mu*(q1-1+mu)/r2^3 - cSun*(q1-rhoS*cos(thetaS))*muSun/rS^3 - cSun*muSun*cos(thetaS)/rhoS^2;
+        qdot(5) = -2*q4 + q2 - (1-mu)*q2/r1^3       - mu*q2/r2^3        - cSun*(q2-rhoS*sin(thetaS))*muSun/rS^3 - cSun*muSun*sin(thetaS)/rhoS^2;
         qdot(6) =            - (1-mu)*q3/r1^3       - mu*q3/r2^3        - cSun*q3*muSun/rS^3;
 
     % elseif(choix==4) % 2 corps Terre
@@ -181,8 +187,8 @@ function qLdot = rhs_4B_EMB_LD(t, qL)
 
     % Moon and Earth position
     [qM,qE,~]     = get_Moon_Earth_L2_State_Cart_LD(t); % Dans ref centre EMB en AU
-    %    qM          = qM*UC.AU/UC.LD;
-    %    qE          = qE*UC.AU/UC.LD;
+    qM          = qM*UC.AU/UC.LD;
+    qE          = qE*UC.AU/UC.LD;
 
     rSun        = sqrt((r(1)-qS(1))^2 + (r(2)-qS(2))^2 + (r(3)-qS(3))^2);
     rE          = sqrt((r(1)-qE(1))^2 + (r(2)-qE(2))^2 + (r(3)-qE(3))^2);
