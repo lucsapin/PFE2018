@@ -1,9 +1,9 @@
 % Script pour lancer les optimisations aller
 destination = 'L2';
-Sansmax = true;
+Sansmax = false;
 
 if Sansmax
-    repOutput = ['results/outbound_impulse_' destination '_Sansmax/'];  
+    repOutput = ['results/outbound_impulse_' destination '_Sansmax/'];
 else
     repOutput = ['results/outbound_impulse_' destination '/'];
 end

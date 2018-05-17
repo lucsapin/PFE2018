@@ -89,25 +89,6 @@ LW_EMB    = resFig_EMB.LW;
 color_L2  = resFig_L2.color;
 LW_L2     = resFig_L2.LW;
 
-% ----------------------------------------------------------------------------------------------------
-% Plot
-
-% figure;
-% display_Trajectory_Spacecraft(states_EMB, 'return_compare'); hold on;
-% display_Trajectory_Spacecraft(states_L2, 'return_compare'); hold on;
-%
-% % display_Trajectory_Spacecraft(statesqL1_EMB, 'return'); hold on;
-% % display_Trajectory_Spacecraft(statesqL2_EMB, 'return'); hold on;
-%
-% % display_Trajectory_Spacecraft(statesqL1_L2, 'return'); hold on;
-% % display_Trajectory_Spacecraft(statesqL2_L2, 'return'); hold on;
-%
-% plot3(Q_EMB_SUN_EMB(1,:), Q_EMB_SUN_EMB(2,:), Q_EMB_SUN_EMB(3,:), 'Color', DC.bleu, 'LineWidth', DC.LW); hold on;
-% plot3(Q_EMB_SUN_L2(1,:), Q_EMB_SUN_L2(2,:), Q_EMB_SUN_L2(3,:), 'Color', DC.rouge, 'LineWidth', DC.LW);
-%
-% xlabel('q_1'); ylabel('q_2'); zlabel('q_3'); view(0,90);
-% legend('returnEMB', 'returnL2', 'EMB', 'L2');
-
 figure;
 the_legend  = {};
 subplot(3,2,1);

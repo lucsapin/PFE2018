@@ -15,7 +15,7 @@ Moon_radius = 1737.0/UC.LD;
 ratio   = 0.25; % not scaled if ne 1
 X       = Moon_radius*X/(ratio);
 Y       = Moon_radius*Y/(ratio);
-Z       = Moon_radius*Z/(20*ratio);
+Z       = Moon_radius*Z/(1000);
 s       = surf(position_CR3BP(1)+X,position_CR3BP(2)+Y,position_CR3BP(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.gris);
 
 return

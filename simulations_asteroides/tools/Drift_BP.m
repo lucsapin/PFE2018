@@ -72,18 +72,12 @@ if (choix == 3)
   [~, Q_CR3BP]    = ode45(odefun, T_CR3BP, q0_CR3BP, OptionsOde);
   Q_CR3BP         = Q_CR3BP'; % ROTATING FRAME (LD) !
 
-
 elseif (choix == 4) % 2 corps Soleil
 
   odefun          = @(t,x) rhs_2B_Sun_AU(t,x);
 
-  % q0_SUN_AU       = [q0_SUN_AU; L_EMB0_AU];
-  % q0_SUN_LD       = q0_SUN_AU*UC.AU/UC.LD;
-  q0_SUN_LD       = [q0_SUN_AU*UC.AU/UC.LD ; L_EMB0_LD];
-
-  [~, Q_SUN_LD]   = ode45(odefun, Times, q0_SUN_LD, OptionsOde);
-  Q_SUN_LD        = Q_SUN_LD';
-  Q_SUN_AU        = Q_SUN_LD*UC.LD/UC.AU; % Inertial Frame  (AU) !
+  [~, Q_SUN_AU]   = ode45(odefun, Times, q0_SUN_AU, OptionsOde);
+  Q_SUN_AU        = Q_SUN_AU';
 
   % Conversion in CR3BP Rotating frame (LD)
   for i=1:Nstep
@@ -208,7 +202,7 @@ function qLdot = rhs_4B_EMB_LD(t, qL)
 return
 
 % ----------------------------------------------------------------------------------------------------
-function qLdot = rhs_2B_Sun_AU(t, qL)
+function qdot = rhs_2B_Sun_AU(t, q)
     % dans ref inertiel centre soleil
     % Be careful, the dynamics is not autonomous!!
 
@@ -219,22 +213,14 @@ function qLdot = rhs_2B_Sun_AU(t, qL)
     xG_EMB      = UC.xG_EMB0;
 
     %
-    r           = qL(1:3);
-    v           = qL(4:6);
-    L_EMB       = qL(7);
-    Ldot        = rhsLGauss(t, L_EMB, xG_EMB, mu0_Sun);
-    qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB
+    r           = q(1:3);
+    v           = q(4:6);
 
-
-    % Replace the position in the frame centered in the Sun
-    qS(1:3)     = qS(1:3) - qS(1:3);
-
-    rSun        = sqrt((r(1)-qS(1))^2 + (r(2)-qS(2))^2 + (r(3)-qS(3))^2);
+    rSun        = sqrt(r(1)^2 + r(2)^2 + r(3)^2);
 
     % Dynamics
-    qLdot       = zeros(7,1);
-    qLdot(1:3)  = v;
-    qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3;
-    qLdot(7)    = Ldot;
+    qdot       = zeros(6,1);
+    qdot(1:3)  = v;
+    qdot(4:6)  = - mu0_Sun*(r/rSun^3);
 
 return

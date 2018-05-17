@@ -106,7 +106,7 @@ qL2_SUN_AU = qEMB_SUN_LD(:) + qL2_EMB_LD(:)*UC.LD/UC.AU;
 % Final boost for L2
 delta_Vf_r_L2       = qL2_SUN_AU(4:6) - qf(4:6);
 
-% Final boost for EMB 
+% Final boost for EMB
 % delta_Vf_r          = final_state_EMB_f(4:6)-qf(4:6);
 
 spacecraft_qf_r = qf;
@@ -124,7 +124,10 @@ normal_f = cross(qM(1:3),qM(4:6));
 % Constraints
 % ------------------------------------------------------------------------------
 % ------------------------------------------------------------------------------
-ceq     = [spacecraft_qf_o(1:3)-final_state_Ast_o(1:3); v0_EMB'*normal_o; spacecraft_qf_r(1:3)-final_state_EMB_f(1:3); vf_EMB'*normal_f];
+ceq     = [spacecraft_qf_o(1:3)-final_state_Ast_o(1:3);
+            v0_EMB'*normal_o;
+             spacecraft_qf_r(1:3) - qL2_SUN_AU(1:3);
+              vf_EMB'*normal_f];
 cin     = [(t0_r-time_max_on_ast)-tf_o; tf_o-(t0_r-time_min_on_ast)];
 
 return
