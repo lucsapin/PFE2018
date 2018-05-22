@@ -16,6 +16,6 @@ ratio   = 0.25;
 X       = Earth_radius*X/(ratio);
 Y       = Earth_radius*Y/(ratio);
 Z       = Earth_radius*Z/(1000);
-s       = surf(position_CR3BP(1)+X,position_CR3BP(2)+Y,position_CR3BP(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.bleu);
+s       = surf(position_CR3BP(1)+X,position_CR3BP(2)+Y,position_CR3BP(3)+Z, 'EdgeColor', 'none', 'FaceColor', DC.color_Earth);
 
 return

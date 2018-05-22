@@ -65,15 +65,12 @@ T_CR3BP     = (Times-t0)*UC.jour/UC.time_syst;
 % Choix des dynamiques : calcul
 %
 
-
-if (choix == 3)
-
+if choix==3
   odefun          = @(t,x) rhs_BP(t, x, muCR3BP, muSun, rhoS, thetaS0, omegaS, choix);
   [~, Q_CR3BP]    = ode45(odefun, T_CR3BP, q0_CR3BP, OptionsOde);
   Q_CR3BP         = Q_CR3BP'; % ROTATING FRAME (LD) !
 
-elseif (choix == 4) % 2 corps Soleil
-
+elseif choix==4 % 2 corps Soleil
   odefun          = @(t,x) rhs_2B_Sun_AU(t,x);
 
   [~, Q_SUN_AU]   = ode45(odefun, Times, q0_SUN_AU, OptionsOde);
@@ -84,8 +81,7 @@ elseif (choix == 4) % 2 corps Soleil
     [Q_CR3BP(1:6, i), ~, ~, ~, ~]  = Helio2CR3BP(Q_SUN_AU(1:6,i), Times(i));
   end
 
-
-elseif (choix==6)
+elseif choix==6
   % Test avec les méthodes ad hoc
   xOrb    = Cart2Orb(UC.mu0SunAU, q0_SUN_AU);
 
