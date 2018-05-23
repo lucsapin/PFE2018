@@ -34,6 +34,7 @@ period_Ast          = 2*pi*sqrt(xOrb_epoch_t0_Ast(1)^3/UC.mu0SunAU);
 % Get initial conditions at Hill's sphere
 outputOpti = loadFile('L2', 'total', numAsteroid, tour_init, Sansmax);
 
+
 UC = get_Univers_Constants();
 
 % Get initial condition for time and state
@@ -56,15 +57,16 @@ scaling = 1e5;
 % Lower and upper bounds
 d_dt1   = [1;period_Ast];
 d_dt2   = [1;period_Ast];
-LB      = [d_dt1(1); d_dt2(1); -ratio*dVmax*ones(6,1)];
-UB      = [d_dt1(2); d_dt2(2);  ratio*dVmax*ones(6,1)];
+LB      = [d_dt1(1); d_dt2(1); -ratio*dVmax*ones(9,1)];
+UB      = [d_dt1(2); d_dt2(2);  ratio*dVmax*ones(9,1)];
 
 % Initial Guess
 dt1_r       = 100;
-dtf_r       = 100;
+dtf_r       = outputOpti.dtf_r;
 delta_V0_r  = 1e-5*[1; 1; 1];
 delta_V1_r  = 1e-5*[1; 1; 1];
-X0          = [dt1_r; dtf_r; ratio*delta_V0_r; ratio*delta_V1_r];
+delta_Vf_p  = outputOpti.dVf_r;
+X0          = [dt1_r; dtf_r; ratio*delta_V0_r; ratio*delta_V1_r; ratio*delta_Vf_p];
 
 poids   = 0.0;
 
