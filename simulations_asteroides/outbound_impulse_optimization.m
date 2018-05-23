@@ -10,7 +10,7 @@ function outbound_impulse_optimization(numAsteroid, numOptiReturn, destination, 
 %
 % exitflag = 1 if the return Optimization exists, -2 if not.
 %
-% This value may change if others return optimizations are done after that 
+% This value may change if others return optimizations are done after that
 % outbound optimizations are performed
 %
 
@@ -31,11 +31,12 @@ else
     repOutputReturn  = ['results/return_impulse_' destination '/'];
 end
 
-if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
-if(~exist(repOutputReturn,'dir')); error('Wrong result directory name!'); end
+if (~exist(repOutput,'dir')); error('Wrong result directory name!'); end
+if (~exist(repOutputReturn,'dir')); error('Wrong result directory name!'); end
 
 file2loadReturn = [repOutputReturn 'asteroid_no_' int2str(numAsteroid)];
-if(exist([file2loadReturn '.mat'],'file')~=2)
+
+if (exist([file2loadReturn '.mat'],'file')~=2)
     error(['there is no return optimization done for asteroid number ' int2str(numAsteroid)]);
 end
 
@@ -44,7 +45,7 @@ load(file2loadReturn);
 allResultsReturn = allResults;
 clear allResults;
 nbOpti      = length(allResultsReturn); fprintf('nbOpti = %d \n', nbOpti);
-if(0<numOptiReturn && numOptiReturn<=nbOpti)
+if (0<numOptiReturn && numOptiReturn<=nbOpti)
     outputOptiReturn  = allResultsReturn{numOptiReturn};
 else
     error('numOptiReturn is invalid!');
@@ -162,7 +163,7 @@ if(exitflag == 1)
     else
         error('Wrong destination name!');
     end
-    
+
     [~, delta_V          ]  = outbound_impulse_criterion(Xsol, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination, Sansmax);
 
     % We construct the output to save

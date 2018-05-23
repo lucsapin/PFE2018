@@ -1,4 +1,4 @@
-function parking_impulse_optimization(numAsteroid, tour_init, Sansmax)
+function parking_impulse_optimization(numAsteroid, numOptiReturn, Sansmax)
 % Impulsionnel sur la PHASE PARKING
 % min \Delta V = \sum_{i=1}^{nbImpulse} \delta V_i  # Objective
 % s.c. \cdot{x} (t) = f(t, x(t))                    # Dynamics
@@ -12,14 +12,36 @@ addpath('tools/');
 
 %
 if Sansmax
-    repOutput = ['results/parking_impulse_Sansmax/'];
+    repOutput = ['results/parking_impulse_' destination '_Sansmax/'];
+    repOutputReturn  = ['results/return_impulse_' destination '_Sansmax/'];
 else
-    repOutput = ['results/parking_impulse/'];
+    repOutput = ['results/parking_impulse_' destination '/'];
+    repOutputReturn  = ['results/return_impulse_' destination '/'];
 end
 
-if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
+if (~exist(repOutput,'dir'))
+  error('Wrong result directory name!');
+end
+if (~exist(repOutputReturn,'dir'))
+  error('Wrong result directory name!');
+end
 
+file2loadReturn = [repOutputReturn 'asteroid_no_' int2str(numAsteroid)];
 
+if (exist([file2loadReturn '.mat'],'file')~=2)
+    error(['there is no return optimization done for asteroid number ' int2str(numAsteroid)]);
+end
+
+% We get the data of the numero numOptiReturn of the return optimizations for asteroid numAsteroid
+load(file2loadReturn);
+allResultsReturn = allResults;
+clear allResults;
+nbOpti      = length(allResultsReturn); fprintf('nbOpti = %d \n', nbOpti);
+if (0<numOptiReturn && numOptiReturn<=nbOpti)
+    outputOptiReturn  = allResultsReturn{numOptiReturn};
+else
+    error('numOptiReturn is invalid!');
+end
 % ----------------------------------------------------------------------------------------------------
 % Load the 4258 asteroid's orbital parameters
 %
@@ -31,11 +53,8 @@ UC          = get_Univers_Constants(); % Univers constants
 xOrb_epoch_t0_Ast   = get_Ast_init_Orbital_elements(asteroids_orbital_params, numAsteroid);
 period_Ast          = 2*pi*sqrt(xOrb_epoch_t0_Ast(1)^3/UC.mu0SunAU);
 
-% Get initial conditions at Hill's sphere
-outputOpti = loadFile('L2', 'total', numAsteroid, tour_init, Sansmax);
-
-
-UC = get_Univers_Constants();
+% % Get initial conditions at Hill's sphere
+% outputOpti = loadFile('L2', 'total', numAsteroid, tour_init, Sansmax);
 
 % Get initial condition for time and state
 [~, ~, time_Hill, state_Hill, ~, ~, ~, ~, ~] = propagate2Hill(outputOpti, 0.01);
@@ -61,11 +80,17 @@ LB      = [d_dt1(1); d_dt2(1); -ratio*dVmax*ones(9,1)];
 UB      = [d_dt1(2); d_dt2(2);  ratio*dVmax*ones(9,1)];
 
 % Initial Guess
-dt1_r       = 100;
-dtf_r       = outputOpti.dtf_r;
+tf_r      = outputOptiReturn.t0_r + outputOptiReturn.dt1_r + outputOptiReturn.dtf_r;
+diff_time = tf_r - t0_p;
+tf_p      = diff_time;
+t1_p      = (tf_p-t0_p)/2;
+
+dt1_p = t1_p - t0_p;
+dtf_p = tf_p - t1_p;
+
 delta_V0_r  = 1e-5*[1; 1; 1];
 delta_V1_r  = 1e-5*[1; 1; 1];
-delta_Vf_p  = outputOpti.dVf_r;
+delta_Vf_p  = outputOptiReturn.dVf_r;
 X0          = [dt1_r; dtf_r; ratio*delta_V0_r; ratio*delta_V1_r; ratio*delta_Vf_p];
 
 poids   = 0.0;
