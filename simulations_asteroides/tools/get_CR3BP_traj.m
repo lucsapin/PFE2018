@@ -1,6 +1,6 @@
-function [resDrift, resP2H, correspondingPoint] = get_CR3BP_traj(destination, typeSimu, numAsteroid, numOpti, dist, Sansmax, choix)
+function [resDrift, resP2H, correspondingPoint] = get_CR3BP_traj(destination, typeSimu, numAsteroid, numOpti, dist, choix)
 
-  outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax);
+  outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti);
 
   UC = get_Univers_Constants();
 

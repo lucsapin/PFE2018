@@ -1,8 +1,6 @@
+function return_impulse_optimization(numAsteroid, tour_init, destination)
 % Script to optimize the return 3 impulse manoeuver: from asteroid to EMB
 %
-
-function return_impulse_optimization(numAsteroid, tour_init, destination, Sansmax)
-
 % numAsteroid: the numero of the asteroid for which we perform the optimization
 % tour_init: the initial guess for t0 is given by t0_guess = tour_init*365.25
 %
@@ -15,11 +13,7 @@ format shortE;
 addpath('tools/');
 
 %
-if Sansmax
-    repOutput = ['results/return_impulse_' destination '_Sansmax/'];
-else
-    repOutput = ['results/return_impulse_' destination '/'];
-end
+repOutput = ['results/return_impulse_' destination '/'];
 
 if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
 
@@ -48,7 +42,6 @@ optionsFmincon      = optimoptions('fmincon','display','iter','Algorithm','inter
 % facteur d'echelle
 dVmax   = 2.e-3;
 ratio   = period_Ast/dVmax;
-scaling = 1e5;
 
 % Initial guess
 existFile   = 0;
@@ -68,35 +61,21 @@ while((i>0) && (j<=n_ast) && (existFile==0))
     j = j + 1;
 end
 
-if(existFile==1 && 0)
-    % utiliser une solution de l’astéroïde k pour initialiser le k+1
-    % k_init      = k;
-    load([repOutput 'asteroid_no_' int2str(k) '.mat']);
-    oo          = allResults{1};
-    X0          = oo.Xsol;
-    ratio_old   = oo.ratio;
-    X0          = [X0(1); X0(2); X0(3); ratio*X0(4:end)/ratio_old];
-else
-    t0_r        = tour_init*365.25;
-    dt1_r       = 100;
-    dtf_r       = 100;
-    delta_V0_r  = 1e-5*[1 1 1]';
-    delta_V1_r  = 1e-5*[1 1 1]';
-    X0          = [t0_r; dt1_r; dtf_r; ratio*delta_V0_r; ratio*delta_V1_r];
-end
-
-% if(0)
-%     % Solution Thomas
-%     t0  = 6.6933e+03;
-%     dt1 = 1.5167e+02;
-%     dt2 = 2.7979e+02;
-%     dV1 = [2.1287e-04
-%            6.5002e-05
-%            2.4519e-05];
-%     dV2 = [-8.5218e-04
-%            3.3860e-04
-%            2.6484e-04];
-%     X0 = [t0; dt1; dt2; dV1; dV2];
+% if (existFile==1 && 0)
+%     % utiliser une solution de l’astéroïde k pour initialiser le k+1
+%     % k_init      = k;
+%     load([repOutput 'asteroid_no_' int2str(k) '.mat']);
+%     oo          = allResults{1};
+%     X0          = oo.Xsol;
+%     ratio_old   = oo.ratio;
+%     X0          = [X0(1); X0(2); X0(3); ratio*X0(4:end)/ratio_old];
+% else
+t0_r        = tour_init*365.25;
+dt1_r       = 100;
+dtf_r       = 100;
+delta_V0_r  = 1e-5*[1 1 1]';
+delta_V1_r  = 1e-5*[1 1 1]';
+X0          = [t0_r; dt1_r; dtf_r; ratio*delta_V0_r; ratio*delta_V1_r];
 % end
 
 % Lower and upper bounds
@@ -108,22 +87,11 @@ d_dt2   = [1;period_Ast];
 LB      = [d_t0(1); d_dt1(1); d_dt2(1); -ratio*dVmax*ones(6,1)];
 UB      = [d_t0(2); d_dt1(2); d_dt2(2);  ratio*dVmax*ones(6,1)];
 
-% Poids dans le critere sur la minimisation de la date retour
-% Plus le poids est petit, plus le delta_V sera petit
-poids   = 0.0;
-%poids   = 1e-2/365.0;
-%poids   = 1e-0/365.0;
-
-if strcmp(destination, 'L2')
-    nonlc               = @(X) return_impulse_nonlcon_L2  (X, xOrb_epoch_t0_Ast, ratio);
-elseif strcmp(destination, 'EMB')
-    nonlc               = @(X) return_impulse_nonlcon_EMB  (X, xOrb_epoch_t0_Ast, ratio);
-else
-    error('Wrong destination name!');
-end
+% Non linear Constraints
+nonlc               = @(X) return_impulse_nonlcon  (X, xOrb_epoch_t0_Ast, ratio, destination);
 
 % Criterion
-F0                  = @(X) return_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination, Sansmax);
+F0                  = @(X) return_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, destination);
 
 % Solver
 [Xsol,Fsol,exitflag,output,~,~,~] = fmincon(F0,X0,[],[],[],[],LB,UB,nonlc,optionsFmincon);
@@ -137,20 +105,13 @@ fprintf('output = \n'); disp(output);
 fprintf('Xsol = \n'); disp(Xsol);
 
 if(exitflag == 1)
-    if strcmp(destination, 'L2')
-        [cin, ceq, delta_Vf_r]  = return_impulse_nonlcon_L2(Xsol, xOrb_epoch_t0_Ast, ratio);
-    elseif strcmp(destination, 'EMB')
-        [cin, ceq, delta_Vf_r]  = return_impulse_nonlcon_EMB(Xsol, xOrb_epoch_t0_Ast, ratio);
-    else
-        error('Wrong destination name!');
-    end
-    [~, delta_V          ]  = return_impulse_criterion(Xsol, xOrb_epoch_t0_Ast, ratio, poids, scaling, destination, Sansmax);
+
+    [cin, ceq, delta_Vf_r]  = return_impulse_nonlcon(Xsol, xOrb_epoch_t0_Ast, ratio, destination);
+
 
     % We construct the output to save
     outputOptimization.xOrb_epoch_t0_Ast = xOrb_epoch_t0_Ast;
     outputOptimization.numAsteroid  = numAsteroid;
-    outputOptimization.poids        = poids;
-    outputOptimization.scaling      = scaling;
     outputOptimization.dVmax        = dVmax;
     outputOptimization.ratio        = ratio;
     outputOptimization.LB           = LB;
@@ -168,7 +129,6 @@ if(exitflag == 1)
     outputOptimization.Fsol         = Fsol;
     outputOptimization.exitflag     = exitflag;
     outputOptimization.output       = output;
-    outputOptimization.delta_V      = delta_V;
 
     t0  = outputOptimization.t0;
     dt1 = outputOptimization.dt1;
@@ -178,7 +138,7 @@ if(exitflag == 1)
     dVf = outputOptimization.dVf;
     Fsol= outputOptimization.Fsol;
 
-    fprintf('delta_V = %f \n', delta_V)
+    fprintf('Fsol = %f \n', Fsol)
     duration    = dt1 + dtf; fprintf('duration = %f \n', duration);
     return_time = t0 + dt1 + dtf; fprintf('return_time = %f \n\n', return_time);
     disp('-------------------------------------------------');
@@ -198,12 +158,12 @@ if(exitflag == 1)
             end
         end
         if(doSave==1)
-            %On trie en fonction du delta_V
+            %On trie en fonction du Fsol
             i    = 1;
             fini = 0;
             while ((fini==0) && (i<=n))
                 oo  = allResults{i}; i=i+1;
-                if(oo.delta_V>=outputOptimization.delta_V)
+                if(oo.Fsol>=outputOptimization.Fsol)
                     fini=1;
                     k   = i-1;
                 end

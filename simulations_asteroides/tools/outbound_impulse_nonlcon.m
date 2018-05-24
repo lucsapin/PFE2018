@@ -1,4 +1,4 @@
-function [cin, ceq, delta_Vf_o] = outbound_impulse_nonlcon_EMB(X, xOrb_epoch_t0_Ast, ratio, tfmin, tfmax)
+function [cin, ceq, delta_Vf_o] = outbound_impulse_nonlcon_L2(X, xOrb_epoch_t0_Ast, ratio, tfmin, tfmax, departure)
 
 UC          = get_Univers_Constants(); % Univers constants
 
@@ -14,9 +14,20 @@ delta_V1_o  = X(icur:icur+3-1)/ratio  ; icur = icur + 3; % second boost at time 
 % get EMB state at time t0
 xOrb_epoch_t0_EMB   = get_EMB_init_Orbital_elements();
 initial_state_EMB   = get_Current_State_Cart(xOrb_epoch_t0_EMB, t0);
+% get Moon's and L2's state at time t0
+[qM, ~, qL2_EMB_LD_t0] = get_Moon_Earth_L2_State_Cart_LD(t0);
 
-% state of the spacecraft at t0
-q0      = initial_state_EMB(:);
+if strcmp(departure,'L2')
+  qL2_SUN_AU_t0 = initial_state_EMB + qL2_EMB_LD_t0*UC.LD/UC.AU;
+  % state of the spacecraft at t0
+  q0      = qL2_SUN_AU_t0(:);
+
+elseif strcmp(departure, 'EMB')
+  % state of the spacecraft at t0
+  q0      = initial_state_EMB(:);
+else
+  error('Wrong departure name !');
+end
 
 % first boost
 q0(4:6) = q0(4:6)+delta_V0_o(:);
@@ -44,16 +55,14 @@ delta_Vf_o      = final_state_Ast(4:6)-qf(4:6);
 % ------------------------------------------------------------------------------
 % Constraint: start from the Moon orbital plane
 % initial velocity in EMB centric inertial
-v0_EMB = delta_V0_o*UC.AU/UC.LD; % = (xC0(4:6)-xEMB0(4:6))*AU/LD;
+v0 = delta_V0_o*UC.AU/UC.LD; % = (xC0(4:6)-xEMB0(4:6))*AU/LD;
 
-% Moon's state in EMB
-[qM, ~, ~] = get_Moon_Earth_L2_State_Cart_LD(t0);
 
 % Normal to Moon's orbital plane in EMB centric
 normal = cross(qM(1:3),qM(4:6));
 
 % ------------------------------------------------------------------------------
-ceq     = [qf(1:3) - final_state_Ast(1:3); v0_EMB'*normal];
+ceq     = [qf(1:3) - final_state_Ast(1:3); v0'*normal];
 cin     = [tfmin - tf; tf - tfmax ];
 
 return

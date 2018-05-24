@@ -1,7 +1,7 @@
 % Script to optimize the outbound-return 3+3 impulse manoeuver: from EMB to asteroid, stay on it and back to EMB
 %
 
-function total_impulse_optimization(numAsteroid, numOptiOutbound, destination, Sansmax)
+function total_impulse_optimization(numAsteroid, numOptiOutbound, destination)
 
 % numAsteroid: the numero of the asteroid for which we perform the optimization
 % numOptiOutbound: the numero of outbound (and so return has been performed) optimization
@@ -15,20 +15,12 @@ format shortE;
 addpath('tools/');
 
 %
-if Sansmax
-    repOutput = ['results/total_impulse_' destination '_Sansmax/'];  
-else
-    repOutput = ['results/total_impulse_' destination '/'];
-end
+repOutput = ['results/total_impulse_' destination '/'];
 
 if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
 
 % Directory of the outbound-return data
-if Sansmax
-    repOutputOutbound = ['results/outbound_impulse_' destination '_Sansmax/'];  
-else
-    repOutputOutbound = ['results/outbound_impulse_' destination '/'];
-end
+repOutputOutbound = ['results/outbound_impulse_' destination '/'];
 
 if(~exist(repOutputOutbound,'dir')); error('Wrong result directory name!'); end
 
@@ -71,7 +63,7 @@ optionsFmincon      = optimoptions('fmincon','display','iter','Algorithm','inter
 % facteur d'echelle
 dVmax   = 2.e-3;
 ratio   = period_Ast/dVmax;
-scaling = 1e5;
+
 time_min_on_ast = 0.0;
 time_max_on_ast = 360;
 
@@ -104,16 +96,11 @@ UB          = [d_t0_o(2); d_dt1_o(2); d_dt2_o(2); d_t0_r(2); d_dt1_r(2); d_dt2_r
 
 
 % Constraints
-if strcmp(destination, 'L2')
-    nonlc               = @(X) total_impulse_nonlcon_L2  (X, xOrb_epoch_t0_Ast, ratio, time_min_on_ast, time_max_on_ast);
-elseif strcmp(destination, 'EMB')
-    nonlc               = @(X) total_impulse_nonlcon_EMB  (X, xOrb_epoch_t0_Ast, ratio, time_min_on_ast, time_max_on_ast);
-else
-    error('Wrong destination name!');
-end
+nonlc  = @(X) total_impulse_nonlcon(X, xOrb_epoch_t0_Ast, ratio, time_min_on_ast, time_max_on_ast, destination);
+
 
 % Criterion
-F0                  = @(X) total_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, scaling, time_min_on_ast, time_max_on_ast, destination, Sansmax);
+F0     = @(X) total_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, time_min_on_ast, time_max_on_ast, destination);
 
 % Solver
 [Xsol,Fsol,exitflag,output,~,~,~] = fmincon(F0,X0,[],[],[],[],LB,UB,nonlc,optionsFmincon);
@@ -127,22 +114,16 @@ fprintf('output = \n'); disp(output);
 fprintf('Xsol = \n'); disp(Xsol);
 
 if(exitflag == 1)
-    if strcmp(destination, 'L2')
-        [cin, ceq, delta_Vf_o, delta_Vf_r]  = total_impulse_nonlcon_L2(Xsol, xOrb_epoch_t0_Ast, ratio, time_min_on_ast, time_max_on_ast);
-    elseif strcmp(destination, 'EMB')
-        [cin, ceq, delta_Vf_o, delta_Vf_r]  = total_impulse_nonlcon_EMB(Xsol, xOrb_epoch_t0_Ast, ratio, time_min_on_ast, time_max_on_ast);
-    else
-        error('Wrong destination name!');
-    end
-    
-    [~, delta_V, delta_V_o, delta_V_r]  = total_impulse_criterion(Xsol, xOrb_epoch_t0_Ast, ratio, scaling, time_min_on_ast, time_max_on_ast, destination, Sansmax);
+
+    [cin, ceq, delta_Vf_o, delta_Vf_r]  = total_impulse_nonlcon(Xsol, xOrb_epoch_t0_Ast, ratio, time_min_on_ast, time_max_on_ast, destination);
+
+    [~, delta_V_o, delta_V_r]  = total_impulse_criterion(Xsol, xOrb_epoch_t0_Ast, ratio, time_min_on_ast, time_max_on_ast, destination);
 
     % We construct the output to save
     outputOptimization.xOrb_epoch_t0_Ast = xOrb_epoch_t0_Ast;
     outputOptimization.numAsteroid  = numAsteroid;
     outputOptimization.dVmax        = dVmax;
     outputOptimization.ratio        = ratio;
-    outputOptimization.scaling      = scaling;
     outputOptimization.LB           = LB;
     outputOptimization.UB           = UB;
     outputOptimization.X0           = X0;
@@ -159,7 +140,6 @@ if(exitflag == 1)
     outputOptimization.dV1_r        = Xsol(16:18)/ratio;
     outputOptimization.dVf_o        = delta_Vf_o;
     outputOptimization.dVf_r        = delta_Vf_r;
-    outputOptimization.delta_V      = delta_V;
     outputOptimization.delta_V_o    = delta_V_o;
     outputOptimization.delta_V_r    = delta_V_r;
     outputOptimization.cin          = cin;
@@ -183,12 +163,12 @@ if(exitflag == 1)
             end
         end
         if(doSave==1)
-            %On trie en fonction du delta_V
+            %On trie en fonction du delta_V=Fsol
             i    = 1;
             fini = 0;
             while ((fini==0) && (i<=n))
                 oo  = allResults{i}; i=i+1;
-                if(oo.delta_V>=outputOptimization.delta_V)
+                if(oo.Fsol>=outputOptimization.Fsol)
                     fini=1;
                     k   =i-1;
                 end

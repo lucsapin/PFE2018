@@ -1,12 +1,7 @@
 % Script pour lancer les optimisations aller
 destination = 'L2';
-Sansmax = false;
 
-if Sansmax
-    repOutput = ['results/outbound_impulse_' destination '_Sansmax/'];
-else
-    repOutput = ['results/outbound_impulse_' destination '/'];
-end
+repOutput = ['results/outbound_impulse_' destination '/'];
 
 if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
 
@@ -20,7 +15,7 @@ for numAsteroid=1:10
 
             fprintf('\nnumAsteroid = %d \n', numAsteroid);
             fprintf('numOptiOutbound = %d \n\n', numOptiOutbound);
-            total_impulse_optimization(numAsteroid, numOptiOutbound, destination, Sansmax);
+            total_impulse_optimization(numAsteroid, numOptiOutbound, destination);
 
         end
         clear allResults;

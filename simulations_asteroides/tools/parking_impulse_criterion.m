@@ -1,6 +1,5 @@
-function [F, delta_v] = parking_impulse_criterion(X, xOrb_epoch_t0_Ast, q0_SUN_AU, t0_p, ratio, poids, scaling, destination, Sansmax)
-
-
+function F = parking_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio)
+  tic;
   UC          = get_Univers_Constants();
 
   %
@@ -13,17 +12,12 @@ function [F, delta_v] = parking_impulse_criterion(X, xOrb_epoch_t0_Ast, q0_SUN_A
 
   % [~, ~, delta_Vf_p] = parking_impulse_nonlcon(X, xOrb_epoch_t0_Ast, q0_SUN_AU, t0_p, ratio);
 
-  if Sansmax
-      delta_v     = norm(delta_Vf_p) + norm(delta_V1_p) + norm(delta_V0_p);
+  F     = norm(delta_Vf_p) + norm(delta_V1_p) + norm(delta_V0_p);
 
-  else
-      max_delta_V = 0.5*sqrt(max(0.0, norm(delta_Vf_p)-UC.v0AUJour)^2+1e-12);
-      delta_v     = max_delta_V + norm(delta_V1_p) + norm(delta_V0_p);
-
-  end
+  % max_delta_V = 0.5*sqrt(max(0.0, norm(delta_Vf_p)-UC.v0AUJour)^2+1e-12);
+  % F     = max_delta_V + norm(delta_V1_p) + norm(delta_V0_p);
 
   %F           = scaling*(max_delta_V^2 + norm(delta_V1_p)^2 + norm(delta_V0_p)^2) + poids*(t0_p + dt1_p + dtf_p);
-  F           = delta_v + poids*(t0_p + dt1_p + dtf_p);
 
-
+  toc
   return

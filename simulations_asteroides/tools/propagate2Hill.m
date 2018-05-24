@@ -16,7 +16,7 @@ UC          = get_Univers_Constants(); % Univers constants
 
 % get Data
 %
-xOrb_epoch_t0_Ast   =   outputTotalOpti.xOrb_epoch_t0_Ast;
+xOrb_epoch_t0_Ast     =   outputTotalOpti.xOrb_epoch_t0_Ast;
 % numAsteroid         =   outputTotalOpti.numAsteroid ;
 % dVmax               =   outputTotalOpti.dVmax       ;
 % ratio               =   outputTotalOpti.ratio       ;
@@ -24,21 +24,12 @@ xOrb_epoch_t0_Ast   =   outputTotalOpti.xOrb_epoch_t0_Ast;
 % UB                  =   outputTotalOpti.UB          ;
 % X0                  =   outputTotalOpti.X0          ;
 % Xsol                =   outputTotalOpti.Xsol        ;
-% t0_o                =   outputTotalOpti.t0_o        ;
-% dt1_o               =   outputTotalOpti.dt1_o       ;
-% dtf_o               =   outputTotalOpti.dtf_o       ;
-t0_r                =   outputTotalOpti.t0_r        ;
-dt1_r               =   outputTotalOpti.dt1_r       ;
-dtf_r               =   outputTotalOpti.dtf_r       ;
-% dV0_o               =   outputTotalOpti.dV0_o       ;
-% dV1_o               =   outputTotalOpti.dV1_o       ;
-dV0_r               =   outputTotalOpti.dV0_r       ;
-dV1_r               =   outputTotalOpti.dV1_r       ;
-% dVf_o               =   outputTotalOpti.dVf_o       ;
-dVf_r               =   outputTotalOpti.dVf_r       ;
-% delta_V             =   outputTotalOpti.delta_V     ;
-% delta_V_o           =   outputTotalOpti.delta_V_o   ;
-% delta_V_r           =   outputTotalOpti.delta_V_r   ;
+t0                    =   outputTotalOpti.t0        ;
+dt1                   =   outputTotalOpti.dt1       ;
+dtf                   =   outputTotalOpti.dtf       ;
+dV0                   =   outputTotalOpti.dV0       ;
+dV1                   =   outputTotalOpti.dV1       ;
+dVf                   =   outputTotalOpti.dVf       ;
 % Fsol                =   outputTotalOpti.Fsol        ;
 % exitflag            =   outputTotalOpti.exitflag    ;
 % output              =   outputTotalOpti.output      ;
@@ -51,18 +42,18 @@ dVf_r               =   outputTotalOpti.dVf_r       ;
 % ----------------------------------------------------------------------------------------------------
 % Display trajectory to compare
 
-[~, states, ~, ~, ~] = get_Trajectory_SpaceCraft(xOrb_epoch_t0_Ast, t0_r, dt1_r, dtf_r, dV0_r, dV1_r, dVf_r);
+[~, states, ~, ~, ~] = get_Trajectory_SpaceCraft(xOrb_epoch_t0_Ast, t0, dt1, dtf, dV0, dV1, dVf);
 
 % ----------------------------------------------------------------------------------------------------
 % Get initial point on the asteroid
 %
-q0                  = get_Current_State_Cart(xOrb_epoch_t0_Ast, t0_r); % Heliocentric frame !!
-q0(4:6)             = q0(4:6) + dV0_r(:);
+q0                  = get_Current_State_Cart(xOrb_epoch_t0_Ast, t0); % Heliocentric frame !!
+q0(4:6)             = q0(4:6) + dV0(:);
 
 % On integre le systeme jusqu'au temps t0_r + dt1_r
 %
 xOrb_epoch_t0_EMB   = get_EMB_init_Orbital_elements(); % Heliocentric frame !!
-xC_EMB              = get_Current_State_Cart(xOrb_epoch_t0_EMB, t0_r);
+xC_EMB              = get_Current_State_Cart(xOrb_epoch_t0_EMB, t0);
 xG_EMB              = Cart2Gauss(UC.mu0SunAU, xC_EMB); % Orbital elements
 state_q_L_init      = [q0; xG_EMB(6)];
 
@@ -78,7 +69,7 @@ odefun              = @(t,x) rhs_2B_Sun_AU(t, x);
 %ii                  = find(times<=t0_r+dt1_r);
 %[times, states_q_L, time_event, state_q_L_event] = ode45(odefun, times(ii), state_q_L_init, OptionsOde);
 
-[times, states_q_L, time_event, ~] = ode45(odefun, [t0_r t0_r+dt1_r], state_q_L_init, OptionsOde);
+[times, states_q_L, time_event, ~] = ode45(odefun, [t0 t0+dt1], state_q_L_init, OptionsOde);
 times       = times(:)';
 states_q_L1  = transpose(states_q_L);
 
@@ -86,15 +77,15 @@ times_out   = times;
 traj_out    = states_q_L1(1:7,:);
 
 if(~isempty(time_event))
-    error('We reach the required distance to EMB at time t0_r + dt1_r!');
+    error('We reach the required distance to EMB at time t0 + dt1 !');
 end
 
 % Second boost !
 q1          = states_q_L1(1:6,end);
-q1(4:6)     = q1(4:6) + dV1_r(:);
+q1(4:6)     = q1(4:6) + dV1(:);
 state_q_L_init  = [q1; states_q_L1(7,end)];
 
-[times, states_q_L, time_event, state_q_L_event] = ode45(odefun, [t0_r+dt1_r t0_r+dt1_r+dtf_r], state_q_L_init, OptionsOde);
+[times, states_q_L, time_event, state_q_L_event] = ode45(odefun, [t0+dt1 t0+dt1+dtf], state_q_L_init, OptionsOde);
 times       = times(:)';
 states_q_L2  = transpose(states_q_L);
 

@@ -1,10 +1,10 @@
 %%%%% Propagate 2 L2 directly with the 2 Body dynamics on one side,
 %%%%% with the Ad Hoc dynamic on the other
-function [statesOpti, traj_out, q0, q1, t0_r, dt1_r] = propagate2L2(destination, typeSimu, numAsteroid, numOpti, Sansmax)
+function [statesOpti, traj_out, q0, q1, t0_r, dt1_r] = propagate2L2(destination, typeSimu, numAsteroid, numOpti)
 
 % ----------------------------------------------------------------------------------------------------
 % Load results of the optimization
-outputTotalOpti = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax);
+outputTotalOpti = loadFile(destination, typeSimu, numAsteroid, numOpti);
 
 % Get initial condition
 time_Hill   = 0;
@@ -29,15 +29,15 @@ xOrb_epoch_t0_Ast   =   outputTotalOpti.xOrb_epoch_t0_Ast;
 % t0_o                =   outputTotalOpti.t0_o        ;
 % dt1_o               =   outputTotalOpti.dt1_o       ;
 % dtf_o               =   outputTotalOpti.dtf_o       ;
-t0_r                =   outputTotalOpti.t0_r        ;
-dt1_r               =   outputTotalOpti.dt1_r       ;
-dtf_r               =   outputTotalOpti.dtf_r       ;
+t0_r                =   outputTotalOpti.t0        ;
+dt1_r               =   outputTotalOpti.dt1       ;
+dtf_r               =   outputTotalOpti.dtf       ;
 % dV0_o               =   outputTotalOpti.dV0_o       ;
 % dV1_o               =   outputTotalOpti.dV1_o       ;
-dV0_r               =   outputTotalOpti.dV0_r       ;
-dV1_r               =   outputTotalOpti.dV1_r       ;
+dV0_r               =   outputTotalOpti.dV0       ;
+dV1_r               =   outputTotalOpti.dV1       ;
 % dVf_o               =   outputTotalOpti.dVf_o       ;
-dVf_r               =   outputTotalOpti.dVf_r       ;
+dVf_r               =   outputTotalOpti.dVf       ;
 % delta_V             =   outputTotalOpti.delta_V     ;
 % delta_V_o           =   outputTotalOpti.delta_V_o   ;
 % delta_V_r           =   outputTotalOpti.delta_V_r   ;

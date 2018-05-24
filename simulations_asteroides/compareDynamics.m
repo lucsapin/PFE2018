@@ -40,9 +40,8 @@ dist                = 0.01;     % We propagate the trajectory to the distance di
 numOpti             = 1;        % Numero of optimization for this asteroid
 m0                  = 500; % kg
 
-Sansmax = false;
 destination = 'L2';
-typeSimu = 'total';
+typeSimu = 'return';
 propagation = '2B';
 
 % ----------------------------------------------------------------------------------------------------
@@ -50,13 +49,16 @@ propagation = '2B';
 % ------------------ Get trajectory with Hill''s sphere ------------------
 
 choix = 3; dynamic1 = '3B Perturbated'; traj1 = dynamic1;
-[resDrift_3BP, resP2H, pointMinDistL2_3BP] = get_CR3BP_traj(destination, typeSimu, numAsteroid, numOpti, dist, Sansmax, choix);
+[resDrift_3BP, ~, ~, resP2H, pointMinDistL2_3BP] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choix);
+% [resDrift_3BP, resP2H, pointMinDistL2_3BP] = get_CR3BP_traj(destination, typeSimu, numAsteroid, numOpti, dist, choix);
 
 choix = 4; dynamic2 = '2B Sun'; traj2 = dynamic2;
-[resDrift_2BS, ~, pointMinDistL2_2BS]  = get_CR3BP_traj(destination, typeSimu, numAsteroid, numOpti, dist, Sansmax, choix);
+[resDrift_2BS, ~, ~, ~, pointMinDistL2_2BS] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choix);
+% [resDrift_2BS, ~, pointMinDistL2_2BS]  = get_CR3BP_traj(destination, typeSimu, numAsteroid, numOpti, dist, choix);
 
 choix = 6; dynamic3 = '2B Ad Hoc'; traj3 = dynamic3;
-[resDrift_AH, ~, pointMinDistL2_AH] = get_CR3BP_traj(destination, typeSimu, numAsteroid, numOpti, dist, Sansmax, choix);
+[resDrift_AH, ~, ~, ~, pointMinDistL2_AH] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choix);
+% [resDrift_AH, ~, pointMinDistL2_AH] = get_CR3BP_traj(destination, typeSimu, numAsteroid, numOpti, dist, choix);
 
 % ----------------------------------------------------------------------------------------------------
 % Affectation des résultats
@@ -75,7 +77,7 @@ for i=1:size(times_out, 2)
 end
 
 % ----------------- Get trajectory without Hill''s sphere -----------------
-[statesOpti, traj_out, q0, q1, t0_r, dt1_r] = propagate2L2(destination, typeSimu, numAsteroid, numOpti, Sansmax);
+[statesOpti, traj_out, q0, q1, t0_r, dt1_r] = propagate2L2(destination, typeSimu, numAsteroid, numOpti);
 
 q1_CR3BP    = Helio2CR3BP(q1, t0_r+dt1_r);
 
