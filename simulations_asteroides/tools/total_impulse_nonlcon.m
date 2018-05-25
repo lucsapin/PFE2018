@@ -43,19 +43,19 @@ q0(4:6) = q0(4:6)+delta_V0_o(:);
 
 % State at t0 + dt1_o
 xOrb    = Cart2Orb(UC.mu0SunAU, q0);
-q1      = get_Current_State_Cart(xOrb, dt1_o);
+q1      = get_Current_State_Cart(xOrb, t0_o + dt1_o);
 
 % Second boost
 q1(4:6) = q1(4:6)+delta_V1_o(:);
 
 % State at t0 + dt1_o + dtf_o
 xOrb    = Cart2Orb(UC.mu0SunAU, q1);
-qf      = get_Current_State_Cart(xOrb, dtf_o);
+qf      = get_Current_State_Cart(xOrb, t0_o + dt1_o + dtf_o);
 
 % ------------------------------------------------------------------------------
 % Constraint: qf = state of the asteroid at time t0 + dt1_o + dtf_o
 % asteroid's state at time t0 + dt1_o + dtf_o
-tf_o            = t0_o+dt1_o+dtf_o;
+tf_o            = t0_o + dt1_o + dtf_o;
 final_state_Ast_o = get_Current_State_Cart(xOrb_epoch_t0_Ast, tf_o);
 
 % Final boost
@@ -100,7 +100,7 @@ qf      = get_Current_State_Cart(xOrb, dtf_r);
 % Constraint: qf = state of the EMB at time t0_r + dt1_r + dtf_r
 % EMB's state at time t0_r + dt1_r + dtf_r
 %xOrb_epoch_t0_EMB   = get_EMB_init_Orbital_elements();
-tf_r                = t0_r+dt1_r+dtf_r;
+tf_r                = t0_r + dt1_r + dtf_r;
 final_state_EMB_f   = get_Current_State_Cart(xOrb_epoch_t0_EMB, tf_r);
 % Moon's & L2's state in EMB, LD
 [qMf, ~, qL2_EMB_LD] = get_Moon_Earth_L2_State_Cart_LD(tf_r);
@@ -132,10 +132,19 @@ normal_f = cross(qMf(1:3),qMf(4:6));
 % Constraints
 % ------------------------------------------------------------------------------
 % ------------------------------------------------------------------------------
-ceq     = [spacecraft_qf_o(1:3) - final_state_Ast_o(1:3);
-           v0'*normal_o;
-           spacecraft_qf_r(1:3)-final_state_EMB_f(1:3);
-           vf'*normal_f];
+if strcmp(destination, 'EMB')
+  ceq     = [spacecraft_qf_o(1:3) - final_state_Ast_o(1:3);
+             v0'*normal_o;
+             spacecraft_qf_r(1:3) - final_state_EMB_f(1:3);
+             vf'*normal_f];
+elseif strcmp(destination,'L2')
+  ceq     = [spacecraft_qf_o(1:3) - final_state_Ast_o(1:3);
+             v0'*normal_o;
+             spacecraft_qf_r(1:3) - qL2_SUN_AU(1:3);
+             vf'*normal_f];
+else
+  error('Wrong destination name !');
+end
 
 cin     = [(t0_r-time_max_on_ast)-tf_o; tf_o-(t0_r-time_min_on_ast)];
 

@@ -120,7 +120,6 @@ function [toutB,stageB,zB,uB,optimvarsB,outputB] = do_bocop_opti(destination, ou
 
     % Computation
     if(results.exec_min_tf_bocop==-1)
-        disp('Compute solutions...');
         [toutB,stageB,zB,uB,optimvarsB,outputB] = exec_bocop_min_tf(defPbBocop, init, par_bocop, options, solFileSave);
 
         if(outputB.status ~= 0)
@@ -148,7 +147,6 @@ function [toutB,stageB,zB,uB,optimvarsB,outputB] = do_bocop_opti(destination, ou
         results.min_tf_bocop        = min_tf_bocop;
         save(file_results, 'results');
     else
-        disp('Get stored solutions...');
         min_tf_bocop = results.min_tf_bocop;
         toutB = min_tf_bocop.toutB;
         stageB = min_tf_bocop.stageB;

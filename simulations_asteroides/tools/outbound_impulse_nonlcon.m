@@ -12,8 +12,8 @@ delta_V1_o  = X(icur:icur+3-1)/ratio  ; icur = icur + 3; % second boost at time 
 
 % ------------------------------------------------------------------------------
 % get EMB state at time t0
-xOrb_epoch_t0_EMB   = get_EMB_init_Orbital_elements();
-initial_state_EMB   = get_Current_State_Cart(xOrb_epoch_t0_EMB, t0);
+xOrb_epoch_t0_EMB = get_EMB_init_Orbital_elements();
+initial_state_EMB = get_Current_State_Cart(xOrb_epoch_t0_EMB, t0);
 % get Moon's and L2's state at time t0
 [qM, ~, qL2_EMB_LD_t0] = get_Moon_Earth_L2_State_Cart_LD(t0);
 
@@ -46,7 +46,7 @@ qf      = get_Current_State_Cart(xOrb, dtf_o);
 % ------------------------------------------------------------------------------
 % Constraint: qf = state of the asteroid at time t0 + dt1_o + dtf_o
 % asteroid's state at time t0 + dt1_o + dtf_o
-tf              = t0+dt1_o+dtf_o;
+tf              = t0 + dt1_o + dtf_o;
 final_state_Ast = get_Current_State_Cart(xOrb_epoch_t0_Ast, tf);
 
 % Final boost

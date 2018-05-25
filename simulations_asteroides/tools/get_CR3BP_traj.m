@@ -10,9 +10,9 @@ function [resDrift, resP2H, correspondingPoint] = get_CR3BP_traj(destination, ty
 
   t0_day      = time_Hill;                % the initial time in Day
   q0_SUN_AU   = state_Hill(1:6);          % q0 in HELIO frame in AU unit
-  t0_r        = outputOptimization.t0_r;
-  dt1_r       = outputOptimization.dt1_r;
-  dtf_r       = outputOptimization.dtf_r;
+  t0_r        = outputOptimization.t0;
+  dt1_r       = outputOptimization.dt1;
+  dtf_r       = outputOptimization.dtf;
   tf          = t0_r + dt1_r + dtf_r;
   difftime    = tf-times_out(end);        % Remaining time to reach EMB in Day
 

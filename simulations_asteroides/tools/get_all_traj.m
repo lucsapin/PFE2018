@@ -46,8 +46,8 @@ function [resDrift, resFig, resB, resP2H, correspondingPoint] = get_all_traj(des
 
   resFig.color = color;
   resFig.LW = LW;
-  outputOptimization = loadFile( destination, 'total', numAsteroid, numOpti);
-  [~, ~,zB, ~, optimvarsB, ~] = do_bocop_opti(destination, outputOptimization, q0_SUN_AU, t0_day, TmaxN, difftime, m0, dist);
+  outputOptiB = loadFile(destination, 'total', numAsteroid, numOpti);
+  [~, ~,zB, ~, optimvarsB, ~] = do_bocop_opti(destination, outputOptiB, q0_SUN_AU, t0_day, TmaxN, difftime, m0, dist);
   resB.zB = zB;
   resB.optimvarsB = optimvarsB;
   solutionBocop = t0_day + optimvarsB*UC.time_syst/UC.jour; % en jour
