@@ -1,0 +1,190 @@
+\documentclass[fleqn,% draft,
+a4paper,11pt]{scrbook}
+
+% Document language : english
+
+\newif\ifprinted
+\printedfalse
+
+% Police
+\usepackage[utf8]{inputenc}
+
+%% Serif font
+% \IfFileExists{stix.sty}{%
+%   \usepackage[upint]{stix}}%
+% {\usepackage{lmodern}
+%   \def\coloneq{:=}}
+
+%% Sans font
+%\usepackage[scaled=0.875]{helvet}
+
+\usepackage[tt=false]{libertine}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsthm}
+\usepackage[slantedGreek,cmintegrals,bigdelims,vvarbb,libertine,libaltvw,liby]{newtxmath}
+\useosf
+
+\ifprinted
+\KOMAoptions{BCOR=0.5cm}
+\fi
+
+\recalctypearea
+
+
+\let\forall\forallAlt
+\let\exists\existsAlt
+\let\nexists\nexistsAlt
+
+%% Monospace font
+%\usepackage[scaled=0.92,varqu,varl]{zi4}
+\usepackage[scaled=0.77]{beramono}
+
+
+% \usepackage{libertine}
+% \usepackage[varg,cmintegrals,bigdelims,varbb,libertine]{newtxmath}
+
+\usepackage{ifdraft}
+
+\usepackage{chngcntr}
+\usepackage{tocvsec2}
+
+\KOMAoptions{chapterprefix=true}
+\KOMAoptions{headsepline=true}
+\KOMAoptions{index=toc}
+%\KOMAoptions{bibliography=totocnumbered}
+%\addtokomafont{chapter}{\centering}
+% \ifdraft{\KOMAoptions{twoside=false}}{}
+\renewcommand*{\partformat}{\partname~\thepart}
+\renewcommand*{\partpagestyle}{empty}
+\renewcommand*{\chapterformat}{\chapappifchapterprefix~\thechapter\\\rule{\linewidth}{1.5pt}\\}
+
+
+%\KOMAoptions{numbers=noenddot}
+\renewcommand*{\figureformat}{\figurename~\thefigure}
+\renewcommand*{\tableformat}{\tablename~\thetable}
+%\renewcommand*{\captionformat}{.}
+
+%\KOMAoptions{parskip=half*}
+
+\newcommand{\chappreamble}[1]{\textit{\noindent #1}\leavevmode\vspace{\baselineskip}}
+
+\newenvironment{chapabstract}{}{}
+
+
+
+% \usepackage{titlesec}
+% \titleformat{\chapter}[display]
+
+\usepackage[final]{listings}
+
+\usepackage[style=alphabetic,maxnames=4,backend=bibtex,
+backref=true% ,noadjust
+,
+firstinits=true]{biblatex}
+%   \makeatletter
+%   \def\@citex#1[#2]#3{% 
+%     \@safe@activestrue\edef\@tempd{#1}\@safe@activesfalse
+%     \@safe@activestrue\edef\@tempe{#3}\@safe@activesfalse
+%     \org@@citex{\@tempd}[#2]{\@tempe}}%
+%   \makeatother
+%\addbibresource{MyBiblio.bib}
+
+%\makeatletter
+% \def\url@leostyle{%
+%   \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\footnotesize\ttfamily}}}
+% \makeatother
+%% Now actually use the newly defined style.
+% \urlstyle{leo}
+
+\usepackage{relsize}
+\appto{\bibsetup}{\emergencystretch=1em}
+\renewcommand*{\UrlFont}{\itshape}
+\appto{\biburlsetup}{%
+  \renewcommand*{\UrlFont}{\smaller[0.5]
+    \itshape% \ttfamily
+    %\normalfont\itshape
+  }}
+
+\makeindex
+
+\usepackage{titling}
+\title{Problème de contrôle optimal multiphase }
+\author{Luc Sapin}
+\date{\today}
+
+%Package pour avoir des liens hyper-texte dans les fichiers Pdf 
+%A mettre en dernier 
+%Pose parfois problÃÂ¨me 
+% \usepackage[unicode,final% ,ocgcolorlinks
+% ]{hyperref}
+% \usepackage{footnotebackref}
+
+\usepackage[final]{hyperref}
+
+\hypersetup{%
+  pdfinfo={
+    Title={\thetitle},
+    Author={\theauthor} },
+  % frenchlinks,
+  linkcolor=purple,
+  citecolor=teal,
+  %ocgcolorlinks
+  %urlcolor={magenta!50!black},
+  % menucolor=purple
+}
+\ifprinted
+\hypersetup{colorlinks=false}
+\else
+\hypersetup{colorlinks}
+\fi
+
+
+
+% \tikzexternalize[mode=list and make,up to date check=md5, prefix=figures/]
+% \pgfkeys{/pgf/images/include external/.code={\includegraphics{#1}}}
+
+
+\begin{document}
+\maketitle
+\section{General Problem}
+
+Control : $u = (u_1, u_2, u_3)^T $ \\
+State   : $X = (x, y, z, \dot{x}, \dot{y}, \dot{z}, m)^T $ \\
+Dynamic : $\dot{X} = F_0(X) + \frac{T_{max}}{m} \sum_{i=1}^{3} u_i F_i  - T_{max} \beta \|u(t)\| F_4 $ \\
+
+Final/Initial conditions :
+\begin{itemize}
+	\item $q_{rdv} = $ state of a point aloung a choosen TCO's orbit.
+	\item $\theta_{rdv} = $ corresponding anomaly of the Sun when TCO is at $q_{rdv}$
+	
+	$\Delta v$ -minimal transfert from $\mathcal{O}_H$ (= Halo of orbit $L_2$) to $q_{rdv}$ leads to solve the OCP :
+	$$
+	(OCP)_1 \left\{
+	\begin{array}{l}
+        \dot{X} = F_0(X) + \frac{T_{max}}{m} \sum_{i=1}^{3} u_i F_i  - T_{max} \beta \|u(t)\| F_4 \\
+        min \displaystyle \int_0^{t_f} \|u(t)\| dt \\
+        q(0) \in \mathcal{O}_H \\
+        m(0) = m_0 \\
+        q(t_f) = q_{rdv} \\
+        \theta(t_f) = \theta_{rdv}
+    \end{array}
+	\right.$$
+\end{itemize}
+
+Let's note $Z = (X, P)$. \\ Shooting equations are as follows :
+$$
+\begin{array}{l}
+	S : \mathbb{R}^{15} \rightarrow \mathbb{R}^9 \\
+	(t_f, Z(0))^T \mapsto \left(
+							\begin{array}{c}
+							q(t_f) - q_{rdv} \\
+							p_m(t_f) \\
+							P_q(0) \perp T_{q(0)} \mathcal{O}_H \\
+							H_r(P(t_f), X(t_f), \bullet)
+							\end{array}
+						  \right)
+\end{array}
+$$
+
+\end{document}

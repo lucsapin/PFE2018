@@ -41,7 +41,7 @@ numOpti             = 1;        % Numero of optimization for this asteroid
 m0                  = 500; % kg
 
 destination = 'L2';
-typeSimu = 'return';
+typeSimu = 'total';
 propagation = '2B';
 
 % ----------------------------------------------------------------------------------------------------

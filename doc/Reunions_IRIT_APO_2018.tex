@@ -195,14 +195,29 @@ Correction des objectifs \& de leur priorité :
 \end{itemize}
 
 \section*{Jeudi 26 avril 2018}
-\begin{itemize}
-	\item Propager la dynamique 2 corps jusqu'au bout et comparer résultats
-	\item observer les trajectoires des résultats de BOCOP
-	\item poser le problème : impulsionnel sur la phase parking vers le point L2. Attention : il faut intégrer pour avoir la position du spacecraft.
-	\item optimiser tout ensemble si ça marche bien
-	\item le faire sur tous les astéroïdes
-\end{itemize}
+	\begin{itemize}
+		\item Propager la dynamique 2 corps jusqu'au bout et comparer 					résultats
+		\item observer les trajectoires des résultats de BOCOP
+		\item poser le problème : impulsionnel sur la phase parking vers le 			point L2. Attention : il faut intégrer pour avoir la position 				du spacecraft.
+		\item optimiser tout ensemble si ça marche bien
+		\item le faire sur tous les astéroïdes
+	\end{itemize}
 
+\section*{Jeudi 28 mai 2018}
+	Suite au skype avec Thomas le Jeudi 24 mai les objectifs suivants ont 		été fixés :
+	\begin{itemize}
+		\item Changer le critère sur la phase impulsionnelle : enlever le 	max et garder $F_{sol} = \min \sum_{i=1}^{nbImpulse} \delta V_i$. \\
+		Relancer les optimisations aller, retour et aller-retour. \\
+		Enlever aussi les variables de poids, clarifier stockage des résultats.
+		
+		\item Se concentrer davantage sur la résolution via Bocop multiphase).
+		Réécrire le problème différemment pour qu'on puisse le poser dans Bocop (= forme de Mayer, dimension des 	états multipliée par le nombre d'arc, rajouter les contraintes 	aux extrémités de chaque arc, modification des dynamiques sur chaque arc, ...). \\
+		Attention : \underline{\textbf{la dynamique 3 corps perturbés n'est pas autonome.}}
+	\end{itemize}
+	
+	Depuis jeudi 24 mai, les algorithmes d'optimisation ont tous été modifiés. Il subsiste une erreur pour l'optimisation du retour : les trajectoires ne converge pas vers L2 mais entre L2 et la Lune pour les astéroïdes 1, 3, 7 et 10. \textbf{Ne pas oublier de corriger cela}.
+	
+	\underline{Priorité pour le Vendredi 1er juin :} Écrire le problème de contrôle optimal en multiphase pour l'implémenter dans Bocop
 \end{document}
 
 %%% Local Variables:

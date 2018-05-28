@@ -15,7 +15,7 @@ if(~exist(dirLoad,'dir')); error('Wrong directory name!'); end
 
 file2load = [dirLoad 'asteroid_no_' int2str(numAsteroid)];
 if(exist([file2load '.mat'],'file')~=2)
-    error(['there is no' typeSimu 'impulse optimization done for asteroid number ' int2str(numAsteroid)]);
+    error(['there is no ' typeSimu ' impulse optimization done for asteroid number ' int2str(numAsteroid)]);
 end
 
 load(file2load);

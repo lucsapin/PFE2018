@@ -10,9 +10,9 @@ function [resDrift, resFig, resB, resP2H, correspondingPoint] = get_all_traj(des
 
   t0_day      = time_Hill;                % the initial time in Day
   q0_SUN_AU   = state_Hill(1:6);          % q0 in HELIO frame in AU unit
-  t0_r        = outputOptimization.t0;
-  dt1_r       = outputOptimization.dt1;
-  dtf_r       = outputOptimization.dtf;
+  t0_r        = outputOptimization.t0_r;
+  dt1_r       = outputOptimization.dt1_r;
+  dtf_r       = outputOptimization.dtf_r;
   tf          = t0_r + dt1_r + dtf_r;
   difftime    = tf-times_out(end);        % Remaining time to reach EMB in Day
 
@@ -46,6 +46,7 @@ function [resDrift, resFig, resB, resP2H, correspondingPoint] = get_all_traj(des
 
   resFig.color = color;
   resFig.LW = LW;
+
   outputOptiB = loadFile(destination, 'total', numAsteroid, numOpti);
   [~, ~,zB, ~, optimvarsB, ~] = do_bocop_opti(destination, outputOptiB, q0_SUN_AU, t0_day, TmaxN, difftime, m0, dist);
   resB.zB = zB;
