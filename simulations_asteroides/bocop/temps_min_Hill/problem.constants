@@ -1,6 +1,6 @@
 # This file contains the values of the constants of your problem.
 # Number of constants used in your problem : 
-18
+17
 
 # Values of the constants : 
 50
@@ -14,10 +14,9 @@
 -5.04620142853889
 0.420399539909829
 -0.001435713938545
-350
 1.00064202779949
 -0.003138308875574
 -0.000170464145658
 -0.000105300519795
 0.016473792492262
-4.7119893129e-05
+0.016473792492262

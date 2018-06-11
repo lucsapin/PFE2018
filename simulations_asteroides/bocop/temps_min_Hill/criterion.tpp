@@ -30,11 +30,11 @@
 {
 	// HERE : description of the function for the criterion
 	// "criterion" is a function of all variables X[]
-	Tdouble t1 = optimvars[0];
-	Tdouble t2 = optimvars[1];
-	Tdouble t3 = optimvars[2];
-	Tdouble t4 = optimvars[3];
-	Tdouble tf = optimvars[4];
-	
-	criterion = t1 + t3 - t2 + tf - t4;
+	Tdouble dt1 = optimvars[0];
+	// Tdouble dt2 = optimvars[1]; u = 0
+	Tdouble dt3 = optimvars[2];
+	// Tdouble dt4 = optimvars[3]; u = 0
+	Tdouble dtf = optimvars[4];
+
+	criterion = dt1 + dt3 + dtf;
 }
