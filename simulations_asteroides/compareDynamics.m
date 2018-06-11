@@ -114,7 +114,7 @@ display_L2(); hold on;
 % plot3(Q_P2H(1,:), Q_P2H(2,:), Q_P2H(3,:), 'r', 'LineWidth', DC.LW); hold on;
 % plot3(Q_P2H_2B(1,:), Q_P2H_2B(2,:), Q_P2H_2B(3,:), 'r', 'LineWidth', DC.LW); hold on;
 % plot3(Q_P2H_AH(1,:), Q_P2H_AH(2,:), Q_P2H_AH(3,:), 'r', 'LineWidth', DC.LW); hold on;
-
+% Q_CR3BP(1:6, 1)
 plot3(Q_CR3BP(1,:), Q_CR3BP(2,:), Q_CR3BP(3,:), 'r', 'LineWidth', DC.LW); hold on;
 plot3(Q_CR3BP_2BS(1,:), Q_CR3BP_2BS(2,:), Q_CR3BP_2BS(3,:), 'm', 'LineWidth', DC.LW); hold on;
 plot3(Q_CR3BP_AH(1,:), Q_CR3BP_AH(2,:), Q_CR3BP_AH(3,:), 'b--', 'LineWidth', DC.LW); % hold on;

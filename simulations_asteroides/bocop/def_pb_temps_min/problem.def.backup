@@ -16,7 +16,7 @@ boundarycond.dimension integer 12
 constraint.dimension integer 2
 
 # Discretization :
-discretization.steps integer 1000
+discretization.steps integer 200
 discretization.method string gauss
 
 # Optimization :
@@ -29,8 +29,8 @@ batch.upperbound double 0
 batch.directory string none
 
 # Initialization :
-initialization.type string from_sol_file_warm
-initialization.file string problem.sol
+initialization.type string from_init_file
+initialization.file string none
 
 # Parameter identification :
 paramid.type string false

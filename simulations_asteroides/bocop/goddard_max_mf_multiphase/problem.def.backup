@@ -1,0 +1,78 @@
+# This file defines all dimensions and parameters
+# values for your problem :
+
+# Initial and final time :
+time.free string none
+time.initial double 0
+time.final double 1
+
+# Dimensions :
+state.dimension integer 9
+control.dimension integer 0
+algebraic.dimension integer 0
+parameter.dimension integer 3
+constant.dimension integer 8
+boundarycond.dimension integer 10
+constraint.dimension integer 0
+
+# Discretization :
+discretization.steps integer 100
+discretization.method string midpoint
+
+# Optimization :
+optimization.type string single
+batch.type integer 0
+batch.index integer 0
+batch.nrange integer 1
+batch.lowerbound double 0
+batch.upperbound double 0
+batch.directory string none
+
+# Initialization :
+initialization.type string from_init_file
+initialization.file string none
+
+# Parameter identification :
+paramid.type string false
+paramid.separator string ,
+paramid.file string no_directory
+paramid.dimension integer 0
+
+# Names :
+state.0 string r1
+state.1 string v1
+state.2 string m1
+state.3 string r2
+state.4 string v2
+state.5 string m2
+state.6 string r3
+state.7 string v3
+state.8 string m3
+parameter.0 string dt1
+parameter.1 string dt2
+parameter.2 string dtf
+boundarycond.0 string r1(0)-r0
+boundarycond.1 string v1(0)-v0
+boundarycond.2 string m1(0)-m0
+boundarycond.3 string r2(0)-r1(1)
+boundarycond.4 string v2(0)-v1(1)
+boundarycond.5 string m2(0)-m1(1)
+boundarycond.6 string r3(0)-r2(1)
+boundarycond.7 string v3(0)-v2(1)
+boundarycond.8 string m3(0)-m2(1)
+boundarycond.9 string r3(1)-rf
+constant.0 string A
+constant.1 string b
+constant.2 string Tmax
+constant.3 string k
+constant.4 string r0
+constant.5 string v0
+constant.6 string m0
+constant.7 string rf
+
+# Solution file :
+solution.file string problem.sol
+
+# Iteration output frequency :
+iteration.output.frequency integer 0
+
