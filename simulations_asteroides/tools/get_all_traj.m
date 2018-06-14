@@ -27,6 +27,7 @@ function [resDrift, resFig, resB, resP2H, correspondingPoint] = get_all_traj(des
   % Results affectation
   resP2H.times = times_out;
   resP2H.traj_out = traj_out;
+  resP2H.time_Hill = t0_day;
 
   resDrift.T_CR3BP = T_CR3BP;
   resDrift.Q_EMB_SUN = Q_EMB_SUN;

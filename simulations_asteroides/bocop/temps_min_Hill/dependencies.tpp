@@ -1,5 +1,5 @@
 // Please include below the paths to the files containing the code
-// for the external functions that use Tdouble variables. 
+// for the external functions that use Tdouble variables.
 // Tdouble variables correspond to values that can change during optimization:
 // states, controls, algebraic variables and optimization parameters.
 // Values that remain constant during optimization use standard types (double, int, ...).

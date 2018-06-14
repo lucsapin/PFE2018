@@ -8,7 +8,7 @@ time.final double 1
 
 # Dimensions :
 state.dimension integer 9
-control.dimension integer 0
+control.dimension integer 3
 algebraic.dimension integer 0
 parameter.dimension integer 3
 constant.dimension integer 8
@@ -48,6 +48,9 @@ state.5 string m2
 state.6 string r3
 state.7 string v3
 state.8 string m3
+control.0 string u1
+control.1 string u2
+control.2 string u3
 parameter.0 string dt1
 parameter.1 string dt2
 parameter.2 string dtf

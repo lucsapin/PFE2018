@@ -1,0 +1,8 @@
+# This is a DEFAULT initialization file...
+# Please give correct values for the starting point.
+
+# Type of initialization : 
+constant
+
+# Constant value for the starting point : 
+0.1

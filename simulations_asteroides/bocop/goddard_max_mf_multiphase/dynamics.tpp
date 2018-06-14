@@ -58,9 +58,9 @@
 	Tdouble v3        = state[7];
 	Tdouble m3        = state[8];
 
-	double u1         = 1.0;
-	double u2         = 0.0;
-	double u3         = 1.0;
+	Tdouble u1        = control[0];
+	Tdouble u2        = control[1];
+	Tdouble u3        = control[2];
 
 	Tdouble dt1       = optimvars[0];
 	Tdouble dt2       = optimvars[1];
