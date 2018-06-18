@@ -80,6 +80,9 @@ for i=1:size(times_out, 2)
   [Q_P2H(1:6, i), ~, ~, ~, ~]  = Helio2CR3BP(Q_P2H(1:6,i), times_out(i));
 end
 
+pointMinDistL2_3BP
+pointMinDistL2_2BS
+pointMinDistL2_AH
 %
 % zB_3BP = resB_3BP.zB;
 % zB_2BS = resB_2BS.zB;

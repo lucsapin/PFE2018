@@ -18,7 +18,7 @@ function [timeMinDistL2, correspondingPoint] = getTimeMinDistL2(T_CR3BP, Q_CR3BP
 
   [value, ind] = min(normDiff);
 
-  correspondingPoint = Q_CR3BP(1:3, ind);
+  correspondingPoint = Q_CR3BP(1:6, ind);
   timeMinDistL2 = T_CR3BP(ind);
 
 return
