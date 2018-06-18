@@ -70,7 +70,7 @@ Q_CR3BP_AH    = resDrift_AH.Q_CR3BP; % trajectory in rotating frame
 
 times_out     = resP2H.times;
 Q_P2H         = resP2H.traj_out;
-time_Hill     = resP2H.time_Hill;
+time_Hill     = resP2H.time_Hill
 
 % Get theta0 :
 % [~,~,~,~,theta_Sun] = Helio2CR3BP(Q_P2H(1:6,1),time_Hill);
