@@ -4,31 +4,25 @@
 
 # Dimensions (boundary conditions, state, control, algebraic 
 # variables, optimization parameters, path constraints) :
-24 18 0 0 8 0
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
-0 0 free
+18 12 0 0 8 0
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
+0 0 equal
 
 # Bounds for the initial and final conditions :
 
@@ -45,14 +39,8 @@
 >9:1:9 0 0 free
 >10:1:10 0 0 free
 >11:1:11 0 0 free
->12:1:12 0 0 free
->13:1:13 0 0 free
->14:1:14 0 0 free
->15:1:15 0 0 free
->16:1:16 0 0 free
->17:1:17 0 0 free
-0 0 free
-0 0 free
+0 2e+20 lower
+0 2e+20 lower
 0 0 free
 0 0 free
 0 0 free

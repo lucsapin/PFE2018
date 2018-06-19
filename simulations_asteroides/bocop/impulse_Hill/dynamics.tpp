@@ -31,8 +31,8 @@
 {
 	// HERE : description of the function for the dynamics
 	// Please give a function or a value for the dynamics of each state variable
-	Tdouble dt2   = optimvars[0];
-	Tdouble dtf   = optimvars[1];
+	Tdouble dt1   = optimvars[0];
+	Tdouble dt2   = optimvars[1];
 	Tdouble dV11   = optimvars[2];
 	Tdouble dV12   = optimvars[3];
 	Tdouble dV13   = optimvars[4];

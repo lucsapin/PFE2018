@@ -1,7 +1,7 @@
 // Function for the criterion of the problem
 // Min criterion(z)
 
-// The following are the input and output available variables 
+// The following are the input and output available variables
 // for the criterion of your optimal control problem.
 
 // Input :
@@ -30,7 +30,14 @@
 {
 	// HERE : description of the function for the criterion
 	// "criterion" is a function of all variables X[]
-	criterion = final_state[0];
+	Tdouble dt1   = optimvars[0];
+	Tdouble dt2   = optimvars[1];
+	Tdouble dV11   = optimvars[2];
+	Tdouble dV12   = optimvars[3];
+	Tdouble dV13   = optimvars[4];
+	Tdouble dV21   = optimvars[5];
+	Tdouble dV22   = optimvars[6];
+	Tdouble dV23   = optimvars[7];
+
+	criterion = sqrt(dV11*dV11 + dV12*dV12 + dV13*dV13) + sqrt(dV21*dV21 + dV22*dV22 + dV23*dV23);
 }
-
-
