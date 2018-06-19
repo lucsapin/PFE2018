@@ -30,14 +30,43 @@
 {
 	// HERE : description of the function for the criterion
 	// "criterion" is a function of all variables X[]
-	Tdouble dt1   = optimvars[0];
-	Tdouble dt2   = optimvars[1];
-	Tdouble dV11   = optimvars[2];
-	Tdouble dV12   = optimvars[3];
-	Tdouble dV13   = optimvars[4];
-	Tdouble dV21   = optimvars[5];
-	Tdouble dV22   = optimvars[6];
-	Tdouble dV23   = optimvars[7];
 
-	criterion = sqrt(dV11*dV11 + dV12*dV12 + dV13*dV13) + sqrt(dV21*dV21 + dV22*dV22 + dV23*dV23);
+	double Tmax   = constants[0];
+	double beta   = constants[1];
+	double mu     = constants[2];
+	double muS    = constants[3];
+	double rS     = constants[4];
+	double q01    = constants[5];
+	double q02    = constants[6];
+	double q03    = constants[7];
+	double q04    = constants[8];
+	double q05    = constants[9];
+	double q06    = constants[10];
+	double qL21   = constants[11];
+	double qL22   = constants[12];
+	double qL23   = constants[13];
+	double qL24   = constants[14];
+	double qL25   = constants[15];
+	double qL26   = constants[16];
+	double theta0 = constants[17];
+	double m0     = constants[18];
+
+	Tdouble dt1  = optimvars[0];
+	Tdouble dt2  = optimvars[1];
+	Tdouble dV11 = optimvars[2];
+	Tdouble dV12 = optimvars[3];
+	Tdouble dV13 = optimvars[4];
+	Tdouble dV21 = optimvars[5];
+	Tdouble dV22 = optimvars[6];
+	Tdouble dV23 = optimvars[7];
+
+	Tdouble dV31 = optimvars[8]; //-final_state[9] + qL24;
+	Tdouble dV32 = optimvars[9]; //-final_state[10] + qL25;
+	Tdouble dV33 = optimvars[10]; //-final_state[11] + qL26;
+
+	Tdouble normdV1 = sqrt(dV11*dV11 + dV12*dV12 + dV13*dV13);
+	Tdouble normdV2 = sqrt(dV21*dV21 + dV22*dV22 + dV23*dV23);
+	Tdouble normdV3 = sqrt(dV31*dV31 + dV32*dV32 + dV33*dV33);
+
+	criterion = normdV1 + normdV2 + normdV3;
 }

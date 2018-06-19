@@ -33,12 +33,15 @@
 	// Please give a function or a value for each element of boundaryconditions
   Tdouble dt1   = optimvars[0];
 	Tdouble dt2   = optimvars[1];
-	Tdouble dV11   = optimvars[2];
-	Tdouble dV12   = optimvars[3];
-	Tdouble dV13   = optimvars[4];
-	Tdouble dV21   = optimvars[5];
-	Tdouble dV22   = optimvars[6];
-	Tdouble dV23   = optimvars[7];
+	Tdouble dV11  = optimvars[2];
+	Tdouble dV12  = optimvars[3];
+	Tdouble dV13  = optimvars[4];
+	Tdouble dV21  = optimvars[5];
+	Tdouble dV22  = optimvars[6];
+	Tdouble dV23  = optimvars[7];
+  Tdouble dV31  = optimvars[8]; //= -final_state[9] + qL24;
+  Tdouble dV32  = optimvars[9]; //= -final_state[10] + qL25;
+  Tdouble dV33  = optimvars[10]; //= -final_state[11] + qL26;
 
   Tdouble q11i = initial_state[0];
   Tdouble q12i = initial_state[1];
@@ -105,7 +108,7 @@
   boundary_conditions[12] = q21f - qL21;
   boundary_conditions[13] = q22f - qL22;
   boundary_conditions[14] = q23f - qL23;
-  boundary_conditions[15] = q24f; // car L2 immobile dans repère tournant
-  boundary_conditions[16] = q25f;
-  boundary_conditions[17] = q26f;
+  boundary_conditions[15] = q24f + dV31 - qL24; // car L2 immobile dans repère tournant
+  boundary_conditions[16] = q25f + dV32 - qL25;
+  boundary_conditions[17] = q26f + dV33 - qL26;
 }
