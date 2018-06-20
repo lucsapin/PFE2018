@@ -16,7 +16,7 @@ boundarycond.dimension integer 18
 constraint.dimension integer 0
 
 # Discretization :
-discretization.steps integer 50
+discretization.steps integer 100
 discretization.method string midpoint
 
 # Optimization :
@@ -51,8 +51,8 @@ state.8 string q23
 state.9 string q24
 state.10 string q25
 state.11 string q26
-parameter.0 string dt2
-parameter.1 string dtf
+parameter.0 string dt1
+parameter.1 string dt2
 parameter.2 string dV11
 parameter.3 string dV12
 parameter.4 string dV13
