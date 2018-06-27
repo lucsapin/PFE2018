@@ -75,7 +75,7 @@ end
 outputOptimization  = allResults{numOpti};
 
 % Get initial condition
-[times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, ~, hFigSpace] = propagate2Hill(outputOptimization, dist, true); % The solution is given in HELIO frame
+[times_out, traj_out, time_Hill, state_Hill, xC_EMB_HIll, ~, ~, ~, ~, ~] = propagate2Hill(outputOptimization, dist); % The solution is given in HELIO frame
 
 t0_day      = time_Hill;                % the initial time in Day
 q0_SUN_AU   = state_Hill(1:6);          % q0 in HELIO frame in AU unit
@@ -86,7 +86,7 @@ tf          = t0_r + dt1_r + dtf_r;
 tf_guess    = tf-times_out(end);         % Remaining time to reach EMB in Day
 
 % Drift compare ??
-Drift_compare(t0_day, dtf_r, q0_SUN_AU, hFigSpace)
+% Drift_compare(t0_day, dtf_r, q0_SUN_AU)
 
 dv0_r_KM_S  = outputOptimization.dV0_r/UC.jour*UC.AU; % km / s
 fprintf('dv0_r_KM_S = \n'); disp(dv0_r_KM_S);
@@ -140,14 +140,14 @@ else
     save(file_results, 'results');
 end
 
-%results.exec_min_tf_bocop=-1;
-%results.exec_min_tf_hampath=-1;
-%results.exec_regul_log = -1;
-results.exec_min_conso_free_tf = -1;
-%results.exec_min_conso_non_constant_mass    = -1;
-%results.exec_min_conso_fixed_tf = -1;
-%results.exec_homotopy_tf = -1;
-%results.exec_homotopy_m0 = -1;
+results.exec_min_tf_bocop=-1;
+results.exec_min_tf_hampath=1;
+results.exec_regul_log = 1;
+results.exec_min_conso_free_tf = 1;
+results.exec_min_conso_non_constant_mass    = 1;
+results.exec_min_conso_fixed_tf = 1;
+results.exec_homotopy_tf = 1;
+results.exec_homotopy_m0 = 1;
 
 % ----------------------------------------------------------------------------------------------------
 % Bocop solution : min tf

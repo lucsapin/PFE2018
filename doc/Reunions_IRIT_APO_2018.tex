@@ -217,7 +217,34 @@ Correction des objectifs \& de leur priorité :
 	
 	Depuis jeudi 24 mai, les algorithmes d'optimisation ont tous été modifiés. Il subsiste une erreur pour l'optimisation du retour : les trajectoires ne converge pas vers L2 mais entre L2 et la Lune pour les astéroïdes 1, 3, 7 et 10. \textbf{Ne pas oublier de corriger cela}.
 	
-	\underline{Priorité pour le Vendredi 1er juin :} Écrire le problème de contrôle optimal en multiphase pour l'implémenter dans Bocop
+	\underline{Priorité pour le Vendredi 1er juin :} Écrire le problème de contrôle optimal en multiphase pour l'implémenter dans Bocop.
+	
+\section*{Vendredi 22 juin 2018}
+Travail effectué depuis le 28 mai : \\
+\begin{itemize}
+	\item Entraînement avec Bocop pour gérer un problème multiphase : problème de Goddard en Bang-Singulier-Bang. Ok après plusieurs difficultés d'implémentation des fichiers C++. On retrouve bien les mêmes solutions qu'avec un problème monophasé. \\
+	
+	\item Écriture de la phase parking à 3 arcs avec l'interface graphique de Bocop (contrôle continu) : plusieurs soucis pour mener la résolution à terme.. \\
+	
+	\item Après le skype avec Thomas le 18 juin: pourquoi ne pas tenter de résoudre le problème de la phase parking \textbf{en impulsionnel} sous Bocop ?\\
+	Problème modifié $\Rightarrow$ pas de contrôle, $3$ impulsions $3$D, incréments de vitesse et instants d'impulsion à déterminer. Cela nous donne un problème impulsionnel à $2$ arcs, de dimension 12. \\
+	Solution trouvée avec plusieurs contraintes/problèmes: 
+	\begin{itemize}
+		\item Pas de solution trouvée si le $3$e boost est déduit par la valeur de l'état final (le point final ayant une vitesse connue nulle). On est donc contraint de donner le dernier boost libre, comme les $2$ premiers. La solution trouvée est différente du problème en temps min et passe à "l'intérieur" du système Terre-Lune : boucle autour de la terre, grand tour.. allonge la durée de la trajectoire.
+		\item Qui plus est, la valeur du coût est d'environ $3.13$. Assez différent des valeurs trouvées dans les optimisations précédentes, aux alentours de $0.2$ (problème de conversion d'unité de $\delta V$ ?).
+		\item Solution trouvée avec un $dt_i$ nul $\Rightarrow$ un seul arc et $2$ boosts suffiraient peut-être ??
+	\end{itemize} 
+	
+	\item Écriture du script matlab qui appelle Bocop et récupère les résultats pour un affichage propre des trajectoires et qui les compare avec les précédentes obtenues. Problème à l'exécution a fait crasher Bocop, impossible de charger ou créer un problème sur l'interface graphique depuis.
+\end{itemize}
+Objectifs avant le nouveau Skype avec Thomas :
+	\begin{itemize}
+		\item Vérifier qu'il n'y a pas de problème d'unité pour la valeur du coût.
+		\item Réinstaller Bocop pour corriger le crash
+		\item Écrire le même problème mais avec seulement 2 impulsions
+		\item Corriger le script matlab d'appel à Bocop
+		\item Terminer le problème de phase parking avec contrôle continu sur l'interface Bocop pour via un script matlab. 
+	\end{itemize}
 \end{document}
 
 %%% Local Variables:

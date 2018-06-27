@@ -88,7 +88,7 @@ function [toutB,stageB,zB,uB,optimvarsB,outputB] = do_bocop_opti(destination, ou
     map_indices_par_bocop = containers.Map(keySet, valueSet);
 
     % Initialization
-    defPbBocop  = './bocop/';                                                 % Directory where main bocop pb directory is: ./bocop/def_pb_temps_min/
+    defPbBocop  = './bocop/'; % Directory where main bocop pb directory is: ./bocop/def_pb_temps_min/
 
     if(strcmp(init_choice, 'none1')==1)
 

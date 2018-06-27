@@ -33,13 +33,7 @@
 	// Please give a function or a value for the dynamics of each state variable
 	Tdouble dt1   = optimvars[0];
 	Tdouble dt2   = optimvars[1];
-	Tdouble dV11   = optimvars[2];
-	Tdouble dV12   = optimvars[3];
-	Tdouble dV13   = optimvars[4];
-	Tdouble dV21   = optimvars[5];
-	Tdouble dV22   = optimvars[6];
-	Tdouble dV23   = optimvars[7];
-
+	
 	double Tmax   = constants[0];
 	double beta   = constants[1];
 	double mu     = constants[2];
@@ -58,7 +52,8 @@
 	double qL25   = constants[15];
 	double qL26   = constants[16];
 	double theta0 = constants[17];
-	double m0     = constants[18];
+	double omegaS = constants[18];
+	double m0     = constants[19];
 
 	Tdouble x1    = state[0];
 	Tdouble y1    = state[1];
@@ -72,14 +67,6 @@
 	Tdouble xdot2 = state[9];
 	Tdouble ydot2 = state[10];
 	Tdouble zdot2 = state[11];
-	// Tdouble x3    = state[12];
-	// Tdouble y3    = state[13];
-	// Tdouble z3    = state[14];
-	// Tdouble xdot3 = state[15];
-	// Tdouble ydot3 = state[16];
-	// Tdouble zdot3 = state[17];
-
-	double omegaS  = -0.9212;
 
 	Tdouble rho11   = sqrt((x1+mu)*(x1+mu) + y1*y1 + z1*z1);
 	Tdouble rho12   = sqrt((x1-1+mu)*(x1-1+mu) + y1*y1 + z1*z1);
@@ -90,11 +77,6 @@
 	Tdouble rho22   = sqrt((x2-1+mu)*(x2-1+mu) + y2*y2 + z2*z2);
 	Tdouble theta2 = theta0 + omegaS*(dt1 + dt2*time);
 	Tdouble rhoS2  = sqrt((x2-rS*cos(theta2))*(x2-rS*cos(theta2)) + (y2-rS*sin(theta2))*(y2-rS*sin(theta2)) + z2*z2);
-
-	// Tdouble rho31   = sqrt((x3+mu)*(x3+mu) + y3*y3 + z3*z3);
-	// Tdouble rho32   = sqrt((x3-1+mu)*(x3-1+mu) + y3*y3 + z3*z3);
-	// Tdouble theta3 = theta0 + omegaS*(dt1 + dt2 + dt3*time);
-	// Tdouble rhoS3  = sqrt((x3-rS*cos(theta3))*(x3-rS*cos(theta3)) + (y3-rS*sin(theta3))*(y3-rS*sin(theta3)) + z3*z3);
 
 // PREMIER ARC
 	state_dynamics[0] = dt1 * xdot1;
@@ -110,13 +92,4 @@
 	state_dynamics[9] = dt2 * (2*ydot2 + x2 - (1-mu)*(x2+mu)/rho21/rho21/rho21 - mu*(x2-1+mu)/rho22/rho22/rho22 - muS*(x2-rS*cos(theta2))/rhoS2/rhoS2/rhoS2 - muS*cos(theta2)/rS/rS);
 	state_dynamics[10] = dt2 * (-2*xdot2 + y2 - (1-mu)*y2/rho21/rho21/rho21 - mu*y2/rho22/rho22/rho22 - muS*(y2-rS*sin(theta2))/rhoS2/rhoS2/rhoS2 - muS*sin(theta2)/rS/rS);
 	state_dynamics[11] = dt2 * (-(1-mu)*z2/rho21/rho21/rho21 - mu*z2/rho22/rho22/rho22 - muS*z2/rhoS2/rhoS2/rhoS2);
-
-// TROISIEME ARC
-	// state_dynamics[12] = dt3 * xdot3;
-	// state_dynamics[13] = dt3 * ydot3;
-	// state_dynamics[14] = dt3 * zdot3;
-	// state_dynamics[15] = dt3 * (2*ydot3 + x3 - (1-mu)*(x3+mu)/rho31/rho31/rho31 - mu*(x3-1+mu)/rho32/rho32/rho32 - muS*(x3-rS*cos(theta3))/rhoS3/rhoS3/rhoS3 - muS*cos(theta3)/rS/rS) + (Tmax/m0)*u31;
-	// state_dynamics[16] = dt3 * (-2*xdot3 + y3 - (1-mu)*y3/rho31/rho31/rho31 - mu*y3/rho32/rho32/rho32 - muS*(y3-rS*sin(theta3))/rhoS3/rhoS3/rhoS3 - muS*sin(theta3)/rS/rS) + (Tmax/m0)*u32;
-	// state_dynamics[17] = dt3 * (-(1-mu)*z3/rho31/rho31/rho31 - mu*z3/rho32/rho32/rho32 - muS*z3/rhoS3/rhoS3/rhoS3) + (Tmax/m0)*u33;
-
 }

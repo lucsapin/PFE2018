@@ -43,34 +43,6 @@
   Tdouble dV32  = optimvars[9]; //= -final_state[10] + qL25;
   Tdouble dV33  = optimvars[10]; //= -final_state[11] + qL26;
 
-  Tdouble q11i = initial_state[0];
-  Tdouble q12i = initial_state[1];
-  Tdouble q13i = initial_state[2];
-  Tdouble q14i = initial_state[3];
-  Tdouble q15i = initial_state[4];
-  Tdouble q16i = initial_state[5];
-
-  Tdouble q21i = initial_state[6];
-  Tdouble q22i = initial_state[7];
-  Tdouble q23i = initial_state[8];
-  Tdouble q24i = initial_state[9];
-  Tdouble q25i = initial_state[10];
-  Tdouble q26i = initial_state[11];
-
-  Tdouble q11f = final_state[0];
-  Tdouble q12f = final_state[1];
-  Tdouble q13f = final_state[2];
-  Tdouble q14f = final_state[3];
-  Tdouble q15f = final_state[4];
-  Tdouble q16f = final_state[5];
-
-  Tdouble q21f = final_state[6];
-  Tdouble q22f = final_state[7];
-  Tdouble q23f = final_state[8];
-  Tdouble q24f = final_state[9];
-  Tdouble q25f = final_state[10];
-  Tdouble q26f = final_state[11];
-
   double Tmax   = constants[0];
 	double beta   = constants[1];
 	double mu     = constants[2];
@@ -89,26 +61,27 @@
 	double qL25   = constants[15];
 	double qL26   = constants[16];
 	double theta0 = constants[17];
-	double m0     = constants[18];
+	double omegaS = constants[18];
+	double m0     = constants[19];
 
-  boundary_conditions[0]  = q01 - q11i;
-  boundary_conditions[1]  = q02 - q12i;
-  boundary_conditions[2]  = q03 - q13i;
-  boundary_conditions[3]  = q04 + dV11 - q14i;
-  boundary_conditions[4]  = q05 + dV12 - q15i;
-  boundary_conditions[5]  = q06 + dV13 - q16i;
+  boundary_conditions[0]  = initial_state[0] - q01;
+  boundary_conditions[1]  = initial_state[1] - q02;
+  boundary_conditions[2]  = initial_state[2] - q03;
+  boundary_conditions[3]  = initial_state[3] - q04 - dV11;
+  boundary_conditions[4]  = initial_state[4] - q05 - dV12;
+  boundary_conditions[5]  = initial_state[5] - q06 - dV13;
 
-  boundary_conditions[6]  = q11f - q21i;
-  boundary_conditions[7]  = q12f - q22i;
-  boundary_conditions[8]  = q13f - q23i;
-  boundary_conditions[9]  = q14f + dV21 - q24i;
-  boundary_conditions[10] = q15f + dV22 - q25i;
-  boundary_conditions[11] = q16f + dV23 - q26i;
+  boundary_conditions[6]  = initial_state[6] - final_state[0];
+  boundary_conditions[7]  = initial_state[7] - final_state[1];
+  boundary_conditions[8]  = initial_state[8] - final_state[2];
+  boundary_conditions[9]  = initial_state[9] - final_state[3] - dV21;
+  boundary_conditions[10] = initial_state[10] - final_state[4] - dV22;
+  boundary_conditions[11] = initial_state[11] - final_state[5] - dV23;
 
-  boundary_conditions[12] = q21f - qL21;
-  boundary_conditions[13] = q22f - qL22;
-  boundary_conditions[14] = q23f - qL23;
-  boundary_conditions[15] = q24f + dV31 - qL24; // car L2 immobile dans repère tournant
-  boundary_conditions[16] = q25f + dV32 - qL25;
-  boundary_conditions[17] = q26f + dV33 - qL26;
+  boundary_conditions[12] = final_state[6] - qL21;
+  boundary_conditions[13] = final_state[7] - qL22;
+  boundary_conditions[14] = final_state[8] - qL23;
+  boundary_conditions[15] = final_state[9] - qL24 - dV31;
+  boundary_conditions[16] = final_state[10] - qL25 - dV32;
+  boundary_conditions[17] = final_state[11] - qL26 - dV33;
 }

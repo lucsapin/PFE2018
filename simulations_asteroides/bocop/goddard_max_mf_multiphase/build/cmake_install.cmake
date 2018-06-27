@@ -1,4 +1,4 @@
-# Install script for directory: /home/controleapo/Bureau/logiciels/Bocop-2.0.4-linux-src
+# Install script for directory: /home/controleapo/Bureau/logiciels/Bocop-2.1.0-linux-src
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

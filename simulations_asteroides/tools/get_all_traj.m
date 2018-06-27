@@ -1,4 +1,4 @@
-function [resDrift, resFig, resB, resP2H, correspondingPoint] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choixDyn)
+function [resDrift, resP2H, correspondingPoint, resFig] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choixDyn)
 
   outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti);
 
@@ -16,18 +16,21 @@ function [resDrift, resFig, resB, resP2H, correspondingPoint] = get_all_traj(des
   tf          = t0_r + dt1_r + dtf_r;
   difftime    = tf-times_out(end);        % Remaining time to reach EMB in Day
 
-  % ----------------------------------------------------------------------------------------------------
-  % Drift Compare : compute the trajectory inside the Hill's sphere, considering a certain dynamics
+  % ----------------------------------------------------------------------------
+  % Drift Compare : compute the trajectory inside the Hill's sphere,
+  % considering a certain dynamics
   [T_CR3BP, Q_EMB_SUN, Q_CR3BP] = Drift_BP(t0_day, difftime, q0_SUN_AU, choixDyn);
 
-  % Compute time and position of the trajectory corresponding to the min distance of L2's point
+  % Compute time and position of the trajectory corresponding to the min
+  % distance of L2's point
   [timeMinDistL2, correspondingPoint] = getTimeMinDistL2(T_CR3BP, Q_CR3BP);
 
-  % ----------------------------------------------------------------------------------------------------
+  % ----------------------------------------------------------------------------
   % Results affectation
   resP2H.times = times_out;
   resP2H.traj_out = traj_out;
   resP2H.time_Hill = t0_day;
+  resP2H.tf_guess = difftime;
 
   resDrift.T_CR3BP = T_CR3BP;
   resDrift.Q_EMB_SUN = Q_EMB_SUN;
@@ -48,9 +51,4 @@ function [resDrift, resFig, resB, resP2H, correspondingPoint] = get_all_traj(des
   resFig.color = color;
   resFig.LW = LW;
 
-  outputOptiB = loadFile(destination, 'total', numAsteroid, numOpti);
-  [~, ~,zB, ~, optimvarsB, ~] = do_bocop_opti(destination, outputOptiB, q0_SUN_AU, t0_day, TmaxN, difftime, m0, dist);
-  resB.zB = zB;
-  resB.optimvarsB = optimvarsB;
-  solutionBocop = t0_day + optimvarsB*UC.time_syst/UC.jour; % en jour
 return

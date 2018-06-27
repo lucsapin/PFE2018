@@ -49,7 +49,8 @@
 	double qL25   = constants[15];
 	double qL26   = constants[16];
 	double theta0 = constants[17];
-	double m0     = constants[18];
+	double omegaS = constants[18];
+	double m0     = constants[19];
 
 	Tdouble dt1  = optimvars[0];
 	Tdouble dt2  = optimvars[1];
