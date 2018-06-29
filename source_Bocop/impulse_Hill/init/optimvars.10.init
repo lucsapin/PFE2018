@@ -1,0 +1,9 @@
+# Starting point file.
+# This file contains initialization values
+# for variable optimvars.10
+
+# Type of initialization :
+constant
+
+# Constant value for the starting point : 
+0.100000

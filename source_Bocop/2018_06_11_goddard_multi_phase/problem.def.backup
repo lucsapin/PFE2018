@@ -1,0 +1,71 @@
+# This file defines all dimensions and parameters
+# values for your problem :
+
+# Initial and final time :
+time.free string none
+time.initial double 0
+time.final double 1
+
+# Dimensions :
+state.dimension integer 6
+control.dimension integer 0
+algebraic.dimension integer 0
+parameter.dimension integer 2
+constant.dimension integer 8
+boundarycond.dimension integer 7
+constraint.dimension integer 0
+
+# Discretization :
+discretization.steps integer 100
+discretization.method string gauss
+
+# Optimization :
+optimization.type string single
+batch.type integer 0
+batch.index integer 0
+batch.nrange integer 1
+batch.lowerbound double 0
+batch.upperbound double 0
+batch.directory string none
+
+# Initialization :
+initialization.type string from_init_file
+initialization.file string none
+
+# Parameter identification :
+paramid.type string false
+paramid.separator string ,
+paramid.file string no_directory
+paramid.dimension integer 0
+
+# Names :
+state.0 string r1
+state.1 string v1
+state.2 string m1
+state.3 string r2
+state.4 string v2
+state.5 string m2
+parameter.0 string dt1
+parameter.1 string dt2
+boundarycond.0 string r1(0)
+boundarycond.1 string v1(0)
+boundarycond.2 string m1(0)
+boundarycond.3 string r2(1)
+boundarycond.4 string matching_r
+boundarycond.5 string matching_v
+boundarycond.6 string matching_m
+constant.0 string Tmax
+constant.1 string A
+constant.2 string k
+constant.3 string b
+constant.4 string r0
+constant.5 string v0
+constant.6 string m0
+constant.7 string rf
+
+# Solution file :
+solution.file string problem.sol
+
+# Iteration output frequency :
+iteration.output.frequency integer 0
+
