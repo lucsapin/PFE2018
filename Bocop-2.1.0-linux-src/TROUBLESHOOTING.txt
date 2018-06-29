@@ -1,0 +1,47 @@
+TROUBLESHOOTING FOR BOCOP
+
+*GENERAL*
+
+"ADOL-C error: Cannot allocate tape buffers!"
+
+This message indicates that the buffer size specified for Adol-C is too high. In your problem directory, edit the hidden file .adolcrc and decrease the buffer sizes. Note that using tape files instead of buffers can cause a significant drop in performance if accessing the files over a network. In this case, try working on a local partition.
+
+
+*WINDOWS*
+
+We noticed that some antivirus can cause problems during the compilation of the thirdparty softwares for Bocop. In this case, please disable your antivirus check during the installation, and re-enable it once done. Case spotted: Avira under Win7.
+
+The windows package includes precompiled libraries for the ThirdParty softwares Ipopt and Adol-C/ColPack. Source files are also included so that you can rebuild the libraries if you encounter some incompabilities. To do this, simply remove the files in the 'libs' folders in ThirdParty/Ipopt and Adolc. The GUI will then rebuild these files automatically (this can take several minutes).
+
+If you already have MinGW installed on your computer you might have GCC > 4.7. In this case you will have to use ADOL-C-5.2.1 instead of ADOL-C-2.5.0. Here is
+the procedure to follow:
+- Download at: http://www.coin-or.org/download/source/ADOL-C/ADOL-C-2.5.1.zip
+- Extract the archive in <BOCOP>/ThirdParty
+
+For win8 or win8.1 users: if Bocop is installed on disk C:, you may need to run "BocopGui" as administrator to prevent access rights errors.
+Alternately, install Bocop on another disk (not C:).
+
+*LINUX*
+
+With gcc 4.8.3 you might have an error during Ipopt build: “don’t have function for random number generator”. This will result later in the error “IpoptApplication.h not found”.
+
+To solve this you have to type the following commands in the terminal:
+> cd <BOCOP>ThirdParty/Ipopt-3.1*
+> ./configure --enable-static --prefix=<BOCOP>/ThirdParty/Ipopt-3.1* coin_skip_warn_cxxflags=yes
+> make
+> make install
+
+*MAC*
+
+If a problem occurs while building IPOPT, please go to the IPOPT directory, and run ./configure with the following options:
+* F77=/path/to/your/fortran/compiler
+* ADD_FFLAGS="-O3 -ftree-vectorize -m64"
+* ADD_CFLAGS="-O3 -ftree-vectorize -arch x86_64 -m64"
+* ADD_CXXFLAGS="-O3 -ftree-vectorize -m64"
+(replace m64 by m32, and x86_64 by i386 for 32bits architectures)
+
+After configure step, you can run "make" and "make install".
+
+You can find more about IPOPT Mac OS build here :
+https://projects.coin-or.org/Ipopt/wiki/Ipopt_on_Mac_OS_X
+See also macos/thirdparty_mac_install.pdf for more details

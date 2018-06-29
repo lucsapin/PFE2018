@@ -1,0 +1,10 @@
+prefix=/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8
+libdir=/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/build/1-Ipopt_external-prefix/src/1-Ipopt_external-build/ThirdParty/Lapack
+
+Name: Lapack
+Description: Linear algebra package
+URL: https://projects.coin-or.org/BuildTools
+Version: 1.5.6
+Libs: ${libdir}/libcoinlapack.la   -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. -lgfortran -lm -lquadmath
+Cflags:
+Requires: coinblas 

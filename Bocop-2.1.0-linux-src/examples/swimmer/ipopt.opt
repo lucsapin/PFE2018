@@ -1,0 +1,4 @@
+max_iter 2000
+print_level 5
+tol 1e-14
+output_file result.out

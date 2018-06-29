@@ -1,0 +1,7 @@
+# Ipopt options (this file was written by Bocop GUI)
+max_iter 1000
+print_level 5
+tol 1.000D-14
+mu_strategy adaptive
+file_print_level 3
+output_file result.out

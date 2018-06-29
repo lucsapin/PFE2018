@@ -1,0 +1,80 @@
+# This file defines all dimensions and parameters
+# values for your problem :
+
+# Initial and final time :
+time.free string none
+time.initial double 0
+time.final double 5
+
+# Dimensions :
+state.dimension integer 9
+control.dimension integer 2
+algebraic.dimension integer 0
+parameter.dimension integer 1
+constant.dimension integer 7
+boundarycond.dimension integer 11
+constraint.dimension integer 2
+
+# Discretization :
+discretization.steps integer 100
+discretization.method string midpoint
+
+# Optimization :
+optimization.type string single
+batch.type integer 0
+batch.index integer 0
+batch.nrange integer 1
+batch.lowerbound double 0
+batch.upperbound double 0
+batch.directory string none
+
+# Initialization :
+initialization.type string from_init_file
+initialization.file string none
+
+# Parameter identification :
+paramid.type string false
+paramid.separator string ,
+paramid.file string no_directory
+paramid.dimension integer 0
+
+# Names :
+state.0 string R
+state.1 string Ptilde
+state.2 string P2tilde
+state.3 string k
+state.4 string y
+state.5 string U
+state.6 string V
+state.7 string P
+state.8 string P2
+control.0 string u
+control.1 string v
+parameter.0 string lambda
+boundarycond.0 string R(0)
+boundarycond.1 string Ptilde(0)_eq
+boundarycond.2 string P2tilde(0)_eq
+boundarycond.3 string k(0)
+boundarycond.4 string y(0)
+boundarycond.5 string U(0)
+boundarycond.6 string V(0)
+boundarycond.7 string lambda_eq
+boundarycond.8 string P(0)_eq
+boundarycond.9 string P2(0)_eq
+boundarycond.10 string U(T)-2ubar
+constraint.0 string total_pop
+constraint.1 string total_pop_tilde
+constant.0 string tau
+constant.1 string alpha
+constant.2 string beta
+constant.3 string gamma
+constant.4 string p0
+constant.5 string ubar
+constant.6 string vbar
+
+# Solution file :
+solution.file string problem.sol
+
+# Iteration output frequency :
+iteration.output.frequency integer 0
+

@@ -1,0 +1,10 @@
+# This file is an example of constant initialization for a state, control or algebraic variable
+# It contains the value used for all times
+# The actual name of this file would be:
+# state.#.init, control.#.init or algebraic.#.init
+
+# Type of initialization :
+constant
+
+# Constant value for the starting point :
+1.000000000e+00

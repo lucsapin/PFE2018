@@ -1,0 +1,62 @@
+\documentclass[a4paper,10pt]{article}
+% Generated with LaTeXDraw 2.0.8
+% Thu Nov 15 18:36:23 CET 2012
+\usepackage[usenames,dvipsnames]{pstricks}
+\usepackage{epsfig}
+\usepackage{pst-grad} % For gradients
+\usepackage{pst-plot} % For axes
+\usepackage{pst-eps}
+
+
+\begin{document}
+
+
+ \begin{TeXtoEPS} %% à utiliser avec les commandes
+%  latex hemato_model.tex
+% puis
+% dvips hemato_model.dvi -E -o hemato_model.eps
+% dans un terminal pour générer un .eps
+  
+
+% \begin{center}
+\scalebox{1} % Change this value to rescale the drawing.
+{
+\begin{pspicture}(0,0)(9,4)
+% \begin{pspicture}(0,0)(9,3.5)
+%   \psgrid(0,0)(9,4)
+  \psframe[linewidth=0.04cm,framearc=0.5](1,1)(4,2.5)
+%   \psline[fillstyle=solid,fillcolor=orange,linewidth=0.04cm,linearc=0.5](2.5,2.5)(1,2.5)(1,1)(2.5,1)
+%   \psline[fillstyle=solid,fillcolor=purple,linewidth=0.04cm,linearc=0.5](2.5,2.5)(4,2.5)(4,1)(2.5,1)
+  \pscircle[linewidth=0.04cm](7,1.75){1}
+%   \pscircle[fillstyle=solid,fillcolor=lime,linewidth=0.04cm](7,1.75){1}
+  \psline(2.5,1)(2.5,1.5)
+  \psline(2.5,2)(2.5,2.5)
+  \psline{<->}(1,1.3)(2.5,1.3)
+  \rput[b](1.75,1.35){$\tau$}
+  \psline{<->}(2.5,1.3)(4,1.3)
+  \rput[b](3.25,1.35){$\tau$}
+  \psline[linewidth=0.04cm]{->}(4,1.75)(6,1.75)
+  \psline[linewidth=0.04cm]{->}(8,1.75)(9,1.75)(9,3.5)(0,3.5)(0,1.75)(1,1.75)
+  \rput[b](5,3.6){${ ( 1-k(t) )}\beta$ }
+  \psline[linewidth=0.04cm]{->}(1.5,1)(2.5,0.5)
+  \rput[l](2.55,0.5){$\gamma \phantom{{+u(t)}}$}
+  \psline[linewidth=0.04cm]{->}(3,1)(4,0.5)
+  \rput[l](4.05,0.5){$\gamma +u(t)$}
+%   \rput(2.5,2.6){$\overbrace{\hspace{2.8cm}}$}
+%   \rput[b](2.5,2.7){$P(t)$}
+%   \rput(3.5,2.15){$P_S(t)$}
+  \rput(7,1.75){$R(t)$}
+  \rput(2.5,1.75){$p(t,a)$}
+  \rput(2.5,0){proliferating phase}
+  \rput(7,0){resting phase}
+  \rput[bl](4.1,1.8){$\times 2$}
+\end{pspicture}
+}
+% \end{center}
+
+ 
+\end{TeXtoEPS}
+
+% 
+\end{document}
+% 

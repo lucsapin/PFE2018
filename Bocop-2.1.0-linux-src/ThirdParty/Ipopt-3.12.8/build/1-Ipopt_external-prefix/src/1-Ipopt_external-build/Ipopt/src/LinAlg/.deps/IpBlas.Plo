@@ -1,0 +1,66 @@
+IpBlas.lo: \
+ /home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/IpBlas.cpp \
+ /usr/include/stdc-predef.h \
+ /home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/../Common/IpoptConfig.h \
+ ../../src/Common/config.h \
+ /home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/IpBlas.hpp \
+ /home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/../Common/IpUtils.hpp \
+ /home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/../Common/IpTypes.hpp \
+ /home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/../Common/IpoptConfig.h \
+ /home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/../Common/IpDebug.hpp \
+ /usr/include/c++/5/cassert /usr/include/assert.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h /usr/include/c++/5/cstring \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h \
+ /usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h \
+ /usr/include/string.h /usr/lib/gcc/x86_64-linux-gnu/5/include/stddef.h \
+ /usr/include/xlocale.h /usr/include/x86_64-linux-gnu/bits/string3.h
+
+/usr/include/stdc-predef.h:
+
+/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/../Common/IpoptConfig.h:
+
+../../src/Common/config.h:
+
+/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/IpBlas.hpp:
+
+/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/../Common/IpUtils.hpp:
+
+/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/../Common/IpTypes.hpp:
+
+/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/../Common/IpoptConfig.h:
+
+/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/Ipopt-3.12.8/Ipopt/src/LinAlg/../Common/IpDebug.hpp:
+
+/usr/include/c++/5/cassert:
+
+/usr/include/assert.h:
+
+/usr/include/features.h:
+
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/c++/5/cstring:
+
+/usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h:
+
+/usr/include/x86_64-linux-gnu/c++/5/bits/os_defines.h:
+
+/usr/include/x86_64-linux-gnu/c++/5/bits/cpu_defines.h:
+
+/usr/include/string.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/5/include/stddef.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/x86_64-linux-gnu/bits/string3.h:

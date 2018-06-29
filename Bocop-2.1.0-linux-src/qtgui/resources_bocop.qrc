@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>logo_400.png</file>
+        <file>logo_800.png</file>
+        <file>logo_40.png</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file alias="application-exit">oxygen/32x32/actions/application-exit.png</file>
+        <file alias="problem-save">oxygen/32x32/actions/document-save.png</file>
+        <file alias="problem-new">oxygen/32x32/actions/folder-new.png</file>
+        <file>oxygen/32x32/actions/run-build.png</file>
+        <file alias="problem-open">oxygen/32x32/actions/document-open-folder.png</file>
+        <file alias="document-close">oxygen/32x32/actions/window-close.png</file>
+        <file alias="problem-run">oxygen/32x32/actions/arrow-right-double.png</file>
+        <file alias="undo">oxygen/32x32/actions/edit-undo.png</file>
+        <file alias="refresh">oxygen/32x32/actions/view-refresh.png</file>
+        <file alias="doc-open">oxygen/32x32/actions/document-open.png</file>
+        <file alias="print">oxygen/32x32/actions/printer.png</file>
+        <file alias="problem-build">oxygen/32x32/actions/hammer-build.png</file>
+    </qresource>
+</RCC>

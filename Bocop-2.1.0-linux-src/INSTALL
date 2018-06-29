@@ -1,0 +1,51 @@
+***************************
+BOCOP INSTALL NOTES - LINUX
+***************************
+
+In the following, <BOCOP> is the folder of the extracted package.
+The full path to this folder must NOT contain blanks/spaces.
+
+****************
+A. PREREQUISITES
+
+Bocop requires g++, gfortran and CMake.
+Please install them if necessary (using yum, apt-get or the system tools)
+
+****************************
+B. HOW TO LAUNCH BOCOP (GUI)
+
+The Bocop user interface exists in both 32 and 64 bit.
+If unsure of your OS version, just try both, one at least should work ;-)
+To launch the Bocop interface (Qt) on 64 bit Linux:
+- double click on BocopGui64 in <BOCOP>/qtgui or
+- execute the command "./BocopGui64" in a terminal at <BOCOP>/qtgui
+For the 32 bit version just replace 64 by 32.
+
+On first launch the GUI will open the default problem "goddard".
+You can check your installation by running this problem (green triangle icon).
+After some compilation steps, you should see the optimization begin.
+Some dependencies have to be compiled the first time you build a problem. 
+This can take several minutes.
+
+After optimization, the solution file can be visualized directly from 
+the Qt interface, or using the Matlab script (bocop.m), located in the 
+folder scripts/.
+
+For more information on using bocop and on the examples of optimal control
+problems solved by bocop, please refer to the UserGuide and the Examples
+notes available on the Download page (bocop.org).
+
+Note: the settings for the GUI should be saved in
+$home/.config/Inria/Bocop-x.x.x.conf
+
+*************************************
+C. HOW TO LAUNCH BOCOP (COMMAND LINE)
+
+To build the bocop executable without using the GUI, you can copy the script 
+build.sh in <BOCOP>/examples/default into your problem folder, and run it by:
+  sh build.sh
+
+The script will invoke cmake/make to build a binary 'bocop'. Run it with
+  ./bocop
+  
+You can edit the script to change the build type from Debug (default) to Release.

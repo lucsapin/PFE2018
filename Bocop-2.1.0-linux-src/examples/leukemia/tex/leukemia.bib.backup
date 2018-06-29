@@ -1,0 +1,10 @@
+@article{Dupuis14,
+	author = {X. Dupuis},
+	title = {Optimal Control of Leukemic Cell Population Dynamics},
+	url= "https://doi.org/10.1051/mmnp/20149102",
+	journal = {Math. Model. Nat. Phenom.},
+	year = 2014,
+	volume = 9,
+	number = 1,
+	pages = "4-26",
+}

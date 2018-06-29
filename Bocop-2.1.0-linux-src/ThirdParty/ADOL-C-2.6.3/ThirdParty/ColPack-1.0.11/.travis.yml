@@ -1,0 +1,20 @@
+language: cpp
+
+compiler:
+  - gcc
+  - clang
+
+
+before_script:
+  - autoreconf -fi
+
+script:
+  - ./configure && make && make check
+
+  - # Now try building with CMake.
+  - mkdir build
+  - cd build
+  - cmake .. -DCMAKE_INSTALL_PREFIX=~/ColPack
+  - make
+  - ctest
+  - make install

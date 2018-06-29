@@ -1,0 +1,11 @@
+prefix=/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/ADOL-C-2.6.3
+exec_prefix=${prefix}
+libdir=/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/ADOL-C-2.6.3/lib
+includedir=${prefix}/include
+
+Name: adolc
+Version: 2.6.3
+Description: Algorithmic Differentiation Library for C/C++
+Requires: 
+Libs: -L${libdir} -ladolc -Wl,-rpath,${libdir}  -L/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/ADOL-C-2.6.3/ThirdParty/ColPack/lib64 -lColPack -Wl,-rpath,/home/lsapin/Documents/n7/PFE/PFE2018/Bocop-2.1.0-linux-src/ThirdParty/ADOL-C-2.6.3/ThirdParty/ColPack/lib64 -lm 
+Cflags: -I${includedir}

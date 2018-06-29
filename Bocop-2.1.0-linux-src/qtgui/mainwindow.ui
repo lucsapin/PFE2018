@@ -1,0 +1,1900 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1157</width>
+    <height>784</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Bocop</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources_bocop.qrc">
+    <normaloff>:/images/logo_40.png</normaloff>:/images/logo_40.png</iconset>
+  </property>
+  <property name="statusTip">
+   <string>Check to start from the previous solution file</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QTabWidget" name="MainTabs">
+      <property name="currentIndex">
+       <number>4</number>
+      </property>
+      <widget class="QWidget" name="maintext">
+       <attribute name="title">
+        <string>BOCOP</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QTextBrowser" name="mainTextBrowser">
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QPushButton" name="zoomOutMainTextBrowser_button">
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="zoomInMainTextBrowser_button">
+            <property name="text">
+             <string>+</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="Definition">
+       <property name="statusTip">
+        <string notr="true">Define parameters and dimensions of your problem</string>
+       </property>
+       <property name="whatsThis">
+        <string/>
+       </property>
+       <attribute name="title">
+        <string>&amp;Definition</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QToolBox" name="definition_toolbox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="currentIndex">
+           <number>2</number>
+          </property>
+          <property name="tabSpacing">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="definition_tab1">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>349</width>
+             <height>448</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Parameters and Dimensions</string>
+           </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>142</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QFormLayout" name="formLayout">
+              <property name="fieldGrowthPolicy">
+               <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+              </property>
+              <item row="0" column="0">
+               <widget class="QLabel" name="initialTimeLabel">
+                <property name="text">
+                 <string>Initial Time</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="initialTimeLineEdit"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="finalTimeLabel">
+                <property name="text">
+                 <string>Final Time (a number, or string &quot;free&quot;)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="finalTimeLineEdit"/>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="stateDimensionLabel">
+                <property name="text">
+                 <string>State Variables Dimension</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="stateDimensionLineEdit"/>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="controlDimensionLabel">
+                <property name="text">
+                 <string>Control Variables Dimension</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLineEdit" name="controlDimensionLineEdit"/>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="algebraicVariablesDimensionLabel">
+                <property name="text">
+                 <string>Algebraic Variables Dimension</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLineEdit" name="algebraicVariablesDimensionLineEdit"/>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="optimizationVariablesDimensionLabel">
+                <property name="text">
+                 <string>Optimization Parameters Dimension</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QLineEdit" name="optimizationParametersDimensionLineEdit"/>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="constantsDimensionLabel">
+                <property name="text">
+                 <string>Constants Dimension</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="QLineEdit" name="constantsDimensionLineEdit"/>
+              </item>
+              <item row="7" column="0">
+               <widget class="QLabel" name="pathConstraintsDimensionLabel">
+                <property name="text">
+                 <string>Path Constraints Dimension</string>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="1">
+               <widget class="QLineEdit" name="pathConstraintsDimensionLineEdit"/>
+              </item>
+              <item row="8" column="0">
+               <widget class="QLabel" name="initialFinalConditionsDimensionLabel">
+                <property name="text">
+                 <string>Initial and Final Conditions Dimension</string>
+                </property>
+                <property name="buddy">
+                 <cstring>initialFinalConditionsDimensionLineEdit</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="1">
+               <widget class="QLineEdit" name="initialFinalConditionsDimensionLineEdit"/>
+              </item>
+              <item row="9" column="0">
+               <widget class="QLabel" name="solutionFileLabel">
+                <property name="text">
+                 <string>Solution File</string>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="1">
+               <widget class="QLineEdit" name="solutionFileLineEdit"/>
+              </item>
+              <item row="12" column="0" colspan="2">
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="16" column="0">
+               <layout class="QVBoxLayout" name="verticalLayout_10"/>
+              </item>
+              <item row="14" column="0">
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Time Steps</string>
+                </property>
+               </widget>
+              </item>
+              <item row="14" column="1">
+               <widget class="QLineEdit" name="timesteps_edit"/>
+              </item>
+              <item row="15" column="0">
+               <widget class="QLabel" name="label_10">
+                <property name="text">
+                 <string>Discretization Method</string>
+                </property>
+               </widget>
+              </item>
+              <item row="15" column="1">
+               <widget class="QComboBox" name="discretizationmethod_combo"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>142</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>142</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="definition_tab2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>96</width>
+             <height>96</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Variables Names</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QTreeView" name="names_treeview">
+              <property name="editTriggers">
+               <set>QAbstractItemView::AllEditTriggers</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="definition_tab4">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1117</width>
+             <height>526</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Bounds</string>
+           </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout_15">
+            <item>
+             <widget class="QTreeView" name="bounds_treeView">
+              <property name="editTriggers">
+               <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="definition_tab5">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>102</width>
+             <height>96</height>
+            </rect>
+           </property>
+           <attribute name="label">
+            <string>Constants Values</string>
+           </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout_14">
+            <item>
+             <widget class="QTableView" name="constants_tableView">
+              <property name="editTriggers">
+               <set>QAbstractItemView::AllEditTriggers</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_12">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>453</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="Initialization">
+       <property name="statusTip">
+        <string notr="true"/>
+       </property>
+       <attribute name="title">
+        <string>Starting &amp;Point</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_24">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_17">
+          <item>
+           <widget class="QTreeView" name="initTreeView">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="initRadioButtonsFrame_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_16">
+             <item>
+              <widget class="QRadioButton" name="constantInitRadioButton">
+               <property name="text">
+                <string>Constant</string>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="linearInitRadioButton">
+               <property name="text">
+                <string>Linear</string>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="splinesInitRadioButton">
+               <property name="text">
+                <string>Splines</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="fileInitRadioButton">
+               <property name="text">
+                <string>Import from file:</string>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="initFileLineEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="initFilePushButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Select file for initialization data </string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources_bocop.qrc">
+                 <normaloff>:/icons/doc-open</normaloff>:/icons/doc-open</iconset>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QwtPlot" name="initQwtPlot">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="statusTip">
+             <string notr="true">Left-click to select - Click and hold to move a point - Backspace, Suppr or D to remove selected point - Ctrl + left-click to add a point</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="constantInitFrame">
+            <layout class="QHBoxLayout" name="horizontalLayout_23">
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Constant value : </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="constantInitLineEdit"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="initBoundsLayout">
+            <item>
+             <widget class="QCheckBox" name="initLinescheckBox">
+              <property name="text">
+               <string>Draw Lines</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_14">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="initXmin_label">
+              <property name="text">
+               <string>Xmin</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="initXmin_lineEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Lower bound on the X scale</string>
+              </property>
+              <property name="statusTip">
+               <string>Enter a new value, and press Return.</string>
+              </property>
+              <property name="whatsThis">
+               <string>Lower bound on the X scale</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="initXmax_label">
+              <property name="text">
+               <string>Xmax</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="initXmax_lineEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Upper bound on the X scale</string>
+              </property>
+              <property name="statusTip">
+               <string>Enter a new value, and press Return.</string>
+              </property>
+              <property name="whatsThis">
+               <string>Upper bound on the X scale</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="initYmin_label">
+              <property name="text">
+               <string>Ymin</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="initYmin_lineEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Lower bound on the Y scale</string>
+              </property>
+              <property name="statusTip">
+               <string>Enter a new value, and press Return.</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="initYmax_label">
+              <property name="text">
+               <string>Ymax</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="initYmax_lineEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>Upper bound on the Y scale</string>
+              </property>
+              <property name="statusTip">
+               <string>Enter a new value, and press Return.</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_13">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="Optimization">
+       <property name="toolTip">
+        <string notr="true">Solver options, and optimization</string>
+       </property>
+       <property name="statusTip">
+        <string notr="true">Select solver options, and run optimization </string>
+       </property>
+       <property name="whatsThis">
+        <string/>
+       </property>
+       <attribute name="title">
+        <string>&amp;Optimization</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_22">
+        <item>
+         <spacer name="horizontalSpacer_17">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>15</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_15">
+          <item>
+           <spacer name="verticalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>490</width>
+              <height>31</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QRadioButton" name="optim_push_single">
+              <property name="toolTip">
+               <string>Click to select single optimization</string>
+              </property>
+              <property name="statusTip">
+               <string>Single optimization</string>
+              </property>
+              <property name="text">
+               <string>Single optimization</string>
+              </property>
+              <property name="autoExclusive">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="optim_push_batch">
+              <property name="toolTip">
+               <string>Click to select batch optimization, and define batch options</string>
+              </property>
+              <property name="statusTip">
+               <string>Batch optimization</string>
+              </property>
+              <property name="text">
+               <string>Batch optimization</string>
+              </property>
+              <property name="autoExclusive">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_20">
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QFrame" name="batchOptionsFrame">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Batch options&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_3">
+               <item row="0" column="0">
+                <layout class="QHBoxLayout" name="horizontalLayout_19">
+                 <item>
+                  <widget class="QLabel" name="label_3">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Batch options :</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_11">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_9">
+                 <property name="text">
+                  <string>Type</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QComboBox" name="typeComboBox">
+                 <item>
+                  <property name="text">
+                   <string>Constant</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Number of time steps</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="labelVaryingIndex">
+                 <property name="text">
+                  <string>Varying index</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QComboBox" name="batchComboBox"/>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="batchLowerLabel">
+                 <property name="text">
+                  <string>Initial value</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="batchLowerLineEdit">
+                 <property name="statusTip">
+                  <string>Constant's lower value for the first optimization</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="batchUpperLabel">
+                 <property name="text">
+                  <string>Final value</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLineEdit" name="batchUpperLineEdit">
+                 <property name="statusTip">
+                  <string>Constant's upper value for the last optimization</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0" colspan="2">
+                <layout class="QHBoxLayout" name="horizontalLayout_18">
+                 <item>
+                  <widget class="QLabel" name="batchNumberLabel">
+                   <property name="text">
+                    <string>Number of optimizations</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="batchNumberLineEdit">
+                   <property name="statusTip">
+                    <string>Number of optimization to perform</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>Batch step</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="batchStepLineEdit">
+                   <property name="toolTip">
+                    <string>For a batch on the number of time steps, the batch step is approximated with the integer part</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item row="6" column="0">
+                <widget class="QLabel" name="batchFolderLabel">
+                 <property name="text">
+                  <string>Folder's name</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1">
+                <widget class="QLineEdit" name="batchFolderLineEdit">
+                 <property name="statusTip">
+                  <string>Solution files location, relative to your problem directory</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>490</width>
+              <height>32</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="optim_initfile_radio">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type of initialization&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="statusTip">
+             <string>Generate starting point from initialization files (see Starting Point tab)</string>
+            </property>
+            <property name="whatsThis">
+             <string/>
+            </property>
+            <property name="text">
+             <string>Start from initialization files defined in Starting Point tab</string>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="optim_cold_start_radio">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type of initialization&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="statusTip">
+             <string>Generate starting point from an existing solution file</string>
+            </property>
+            <property name="text">
+             <string>Re-use solution from .sol file below to build the starting point</string>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="optim_warm_start_radio">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type of initialization&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="statusTip">
+             <string>Generate starting point from an existing solution file with multipliers</string>
+            </property>
+            <property name="text">
+             <string>Re-use solution from .sol file below, including multipliers</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="reoptimization_frame">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type of initialization&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <layout class="QHBoxLayout" name="reoptimization_layout">
+             <item>
+              <widget class="QLineEdit" name="reoptimization_lineEdit">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type of initialization&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="statusTip">
+                <string>Path to the solution file that will be used as a starting point for the next optimization</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="reoptimization_pushbutton">
+               <property name="text">
+                <string>Open other .sol</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources_bocop.qrc">
+                 <normaloff>:/icons/doc-open</normaloff>:/icons/doc-open</iconset>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>490</width>
+              <height>31</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>37</width>
+            <height>17</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <layout class="QVBoxLayout" name="ipopt_layout">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Ipopt options :</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_10">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTableView" name="ipopt_tableView">
+              <property name="maximumSize">
+               <size>
+                <width>1000</width>
+                <height>500</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>IPOPT options</string>
+              </property>
+              <property name="statusTip">
+               <string>IPOPT options</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QPushButton" name="resetIpoptOptions_button">
+                <property name="text">
+                 <string>Reset default values</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="addoption_button">
+                <property name="toolTip">
+                 <string>Add an entry to IPOPT options list</string>
+                </property>
+                <property name="statusTip">
+                 <string>Add an entry to IPOPT options list</string>
+                </property>
+                <property name="text">
+                 <string>Add Ipopt option</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QFrame" name="paramIdFrame">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Parameter identification informations&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <layout class="QVBoxLayout" name="paramIdLayout">
+             <item>
+              <widget class="Line" name="line_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="paramid_checkBox">
+               <property name="text">
+                <string>Parameter Identification</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QFrame" name="observation_frame">
+               <layout class="QGridLayout" name="gridLayout_2">
+                <item row="0" column="0">
+                 <layout class="QHBoxLayout" name="horizontalLayout_21">
+                  <item>
+                   <widget class="QLabel" name="label_7">
+                    <property name="text">
+                     <string>Method</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="methodComboBox">
+                    <item>
+                     <property name="text">
+                      <string>Least Squares</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Least Squares With Criterion</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Manual</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item row="1" column="0">
+                 <layout class="QHBoxLayout" name="horizontalLayout_26">
+                  <item>
+                   <widget class="QLabel" name="label_8">
+                    <property name="text">
+                     <string>Number of observation files</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_16">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lineEditObsFilesNb"/>
+                  </item>
+                 </layout>
+                </item>
+                <item row="2" column="0">
+                 <layout class="QHBoxLayout" name="obs_file_layout">
+                  <item>
+                   <widget class="QLineEdit" name="observations_lineEdit"/>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="obsFile_pushButton">
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the first observation file, which must end with &amp;quot;-0.csv&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="text">
+                     <string>Choose one observation file</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item row="3" column="0">
+                 <layout class="QHBoxLayout" name="separator_layout">
+                  <item>
+                   <widget class="QLabel" name="label_6">
+                    <property name="text">
+                     <string>Separator</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="separator_comboBox">
+                    <item>
+                     <property name="text">
+                      <string>,</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>;</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>:</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Tab</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Space</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_9">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>505</width>
+                 <height>34</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_10">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_18">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>15</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabVisualization">
+       <attribute name="title">
+        <string>&amp;Visualization</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <item>
+         <widget class="QWidget" name="mainvisu_widget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="1">
+            <widget class="QWidget" name="visu_widget" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>1</horstretch>
+               <verstretch>1</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="statusTip">
+              <string>Zoom in by selecting a part of a figure and right click to zoom out</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_17"/>
+           </item>
+           <item row="2" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_25">
+             <item>
+              <widget class="QCheckBox" name="checkBoxControl">
+               <property name="text">
+                <string>Control</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBoxStageControl">
+               <property name="text">
+                <string>Stage Control</string>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_12">
+             <item>
+              <spacer name="horizontalSpacer_8">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBoxShowVariablesBounds">
+               <property name="text">
+                <string>Show bounds</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_15">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="print_pushButton">
+               <property name="text">
+                <string>Print</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_14">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_16">
+               <item>
+                <widget class="QProgressBar" name="solution_progressBar">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="value">
+                  <number>24</number>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="loadsolfile_pushButton">
+                 <property name="text">
+                  <string>Open .sol file</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="resources_bocop.qrc">
+                   <normaloff>:/icons/doc-open</normaloff>:/icons/doc-open</iconset>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="solfile_lineEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QPushButton" name="saveAsPushButton">
+                 <property name="statusTip">
+                  <string>Save problem.sol as it is</string>
+                 </property>
+                 <property name="text">
+                  <string>Save .sol as</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="export_pushButton">
+                 <property name="statusTip">
+                  <string>Save files used to draw graphs</string>
+                 </property>
+                 <property name="text">
+                  <string>Export</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <widget class="QLabel" name="objective_label">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="constraints_label">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTreeView" name="visu_treeView">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="horizontalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOn</enum>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::NoEditTriggers</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1157</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuRecentProblems">
+     <property name="title">
+      <string>Recent Problems</string>
+     </property>
+    </widget>
+    <addaction name="actionNewProblem"/>
+    <addaction name="actionOpenProblem"/>
+    <addaction name="menuRecentProblems"/>
+    <addaction name="separator"/>
+    <addaction name="actionSaveProblem"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuBuild">
+    <property name="title">
+     <string>Build and Run</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionCleanProblem"/>
+    <addaction name="separator"/>
+    <addaction name="actionBuildProblem"/>
+    <addaction name="actionBuildDebug"/>
+    <addaction name="separator"/>
+    <addaction name="actionRunProblem"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAboutBocop"/>
+    <addaction name="actionSetRootDirectory"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuBuild"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonIconOnly</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNewProblem_toolbar"/>
+   <addaction name="actionOpenProblem_toolbar"/>
+   <addaction name="actionSaveProblem_toolbar"/>
+   <addaction name="separator"/>
+   <addaction name="actionBuildProblem_toolbar"/>
+   <addaction name="separator"/>
+   <addaction name="actionRunProblem_toolbar"/>
+   <addaction name="separator"/>
+   <addaction name="actionStopProblem_toolbar"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionOpenProblem_toolbar">
+   <property name="icon">
+    <iconset resource="resources_bocop.qrc">
+     <normaloff>:/icons/problem-open</normaloff>:/icons/problem-open</iconset>
+   </property>
+   <property name="text">
+    <string>Open Project</string>
+   </property>
+   <property name="toolTip">
+    <string>Open existing problem</string>
+   </property>
+  </action>
+  <action name="actionNewProblem_toolbar">
+   <property name="icon">
+    <iconset resource="resources_bocop.qrc">
+     <normaloff>:/icons/problem-new</normaloff>:/icons/problem-new</iconset>
+   </property>
+   <property name="text">
+    <string>New Project</string>
+   </property>
+   <property name="toolTip">
+    <string>Create new problem</string>
+   </property>
+  </action>
+  <action name="actionSaveProblem_toolbar">
+   <property name="icon">
+    <iconset resource="resources_bocop.qrc">
+     <normaloff>:/icons/problem-save</normaloff>:/icons/problem-save</iconset>
+   </property>
+   <property name="text">
+    <string>Save Problem</string>
+   </property>
+   <property name="toolTip">
+    <string>Save current problem</string>
+   </property>
+  </action>
+  <action name="actionBuildProblem_toolbar">
+   <property name="icon">
+    <iconset resource="resources_bocop.qrc">
+     <normaloff>:/icons/problem-build</normaloff>:/icons/problem-build</iconset>
+   </property>
+   <property name="text">
+    <string>Build Executable</string>
+   </property>
+   <property name="toolTip">
+    <string>Build Problem</string>
+   </property>
+   <property name="statusTip">
+    <string>Compile the problem's functions</string>
+   </property>
+  </action>
+  <action name="actionRunProblem_toolbar">
+   <property name="icon">
+    <iconset resource="resources_bocop.qrc">
+     <normaloff>:/icons/problem-run</normaloff>:/icons/problem-run</iconset>
+   </property>
+   <property name="text">
+    <string>Run Bocop</string>
+   </property>
+   <property name="toolTip">
+    <string>Launch optimization for the current problem</string>
+   </property>
+   <property name="statusTip">
+    <string>Launch optimization for the current problem</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="icon">
+    <iconset resource="resources_bocop.qrc">
+     <normaloff>:/icons/print</normaloff>:/icons/print</iconset>
+   </property>
+   <property name="text">
+    <string>Print</string>
+   </property>
+   <property name="toolTip">
+    <string>Print graphic</string>
+   </property>
+  </action>
+  <action name="actionNewProblem">
+   <property name="text">
+    <string>New Problem</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionOpenProblem">
+   <property name="text">
+    <string>Open Problem</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionBuildProblem">
+   <property name="text">
+    <string>Build Problem</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionRunProblem">
+   <property name="text">
+    <string>Run Problem</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionSaveProblem">
+   <property name="text">
+    <string>Save Problem</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionStopProblem_toolbar">
+   <property name="icon">
+    <iconset resource="resources_bocop.qrc">
+     <normaloff>:/icons/document-close</normaloff>:/icons/document-close</iconset>
+   </property>
+   <property name="text">
+    <string>StopBocop</string>
+   </property>
+   <property name="toolTip">
+    <string>Stop current optimization</string>
+   </property>
+  </action>
+  <action name="actionAboutBocop">
+   <property name="text">
+    <string>About Bocop...</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionSetRootDirectory">
+   <property name="text">
+    <string>Set root directory</string>
+   </property>
+  </action>
+  <action name="actionSaveProblemAs">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources_bocop.qrc">
+     <normaloff>:/icons/problem-save</normaloff>:/icons/problem-save</iconset>
+   </property>
+   <property name="text">
+    <string>Save Problem As</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy current problem directory as it is</string>
+   </property>
+   <property name="whatsThis">
+    <string>Copy current problem directory as it is</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionBuildDebug">
+   <property name="text">
+    <string>Build (Debug)</string>
+   </property>
+  </action>
+  <action name="actionCleanProblem">
+   <property name="text">
+    <string>Clean Problem</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>initTreeView</tabstop>
+  <tabstop>stateDimensionLineEdit</tabstop>
+  <tabstop>controlDimensionLineEdit</tabstop>
+  <tabstop>algebraicVariablesDimensionLineEdit</tabstop>
+  <tabstop>optimizationParametersDimensionLineEdit</tabstop>
+  <tabstop>constantsDimensionLineEdit</tabstop>
+  <tabstop>pathConstraintsDimensionLineEdit</tabstop>
+  <tabstop>initialFinalConditionsDimensionLineEdit</tabstop>
+  <tabstop>zoomInMainTextBrowser_button</tabstop>
+  <tabstop>optim_push_single</tabstop>
+  <tabstop>optim_push_batch</tabstop>
+  <tabstop>zoomOutMainTextBrowser_button</tabstop>
+  <tabstop>mainTextBrowser</tabstop>
+  <tabstop>initialTimeLineEdit</tabstop>
+  <tabstop>names_treeview</tabstop>
+  <tabstop>bounds_treeView</tabstop>
+  <tabstop>constants_tableView</tabstop>
+  <tabstop>finalTimeLineEdit</tabstop>
+  <tabstop>constantInitRadioButton</tabstop>
+  <tabstop>linearInitRadioButton</tabstop>
+  <tabstop>splinesInitRadioButton</tabstop>
+  <tabstop>constantInitLineEdit</tabstop>
+  <tabstop>initLinescheckBox</tabstop>
+  <tabstop>initXmax_lineEdit</tabstop>
+  <tabstop>initYmin_lineEdit</tabstop>
+  <tabstop>initYmax_lineEdit</tabstop>
+  <tabstop>batchComboBox</tabstop>
+  <tabstop>batchNumberLineEdit</tabstop>
+  <tabstop>batchLowerLineEdit</tabstop>
+  <tabstop>batchUpperLineEdit</tabstop>
+  <tabstop>batchFolderLineEdit</tabstop>
+  <tabstop>optim_cold_start_radio</tabstop>
+  <tabstop>optim_warm_start_radio</tabstop>
+  <tabstop>reoptimization_lineEdit</tabstop>
+  <tabstop>reoptimization_pushbutton</tabstop>
+  <tabstop>ipopt_tableView</tabstop>
+  <tabstop>resetIpoptOptions_button</tabstop>
+  <tabstop>addoption_button</tabstop>
+  <tabstop>paramid_checkBox</tabstop>
+  <tabstop>observations_lineEdit</tabstop>
+  <tabstop>obsFile_pushButton</tabstop>
+  <tabstop>separator_comboBox</tabstop>
+  <tabstop>loadsolfile_pushButton</tabstop>
+  <tabstop>visu_treeView</tabstop>
+  <tabstop>print_pushButton</tabstop>
+  <tabstop>checkBoxControl</tabstop>
+  <tabstop>checkBoxStageControl</tabstop>
+  <tabstop>methodComboBox</tabstop>
+ </tabstops>
+ <resources>
+  <include location="resources_bocop.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>zoomOutMainTextBrowser_button</sender>
+   <signal>clicked()</signal>
+   <receiver>mainTextBrowser</receiver>
+   <slot>zoomOut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>105</x>
+     <y>736</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>105</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>zoomInMainTextBrowser_button</sender>
+   <signal>clicked()</signal>
+   <receiver>mainTextBrowser</receiver>
+   <slot>zoomIn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>196</x>
+     <y>736</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>112</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
