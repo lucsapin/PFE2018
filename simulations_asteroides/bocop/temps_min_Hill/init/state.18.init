@@ -1,9 +1,0 @@
-# Starting point file.
-# This file contains the values of the initial points
-# for variable q41
-
-# Type of initialization :
-constant
-
-# Constant value for the starting point :
-3.1726866764753

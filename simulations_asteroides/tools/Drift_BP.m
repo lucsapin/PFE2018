@@ -1,4 +1,4 @@
-function [Times, Q_EMB_SUN, Q_CR3BP] = Drift_PB(t0, dt, q0_SUN_AU, choix)
+function [Times, Q_EMB_SUN, Q_CR3BP] = Drift_BP(t0, dt, q0_SUN_AU, choix)
 
 format long;
 
