@@ -81,7 +81,7 @@
   boundary_conditions[12] = final_state[6]  - qL21;
   boundary_conditions[13] = final_state[7]  - qL22;
   boundary_conditions[14] = final_state[8]  - qL23;
-  boundary_conditions[15] = final_state[9]  - qL24 - dV31;
-  boundary_conditions[16] = final_state[10] - qL25 - dV32;
-  boundary_conditions[17] = final_state[11] - qL26 - dV33;
+  boundary_conditions[15] = final_state[9]  - qL24 + dV31;
+  boundary_conditions[16] = final_state[10] - qL25 + dV32;
+  boundary_conditions[17] = final_state[11] - qL26 + dV33;
 }
