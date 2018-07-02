@@ -59,9 +59,9 @@
 	Tdouble dV21 = optimvars[5];
 	Tdouble dV22 = optimvars[6];
 	Tdouble dV23 = optimvars[7];
-	Tdouble dV31  = optimvars[8]; //= -final_state[9] + qL24;
-	Tdouble dV32  = optimvars[9]; //= -final_state[10] + qL25;
-	Tdouble dV33  = optimvars[10]; //= -final_state[11] + qL26;
+	Tdouble dV31  = optimvars[8];
+	Tdouble dV32  = optimvars[9];
+	Tdouble dV33  = optimvars[10];
 
 	Tdouble normdV1 = sqrt(dV11*dV11 + dV12*dV12 + dV13*dV13);
 	Tdouble normdV2 = sqrt(dV21*dV21 + dV22*dV22 + dV23*dV23);

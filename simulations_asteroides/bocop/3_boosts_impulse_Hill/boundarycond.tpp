@@ -32,37 +32,37 @@
 	// HERE : description of the function for the initial and final conditions
 	// Please give a function or a value for each element of boundaryconditions
   Tdouble dt1   = optimvars[0];
-  Tdouble dt2   = optimvars[1];
-  Tdouble dV11  = optimvars[2];
-  Tdouble dV12  = optimvars[3];
-  Tdouble dV13  = optimvars[4];
-  Tdouble dV21  = optimvars[5];
-  Tdouble dV22  = optimvars[6];
-  Tdouble dV23  = optimvars[7];
-  Tdouble dV31  = optimvars[8]; //= -final_state[9] + qL24;
-  Tdouble dV32  = optimvars[9]; //= -final_state[10] + qL25;
-  Tdouble dV33  = optimvars[10]; //= -final_state[11] + qL26;
+	Tdouble dt2   = optimvars[1];
+	Tdouble dV11  = optimvars[2];
+	Tdouble dV12  = optimvars[3];
+	Tdouble dV13  = optimvars[4];
+	Tdouble dV21  = optimvars[5];
+	Tdouble dV22  = optimvars[6];
+	Tdouble dV23  = optimvars[7];
+  Tdouble dV31  = optimvars[8];
+  Tdouble dV32  = optimvars[9];
+  Tdouble dV33  = optimvars[10];
 
   double Tmax   = constants[0];
-  double beta   = constants[1];
-  double mu     = constants[2];
-  double muS    = constants[3];
-  double rS     = constants[4];
-  double q01    = constants[5];
-  double q02    = constants[6];
-  double q03    = constants[7];
-  double q04    = constants[8];
-  double q05    = constants[9];
-  double q06    = constants[10];
-  double qL21   = constants[11];
-  double qL22   = constants[12];
-  double qL23   = constants[13];
-  double qL24   = constants[14];
-  double qL25   = constants[15];
-  double qL26   = constants[16];
-  double theta0 = constants[17];
-  double omegaS = constants[18];
-  double m0     = constants[19];
+	double beta   = constants[1];
+	double mu     = constants[2];
+	double muS    = constants[3];
+	double rS     = constants[4];
+	double q01    = constants[5];
+	double q02    = constants[6];
+	double q03    = constants[7];
+	double q04    = constants[8];
+	double q05    = constants[9];
+	double q06    = constants[10];
+	double qL21   = constants[11];
+	double qL22   = constants[12];
+	double qL23   = constants[13];
+	double qL24   = constants[14];
+	double qL25   = constants[15];
+	double qL26   = constants[16];
+	double theta0 = constants[17];
+	double omegaS = constants[18];
+	double m0     = constants[19];
 
   boundary_conditions[0]  = initial_state[0]  - q01;
   boundary_conditions[1]  = initial_state[1]  - q02;
@@ -78,10 +78,10 @@
   boundary_conditions[10] = initial_state[10] - final_state[4] - dV22;
   boundary_conditions[11] = initial_state[11] - final_state[5] - dV23;
 
-  boundary_conditions[12] = final_state[6]  - qL21;
-  boundary_conditions[13] = final_state[7]  - qL22;
-  boundary_conditions[14] = final_state[8]  - qL23;
-  boundary_conditions[15] = final_state[9]  - qL24 - dV31;
-  boundary_conditions[16] = final_state[10] - qL25 - dV32;
-  boundary_conditions[17] = final_state[11] - qL26 - dV33;
+  boundary_conditions[12] = qL21 - final_state[6];
+  boundary_conditions[13] = qL22 - final_state[7];
+  boundary_conditions[14] = qL23 - final_state[8];
+  boundary_conditions[15] = qL24 - final_state[9]  - dV31;
+  boundary_conditions[16] = qL25 - final_state[10] - dV32;
+  boundary_conditions[17] = qL26 - final_state[11] - dV33;
 }

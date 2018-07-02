@@ -1,5 +1,5 @@
 max_iter 1000
 print_level 5
-tol 1.0e-10
+tol 1.0e-6
 output_file result.out
 mu_strategy adaptive

@@ -17,7 +17,7 @@ constraint.dimension integer 0
 
 # Discretization :
 discretization.steps integer 100
-discretization.method string midpoint
+discretization.method string gauss
 
 # Optimization :
 optimization.type string single
@@ -62,48 +62,46 @@ parameter.7 string dV23
 parameter.8 string dV31
 parameter.9 string dV32
 parameter.10 string dV33
-boundarycond.0 string q11i-qH1
-boundarycond.1 string q12i-qH2
-boundarycond.2 string q13i-qH3
-boundarycond.3 string q14i-qH4-dV11
-boundarycond.4 string q15i-qH5-dV12
-boundarycond.5 string q16i-qH6-dV13
-boundarycond.6 string q21i-q11f
-boundarycond.7 string q22i-q12f
-boundarycond.8 string q23i-q13f
-boundarycond.9 string q24i-q14f-dV21
-boundarycond.10 string q25i-q15f-dV22
-boundarycond.11 string q26i-q16f-dV23
-boundarycond.12 string q21f-qL21
-boundarycond.13 string q22f-qL22
-boundarycond.14 string q23f-qL23
-boundarycond.15 string q24f-qL24-dV31
-boundarycond.16 string q25f-qL25-dV32
-boundarycond.17 string q26f-qL26-dV33
+boundarycond.0 string q11(0)-qH1
+boundarycond.1 string q12(0)-qH2
+boundarycond.2 string q13(0)-qH3
+boundarycond.3 string q14(0)-qH4-dV11
+boundarycond.4 string q15(0)-qH5-dV12
+boundarycond.5 string q16(0)-qH6-dV13
+boundarycond.6 string q21(0)-q11(1)
+boundarycond.7 string q22(0)-q12(1)
+boundarycond.8 string q23(0)-q13(1)
+boundarycond.9 string q24(0)-q14(1)-dV21
+boundarycond.10 string q25(0)-q15(1)-dV22
+boundarycond.11 string q26(0)-q16(1)-dV23
+boundarycond.12 string q21(1)-qL21
+boundarycond.13 string q22(1)-qL22
+boundarycond.14 string q23(1)-qL23
+boundarycond.15 string q24(1)-qL24+dV31
+boundarycond.16 string q25(1)-qL25+dV32
+boundarycond.17 string q26(1)-qL26+dV33
 constant.0 string Tmax
-constant.1 string beta
-constant.2 string mu
-constant.3 string muS
-constant.4 string rS
-constant.5 string qH1
-constant.6 string qH2
-constant.7 string qH3
-constant.8 string qH4
-constant.9 string qH5
-constant.10 string qH6
-constant.11 string qL21
-constant.12 string qL22
-constant.13 string qL23
-constant.14 string qL24
-constant.15 string qL25
-constant.16 string qL26
-constant.17 string theta0
-constant.18 string omegaS
-constant.19 string m0
+constant.1 string mu
+constant.2 string muSun
+constant.3 string rSun
+constant.4 string qH1
+constant.5 string qH2
+constant.6 string qH3
+constant.7 string qH4
+constant.8 string qH5
+constant.9 string qH6
+constant.10 string qL21
+constant.11 string qL22
+constant.12 string qL23
+constant.13 string qL24
+constant.14 string qL25
+constant.15 string qL26
+constant.16 string thetaS0
+constant.17 string omegaS
+constant.18 string m0
 
 # Solution file :
 solution.file string problem.sol
 
 # Iteration output frequency :
 iteration.output.frequency integer 0
-

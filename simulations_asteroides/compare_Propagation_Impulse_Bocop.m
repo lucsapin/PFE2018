@@ -55,6 +55,7 @@ q0_SUN_AU = resDrift.q0_SUN_AU;
 % Define Bocop parameters
 outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti);
 [q0_CR3BP,~,~,~,thetaS0] = Helio2CR3BP(q0_SUN_AU, t0_day); % q0 in LD/d
+
 q0          = q0_CR3BP(1:6); q0 = q0(:);
 qf          = [UC.xL2; 0.0; 0.0; 0.0; 0.0; 0.0];
 
@@ -67,7 +68,7 @@ tf_guess    = tf_guess*UC.jour/UC.time_syst; % time in UT
 
 g0          = 9.80665*1e-3*(UC.time_syst)^2/UC.LD;
 Isp         = 375/UC.time_syst; % 375 s
-beta        = 1.0/(Isp*g0);
+Ispg0        = 1.0/(Isp*g0);
 
 init_choice         = 'none1';
 
@@ -97,7 +98,7 @@ impulse_Hill_bocop        = [];
 
 % parameters
 m0_init   = m0;
-par_bocop = [Tmax; beta; muCR3BP; muSun; rhoSun; q0; qf; thetaS0; omegaS; m0_init];
+par_bocop = [Tmax; Ispg0; muCR3BP; muSun; rhoSun; q0; qf; thetaS0; omegaS; m0_init];
 
 n = 12;
 
@@ -115,15 +116,16 @@ iomegaS           = inc;                      inc = inc + 1;
 im0               = inc;                      inc = inc + 1;
 
 keySet      = {'Tmax','beta','muCR3BP','muSun','rhoSun','q0','qf','thetaS0','omegaS','m0'};
-valueSet    = {iTmax, beta, imuCR3BP, imuSun, irhoSun, iq0, iqf, ithetaS0, iomegaS, im0};
+valueSet    = {iTmax, ibeta, imuCR3BP, imuSun, irhoSun, iq0, iqf, ithetaS0, iomegaS, im0};
 map_indices_par_bocop = containers.Map(keySet, valueSet);
 
 % Initialization
+liste = ls()
 defPbBocop  = './bocop/'; % Directory where main bocop pb directory is: ./bocop/impulse_Hill/
 
 if(strcmp(init_choice, 'none1')==1)
     options             = [];
-    options.disc_steps  = '200';
+    options.disc_steps  = '100';
     options.disc_method = 'gauss';
 
     solFileSave = './problem.sol';
@@ -131,38 +133,36 @@ if(strcmp(init_choice, 'none1')==1)
     init.type   = 'from_init_file';
     init.file   = 'none';
     init.X0     = [
-        {'state.0', 'constant', (q0(1)+qf(1))/2}; % q1
-        {'state.1', 'constant', (q0(2)+qf(2))/2}; % q2
-        {'state.2', 'constant', (q0(3)+qf(3))/2}; % q3
-        {'state.3', 'constant', (q0(4)+qf(4))/2}; % v1
-        {'state.4', 'constant', (q0(5)+qf(5))/2}; % v2
-        {'state.5', 'constant', (q0(6)+qf(6))/2}; % v3
-
-        {'state.0', 'constant', (q0(1)+qf(1))/2}; % q1
-        {'state.1', 'constant', (q0(2)+qf(2))/2}; % q2
-        {'state.2', 'constant', (q0(3)+qf(3))/2}; % q3
-        {'state.3', 'constant', (q0(4)+qf(4))/2}; % v1
-        {'state.4', 'constant', (q0(5)+qf(5))/2}; % v2
-        {'state.5', 'constant', (q0(6)+qf(6))/2}; % v3
-
-        {'optimvars.0' , 'constant', 0.9};  % dt1
-        {'optimvars.1' , 'constant', 0.9};  % dt2
-        {'optimvars.2' , 'constant', 0.1};  % dV11
-        {'optimvars.3' , 'constant', 0.1};  % dt12
-        {'optimvars.4' , 'constant', 0.1};  % dV13
-        {'optimvars.5' , 'constant', 0.1};  % dV21
-        {'optimvars.6' , 'constant', 0.1};  % dt22
-        {'optimvars.7' , 'constant', 0.1};  % dV23
-        {'optimvars.8' , 'constant', 0.1};  % dV31
-        {'optimvars.9' , 'constant', 0.1};  % dt32
-        {'optimvars.10', 'constant', 0.1}]; % dV33
+        {'state.0'     , 'constant', (q0(1)+qf(1))/2}; % q1
+        {'state.1'     , 'constant', (q0(2)+qf(2))/2}; % q2
+        {'state.2'     , 'constant', (q0(3)+qf(3))/2}; % q3
+        {'state.3'     , 'constant', (q0(4)+qf(4))/2}; % v1
+        {'state.4'     , 'constant', (q0(5)+qf(5))/2}; % v2
+        {'state.5'     , 'constant', (q0(6)+qf(6))/2}; % v3
+        {'state.0'     , 'constant', (q0(1)+qf(1))/2}; % q1
+        {'state.1'     , 'constant', (q0(2)+qf(2))/2}; % q2
+        {'state.2'     , 'constant', (q0(3)+qf(3))/2}; % q3
+        {'state.3'     , 'constant', (q0(4)+qf(4))/2}; % v1
+        {'state.4'     , 'constant', (q0(5)+qf(5))/2}; % v2
+        {'state.5'     , 'constant', (q0(6)+qf(6))/2}; % v3
+        {'optimvars.0' , 'constant', 0.9};             % dt1
+        {'optimvars.1' , 'constant', 0.9};             % dt2
+        {'optimvars.2' , 'constant', 0.1};             % dV11
+        {'optimvars.3' , 'constant', 0.1};             % dt12
+        {'optimvars.4' , 'constant', 0.1};             % dV13
+        {'optimvars.5' , 'constant', 0.1};             % dV21
+        {'optimvars.6' , 'constant', 0.1};             % dt22
+        {'optimvars.7' , 'constant', 0.1};             % dV23
+        {'optimvars.8' , 'constant', 0.1};             % dV31
+        {'optimvars.9' , 'constant', 0.1};             % dt32
+        {'optimvars.10', 'constant', 0.1}];            % dV33
 else
     error('No such init_choix!');
 end
 
 % Computation
 if(results.exec_min_dv_bocop==-1)
-    [toutB,stageB,zB,uB,optimvarsB,outputB] = exec_bocop_impulse_Hill(defPbBocop, init, par_bocop, options, solFileSave);
+    [toutB,stageB,zB,uB,optimvarsB,outputB] = exec_bocop_3B_impulse_hill(defPbBocop, init, par_bocop, options, solFileSave);
 
     if(outputB.status ~= 0)
         error('Bocop did not converge for the minimal time problem!');

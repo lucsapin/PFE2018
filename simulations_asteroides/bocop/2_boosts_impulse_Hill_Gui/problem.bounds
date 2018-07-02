@@ -31,7 +31,7 @@
 # Bounds for the control variables :
 
 # Bounds for the algebraic variables :
-0 2e+20 lower
+0 0 free
 0 0 free
 0 0 free
 0 0 free
