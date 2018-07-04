@@ -46,3 +46,15 @@
 
 # Bounds for the optimization parameters : 
 0 2e+20 lower
+0 0 free
+0 0 free
+0 0 free
+0 0 free
+0 0 free
+0 0 free
+0 0 free
+0 0 free
+0 0 free
+0 0 free
+
+# Bounds for the path constraints : 

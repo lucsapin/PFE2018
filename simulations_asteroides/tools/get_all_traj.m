@@ -14,7 +14,7 @@ function [resDrift, resP2H, correspondingPoint, resFig] = get_all_traj(destinati
   dt1_r       = outputOptimization.dt1_r;
   dtf_r       = outputOptimization.dtf_r;
   tf          = t0_r + dt1_r + dtf_r;
-  difftime    = tf-times_out(end);        % Remaining time to reach EMB in Day
+  difftime    = tf-times_out(end);        % Remaining time to reach L2 in Day
 
   % ----------------------------------------------------------------------------
   % Drift Compare : compute the trajectory inside the Hill's sphere,

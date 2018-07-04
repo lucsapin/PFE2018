@@ -49,7 +49,6 @@ freetf = options_bocop.freetf;
 disc_steps = options_bocop.disc_steps;
 disc_method = options_bocop.disc_method;
 writeDefFile(init,t0,tf,freetf,dims,disc_steps,disc_method,[workspace '/problem.def'],namesDef);
-
 % write .bounds file
 % TODO: parse bounds from par
 writeBounds(dims,bounds,[workspace '/problem.bounds']);
@@ -61,7 +60,7 @@ writeConstants(constants, [workspace '/problem.constants']);
 % write .init files in init/ folder > OK
 if(strcmp(init.type,'from_init_file')==1)
     X0 = init.X0;
-    
+
     % parse X0
     for initdata = X0'
         label = initdata{1};
