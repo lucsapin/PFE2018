@@ -1,6 +1,6 @@
 function [time,stage,z,control,optimvars,output] = exec_bocop_3B_impulse_hill(bocop_def_pb, init, par, options, solFileName)
 
-workspace = [bocop_def_pb '2_boosts_impulse_Hill/']
+workspace = [bocop_def_pb '2_boosts_impulse_Hill/'];
 % -----------------------------------
 % Bocop options
 % -----------------------------------
@@ -29,15 +29,19 @@ dims.constraint     = 0;
 
 %
 name_state      = {'q11','q12','q13','q14','q15','q16'};
+
 name_control    = {};
+
 name_boundary   = {'q11(0)-qH1','q12(0)-qH2','q13(0)-qH3', ...
                    'q14(0)-qH4-dV11','q15(0)-qH5-dV12','q16(0)-qH6-dV13', ...
                    'q21(1)-qL21','q22(1)-qL22','q23(1)-qL23', ...
                    'q24(1)-qL24+dV31','q25(1)-qL25+dV32','q26(1)-qL26+dV33'};
+
 name_par        = {'Tmax','beta','mu','muSun','rSun', ...
                    'qH1','qH2','qH3','qH4','qH5','qH6', ...
                    'qL21','qL22','qL23','qL24','qL25','qL26', ...
                    'thetaS0','omegaS','m0'};
+
 name_opti       = {'dt1','dV11','dV12','dV13','dV21','dV22','dV23'};
 
 namesDef        = NamesDefFile(name_state,name_control,name_par,name_boundary,name_opti);

@@ -54,8 +54,8 @@ q0_SUN_AU = resDrift.q0_SUN_AU;
 outputOptimization = loadFile(destination, 'total', numAsteroid, numOpti);
 [q0_CR3BP,~,~,~,thetaS0] = Helio2CR3BP(q0_SUN_AU, t0_day); % q0 in LD/d
 
-q0          = q0_CR3BP(1:6); q0 = q0(:)
-qf          = [UC.xL2; 0.0; 0.0; 0.0; 0.0; 0.0]
+q0          = q0_CR3BP(1:6); q0 = q0(:);
+qf          = [UC.xL2; 0.0; 0.0; 0.0; 0.0; 0.0];
 
 Tmax        = TmaxN*1e-3*(UC.time_syst)^2/UC.LD;
 muCR3BP     = UC.mu0MoonLD/(UC.mu0EarthLD+UC.mu0MoonLD);
@@ -146,7 +146,7 @@ end
 
 % Computation
 if(results.exec_min_dV_bocop==-1)
-    [toutB,stageB,zB,uB,optimvarsB,outputB] = exec_bocop_3B_impulse_hill(defPbBocop, init, par_bocop, options, solFileSave);
+    [toutB,stageB,zB,uB,optimvarsB,outputB] = exec_bocop_2B_impulse_hill(defPbBocop, init, par_bocop, options, solFileSave);
 
     if(outputB.status ~= 0)
         error('Bocop did not converge for the minimal time problem!');
