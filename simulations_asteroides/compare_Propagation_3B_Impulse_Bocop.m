@@ -76,7 +76,7 @@ case_name   = ['./min_dV_Tmax' num22str(TmaxN,3) ...
                '_ast_' int2str(outputOptimization.numAsteroid) ...
                '_dist_' num22str(dist,4)];
 
-dir_results = ['./results/compare_inside_Hill/3B_Impulse/' destination '/in_progress_results/']
+dir_results = ['./results/compare_inside_Hill/3B_Impulse/' destination '/in_progress_results/'];
 if(~exist(dir_results,'dir')); error('Wrong dir_results name!'); end
 
 file_results= [dir_results case_name];
@@ -123,7 +123,7 @@ if(strcmp(init_choice, 'none1')==1)
     options.disc_steps  = '100';
     options.disc_method = 'gauss';
 
-    solFileSave         = 'min_dV_current.sol';
+    solFileSave         = './min_dV_current.sol';
 
     init.type           = 'from_init_file';
     init.file           = 'none';

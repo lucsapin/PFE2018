@@ -1,6 +1,6 @@
 function [time,stage,z,control,optimvars,output] = exec_bocop_3B_impulse_hill(bocop_def_pb, init, par, options, solFileName)
 
-workspace = [bocop_def_pb '3_boosts_impulse_Hill/']
+workspace = [bocop_def_pb '3_boosts_impulse_Hill/'];
 % -----------------------------------
 % Bocop options
 % -----------------------------------
@@ -28,7 +28,8 @@ dims.boundarycond   = 18;
 dims.constraint     = 0;
 
 %
-name_state      = {'q11','q12','q13','q14','q15','q16','q21','q22','q23','q24','q25','q26'};
+name_state      = {'q11','q12','q13','q14','q15','q16', ...
+                   'q21','q22','q23','q24','q25','q26'};
 name_control    = {};
 name_boundary   = {'q11(0)-qH1','q12(0)-qH2','q13(0)-qH3', ...
                    'q14(0)-qH4-dV11','q15(0)-qH5-dV12','q16(0)-qH6-dV13', ...

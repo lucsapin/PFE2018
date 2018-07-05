@@ -17,7 +17,7 @@ constraint.dimension integer 0
 
 # Discretization :
 discretization.steps integer 100
-discretization.method string midpoint
+discretization.method string gauss
 
 # Optimization :
 optimization.type string single
