@@ -17,7 +17,7 @@ constraint.dimension integer 0
 
 # Discretization :
 discretization.steps integer 100
-discretization.method string gauss
+discretization.method string midpoint
 
 # Optimization :
 optimization.type string single
@@ -106,4 +106,3 @@ solution.file string problem.sol
 
 # Iteration output frequency :
 iteration.output.frequency integer 0
-

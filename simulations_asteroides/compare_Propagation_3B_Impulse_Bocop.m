@@ -51,9 +51,8 @@ q0_SUN_AU = resDrift.q0_SUN_AU;
 
 % ------------------------------------------------------------------------------
 % Define Bocop parameters
-outputOptimization = loadFile(destination, 'total', numAsteroid, numOpti);
+% Initial and final conditions in CR3BP Rotating frame (same frame as the dynamic)
 [q0_CR3BP,~,~,~,thetaS0] = Helio2CR3BP(q0_SUN_AU, t0_day); % q0 in LD/d
-
 q0          = q0_CR3BP(1:6); q0 = q0(:);
 qf          = [UC.xL2; 0.0; 0.0; 0.0; 0.0; 0.0];
 
@@ -66,20 +65,20 @@ tf_guess    = tf_guess*UC.jour/UC.time_syst; % time in UT
 
 g0          = 9.80665*1e-3*(UC.time_syst)^2/UC.LD;
 Isp         = 375/UC.time_syst; % 375 s
-Ispg0        = 1.0/(Isp*g0);
+Ispg0       = 1.0/(Isp*g0);
 
-init_choice         = 'none1';
+init_choice = 'none1';
 
 % Unique name to save intermediate results
 case_name   = ['./min_dV_Tmax' num22str(TmaxN,3) ...
                '_m0_' num22str(m0,6) ...
-               '_ast_' int2str(outputOptimization.numAsteroid) ...
+               '_ast_' int2str(numAsteroid) ...
                '_dist_' num22str(dist,4)];
 
 dir_results = ['./results/compare_inside_Hill/3B_Impulse/' destination '/in_progress_results/'];
 if(~exist(dir_results,'dir')); error('Wrong dir_results name!'); end
 
-file_results= [dir_results case_name];
+file_results = [dir_results case_name];
 
 if(exist([file_results '.mat'],'file')==2)
     load(file_results);
@@ -94,8 +93,7 @@ end
 % impulse_Hill_bocop        = [];
 
 % parameters
-m0_init   = m0;
-par_bocop = [Tmax; Ispg0; muCR3BP; muSun; rhoSun; q0; qf; thetaS0; omegaS; m0_init];
+par_bocop = [Tmax; Ispg0; muCR3BP; muSun; rhoSun; q0; qf; thetaS0; omegaS; m0];
 
 n = 12;
 
@@ -121,7 +119,7 @@ defPbBocop  = 'bocop/'; % Directory where main bocop pb directory is: ./bocop/3B
 if(strcmp(init_choice, 'none1')==1)
     options             = [];
     options.disc_steps  = '100';
-    options.disc_method = 'gauss';
+    options.disc_method = 'midpoint';
 
     solFileSave         = './min_dV_current.sol';
 
@@ -192,10 +190,6 @@ else
     outputB = min_dV_bocop.outputB;
 end
 
-% resB.zB = zB;
-% resB.optimvarsB = optimvarsB;
-% solutionBocop = t0_day + optimvarsB*UC.time_syst/UC.jour; % en jour
-
 % ------------------------------------------------------------------------------
 % Affichage des trajectoires
 plot = true;
@@ -206,7 +200,7 @@ if plot
   display_L2(); hold on;
 
   plot3(Q_CR3BP(1,:), Q_CR3BP(2,:), Q_CR3BP(3,:), 'r', 'LineWidth', DC.LW); hold on;
-  plot3(zB(1,:), zB(2,:), zB(3,:), 'b', 'LineWidth', DC.LW)
+  plot3(zB(1,:), zB(2,:), zB(3,:), 'b', 'LineWidth', DC.LW);
 
   % draw Hill's sphere (on the (q_1, q_2) plan)
   viscircles([0 0], dist*UC.AU/UC.LD, 'Color', 'g');

@@ -1,5 +1,4 @@
 function [] = writeDefFile(init,t0,tf,freetf,dims,disc_steps,disc_method,path,namesDef)
-
 fid = fopen(path,'w+');
 
 % write input data
@@ -67,7 +66,6 @@ for line = fixedpart'
     fprintf(fid,'%s\n',line{1});
 end
 
-fclose(fid)
+fclose(fid);
 
 end
-
