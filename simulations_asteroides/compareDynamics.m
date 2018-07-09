@@ -97,7 +97,7 @@ if plot
   plot3(Q_CR3BP_AH(1,:), Q_CR3BP_AH(2,:), Q_CR3BP_AH(3,:), 'b--', 'LineWidth', DC.LW); % hold on;
 
   % draw Hill's sphere (on the (q_1, q_2) plan)
-  viscircles([0 0], dist*UC.AU/UC.LD, 'Color', 'g');
+  % viscircles([0 0], dist*UC.AU/UC.LD, 'Color', 'g');
 
   legend('Moon', 'Earth', 'L2', traj1, traj2, traj3);
   title('Compare Dynamics : 2B before Hill then 3BP or 2B');

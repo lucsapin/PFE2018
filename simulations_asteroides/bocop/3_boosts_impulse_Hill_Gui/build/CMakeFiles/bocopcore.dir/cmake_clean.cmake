@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/bocopcore.dir/core/sources/IO/readDefinition.cpp.o"
   "CMakeFiles/bocopcore.dir/core/sources/IO/writeDefinition.cpp.o"
   "CMakeFiles/bocopcore.dir/core/sources/IO/writeSolution.cpp.o"
@@ -19,7 +19,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/bocopcore.dir/core/sources/interpolation/BocopInterpolation.cpp.o"
   "CMakeFiles/bocopcore.dir/core/sources/interpolation/BocopLinearInterpolation.cpp.o"
   "CMakeFiles/bocopcore.dir/core/sources/interpolation/BocopSplinesInterpolation.cpp.o"
-  "CMakeFiles/bocopcore.dir/home/controleapo/Bureau/stages/2018_stage_Sapin_git/simulations_asteroides/bocop/3_boosts_impulse_Hill_Gui/dependencies.cpp.o"
+  "CMakeFiles/bocopcore.dir/home/lsapin/Documents/n7/PFE/PFE2018/simulations_asteroides/bocop/3_boosts_impulse_Hill_Gui/dependencies.cpp.o"
   "CMakeFiles/bocopcore.dir/core/sources/optionalfunctions/preProcessing.cpp.o"
   "CMakeFiles/bocopcore.dir/core/sources/optionalfunctions/postProcessing.cpp.o"
   "lib/libbocopcore.pdb"
@@ -27,6 +27,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/bocopcore.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/bocopcore.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()
