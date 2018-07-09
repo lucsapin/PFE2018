@@ -64,14 +64,14 @@
   boundary_conditions[0]  = initial_state[0] - q01;
   boundary_conditions[1]  = initial_state[1] - q02;
   boundary_conditions[2]  = initial_state[2] - q03;
-  boundary_conditions[3]  = initial_state[3] - q04 - dV11;
-  boundary_conditions[4]  = initial_state[4] - q05 - dV12;
-  boundary_conditions[5]  = initial_state[5] - q06 - dV13;
+  boundary_conditions[3]  = initial_state[3] - q04            - dV11;
+  boundary_conditions[4]  = initial_state[4] - q05            - dV12;
+  boundary_conditions[5]  = initial_state[5] - q06            - dV13;
 
-  boundary_conditions[6]  = final_state[0] - qL21;
-  boundary_conditions[7]  = final_state[1] - qL22;
-  boundary_conditions[8]  = final_state[2] - qL23;
-  boundary_conditions[9]  = final_state[3] - qL24 - dV21;
-  boundary_conditions[10] = final_state[4] - qL25 - dV22;
-  boundary_conditions[11] = final_state[5] - qL26 - dV23;
+  boundary_conditions[6]  = final_state[0]   - qL21;
+  boundary_conditions[7]  = final_state[1]   - qL22;
+  boundary_conditions[8]  = final_state[2]   - qL23;
+  boundary_conditions[9]  = qL24             - final_state[3] - dV21;
+  boundary_conditions[10] = qL25             - final_state[4] - dV22;
+  boundary_conditions[11] = qL26             - final_state[5] - dV23;
 }

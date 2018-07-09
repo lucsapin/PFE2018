@@ -21,7 +21,7 @@ addpath('hampath/libhampath3Mex/');
 
 % ------------------------------------------------------------------------------
 % Definition of all the parameters
-numAsteroid         = 1;
+numAsteroid         = 10;
 numOpti             = 1;        % Numero of optimization for this asteroid
 TmaxN               = 50;       % Newton
 dist                = 0.01;     % We propagate the trajectory to the distance dist (in AU) of EMB
@@ -33,6 +33,7 @@ UC          = get_Univers_Constants(); % Univers constants
 destination = 'L2';
 typeSimu = 'total';
 
+outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti);
 % ------------------------------------------------------------------------------
 % Computation of trajectories for each destination
 [resDrift, resP2H, ~, ~] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, 4);
@@ -165,6 +166,7 @@ if(results.exec_min_dV_bocop==-1)
     end
 
     % useful
+    min_dV_bocop.outputOpti     = outputOptimization;
     min_dV_bocop.indices        = map_indices_par_bocop;
 
     % inputs

@@ -22,7 +22,7 @@ if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
 % Are there in the Heliocentric referentiel ?
 %
 load('bdd/bdd_asteroids_oribtal_params');
-% [~, n_ast]=size(asteroids_orbital_params);
+[~, n_ast]=size(asteroids_orbital_params);
 
 %
 UC          = get_Univers_Constants(); % Univers constants

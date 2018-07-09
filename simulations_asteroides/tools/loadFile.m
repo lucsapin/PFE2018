@@ -1,4 +1,4 @@
-function outputOptimization = loadFile( destination, typeSimu, numAsteroid, numOpti)
+function outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti)
 % Inputs :
 %   - destination : 'L2' or 'EMB'
 %   - typeSimu : 'total' or 'outbound' or 'return'

@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 SET(CMAKE_RELATIVE_PATH_TOP_SOURCE "/home/controleapo/Bureau/logiciels/Bocop-2.1.0-linux-src")
-SET(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/controleapo/Bureau/stages/2018_stage_Sapin_git/simulations_asteroides/bocop/2_boosts_impulse_Hill_Gui/build")
+SET(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/controleapo/Bureau/stages/2018_stage_Sapin_git/simulations_asteroides/bocop/2_boosts_impulse_Hill/build")
 
 # Force unix paths in dependencies.
 SET(CMAKE_FORCE_UNIX_PATHS 1)
