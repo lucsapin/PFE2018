@@ -83,7 +83,7 @@ else if(status == 255)
 end
 
 solFile = 'problem.sol';
-movefile([workspace '/' solFile],[workspace '/' solFileName])
+movefile([workspace '/' solFile],[workspace '/' solFileName]);
 
 % read and parse .sol file written by bocop
 solfile = [workspace '/' solFileName];

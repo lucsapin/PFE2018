@@ -73,7 +73,7 @@ bav = [];
 
 % Bounds for the optimization parameters :
 bop = [0     2e20;
-       -2e20 2e20;
+       0     2e20;
        -2e20 2e20;
        -2e20 2e20;
        -2e20 2e20;

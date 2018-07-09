@@ -93,7 +93,27 @@ end
 % impulse_Hill_bocop        = [];
 
 % parameters
-par_bocop = [Tmax; Ispg0; muCR3BP; muSun; rhoSun; q0; qf; thetaS0; omegaS; m0];
+% par_bocop = [Tmax; Ispg0; muCR3BP; muSun; rhoSun; q0; qf; thetaS0; omegaS; m0];
+par_bocop = [18366.1811174018;
+             0.2781732195;
+             0.0121505298;
+             328900.57263154;
+             389.1724003642;
+             3.1726866765;
+             -2.2537912313;
+             0.0002415389;
+             -5.0462014285;
+             0.4203995399;
+             -0.0014357139;
+             1.1556819508;
+             0;
+             0;
+             0;
+             0;
+             0;
+             6.0847870924;
+             -0.9211841499;
+             60000];
 
 n = 12;
 
@@ -117,11 +137,12 @@ map_indices_par_bocop = containers.Map(keySet, valueSet);
 defPbBocop  = 'bocop/'; % Directory where main bocop pb directory is: ./bocop/3B_impulse_Hill/
 
 if(strcmp(init_choice, 'none1')==1)
+
     options             = [];
     options.disc_steps  = '100';
     options.disc_method = 'midpoint';
 
-    solFileSave         = './min_dV_current.sol';
+    solFileSave         = './min_dV.sol';
 
     init.type           = 'from_init_file';
     init.file           = 'none';
@@ -138,7 +159,7 @@ if(strcmp(init_choice, 'none1')==1)
                            {'state.10'    , 'constant', (q0(5)+qf(5))/2}; % q25
                            {'state.11'    , 'constant', (q0(6)+qf(6))/2}; % q26
                            {'optimvars.0' , 'constant', 0.9};             % dt1
-                           {'optimvars.1' , 'constant', 0.9};             % dt2
+                           {'optimvars.1' , 'constant', 0.0};             % dt2
                            {'optimvars.2' , 'constant', 0.1};             % dV11
                            {'optimvars.3' , 'constant', 0.1};             % dV12
                            {'optimvars.4' , 'constant', 0.1};             % dV13
@@ -157,7 +178,7 @@ if(results.exec_min_dV_bocop==-1)
     [toutB,stageB,zB,uB,optimvarsB,outputB] = exec_bocop_3B_impulse_hill(defPbBocop, init, par_bocop, options, solFileSave);
 
     if(outputB.status ~= 0)
-        error('Bocop did not converge for the minimal time problem!');
+        error('Bocop did not converge for the minimal dV problem!');
     end
 
     % useful

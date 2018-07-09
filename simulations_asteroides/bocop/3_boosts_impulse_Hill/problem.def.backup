@@ -74,12 +74,12 @@ boundarycond.8 string q23i-q13f
 boundarycond.9 string q24i-q14f-dV21
 boundarycond.10 string q25i-q15f-dV22
 boundarycond.11 string q26i-q16f-dV23
-boundarycond.12 string qL21-q21f
-boundarycond.13 string qL22-q22f
-boundarycond.14 string qL23-q23f
-boundarycond.15 string qL24-q24f-dV31
-boundarycond.16 string qL25-q25f-dV32
-boundarycond.17 string qL26-q26f-dV33
+boundarycond.12 string q21f-qL21
+boundarycond.13 string q22f-qL22
+boundarycond.14 string q23f-qL23
+boundarycond.15 string q24f-qL24+dV31
+boundarycond.16 string q25f-qL25+dV32
+boundarycond.17 string q26f-qL26+dV33
 constant.0 string Tmax
 constant.1 string beta
 constant.2 string mu
@@ -97,7 +97,7 @@ constant.13 string qL23
 constant.14 string qL24
 constant.15 string qL25
 constant.16 string qL26
-constant.17 string theta0
+constant.17 string thetaS0
 constant.18 string omegaS
 constant.19 string m0
 
@@ -106,4 +106,3 @@ solution.file string problem.sol
 
 # Iteration output frequency :
 iteration.output.frequency integer 0
-
