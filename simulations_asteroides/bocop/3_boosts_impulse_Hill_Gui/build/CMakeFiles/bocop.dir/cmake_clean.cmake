@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/bocop.dir/core/main.cpp.o"
-  "/home/controleapo/Bureau/stages/2018_stage_Sapin_git/simulations_asteroides/bocop/3_boosts_impulse_Hill_Gui/bocop.pdb"
-  "/home/controleapo/Bureau/stages/2018_stage_Sapin_git/simulations_asteroides/bocop/3_boosts_impulse_Hill_Gui/bocop"
+  "/home/lsapin/Documents/n7/PFE/PFE2018/simulations_asteroides/bocop/3_boosts_impulse_Hill_Gui/bocop.pdb"
+  "/home/lsapin/Documents/n7/PFE/PFE2018/simulations_asteroides/bocop/3_boosts_impulse_Hill_Gui/bocop"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/bocop.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/bocop.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

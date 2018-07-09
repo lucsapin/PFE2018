@@ -39,9 +39,9 @@
 	Tdouble dV21  = optimvars[5];
 	Tdouble dV22  = optimvars[6];
 	Tdouble dV23  = optimvars[7];
-  Tdouble dV31  = optimvars[8];
-  Tdouble dV32  = optimvars[9];
-  Tdouble dV33  = optimvars[10];
+  Tdouble dV31  = optimvars[8]; //= -final_state[9] + qL24;
+  Tdouble dV32  = optimvars[9]; //= -final_state[10] + qL25;
+  Tdouble dV33  = optimvars[10]; //= -final_state[11] + qL26;
 
   double Tmax   = constants[0];
 	double beta   = constants[1];
@@ -84,4 +84,5 @@
   boundary_conditions[15] = qL24              - final_state[9]  - dV31;
   boundary_conditions[16] = qL25              - final_state[10] - dV32;
   boundary_conditions[17] = qL26              - final_state[11] - dV33;
+
 }
