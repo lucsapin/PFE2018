@@ -1,0 +1,127 @@
+# This file defines all dimensions and parameters
+# values for your problem :
+
+# Initial and final time :
+time.free string none
+time.initial double 0
+time.final double 1
+
+# Dimensions :
+state.dimension integer 21
+control.dimension integer 6
+algebraic.dimension integer 0
+parameter.dimension integer 3
+constant.dimension integer 20
+boundarycond.dimension integer 27
+constraint.dimension integer 2
+
+# Discretization :
+discretization.steps integer 20
+discretization.method string midpoint
+
+# Optimization :
+optimization.type string single
+batch.type integer 0
+batch.index integer 0
+batch.nrange integer 1
+batch.lowerbound double 0
+batch.upperbound double 0
+batch.directory string none
+
+# Initialization :
+initialization.type string from_init_file
+initialization.file string none
+
+# Parameter identification :
+paramid.type string false
+paramid.separator string ,
+paramid.file string no_directory
+paramid.dimension integer 0
+
+# Names :
+state.0 string q11
+state.1 string q12
+state.2 string q13
+state.3 string q14
+state.4 string q15
+state.5 string q16
+state.6 string m1
+state.7 string q21
+state.8 string q22
+state.9 string q23
+state.10 string q24
+state.11 string q25
+state.12 string q26
+state.13 string m2
+state.14 string q31
+state.15 string q32
+state.16 string q33
+state.17 string q34
+state.18 string q35
+state.19 string q36
+state.20 string m3
+control.0 string u11
+control.1 string u12
+control.2 string u13
+control.3 string u31
+control.4 string u32
+control.5 string u33
+parameter.0 string dt1
+parameter.1 string dt2
+parameter.2 string dtf
+boundarycond.0 string q11i-qH1
+boundarycond.1 string q12i-qH2
+boundarycond.2 string q13i-qH3
+boundarycond.3 string q14i-qH4
+boundarycond.4 string q15i-qH5
+boundarycond.5 string q16i-qH6
+boundarycond.6 string m1i-m0
+boundarycond.7 string q2i-q11f
+boundarycond.8 string q22i-q12f
+boundarycond.9 string q23i-q13f
+boundarycond.10 string q24i-q14f
+boundarycond.11 string q25i-q15f
+boundarycond.12 string q26i-q16f
+boundarycond.13 string m2i-m1f
+boundarycond.14 string q31i-q21f
+boundarycond.15 string q32i-q22f
+boundarycond.16 string q33i-q23f
+boundarycond.17 string q34i-q24f
+boundarycond.18 string q35i-q25f
+boundarycond.19 string q36i-q26f
+boundarycond.20 string m3i-m2f
+boundarycond.21 string qL21-q31f
+boundarycond.22 string qL22-q32f
+boundarycond.23 string qL23-q33f
+boundarycond.24 string qL24-q34f
+boundarycond.25 string qL25-q35f
+boundarycond.26 string qL26-q36f
+constraint.0 string norm(u1)-1
+constraint.1 string norm(u3)-1
+constant.0 string Tmax
+constant.1 string beta
+constant.2 string mu
+constant.3 string muS
+constant.4 string rS
+constant.5 string qH1
+constant.6 string qH2
+constant.7 string qH3
+constant.8 string qH4
+constant.9 string qH5
+constant.10 string qH6
+constant.11 string qL21
+constant.12 string qL22
+constant.13 string qL23
+constant.14 string qL24
+constant.15 string qL25
+constant.16 string qL26
+constant.17 string theta0
+constant.18 string omegaS
+constant.19 string m0
+
+# Solution file :
+solution.file string problem.sol
+
+# Iteration output frequency :
+iteration.output.frequency integer 0
+

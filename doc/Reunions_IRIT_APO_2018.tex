@@ -245,6 +245,22 @@ Objectifs avant le nouveau Skype avec Thomas :
 		\item Corriger le script matlab d'appel à Bocop
 		\item Terminer le problème de phase parking avec contrôle continu sur l'interface Bocop puis via un script matlab.
 	\end{itemize}
+	
+\section*{Vendredi 13 juillet 2018}
+	Objectifs fixées après le skype avec Thomas (10 juillet) :
+	\begin{itemize}
+		\item Écrire le problème de phase parking avec contrôle continu. Se servir des résultats de Bocop pour les problèmes impulsionnels pour initialiser le problème continu.
+		\item Raffiner une solution du problème continu (augmenter le pas de disc, changer de schéma d'intégration, jouer avec valeur Tmax / beta  et Isp)
+		\item éventuellement :
+			\begin{itemize}
+				\item essayer un problème avec plus de boosts;
+				\item écrire un script global d'exécution pour l'ensemble des ast;
+				\item tester un problème impulsionnel avec une dynamique 4 corps sur l'ensemble de la phase retour;
+				\item écrire un problème impulsionnel puis continu avec Bocop pour la phase aller à l'intérieur de Hill.
+			\end{itemize}
+	\end{itemize}
+	
+	Depuis le skype : Deux problèmes de phase parking avec contrôle continu sont écrit sous Bocop : un avec structure bang-zéro-bang, un avec structure bang-zéro-bang-zéro-bang. Reste à écrire l'initialisation avec les résultats des problèmes impulsionnels avant de lancer une résolution.
 \end{document}
 
 %%% Local Variables:

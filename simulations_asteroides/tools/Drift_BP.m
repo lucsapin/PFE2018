@@ -70,15 +70,24 @@ if choix==3
   [~, Q_CR3BP]    = ode45(odefun, T_CR3BP, q0_CR3BP, OptionsOde);
   Q_CR3BP         = Q_CR3BP'; % ROTATING FRAME (LD) !
 
-elseif choix==4 % 2 corps Soleil
+elseif choix==2 % 2 corps Soleil
   odefun          = @(t,x) rhs_2B_Sun_AU(t,x);
-
   [~, Q_SUN_AU]   = ode45(odefun, Times, q0_SUN_AU, OptionsOde);
   Q_SUN_AU        = Q_SUN_AU';
 
   % Conversion in CR3BP Rotating frame (LD)
   for i=1:Nstep
-    [Q_CR3BP(1:6, i), ~, ~, ~, ~]  = Helio2CR3BP(Q_SUN_AU(1:6,i), Times(i));
+    [Q_CR3BP(1:6, i), ~, ~, ~, ~]  = Helio2CR3BP(Q_SUN_AU(1:6, i), Times(i));
+  end
+
+elseif choix==4 % 4 corps
+  odefun          = @(t,x) rhs_4B_Sun_AU(t,x);
+  [~, Q_SUN_AU]   = ode45(odefun, Times, [q0_SUN_AU;L_EMB0_AU], OptionsOde);
+  Q_SUN_AU        = Q_SUN_AU';
+
+  % Convervion in Rotating Frame (LD)
+  for i=1:Nstep
+    [Q_CR3BP(1:6, i), ~, ~, ~, ~]  = Helio2CR3BP(Q_SUN_AU(1:6, i), Times(i));
   end
 
 elseif choix==6
@@ -99,7 +108,7 @@ end
 
 return
 
-% ----------------------------------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 function qdot = rhs_BP(t, q, mu, muSun, rhoS, thetaS0, omegaS, choix)
 
     q1          = q(1);
@@ -153,7 +162,7 @@ function qdot = rhs_BP(t, q, mu, muSun, rhoS, thetaS0, omegaS, choix)
 
 return
 
-% ----------------------------------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 function qLdot = rhs_4B_EMB_LD(t, qL)
     % dans ref inertiel centre EMB
     % Be careful, the dynamics is not autonomous!!
@@ -197,7 +206,7 @@ function qLdot = rhs_4B_EMB_LD(t, qL)
 
 return
 
-% ----------------------------------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 function qdot = rhs_2B_Sun_AU(t, q)
     % dans ref inertiel centre soleil
     % Be careful, the dynamics is not autonomous!!
@@ -218,5 +227,52 @@ function qdot = rhs_2B_Sun_AU(t, q)
     qdot       = zeros(6,1);
     qdot(1:3)  = v;
     qdot(4:6)  = - mu0_Sun*(r/rSun^3);
+
+return
+
+% ------------------------------------------------------------------------------
+function qLdot = rhs_4B_Sun_AU(t, qL)
+    % dans ref inertiel centre soleil
+    % Be careful, the dynamics is not autonomous!!
+
+    UC          = get_Univers_Constants(); % Univers constants
+
+    mu0_Sun     = UC.mu0SunAU;
+    mu0_Earth   = UC.mu0EarthAU;
+    mu0_Moon    = UC.mu0MoonAU;
+
+    xG_EMB0_AU  = UC.xG_EMB0;
+    xG_EMB      = xG_EMB0_AU;
+
+    %
+    r           = qL(1:3);
+    v           = qL(4:6);
+    L_EMB       = qL(7);
+    Ldot        = rhsLGauss(t,L_EMB,xG_EMB,mu0_Sun);
+    qS          = -Gauss2Cart(mu0_Sun, [xG_EMB(1:5); L_EMB]); % Dans le repere inertiel centre EMB
+
+    % Moon and Earth position
+    [qM,qE]     = get_Moon_Earth_L2_State_Cart_LD(t);  % Dans ref centre EMB
+    qM          = qM*UC.LD/UC.AU;
+    qE          = qE*UC.LD/UC.AU;
+
+    % Replace the position in the frame centered in the Sun
+    qS(1:3)     = qS(1:3) - qS(1:3);
+    qM(1:3)     = qM(1:3) - qS(1:3);
+    qE(1:3)     = qE(1:3) - qS(1:3);
+
+    rSun        = sqrt((r(1)-qS(1))^2 + (r(2)-qS(2))^2 + (r(3)-qS(3))^2);
+    rE          = sqrt((r(1)-qE(1))^2 + (r(2)-qE(2))^2 + (r(3)-qE(3))^2);
+    rM          = sqrt((r(1)-qM(1))^2 + (r(2)-qM(2))^2 + (r(3)-qM(3))^2);
+
+    % Dynamics
+    qLdot       = zeros(7,1);
+    qLdot(1:3)  = v;
+    qLdot(4:6)  = - mu0_Sun*(r-qS(1:3))/rSun^3 ...
+                  - mu0_Earth*(r-qE(1:3))/rE^3 ...
+                  - mu0_Moon*(r-qM(1:3))/rM^3 ;%...
+                  + mu0_Earth*(qS(1:3)-qE(1:3))/norm(qS(1:3)-qE(1:3))^3 ...
+                  + mu0_Moon*(qS(1:3)-qM(1:3))/norm(qS(1:3)-qM(1:3))^3 ;
+    qLdot(7)    = Ldot;
 
 return
