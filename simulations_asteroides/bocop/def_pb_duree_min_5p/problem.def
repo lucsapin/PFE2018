@@ -29,8 +29,8 @@ batch.upperbound double 0
 batch.directory string none
 
 # Initialization :
-initialization.type string from_sol_file_warm
-initialization.file string ../3_boosts_impulse_Hill/min_3B_impulse_bocop_Tmax_50p0_m0_60000p0_beta_0p278_ast_3.sol
+initialization.type string from_init_file
+initialization.file string none
 
 # Parameter identification :
 paramid.type string false

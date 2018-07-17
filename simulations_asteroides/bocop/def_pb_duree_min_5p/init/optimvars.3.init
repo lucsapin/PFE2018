@@ -1,9 +1,9 @@
 # Starting point file.
 # This file contains initialization values
-# for variable state.4
+# for variable optimvars.3
 
 # Type of initialization :
 constant
 
 # Constant value for the starting point : 
--0.248788
+-6.479909
