@@ -1,0 +1,12159 @@
+# **************************** 
+# **************************** 
+# *****    DEFINITION    ***** 
+# **************************** 
+# **************************** 
+# # #
+# ********************** 
+# ** problem.def
+# ********************** 
+# # #
+# # This file defines all dimensions and parameters 
+# # values for your problem :
+# # #
+# # Initial and final time :
+# time.free string none
+# time.initial double 0
+# time.final double 1
+# # #
+# # Dimensions :
+# state.dimension integer 35
+# control.dimension integer 9
+# algebraic.dimension integer 0
+# parameter.dimension integer 5
+# constant.dimension integer 20
+# boundarycond.dimension integer 41
+# constraint.dimension integer 3
+# # #
+# # Discretization :
+# discretization.steps integer 50
+# discretization.method string midpoint
+# # #
+# # Optimization :
+# optimization.type string single
+# batch.type integer 0
+# batch.index integer 0
+# batch.nrange integer 1
+# batch.lowerbound double 0
+# batch.upperbound double 0
+# batch.directory string none
+# # #
+# # Initialization :
+# initialization.type string from_init_file
+# initialization.file string none
+# # #
+# # Parameter identification :
+# paramid.type string false
+# paramid.separator string ,
+# paramid.file string no_directory
+# paramid.dimension integer 0
+# # #
+# # Names :
+# state.0 string q11
+# state.1 string q12
+# state.2 string q13
+# state.3 string q14
+# state.4 string q15
+# state.5 string q16
+# state.6 string m1
+# state.7 string q21
+# state.8 string q22
+# state.9 string q23
+# state.10 string q24
+# state.11 string q25
+# state.12 string q26
+# state.13 string m2
+# state.14 string q31
+# state.15 string q32
+# state.16 string q33
+# state.17 string q34
+# state.18 string q35
+# state.19 string q36
+# state.20 string m3
+# state.21 string q41
+# state.22 string q42
+# state.23 string q43
+# state.24 string q44
+# state.25 string q45
+# state.26 string q46
+# state.27 string m4
+# state.28 string q51
+# state.29 string q52
+# state.30 string q53
+# state.31 string q54
+# state.32 string q55
+# state.33 string q56
+# state.34 string m5
+# control.0 string u11
+# control.1 string u12
+# control.2 string u13
+# control.3 string u31
+# control.4 string u32
+# control.5 string u33
+# control.6 string u51
+# control.7 string u52
+# control.8 string u53
+# parameter.0 string dt1
+# parameter.1 string dt2
+# parameter.2 string dt3
+# parameter.3 string dt4
+# parameter.4 string dtf
+# boundarycond.0 string q11i-qH1
+# boundarycond.1 string q12i-qH2
+# boundarycond.2 string q13i-qH3
+# boundarycond.3 string q14i-qH4
+# boundarycond.4 string q15i-qH5
+# boundarycond.5 string q16i-qH6
+# boundarycond.6 string m1i-m0
+# boundarycond.7 string q21i-q11f
+# boundarycond.8 string q22i-q12f
+# boundarycond.9 string q23i-q13f
+# boundarycond.10 string q24i-q14f
+# boundarycond.11 string q25i-q15f
+# boundarycond.12 string q26i-q16f
+# boundarycond.13 string m2i-m1f
+# boundarycond.14 string q31i-q21f
+# boundarycond.15 string q32i-q22f
+# boundarycond.16 string q33i-q23f
+# boundarycond.17 string q34i-q24f
+# boundarycond.18 string q35i-q25f
+# boundarycond.19 string q36i-q26f
+# boundarycond.20 string m3i-m2f
+# boundarycond.21 string q41i-q31f
+# boundarycond.22 string q42i-q32f
+# boundarycond.23 string q43i-q33f
+# boundarycond.24 string q44f-q34f
+# boundarycond.25 string q45i-q35f
+# boundarycond.26 string q46i-q36f
+# boundarycond.27 string m4i-m3f
+# boundarycond.28 string q51i-q41f
+# boundarycond.29 string q52i-q42f
+# boundarycond.30 string q53i-q43f
+# boundarycond.31 string q54i-q44f
+# boundarycond.32 string q55i-q45f
+# boundarycond.33 string q56i-q46f
+# boundarycond.34 string m5i-m4f
+# boundarycond.35 string qL21-q51f
+# boundarycond.36 string qL22-q52f
+# boundarycond.37 string qL23-q53f
+# boundarycond.38 string qL24-q54f
+# boundarycond.39 string qL25-q55f
+# boundarycond.40 string qL26-q56f
+# constraint.0 string constraint.0
+# constraint.1 string constraint.1
+# constraint.2 string constraint.2
+# constant.0 string Tmax
+# constant.1 string beta
+# constant.2 string mu
+# constant.3 string muS
+# constant.4 string rS
+# constant.5 string qH1
+# constant.6 string qH2
+# constant.7 string qH3
+# constant.8 string qH4
+# constant.9 string qH5
+# constant.10 string qH6
+# constant.11 string qL21
+# constant.12 string qL22
+# constant.13 string qL23
+# constant.14 string qL24
+# constant.15 string qL25
+# constant.16 string qL26
+# constant.17 string thetaS0
+# constant.18 string omegaS
+# constant.19 string m0
+# # #
+# # Solution file :
+# solution.file string problem.sol
+# # #
+# # #
+# ********************** 
+# ** problem.bounds
+# ********************** 
+# # #
+# # This file contains all the bounds of your problem.
+# # Bounds are stored in standard format : 
+# # [lower bound]  [upper bound] [type of bound]
+# # #
+# # Dimensions (i&f conditions, y, u, z, p, path constraints) :
+# 41 35 9 0 5 3
+# # #
+# # Bounds for the initial and final conditions :
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# # #
+# # Bounds for the state variables :
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# -2e+19 2e+19 free
+# # #
+# # Bounds for the control variables :
+# -1 1 both
+# -1 1 both
+# -1 1 both
+# -1 1 both
+# -1 1 both
+# -1 1 both
+# -1 1 both
+# -1 1 both
+# -1 1 both
+# # #
+# # Bounds for the algebraic variables :
+# # #
+# # Bounds for the optimization parameters :
+# 0 2e+19 lower
+# 0 2e+19 lower
+# 0 2e+19 lower
+# 0 2e+19 lower
+# 0 2e+19 lower
+# # #
+# # Bounds for the path constraints :
+# 0 0 equal
+# 0 0 equal
+# 0 0 equal
+# # #
+# ********************** 
+# ** problem.constants
+# ********************** 
+# # #
+# # This file contains the values of the constants of your problem.
+# # Number of constants used in your problem : 
+# 20
+# # #
+# # Values of the constants : 
+# 367323.622348
+# 0.278173
+# 0.012151
+# 328900.572632
+# 389.1724
+# 3.868808
+# -0.421706
+# -0.002059
+# -3.205057
+# -2.659316
+# 0.002274
+# 1.155682
+# 0
+# 0
+# 0
+# 0
+# 0
+# 5.826215
+# -0.921184
+# 350
+# # #
+# ********************** 
+# ** init/state.0.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q11
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 3.828855
+# # #
+# ********************** 
+# ** init/state.1.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q12
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.455617
+# # #
+# ********************** 
+# ** init/state.2.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q13
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.002039
+# # #
+# ********************** 
+# ** init/state.3.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q14
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -3.083065
+# # #
+# ********************** 
+# ** init/state.4.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q15
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -2.572103
+# # #
+# ********************** 
+# ** init/state.5.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q16
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.001526
+# # #
+# ********************** 
+# ** init/state.6.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable m1
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 336.552454
+# # #
+# ********************** 
+# ** init/state.7.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q21
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 1.98837
+# # #
+# ********************** 
+# ** init/state.8.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q22
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -1.01528
+# # #
+# ********************** 
+# ** init/state.9.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q23
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.001096
+# # #
+# ********************** 
+# ** init/state.10.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q24
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -2.500285
+# # #
+# ********************** 
+# ** init/state.11.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q25
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.570212
+# # #
+# ********************** 
+# ** init/state.12.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q26
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.001569
+# # #
+# ********************** 
+# ** init/state.13.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable m2
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 336.552454
+# # #
+# ********************** 
+# ** init/state.14.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q31
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 1.154002
+# # #
+# ********************** 
+# ** init/state.15.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q32
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.02544
+# # #
+# ********************** 
+# ** init/state.16.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q33
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -2.2e-05
+# # #
+# ********************** 
+# ** init/state.17.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q34
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.103889
+# # #
+# ********************** 
+# ** init/state.18.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q35
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 1.958877
+# # #
+# ********************** 
+# ** init/state.19.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q36
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.001682
+# # #
+# ********************** 
+# ** init/state.20.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable m3
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 267.507695
+# # #
+# ********************** 
+# ** init/state.21.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q41
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 1.155682
+# # #
+# ********************** 
+# ** init/state.22.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q42
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0
+# # #
+# ********************** 
+# ** init/state.23.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q43
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0
+# # #
+# ********************** 
+# ** init/state.24.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q44
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.089593
+# # #
+# ********************** 
+# ** init/state.25.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q45
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 1.133063
+# # #
+# ********************** 
+# ** init/state.26.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q46
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.000975
+# # #
+# ********************** 
+# ** init/state.27.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable m4
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 267.507695
+# # #
+# ********************** 
+# ** init/state.28.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q51
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 1.155682
+# # #
+# ********************** 
+# ** init/state.29.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q52
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0
+# # #
+# ********************** 
+# ** init/state.30.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q53
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0
+# # #
+# ********************** 
+# ** init/state.31.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q54
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.089593
+# # #
+# ********************** 
+# ** init/state.32.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q55
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 1.133063
+# # #
+# ********************** 
+# ** init/state.33.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable q56
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.000975
+# # #
+# ********************** 
+# ** init/state.34.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable m5
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 194.995535
+# # #
+# ********************** 
+# ** init/control.0.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable u11
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.995559
+# # #
+# ********************** 
+# ** init/control.1.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable u12
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# 0.093989
+# # #
+# ********************** 
+# ** init/control.2.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable u13
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.005316
+# # #
+# ********************** 
+# ** init/control.3.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable u31
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.078826
+# # #
+# ********************** 
+# ** init/control.4.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable u32
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.996888
+# # #
+# ********************** 
+# ** init/control.5.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable u33
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.000858
+# # #
+# ********************** 
+# ** init/control.6.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable u51
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.078826
+# # #
+# ********************** 
+# ** init/control.7.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable u52
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.996888
+# # #
+# ********************** 
+# ** init/control.8.init
+# ********************** 
+# # #
+# # Starting point file.
+# # This file contains the values of the initial points
+# # for variable u53
+# # #
+# # Type of initialization : 
+# constant
+# # #
+# # Constant value for the starting point :
+# -0.000858
+# # #
+# ********************** 
+# ** init/optimvars.init
+# ********************** 
+# # #
+# # Optimization parameters starting point file.
+# # This file contains initialization values
+# # for all optimization parameters
+# # #
+# # Number of optimization parameters :
+# 5
+# # #
+# # Initial values : 
+# 0.5
+# 0.5
+# 0.5
+# 0.5
+# 0.5
+# # #
+# discretization.stages integer 1
+# discretization.steps.after.merge 50
+# # #
+# # #
+# **************************** 
+# **************************** 
+# *****     SOLUTION     ***** 
+# **************************** 
+# **************************** 
+# # #
+# Objective value : 
+5.80780373604664
+# L2-norm of the constraints : 
+283148.186971383
+# Inf-norm of the constraints : 
+27305.9444053037
+# Number of stages of discretization method : 
+1
+
+0
+0.01
+0.02
+0.03
+0.04
+0.05
+0.06
+0.07
+0.08
+0.09
+0.1
+0.11
+0.12
+0.13
+0.14
+0.15
+0.16
+0.17
+0.18
+0.19
+0.2
+0.21
+0.22
+0.23
+0.24
+0.25
+0.26
+0.27
+0.28
+0.29
+0.3
+0.31
+0.32
+0.33
+0.34
+0.35
+0.36
+0.37
+0.38
+0.39
+0.4
+0.41
+0.42
+0.43
+0.44
+0.45
+0.46
+0.47
+0.48
+0.49
+0.5
+0.51
+0.52
+0.53
+0.54
+0.55
+0.56
+0.57
+0.58
+0.59
+0.6
+0.61
+0.62
+0.63
+0.64
+0.65
+0.66
+0.67
+0.68
+0.69
+0.7
+0.71
+0.72
+0.73
+0.74
+0.75
+0.76
+0.77
+0.78
+0.79
+0.8
+0.81
+0.82
+0.83
+0.84
+0.85
+0.86
+0.87
+0.88
+0.89
+0.9
+0.91
+0.92
+0.93
+0.940000000000001
+0.950000000000001
+0.960000000000001
+0.970000000000001
+0.980000000000001
+0.99
+1
+
+# State 0
+3.72751014566203
+3.78985101872213
+3.79538089107858
+3.79364858559898
+3.79235066177985
+3.79229071502915
+3.79194212768074
+3.7926127682228
+3.79212222609189
+3.79176820839752
+3.79461687804078
+3.79671366915205
+3.7993322362148
+3.80197255106878
+3.80203009498708
+3.8021807805994
+3.80026036822584
+3.80263065709138
+3.80511778079732
+3.80703553854015
+3.8126405563136
+3.8116675508458
+3.81137085140615
+3.8133948552255
+3.8138280955944
+3.81643095077401
+3.82230342752253
+3.82437547018331
+3.82764410199178
+3.82837882533506
+3.83294999339343
+3.83709661707015
+3.84477959769398
+3.85409056923552
+3.86023004072751
+3.86189891528472
+3.87211698976839
+3.87812908332557
+3.88888748685595
+3.90994136852867
+3.92628742752953
+3.94326724315924
+3.95722991939002
+3.97269077272543
+3.98920102806277
+4.01227084292568
+4.04856605612725
+4.07494114118954
+4.10193384887487
+4.12781685817082
+4.13885441822694
+
+# State 1
+-0.433562217725762
+-0.486480558663494
+-0.511613229222782
+-0.524633518252751
+-0.531849983993861
+-0.53640011879333
+-0.53859214583492
+-0.540024234788691
+-0.540067115267068
+-0.538677459540584
+-0.538681315183433
+-0.538204903470969
+-0.539238599593558
+-0.54107551478293
+-0.542155656569683
+-0.542744937077118
+-0.540474424129116
+-0.538521979197208
+-0.537370108034181
+-0.536157078273078
+-0.538875608390527
+-0.540652958011756
+-0.541702872104312
+-0.542687183684088
+-0.540054336323929
+-0.537893519696013
+-0.538213351554848
+-0.536202754063673
+-0.538402545912479
+-0.539395332729403
+-0.540102907264059
+-0.539603335746583
+-0.539134996407835
+-0.540542147704675
+-0.54063002613424
+-0.537528421231211
+-0.54043755617262
+-0.537037434756522
+-0.534892910255369
+-0.538355283759297
+-0.540317695781637
+-0.544240517746105
+-0.546276133538093
+-0.545509585120298
+-0.543133711348367
+-0.534807943580872
+-0.53716583573426
+-0.536931709530038
+-0.536044646713031
+-0.53722525602576
+-0.5191805000877
+
+# State 2
+-0.00123058521092351
+-0.00162813570428504
+-0.00186025544266526
+-0.00199490385093333
+-0.00207404414061952
+-0.00212171568373601
+-0.00215001036856178
+-0.00216870479558284
+-0.00217858642037688
+-0.002181354924066
+-0.00218256710506937
+-0.00218068909201648
+-0.00218177418829449
+-0.00218557048609699
+-0.00218914342187614
+-0.00219195854970398
+-0.00218768443489092
+-0.00218219162634937
+-0.00217702578825457
+-0.00217210071764351
+-0.00217806735269331
+-0.00218383913539248
+-0.00218969010795507
+-0.00219169055094081
+-0.00218367176186172
+-0.00217575228145435
+-0.00217243081341362
+-0.00216765523786942
+-0.00217739007275355
+-0.00218406643206935
+-0.00218582735141191
+-0.00218099088714141
+-0.0021751338450588
+-0.0021737920048762
+-0.00217227755774037
+-0.00217312210888319
+-0.00218741097946894
+-0.00218486224220289
+-0.00217921248015606
+-0.00218012073680936
+-0.0021800505607645
+-0.00218990389626733
+-0.00220424049497064
+-0.00222456322635333
+-0.00224347128192508
+-0.00226592772170813
+-0.00233058610094718
+-0.00244901693524999
+-0.00268186639446466
+-0.00315363366728658
+-0.00402268598128059
+
+# State 3
+-4.21041108935802
+-7.09537240011828
+-7.64539136680405
+-7.7776087323337
+-7.81469341662188
+-7.82385742471534
+-7.82335307338357
+-7.81916802629673
+-7.81821796742836
+-7.82348613894222
+-7.83069687860544
+-7.83711051346377
+-7.83531396604373
+-7.82574244859654
+-7.81518266403668
+-7.80978275333959
+-7.81653693875473
+-7.82982535212964
+-7.84124323242107
+-7.8440029239845
+-7.83142950660978
+-7.81599204365907
+-7.80644632971025
+-7.80955958738406
+-7.82678489358283
+-7.8419994616897
+-7.8435483502953
+-7.83502906781843
+-7.81685549529729
+-7.80760644826328
+-7.81224846591446
+-7.82829736776438
+-7.84295348341162
+-7.84278588327802
+-7.82843478212519
+-7.81199503123358
+-7.79928623867603
+-7.8136251349812
+-7.83834800435391
+-7.85300991628521
+-7.85052451696879
+-7.82469677153157
+-7.79623697979606
+-7.78381171883757
+-7.79734032203095
+-7.83119414943481
+-7.83711163235097
+-7.78099321324747
+-7.5538612616648
+-6.78770840999263
+-3.81733464244431
+
+# State 4
+-2.47307584740762
+-1.94200795637299
+-1.72162629331106
+-1.62746557708366
+-1.58637312449362
+-1.5689244220212
+-1.56339518530909
+-1.56108768378508
+-1.56061419498265
+-1.55862482884878
+-1.55314279082151
+-1.55066002795864
+-1.55098177554128
+-1.5538809062654
+-1.55861294251508
+-1.56013525019876
+-1.55967909847107
+-1.55279162967149
+-1.5484681597291
+-1.54967566620272
+-1.55109322677894
+-1.55997184885336
+-1.56329071753854
+-1.55841081927673
+-1.55292828201895
+-1.548297018286
+-1.5465922001359
+-1.55403724102451
+-1.56091542804828
+-1.5652602621765
+-1.55902374258221
+-1.55210779124737
+-1.54470956395983
+-1.54395906430546
+-1.55313853459453
+-1.56760393402833
+-1.56686481549903
+-1.56274528881597
+-1.55220097319929
+-1.53734280525596
+-1.54012130676305
+-1.55119394109692
+-1.56569128543657
+-1.57054411717503
+-1.56482844698534
+-1.54655316875291
+-1.51550144605592
+-1.49626544712186
+-1.45283132675259
+-1.32183025826589
+-0.90424104113382
+
+# State 5
+0.0384751115240275
+0.041317564552183
+0.0432205475937886
+0.0443360390360471
+0.0449774510375689
+0.0453496841520697
+0.0455676089064822
+0.045693867911928
+0.0457621261043964
+0.0457966907418953
+0.0458182230457699
+0.0458384340728068
+0.0458622129090616
+0.0458829403058923
+0.045891451422691
+0.0458854523968754
+0.0458695933658466
+0.0458580985104431
+0.0458609655797557
+0.0458780857551077
+0.0459008651656169
+0.0459099110628746
+0.0458997591523055
+0.0458768659091743
+0.0458572514542146
+0.0458580560362833
+0.0458784641332574
+0.0459007825280842
+0.0459120134104275
+0.0458985483051435
+0.0458718523339209
+0.0458509192708673
+0.0458514407256582
+0.0458730227183577
+0.0458961926928497
+0.0458981516124792
+0.0458707594522679
+0.0458148323585431
+0.0457609263934601
+0.0457216437081304
+0.0456734353734541
+0.0455669122061845
+0.045323719206056
+0.0448513967987953
+0.0440125324355827
+0.0425700797859291
+0.0400735120066028
+0.0356389348901774
+0.0276626138890711
+0.0132555035380157
+-0.0129161316276239
+
+# State 6
+295.768225489917
+292.518270147309
+292.500850563995
+292.507484769723
+292.511836401614
+292.514884621534
+292.515785824463
+292.514528611344
+292.510093640704
+292.503743154585
+292.501049459565
+292.505100948865
+292.515858505249
+292.528868858034
+292.535846487047
+292.528913742884
+292.509768301462
+292.490188570032
+292.479858691048
+292.489269735877
+292.516623938304
+292.543559544744
+292.554964309807
+292.543446537504
+292.511078984116
+292.478613041773
+292.468060827862
+292.481975859493
+292.513315851099
+292.544275574164
+292.556685548763
+292.542913779208
+292.516997281579
+292.491485910597
+292.479886432353
+292.487467984412
+292.504578239067
+292.518257014747
+292.527016056103
+292.532653758408
+292.532241807542
+292.531202606943
+292.522119831021
+292.502065950322
+292.47932283392
+292.464689552959
+292.469281133671
+292.483277415513
+292.474975930715
+292.7026383231
+333.286565330618
+
+# State 7
+2.74919137668386
+2.61141695527776
+2.50667828870181
+2.39699409289985
+2.33107601178276
+2.28366472633762
+2.25394064672768
+2.25582006116949
+2.24743291667595
+2.26048889126696
+2.25045627501549
+2.27276066580671
+2.28290714279049
+2.2962796553371
+2.29618890902429
+2.28992860468399
+2.30348374020245
+2.30929658133578
+2.3518022999376
+2.38772877477146
+2.44336265445139
+2.46025658946889
+2.45812789255947
+2.43862998248822
+2.42036922901352
+2.43292097712581
+2.45473387611042
+2.51269117999201
+2.54452706678736
+2.56364378100407
+2.53277400007496
+2.4947355359103
+2.46078793289121
+2.44714325942579
+2.46923592756114
+2.49352883476608
+2.52486191745074
+2.50911763610968
+2.47672992937659
+2.42084080296861
+2.38453244484465
+2.36951042302657
+2.3706757375254
+2.38247505089565
+2.36596811976499
+2.33131838852361
+2.25694256424678
+2.17967232674033
+2.09125169316431
+1.99465421432343
+1.84592772532401
+
+# State 8
+-0.824395559336879
+-0.784156265553992
+-0.766717513843399
+-0.791102603729228
+-0.803659108923212
+-0.836324246010234
+-0.843390990668395
+-0.865934739153135
+-0.872435147334054
+-0.895139968946391
+-0.934935349645287
+-0.972702899583109
+-1.00676537577225
+-1.00076833164178
+-1.00523929851422
+-0.99207671777663
+-1.00667246257301
+-1.02219455048195
+-1.05648942854018
+-1.08447712534905
+-1.08086364727074
+-1.06107341800739
+-1.01692898255613
+-1.00308281013425
+-0.98992305223938
+-1.01094346886739
+-1.02558314011652
+-1.03392435242435
+-1.0122697745843
+-0.964730036311087
+-0.927315264514091
+-0.896893636920674
+-0.905625407208162
+-0.91455624882728
+-0.937291040532243
+-0.931949554443519
+-0.907565539826645
+-0.867746379543509
+-0.835028422801657
+-0.834061413920377
+-0.844474794195493
+-0.872710820911497
+-0.878509616439209
+-0.873733715870011
+-0.84169902576712
+-0.809746341065345
+-0.787679114516506
+-0.779171515339839
+-0.781178844359387
+-0.761308903092826
+-0.713051535512883
+
+# State 9
+-0.00270379378926527
+-0.00224484150870771
+-0.0019244666872279
+-0.00169723238644785
+-0.00153770809393536
+-0.00142481570678697
+-0.00134196449624339
+-0.00128396147194554
+-0.00124040871995982
+-0.00121196983262799
+-0.00118967631369065
+-0.00117386157739069
+-0.00115946272916058
+-0.00114686451709535
+-0.00113693473718235
+-0.00112894596712675
+-0.00112621134736545
+-0.00112482575181201
+-0.00112652726510173
+-0.0011260628855726
+-0.0011245660574807
+-0.00112054290264426
+-0.00111622171194145
+-0.00111349843745671
+-0.0011124588709407
+-0.00111491826188492
+-0.00111735078503546
+-0.00112041282398069
+-0.00112036802339579
+-0.00111897270606717
+-0.0011157272091652
+-0.00111289071117531
+-0.00111165433784743
+-0.00111171857094931
+-0.00111372026380603
+-0.00111430961521532
+-0.00111427880681919
+-0.00111101662902195
+-0.00110634779552233
+-0.00109951902981192
+-0.00109162725987027
+-0.0010816093168288
+-0.00106617828269695
+-0.00104279514850267
+-0.00100475248563142
+-0.000946708629707236
+-0.000855795000206739
+-0.000713018147662912
+-0.000474711321089598
+-3.39873353440914e-05
+0.000936948290658673
+
+# State 10
+-3.55408439097089
+-3.56888955791416
+-3.60969516084653
+-3.63529788573126
+-3.69142901077768
+-3.67280832020804
+-3.66912895734533
+-3.60592119153376
+-3.57482266691498
+-3.55347769475753
+-3.56921542925599
+-3.62737932184374
+-3.66766720246592
+-3.72461979730279
+-3.70248599088925
+-3.68606714661607
+-3.61824200122375
+-3.58720463547111
+-3.57520655670261
+-3.6010751940352
+-3.66055116834296
+-3.69157671572466
+-3.72692582011579
+-3.68815158994285
+-3.66265391924752
+-3.60437488806018
+-3.59232543471386
+-3.59822307436028
+-3.63019164691933
+-3.6745479722303
+-3.68360357807653
+-3.69395415996692
+-3.65142125950039
+-3.63422041280079
+-3.60029381089722
+-3.60611461372327
+-3.6156365279266
+-3.63094968642167
+-3.64341098522643
+-3.62586625546865
+-3.61870380147626
+-3.58278514525993
+-3.57132435182028
+-3.53851837039343
+-3.51373178927696
+-3.46633235859116
+-3.39872967706769
+-3.31238646670301
+-3.18233327959165
+-3.02199020220189
+-2.77063944220573
+
+# State 11
+1.26344982181406
+1.25431920629187
+1.26280902610889
+1.18525558822142
+1.10469660832272
+1.00501748735404
+0.930124531718207
+0.927962880539172
+0.945396587782646
+1.03395201947952
+1.07589648708469
+1.12251840016431
+1.08266551667343
+1.02615974030447
+0.952627694323856
+0.900819622813902
+0.917653513452878
+0.949148446416404
+1.0377971960903
+1.07235239082185
+1.10257111493806
+1.0522443082682
+0.995730170744602
+0.936103123648008
+0.907616333222768
+0.94148451300209
+0.979795638641776
+1.05177341012327
+1.06198252179104
+1.06729087622848
+1.01469794623062
+0.976507165912108
+0.948067860039322
+0.946987088525252
+0.984313523563294
+1.00874818939702
+1.04875756212376
+1.04025625625627
+1.04174982246466
+1.01627599654397
+1.01409328270844
+1.02080498012985
+1.0392652359093
+1.0789139288494
+1.1102676740231
+1.17348526545346
+1.23875631537776
+1.36261656948897
+1.53146508912154
+1.79060929124658
+2.14190880496964
+
+# State 12
+-0.00723113720360726
+-0.00391026334664513
+-0.00185341591262237
+-0.000547561329332966
+0.000291309500633397
+0.000832959253163953
+0.00118416235436362
+0.00141222963053761
+0.00156080584685021
+0.0016577529611309
+0.00172110068579276
+0.00176272650613728
+0.00178995406315485
+0.00180807982897845
+0.00181996717869001
+0.00182804366189567
+0.00183339710007485
+0.0018370772566398
+0.00183960069703444
+0.00184128821241528
+0.00184256375317761
+0.00184337872778138
+0.00184414085521668
+0.00184466666873339
+0.00184527816523179
+0.00184583741154604
+0.00184649991871955
+0.00184730449525131
+0.00184827044534385
+0.00184963919404353
+0.00185137281968412
+0.00185386711669615
+0.00185717534110294
+0.00186179790004222
+0.00186808070229725
+0.00187674894876846
+0.00188875283560707
+0.0019054116246005
+0.00192881960093627
+0.00196176800440626
+0.00200863271233451
+0.00207555119662826
+0.00217186830433519
+0.00231129076200389
+0.00251442642803027
+0.002812197462182
+0.00325111163002337
+0.00390120758230285
+0.00486682683697214
+0.00629941358109751
+0.00840056702391222
+
+# State 13
+333.469744192681
+333.598020088037
+333.689958692279
+333.757906640696
+333.809980012875
+333.851496560714
+333.885936276884
+333.915575714454
+333.9419042811
+333.965896763192
+333.988191550334
+334.009207142122
+334.029218296955
+334.048405799735
+334.06688898723
+334.084747004678
+334.10203269777
+334.11878169149
+334.135018323225
+334.15075951976
+334.166017330111
+334.180800579272
+334.195115946484
+334.208968665963
+334.222362978663
+334.235302417939
+334.247789981487
+334.259828221039
+334.271419266191
+334.282564786666
+334.293265886003
+334.303522907064
+334.3133351136
+334.322700189328
+334.331613462498
+334.340066713529
+334.348046346757
+334.355530590594
+334.362485212029
+334.368856958488
+334.374563522466
+334.379478184074
+334.383406302836
+334.386049308057
+334.386949446341
+334.385404655085
+334.380336114899
+334.37007738222
+334.352021099665
+334.321964142579
+334.272679506502
+
+# State 14
+0.998215445239333
+-0.0656012966206319
+0.0782048992781727
+-0.000533150535342053
+0.136062730120775
+0.140519984091719
+0.132781975090874
+0.131275303789251
+0.134649741940407
+0.132375498665987
+0.128342957949493
+0.125780736354826
+0.121777696469045
+0.118418683497616
+0.124679082804432
+0.127286371571785
+0.125351325431642
+0.119827974858056
+0.123312396391443
+0.129827970974718
+0.128921974674729
+0.113750543191351
+0.107179290774001
+0.126479357383232
+0.130465294553456
+0.113265883171341
+0.0954645643064076
+0.124827485954863
+0.131089520511678
+0.123380902289077
+0.120968636264002
+0.129807006453276
+0.130324766977919
+0.126334777305582
+0.124483514909368
+0.130300668064211
+0.129031029135307
+0.129346523565205
+0.130610898768059
+0.132893540743881
+0.130660197929843
+0.135894953200918
+0.143397454028925
+0.137974696315886
+0.114663268494281
+0.0173748740228613
+0.117655505670845
+-0.398662890986317
+0.984825671512777
+1.01199530850969
+1.18267014705999
+
+# State 15
+0.0350530985120022
+-0.0448271318039925
+-0.124283310008405
+-0.049793622099288
+-0.026894548775035
+-0.027513662313567
+-0.0258604572884577
+-0.0153284093244741
+0.00315962664640661
+0.0155872902016143
+0.0092277714423
+0.014033906751502
+0.0406886046466738
+0.0510890775544317
+0.0315375390552364
+0.0191246845684768
+0.0388757320721028
+0.0498442700737491
+0.0315382450732201
+0.0106237746668006
+0.0273327499022607
+0.0401659081593593
+0.0147695480906131
+0.00865530924263219
+0.017657240150742
+0.0378531523165123
+7.67583402876802e-05
+0.00943588809120562
+0.0130829281209606
+0.0432600984950622
+0.0369255594587145
+0.0134761520827111
+0.0116405008859753
+0.0401204383025259
+0.044680243699905
+0.0166393760289833
+0.00725869525953004
+0.0255154461917172
+0.0310562166468542
+0.00423727542387497
+-0.00847677476294684
+-0.00195658441565852
+-0.0023522306491999
+-0.0184413801570199
+-0.0281109538320399
+-0.0473850326709416
+-0.117130143003805
+-0.137672476725105
+0.0234214917214983
+0.0258382981518125
+-0.173042080054025
+
+# State 16
+0.00424516304454191
+-0.000307501263973058
+-8.18802199649619e-05
+-3.94636967429683e-05
+0.000790776839010539
+0.000961949192856019
+0.000922183256439453
+0.00102757327980648
+0.00152042989583606
+0.00188968375067383
+0.00165551178057142
+0.00159744277607464
+0.00225119251375923
+0.00277147292656673
+0.00235083305367399
+0.00191956295179301
+0.00248202539009441
+0.00316696535512168
+0.00273851577551847
+0.00204537237463788
+0.00236174202357255
+0.00286840040948426
+0.00227444186740379
+0.00198737893618024
+0.00214710675584873
+0.00272747958851356
+0.0019254103944766
+0.00206526667539155
+0.00202407444024298
+0.00281443966612565
+0.00290320971629105
+0.00213396078860679
+0.00176883450026007
+0.00241372705195648
+0.00274208453071513
+0.00202545390699406
+0.00149683156607097
+0.00178470840629184
+0.0020109081333243
+0.00148984693979019
+0.00103909289328274
+0.00110074337839303
+0.00122734643840641
+0.000970297088272361
+0.000653120891283735
+0.000246673966844952
+0.00104855912442953
+-0.00058082565790307
+7.67106430635651e-05
+0.000174792141720969
+0.000219824284796355
+
+# State 17
+0.113347727087367
+0.294259331305345
+0.394258637787652
+0.456506300782876
+0.478202384970137
+0.494683516893552
+0.511215167038455
+0.518523799024872
+0.517357037130811
+0.519773323715826
+0.527986239790296
+0.5307979691902
+0.525542705280848
+0.523853692367553
+0.53042009258245
+0.53356177444136
+0.527646372318231
+0.523322833443221
+0.528345984412385
+0.532250977791795
+0.528108545110051
+0.523810748630313
+0.528596353809825
+0.532561980405711
+0.529037334999002
+0.523856258250115
+0.527471232899514
+0.531705957580582
+0.529809422166502
+0.523592838038611
+0.524626423844081
+0.531654583700173
+0.53266681334036
+0.525586289785673
+0.523635899173763
+0.530126660759519
+0.532512458301819
+0.525778155759398
+0.521913862085631
+0.527013279005204
+0.529405847147001
+0.521552440328405
+0.512482314394883
+0.511684989011295
+0.510641661777255
+0.497226241312504
+0.460974165777648
+0.42461050918584
+0.378648562846559
+0.179279852796503
+-0.296465227807563
+
+# State 18
+4.22745143328944
+5.79183210968102
+6.0001321588361
+6.04284516885226
+6.02565119744088
+6.04051253063413
+6.08222530495832
+6.0874252500452
+6.05814867206599
+6.05763417379274
+6.09435018682415
+6.10561444808426
+6.07461842630103
+6.06239778387291
+6.09539239163542
+6.11383806803692
+6.08418931726521
+6.06187525536234
+6.0883970096295
+6.11351571433668
+6.09072325555032
+6.06258884674158
+6.08333812138372
+6.11458906365876
+6.09813920550742
+6.06403222589086
+6.07532500288155
+6.10954491712344
+6.10271793781593
+6.06569028518317
+6.06706524392441
+6.10585472479279
+6.1101178580435
+6.07074581144131
+6.05925083652336
+6.09457727718002
+6.10770832261529
+6.07044368648333
+6.04862021161811
+6.08039115092376
+6.10170040274045
+6.06559492080418
+6.03083785170326
+6.05235086010305
+6.07692464697605
+6.04136039340029
+5.9776796144699
+5.95479668680382
+5.87728793733979
+5.29991566906312
+2.03678607880266
+
+# State 19
+0.011410802839291
+0.00933461694273568
+0.00817920670999734
+0.00753935939138957
+0.00718501778963163
+0.00699708343638723
+0.00689489972372991
+0.00682782305069286
+0.0067855266037127
+0.00676932112503033
+0.00676445434128606
+0.00675417064530116
+0.00674213177542538
+0.00674078582773012
+0.00674590794704629
+0.00674334740997145
+0.00673456870258968
+0.00673327819780955
+0.00673965456389645
+0.00674009216276976
+0.00673199818745317
+0.00672852282610106
+0.00673519538549495
+0.00673908550036527
+0.00673108710182913
+0.00672483321101675
+0.00673004250339141
+0.0067368061545519
+0.00672995341604298
+0.00672270000277376
+0.00672584242377704
+0.00673045366626596
+0.0067233848521423
+0.00671212831168702
+0.00671024980871366
+0.00671174942233362
+0.00670108285931373
+0.00668109681992766
+0.00666730297004063
+0.00665593657479876
+0.00662602874526511
+0.00657209394959465
+0.00650505305680145
+0.00641363459532712
+0.00625329649829704
+0.00597602832709297
+0.00552538117871475
+0.00477009653343992
+0.00344234758443216
+0.00102802115829471
+-0.00354570009781359
+
+# State 20
+330.146873989258
+236.761379238311
+235.771203695551
+235.664707701474
+235.619769522158
+235.609299637688
+235.615636875054
+235.616410127823
+235.609007630869
+235.607923964204
+235.61522641291
+235.616540379769
+235.608789595749
+235.607189299686
+235.617653816756
+235.624404791918
+235.618097253545
+235.611743324137
+235.61564550458
+235.618504339876
+235.610951846274
+235.604552557658
+235.612285114706
+235.623222908849
+235.622238581863
+235.614977334483
+235.615950477249
+235.619742954941
+235.613773780848
+235.602697061549
+235.604372850538
+235.617832293701
+235.623823339369
+235.617706697591
+235.615042442192
+235.619947858678
+235.617480399184
+235.603458141501
+235.596206029034
+235.606099749216
+235.616370517501
+235.612914806191
+235.607055193651
+235.609895953665
+235.609083418235
+235.591588801752
+235.565590405338
+235.552772219295
+235.541334835804
+235.661408222164
+264.457264346792
+
+# State 21
+1.30842619368864
+1.27651835504024
+1.20299483648903
+1.1717526470691
+1.19770419067023
+1.29198626704571
+1.4139722075326
+1.50460568217613
+1.52442687956825
+1.46633650906174
+1.36317914021355
+1.27048951064951
+1.23273820804212
+1.26249560091427
+1.34578168814348
+1.43903424813664
+1.49833536506734
+1.49911800433706
+1.4421913388799
+1.35684310445812
+1.28726808403158
+1.26660307371476
+1.30172985212111
+1.3729752083329
+1.44223882036103
+1.47730168736294
+1.46646732664967
+1.4179035376991
+1.35618363921639
+1.31142925426734
+1.30353316678578
+1.33379910535608
+1.3853016812912
+1.43066353875363
+1.44867502337065
+1.43453791997123
+1.3977360421045
+1.35694312884558
+1.33133727161593
+1.33031751270839
+1.34882573454665
+1.37186731473569
+1.38321277734108
+1.37406524930953
+1.34450403570919
+1.29784896387078
+1.23615384336361
+1.15186596331359
+0.987544677641004
+0.817108522388369
+0.464617038755468
+
+# State 22
+-0.190539718969954
+-0.185808520553665
+-0.136126144872251
+-0.0463841601601129
+0.0580686675865571
+0.117832204939281
+0.126081718824243
+0.0849609098796102
+0.0189909005825291
+-0.0373431171365392
+-0.0568844127817448
+-0.0294998240293629
+0.0335345523973628
+0.0971821297831745
+0.131382799954626
+0.123350521857554
+0.0782548541127583
+0.0196024805756179
+-0.0237365787563122
+-0.0326590031022962
+-0.00400698686033747
+0.0480477369308473
+0.0953137379321465
+0.116101442632315
+0.103337750183506
+0.0647048567033742
+0.0201858997333518
+-0.00837026449639129
+-0.00891190083453538
+0.0168905385167001
+0.0550955071251183
+0.0858305650554154
+0.095536202347335
+0.0820503781600375
+0.0535168374957829
+0.024608711642954
+0.00894557749998107
+0.0120785294951439
+0.0302601736703053
+0.0532678784001599
+0.0696691904795028
+0.0729104109274069
+0.0635996855837337
+0.0480549475492052
+0.0351087266758746
+0.0313102429905205
+0.0376114312011189
+0.0472068230986621
+-0.00225680062097377
+0.0632100017275492
+0.107539173451398
+
+# State 23
+0.000232742791884854
+0.000175349767450249
+0.000131347434780211
+0.000111559895960615
+7.07781873676336e-05
+4.58084679422456e-05
+3.63649597027028e-05
+3.24821899831847e-05
+2.91230129686531e-05
+2.45019791491998e-05
+1.91495393290913e-05
+1.48002268075134e-05
+1.27997785300965e-05
+1.33289943512498e-05
+1.61546185121754e-05
+1.96455022447051e-05
+2.19432424661144e-05
+2.19880608347758e-05
+1.98358761291137e-05
+1.66553222636366e-05
+1.4090986908816e-05
+1.32894324429802e-05
+1.4500796440519e-05
+1.71044448260273e-05
+1.97167143691783e-05
+2.10614311241664e-05
+2.06219572080647e-05
+1.8730715640331e-05
+1.63929387718431e-05
+1.47459670252489e-05
+1.44676324037292e-05
+1.56135996435731e-05
+1.76203402679727e-05
+1.95402599475579e-05
+2.06740087919967e-05
+2.1014417864064e-05
+2.12522584358123e-05
+2.26055425217235e-05
+2.65157975549431e-05
+3.44381303668151e-05
+4.80111787592057e-05
+6.96628520208009e-05
+0.000103675967786213
+0.000157960534701281
+0.000246550376752514
+0.000392169556199813
+0.000621439785706698
+0.000883370608219175
+-4.0561654718891e-06
+0.0017382172389216
+0.00348126248285636
+
+# State 24
+-0.234249065875389
+-0.182051007064103
+-0.0949330268539885
+0.0236040694511772
+0.14129268283036
+0.218851684069907
+0.234138009322835
+0.190115563396985
+0.114748188933456
+0.0484228654137374
+0.0259043065775945
+0.0584225071294532
+0.127777568831656
+0.197692934972706
+0.235619185138799
+0.226938655580346
+0.178747561367086
+0.114576041516594
+0.0645715801112944
+0.0533540442368022
+0.0862505501110558
+0.144604609489236
+0.196807191007074
+0.217606108539795
+0.200486104951779
+0.157815521082325
+0.111378725532572
+0.0816514194676428
+0.0811852339672811
+0.10954978448761
+0.151933165751414
+0.186282564012948
+0.196300559142613
+0.179752157533003
+0.147590029117881
+0.116664089193317
+0.101134553093207
+0.107014881068668
+0.130187809836083
+0.158458125126883
+0.178268640398864
+0.183333295012267
+0.17755023922762
+0.170170752780335
+0.170045406307676
+0.184127126696528
+0.21842636820152
+0.277699519529728
+0.364319769404478
+0.493006162215302
+0.681449051208258
+
+# State 25
+1.50446948800468
+1.46550406541005
+1.41093484052784
+1.37512909101605
+1.37825523377237
+1.41438496477343
+1.46358638125826
+1.50283702114278
+1.51401769637329
+1.49112925337533
+1.44608191187487
+1.40258779811262
+1.38229932350164
+1.39350503210422
+1.42764752710108
+1.46658150185133
+1.49352482510655
+1.4975624975439
+1.47579140374651
+1.43833693108916
+1.40520720281844
+1.39396141504435
+1.40897423804474
+1.43989068670004
+1.46914239335728
+1.48389575623772
+1.48035380731264
+1.46121706279698
+1.43509035615663
+1.41462577152653
+1.41028178205132
+1.42383912187195
+1.4473285351006
+1.46806950687892
+1.47700119074211
+1.47235340463595
+1.45825435059113
+1.44297646774074
+1.43566669775467
+1.44159710531356
+1.45925150717726
+1.48219470438481
+1.50480911196694
+1.52710495029462
+1.55354425221648
+1.59037489217727
+1.64757209708946
+1.74346907448822
+1.91462175957795
+2.26400391770587
+3.07016965577944
+
+# State 26
+-0.00221351699471778
+-0.00102757488153308
+-0.000258272859302807
+0.000240198586068874
+0.000563388787577695
+0.000773047053433622
+0.000909350409178922
+0.000998200755065424
+0.00105628357179143
+0.00109435533358788
+0.00111935334523433
+0.00113577563646204
+0.00114656220777516
+0.00115365984613836
+0.00115838845926459
+0.00116160181029197
+0.001163844809857
+0.00116544968842797
+0.00116661193411014
+0.00116744759600597
+0.00116804404062724
+0.00116848529969665
+0.0011688686875201
+0.0011692920041981
+0.00116982915358596
+0.00117053279026531
+0.00117144097893469
+0.00117259722573062
+0.00117407126833699
+0.00117598506213069
+0.00117853036519476
+0.00118198558882526
+0.00118672155204459
+0.00119322763500561
+0.00120216372714098
+0.00121444434080339
+0.00123136866539057
+0.001254802573701
+0.00128744200460948
+0.00133318989686234
+0.00139771199451658
+0.001489266641162
+0.00161996842079481
+0.00180770273322146
+0.00207903344947918
+0.00247362602073817
+0.00305098537386994
+0.00390083337797437
+0.00516076687890987
+0.00703307902196064
+0.00983956162485143
+
+# State 27
+264.653013897604
+264.788417082086
+264.884610951887
+264.955103079127
+265.008628485589
+265.050872137194
+265.085544213655
+265.115069274918
+265.141033002046
+265.164473169001
+265.186069532634
+265.206267857308
+265.22536094782
+265.243541600872
+265.260937208747
+265.277632373437
+265.293683685596
+265.309129383007
+265.323995662537
+265.33830080479
+265.35205786889
+265.365276452201
+265.377963838011
+265.390125741833
+265.401766793229
+265.412890841521
+265.423501141397
+265.433600452364
+265.443191070204
+265.452274796091
+265.460852837589
+265.468925623261
+265.476492496745
+265.483551234045
+265.490097295337
+265.496122673826
+265.501614130273
+265.506550488953
+265.510898498511
+265.514606497544
+265.517594721083
+265.519740465222
+265.520855374609
+265.520650639555
+265.518683551201
+265.514274997831
+265.50638049807
+265.493382670769
+265.472735611683
+265.440278615358
+265.388655669629
+
+# State 28
+-0.0831137953955275
+-1.03973364846801
+-1.38822141702768
+-1.71148122009015
+-2.08368065866729
+-2.4086457384304
+-2.67441352319558
+-2.96306927001802
+-3.31016932093013
+-3.66556710806025
+-3.95236245029429
+-4.10897628503114
+-4.19969055923504
+-4.35361924991176
+-4.58011272169651
+-4.79196311625402
+-4.90271180266264
+-4.898661875582
+-4.88311201707396
+-4.95883715443467
+-5.11018422196551
+-5.24403653129093
+-5.26506847767277
+-5.19696601008887
+-5.13912291641248
+-5.19843375288035
+-5.33077627799103
+-5.41352246024501
+-5.35948955294318
+-5.24217486723903
+-5.20998241390343
+-5.31160403283575
+-5.45239179867283
+-5.47085969556322
+-5.37547491083517
+-5.27307498111234
+-5.29955832870858
+-5.4070859266639
+-5.50071398241099
+-5.48820110684829
+-5.36725220013036
+-5.24186779693781
+-5.17755176696113
+-5.16627312446977
+-5.0181066937291
+-4.65523878085007
+-4.06862802472671
+-3.38347968071531
+-2.67035985020346
+-1.77179842033043
+-0.529885034329896
+
+# State 29
+0.174744218014493
+0.435960200410676
+0.305706920384261
+0.339272844090373
+0.468238860463996
+0.604295463535241
+0.764579637527403
+0.950669137648626
+1.17118432829271
+1.4281606956361
+1.64678369263748
+1.78871073510723
+1.91562303333028
+2.06332180331108
+2.22304717347958
+2.3824833949576
+2.48727955609985
+2.52148642425684
+2.55300298249029
+2.62567920720957
+2.71827285464539
+2.79042108700879
+2.80931553657113
+2.78103249140371
+2.78156374289895
+2.8287759532188
+2.88784611685046
+2.92029544694649
+2.90892816891815
+2.8908762168652
+2.90337411358295
+2.94910368575957
+3.00349909531716
+3.04588134197363
+3.0529721415945
+3.06092837078026
+3.09930066556627
+3.18887570127475
+3.31124864511131
+3.39088041559692
+3.4328061012403
+3.50166124245309
+3.63927495912404
+3.80589657689623
+3.95271947486268
+3.98516650642478
+3.88374379208219
+3.68794115754995
+3.30797885635316
+2.54259859462367
+1.11901011086279
+
+# State 30
+0.00599134498827611
+0.0217474958047071
+0.0160577409739755
+0.0135040345828626
+0.013332141342027
+0.013695518062746
+0.0139678628531943
+0.0143930274255174
+0.0152570191024215
+0.0162459688677861
+0.0167127136437914
+0.0164335242475669
+0.0159102545504584
+0.0158695508055985
+0.0164701328882882
+0.0170898538284497
+0.0170032218647439
+0.0162249593462116
+0.0155311174118509
+0.0156155230147672
+0.0163362730811882
+0.0168787208484847
+0.0166412238409807
+0.0158848079400155
+0.0154516496612582
+0.0158492047511328
+0.0166772336318722
+0.0170731072393284
+0.0166883784716054
+0.0160964639368336
+0.0161702165034669
+0.0171277074539586
+0.0182722608814384
+0.0187257568760136
+0.0184042229692584
+0.0181468507208618
+0.0188337028123015
+0.020432806311704
+0.0220214403944627
+0.0227520825588985
+0.0227646050456598
+0.0230510549517157
+0.0243143426139504
+0.0260227477154916
+0.0267835414307094
+0.0257463653047695
+0.0234177150517113
+0.0209239340290303
+0.0184857308988012
+0.0148708888493088
+0.00857067428475779
+
+# State 31
+0.993945587026654
+1.01220714012886
+1.05200483052507
+1.06595018770339
+1.04632634038259
+1.01361546790962
+0.988290275972898
+0.988533990772646
+1.00556429249566
+1.00644078255908
+0.979392715353116
+0.94666563274405
+0.928414629535149
+0.942185985621448
+0.970024083709067
+0.967521021210857
+0.932782463063771
+0.899965260300594
+0.898061628471267
+0.925130769859938
+0.942927646003956
+0.934750494151073
+0.90762679602249
+0.895066135408512
+0.906535339594999
+0.931872154188064
+0.942624505826958
+0.928799950242699
+0.899036638118797
+0.881105690591775
+0.900010556684798
+0.940332247298253
+0.959115407336962
+0.923765869481591
+0.882768876780551
+0.873124042561517
+0.912118791982906
+0.93858389452914
+0.92175241075824
+0.894279689604185
+0.879648707904886
+0.902155115892597
+0.925581700812834
+0.938488044919969
+0.917124231817123
+0.889825945674687
+0.878446386350315
+0.881910845302286
+0.869335867930493
+0.694695359290295
+-0.0118475401677988
+
+# State 32
+5.108835022295
+5.90971748945198
+5.93235628597039
+5.91947819434254
+5.91831499640603
+5.93928532433763
+5.97341531394089
+6.01199027427716
+6.01442051134213
+5.99178539854509
+5.99502108796554
+6.02222175624759
+6.05927990341677
+6.08072340874446
+6.06298111317293
+6.04111294896599
+6.05518737135905
+6.08330837866948
+6.1022937476253
+6.10855157270293
+6.08619766955655
+6.0560979048873
+6.06243651402527
+6.08434545537041
+6.11289284653857
+6.09840907100306
+6.06541660069637
+6.04269781262434
+6.07315257537409
+6.12176524818595
+6.12941483543368
+6.09164012897476
+6.04663536399603
+6.07601294940861
+6.11628262263634
+6.14303141176516
+6.11379409017069
+6.09371767331028
+6.08985449030268
+6.10009156272891
+6.11171830327956
+6.10774991855032
+6.12115486277404
+6.0815768917364
+6.07458536658741
+6.08367216596666
+6.10231822014517
+6.07395399314584
+5.89012962221621
+5.25143590751944
+1.2161643329355
+
+# State 33
+0.0140813697397839
+0.0113071679423341
+0.00980270254656018
+0.00897984371823838
+0.00853431369498418
+0.00829835625270725
+0.00816852179517888
+0.00808492700391138
+0.00802383494484511
+0.00798567884497358
+0.0079724438183626
+0.00797364950581668
+0.00797363825524186
+0.00796306835171717
+0.00794674144217436
+0.00793867210646164
+0.0079451976686023
+0.00795726373450791
+0.00796167528500593
+0.007954504013902
+0.00794476507719193
+0.00794511599253542
+0.00795861099726179
+0.0079750528957993
+0.00798352996304856
+0.00798291702233675
+0.00798640326339287
+0.00800614008485589
+0.00804202140626824
+0.00808219672864628
+0.00811939704225259
+0.00816155319140642
+0.00822733757020026
+0.0083325438636822
+0.00847765020246759
+0.0086631549033312
+0.00890135289711504
+0.00922907457060573
+0.00970044588189533
+0.0103853562557901
+0.0113816330836256
+0.0128487672202279
+0.0150685621823238
+0.0185300510700414
+0.0240737329968937
+0.0331411530593538
+0.0482769813842955
+0.0741304927760268
+0.119829048377901
+0.206514100667029
+0.399648836225146
+
+# State 34
+255.513058233651
+174.731307734582
+173.942987709124
+173.819633780281
+173.777750757448
+173.764986660308
+173.762789794502
+173.766097157085
+173.765706741578
+173.763543898796
+173.766733885705
+173.772209448632
+173.778669124627
+173.782326674353
+173.779037340173
+173.77669408874
+173.780463856364
+173.784366869027
+173.786476366116
+173.788283485153
+173.786768309633
+173.783432428903
+173.783851134408
+173.784509051154
+173.78712525723
+173.783099998061
+173.778121054231
+173.776033933125
+173.783689344355
+173.794203404671
+173.795266278406
+173.786547372755
+173.777621416165
+173.784434281028
+173.791226844916
+173.794368064154
+173.787642347529
+173.787043773101
+173.79165127406
+173.79428338258
+173.791671562658
+173.784999457255
+173.785151403745
+173.777935712078
+173.778189115265
+173.777944455805
+173.77268693837
+173.741925548167
+173.6420310758
+173.079204082085
+117.53584370832
+
+# Control 0
+-0.0984175764329631
+-0.105161442296232
+-0.105774153771578
+-0.105834565628015
+-0.105353025214742
+-0.104512580361302
+-0.103941274438578
+-0.104690179853351
+-0.106141892365319
+-0.107224661500802
+-0.106951348167004
+-0.105145144895094
+-0.103151382021682
+-0.102465176286268
+-0.104049885972619
+-0.107132632712929
+-0.108753751782497
+-0.108498404647241
+-0.10553168218586
+-0.101343773858421
+-0.100725071024746
+-0.102776515393352
+-0.107190247960401
+-0.111006470230995
+-0.110546693536551
+-0.106293547648378
+-0.100649263932505
+-0.0988419454041546
+-0.101720530029472
+-0.106574753713446
+-0.111959709639974
+-0.112000624931409
+-0.107036253622157
+-0.101261156629948
+-0.0975347842306177
+-0.100250106123246
+-0.106497845626487
+-0.112840470140306
+-0.112802521088002
+-0.106809451276982
+-0.100160141583692
+-0.0969885209466354
+-0.0994012408544645
+-0.107741068176727
+-0.113968337605802
+-0.11284975208161
+-0.107506871993394
+-0.0979666557984698
+-0.0933717601025902
+-0.0972358945108017
+
+# Control 1
+0.03546763053994
+0.0328064293076778
+0.0332303332723079
+0.0336671152012573
+0.0333631779890454
+0.0325360993691862
+0.0319548382949131
+0.0315628552016584
+0.0323524399943759
+0.0338870283562225
+0.0350309225215141
+0.0343598681241725
+0.0326426878873477
+0.0314094533328716
+0.0306258391922722
+0.0309860731116744
+0.0341254554803873
+0.0353912908573259
+0.0347093675259443
+0.0341569423889973
+0.0308825931018407
+0.0300911910568015
+0.0315658922182819
+0.033963759199727
+0.0356972948097899
+0.0344701661389375
+0.0334980523929196
+0.0305321432994361
+0.0298125021994721
+0.0332105421850035
+0.0346042830505762
+0.0368602570769258
+0.036335228163663
+0.0308962235109356
+0.0291398577053341
+0.0277674213705235
+0.0332076385197224
+0.0361749355541674
+0.0396599306454915
+0.0391323646299589
+0.0312152374308583
+0.0264993050026381
+0.0274142388542531
+0.0281040845042867
+0.0358334495282731
+0.0434129233339326
+0.0397359010961952
+0.0339602667168751
+0.0294763021249942
+0.0249375432417792
+
+# Control 2
+-0.00335921324549755
+-0.00281891266861103
+-0.00279568372070551
+-0.00280011152204491
+-0.00280925033085927
+-0.00279892959072962
+-0.0027982448419112
+-0.00275338172583049
+-0.00274109693656065
+-0.00278344057640026
+-0.00279682574355438
+-0.00286014337863312
+-0.00285415068317788
+-0.0027960028433321
+-0.00274245882459164
+-0.00267435031217529
+-0.00273456713845349
+-0.00280233294325115
+-0.00286552371677339
+-0.00295852846486355
+-0.00284026684094087
+-0.00276633638801852
+-0.00268189737162364
+-0.00264535653077108
+-0.00278265164148861
+-0.00289263331751509
+-0.00289251693033452
+-0.00297787852836739
+-0.002785554045316
+-0.00269797968920752
+-0.00267770699833053
+-0.00277328878043212
+-0.00287777189840975
+-0.00287784588781789
+-0.00288779661328332
+-0.00289990172634342
+-0.00261044828789531
+-0.00272092522773821
+-0.00287667417310762
+-0.00288861148858839
+-0.00297153870635599
+-0.00285993677124401
+-0.00274660240383084
+-0.00259892479629646
+-0.00262933916935682
+-0.00294962515340444
+-0.00296438712346265
+-0.00311144894028534
+-0.00326343857167361
+-0.00284863965163657
+
+# Control 3
+-0.141951068418956
+-0.117427663802302
+-0.0981570768813115
+-0.113449051812346
+-0.121975919973016
+-0.119147727867057
+-0.120749454838622
+-0.126995052459782
+-0.130665150382113
+-0.130767699540609
+-0.130025570783321
+-0.134964382817153
+-0.142213760429741
+-0.1422562323089
+-0.135774643839175
+-0.134851411385944
+-0.140424750947033
+-0.140703335466711
+-0.134169129936303
+-0.130290457032117
+-0.13680336181071
+-0.139452202854658
+-0.131773420802314
+-0.129128167045217
+-0.133780245244256
+-0.139077325624545
+-0.12957316963521
+-0.128516353412426
+-0.132831986317249
+-0.140239500213984
+-0.136588593702822
+-0.130015109816576
+-0.133403955791144
+-0.140597669377102
+-0.138722266248665
+-0.130668927058147
+-0.132445154985912
+-0.138023733174609
+-0.135832063192121
+-0.127816742637471
+-0.127829014225834
+-0.130622972669917
+-0.125895042917889
+-0.119211950104701
+-0.118889986143951
+-0.109775526745138
+-0.107369088463757
+-0.112992890430722
+-0.0380292811497108
+-0.119325723040729
+
+# Control 4
+-0.0953064892226532
+0.136944443043766
+0.151935671932452
+0.138633021701365
+0.129706959705727
+0.137485676230736
+0.13774778031486
+0.12777086728424
+0.122229341968395
+0.126703150964702
+0.130242837366023
+0.12087332747357
+0.108806046755111
+0.112870117605344
+0.124834454991599
+0.122173316011864
+0.111266505308342
+0.113704923129574
+0.126343971950631
+0.127686847749855
+0.115855675810621
+0.11433374088563
+0.129045577222278
+0.130089261605982
+0.119918699297226
+0.113850440556048
+0.130704774710052
+0.131248858304028
+0.121423810735482
+0.111231159974564
+0.121635582563832
+0.130713803147629
+0.122129979071752
+0.110513070551625
+0.117758059518322
+0.130162113738408
+0.123741806490273
+0.113141757365344
+0.119469815850097
+0.133178805564335
+0.129554335970769
+0.12149119490387
+0.128092310042853
+0.139698103224708
+0.137202644281088
+0.140192029623938
+0.140281660751393
+0.141572061933778
+0.185497401713952
+0.13170104966198
+
+# Control 5
+-0.0599520138712224
+-0.00123866980376827
+-0.000422743226150271
+-0.000477225095756631
+-0.000658957451295817
+-0.000692647865754879
+-0.000693641002984227
+-0.00075339422603982
+-0.000939132824408258
+-0.00110176139515424
+-0.0010352038978327
+-0.00104971501965458
+-0.00142158330705048
+-0.00171319048023398
+-0.00138914271379702
+-0.00115242018803182
+-0.00143618913965727
+-0.00179925161130795
+-0.00151219612721926
+-0.00111857541913286
+-0.0012892153485888
+-0.00169262412968958
+-0.00143388932955981
+-0.00110695273832591
+-0.00116207620040306
+-0.00162483197443349
+-0.00138798268875907
+-0.00115583144931769
+-0.00111255505829797
+-0.0015716072588151
+-0.0016279172781984
+-0.00117390615519892
+-0.00105410465919372
+-0.00141345352272008
+-0.00157946170117782
+-0.00116974455192674
+-0.00097446861336468
+-0.00112919893683198
+-0.00120665023608954
+-0.000938835638091805
+-0.000766728192810174
+-0.000786477088019761
+-0.000792916454669057
+-0.000699285502204775
+-0.000622855993079337
+-0.000666698374983824
+-0.000636201549717932
+-0.000567441966018578
+-0.000602587138368843
+-0.000595310601681083
+
+# Control 6
+-0.018601270025733
+-0.137146400755468
+-0.130607060485996
+-0.130062306765377
+-0.134798870487549
+-0.139050309245622
+-0.139453801693627
+-0.136324586147789
+-0.132826143757923
+-0.134435934181912
+-0.139251682274522
+-0.141984429533774
+-0.141399851123662
+-0.137999526338084
+-0.13459538415597
+-0.136943698520906
+-0.142178799661655
+-0.144151744489746
+-0.141623411991945
+-0.137542386439204
+-0.136778649439468
+-0.139865746914038
+-0.143354598373381
+-0.142622806877115
+-0.139774838887048
+-0.137035373389307
+-0.137301119985324
+-0.140247950225483
+-0.143294476074624
+-0.143751096174792
+-0.140160588357918
+-0.136711103257817
+-0.135492406419705
+-0.141234312007968
+-0.145001921724705
+-0.143629625094625
+-0.138221530129835
+-0.13533694692223
+-0.140363854480862
+-0.144173450610041
+-0.144136112022754
+-0.139457955954116
+-0.137304108632712
+-0.137313350765991
+-0.141665165922005
+-0.144947016133089
+-0.144632670647262
+-0.142126941354248
+-0.13714967076313
+-0.136819370649988
+
+# Control 7
+-0.144595526119376
+-0.0363088958899718
+-0.0496634013647701
+-0.0506930179312082
+-0.0400500314034792
+-0.0296613358440729
+-0.027491797236444
+-0.0374048385712347
+-0.0461848333258646
+-0.0405823886558933
+-0.0283901705122002
+-0.0224265172253919
+-0.0236781424539783
+-0.0334672097935883
+-0.0413286953741208
+-0.0346785717296416
+-0.022121821079029
+-0.0161469041955838
+-0.0219076632340001
+-0.0354244606532195
+-0.037960343238308
+-0.0269958863854479
+-0.0152293512430788
+-0.0191479294750889
+-0.0291644549623451
+-0.0352631957810721
+-0.033275736288674
+-0.0224725428736739
+-0.0182658072769297
+-0.0187362410773627
+-0.0277865659163423
+-0.0340259164099053
+-0.03603168475774
+-0.0268784070976936
+-0.0144603514305243
+-0.0171870734760235
+-0.030419384478021
+-0.0411076504156274
+-0.0281764917334797
+-0.0167382078695586
+-0.0137227048576231
+-0.0261265814159666
+-0.0355838405700691
+-0.0322671651715584
+-0.0195390498303168
+-0.00776202050997565
+-0.0149364329859789
+-0.0221396031321547
+-0.0348831457261858
+-0.0334635975820086
+
+# Control 8
+-0.000906041205839197
+-0.000336564702475261
+-0.000459274566612472
+-0.00049003483400543
+-0.000491651142920323
+-0.000476395422005301
+-0.000454079692476365
+-0.000431270095962816
+-0.000448298865652464
+-0.000480446177302556
+-0.00047151730513757
+-0.000442955889301497
+-0.000410735354280274
+-0.000403513421462204
+-0.000438929053002218
+-0.000461572128788695
+-0.000434472871954693
+-0.000401181733688549
+-0.000384635503185359
+-0.000390020962859346
+-0.000417435266276975
+-0.000441428589573094
+-0.000427079624946115
+-0.000402577812566265
+-0.0003771610363496
+-0.000399610265282033
+-0.000435868633283537
+-0.000453016752418434
+-0.000413156326435679
+-0.000363901254187796
+-0.000363262242891738
+-0.00041323396863879
+-0.000462973626320666
+-0.000419019504125538
+-0.000372399585518272
+-0.000341657093279283
+-0.000371045868653722
+-0.000397089795713817
+-0.00039432957027359
+-0.000375449935693019
+-0.000351151717576641
+-0.000342248509509229
+-0.000333908446122152
+-0.000372144271940429
+-0.000369740172303558
+-0.000346027700698083
+-0.000318014897128414
+-0.000334765462335302
+-0.000440963049279699
+-0.000578044093070198
+
+# Parameters
+2.3416580013276
+0.253885678264361
+1.63333554337835
+0
+1.83281019134069
+
+# Boundary conditions : 
+0 -0.141297854337969 0 4
+0 -0.0118562177257618 0 4
+0 0.000828414789076493 0 4
+0 -1.00535408935802 0 4
+0 0.186240152592378 0 4
+0 0.0362011115240275 0 4
+0 295.768225489917 0 4
+0 -1.38966304154307 0 4
+0 -0.305215059249179 0 4
+0 0.00131889219201532 0 4
+0 0.263250251473417 0 4
+0 2.16769086294788 0 4
+0 0.00568499442401663 0 4
+0 0.18317886206296 0 4
+0 -0.847712280084676 0 4
+0 0.748104634024885 0 4
+0 0.00330821475388324 0 4
+0 2.8839871692931 0 4
+0 2.0855426283198 0 4
+0 0.00301023581537881 0 4
+0 -4.12580551724375 0 4
+0 0.125756046628656 0 4
+0 -0.0174976389159295 0 4
+0 1.29185070884993e-05 0 4
+0 0.0622161619321738 0 4
+0 -0.532316590797976 0 4
+0 0.00133218310309582 0 4
+0 0.195749550811172 0 4
+0 -0.547730834150995 0 4
+0 0.0672050445630949 0 4
+0 0.00251008250541975 0 4
+0 0.312496535818396 0 4
+0 2.03866536651556 0 4
+0 0.00424180811493244 0 4
+0 -9.87559743597825 0 4
+0 0.529885034329896 0 4
+0 -1.11901011086279 0 4
+0 -0.00857067428475779 0 4
+0 0.0118475401677988 0 4
+0 -1.2161643329355 0 4
+0 5.42656616377485 0 4
+
+# Path constraint 0 : 
+0 0 4
+-0.895332638895
+-0.889804097088972
+-0.889093541653571
+-0.888904228018429
+-0.889454744765557
+-0.890504286737822
+-0.891221645551308
+-0.8906207117543
+-0.889003174365677
+-0.887513528519117
+-0.887423010158879
+-0.889346114154689
+-0.891769233294705
+-0.892792333567297
+-0.891501880764916
+-0.888444229784033
+-0.885985075117564
+-0.885840898963468
+-0.888869952914616
+-0.893013972389338
+-0.894608626513544
+-0.89287323157759
+-0.888226356492864
+-0.883883802666051
+-0.883799262227992
+-0.888219509963351
+-0.893883269469579
+-0.896506958174644
+-0.893964105944215
+-0.888338021978353
+-0.882783946906234
+-0.882057176278237
+-0.886927943477306
+-0.894091169082902
+-0.898164324466914
+-0.895935006379125
+-0.888414370013862
+-0.881471517777673
+-0.880394004678225
+-0.88621096309418
+-0.895046319491818
+-0.899415877995708
+-0.896851122157679
+-0.888623468595117
+-0.880502169449847
+-0.879051875806921
+-0.88534636092671
+-0.896267428074278
+-0.902031698989261
+-0.899576820444101
+
+# Path constraint 1 : 
+0 0 4
+-0.818815903897593
+-0.819598860841965
+-0.819114846216488
+-0.820863097584659
+-0.821948168573616
+-0.818068771274498
+-0.816818770166438
+-0.819850879883666
+-0.821074664921737
+-0.817914598098313
+-0.815959468078929
+-0.818818191240483
+-0.820931492536677
+-0.818397593351329
+-0.815554005789815
+-0.818031457745011
+-0.820831340571761
+-0.81908710531938
+-0.815700131814335
+-0.817569779112942
+-0.820725463334965
+-0.8196614678934
+-0.815557457539796
+-0.816700996036498
+-0.820336428623253
+-0.82025833705947
+-0.815948727477193
+-0.816304458826902
+-0.820029679721156
+-0.820997323151492
+-0.817094808739549
+-0.815632418333389
+-0.819131378217711
+-0.821162528401115
+-0.818029336337003
+-0.815560544747892
+-0.818741335815921
+-0.821526239269149
+-0.819099910737787
+-0.815406946603205
+-0.817996783767712
+-0.821609725672877
+-0.820395349615007
+-0.816349413035078
+-0.818451707932518
+-0.821941257083582
+-0.82334363794893
+-0.81886368669299
+-0.810643523008453
+-0.822280701509452
+
+# Path constraint 2 : 
+0 0 4
+-0.854210102095597
+-0.858128281758741
+-0.860268584001169
+-0.860406927671022
+-0.859376452110662
+-0.857820499726732
+-0.85786144819064
+-0.858636282127267
+-0.859372747069384
+-0.859571436321129
+-0.85788295272359
+-0.856254658806583
+-0.856630752839405
+-0.857999696394744
+-0.859201664938346
+-0.858732902094568
+-0.856109851595886
+-0.854946186188291
+-0.856691645473528
+-0.857968480271757
+-0.858050851170369
+-0.85755211514116
+-0.855838089596855
+-0.856097010755214
+-0.857214450067249
+-0.858499659982722
+-0.858723455038555
+-0.857962300955568
+-0.855545449060512
+-0.855032566397532
+-0.857111177016122
+-0.859117568505451
+-0.859797686008888
+-0.856230200550261
+-0.854278355249459
+-0.855345302775672
+-0.858470257477479
+-0.858557128828527
+-0.856835472874942
+-0.85485768216628
+-0.855211689956772
+-0.858115410035382
+-0.858159457657587
+-0.858945880109258
+-0.856993250467764
+-0.854844889227238
+-0.854597773117539
+-0.856158623638822
+-0.85848300280673
+-0.859146577311154
+
+# Dynamic constraint 0 (y_dot - f = 0) : 
+0 0 4
+0.0634315273335582
+0.0713804851611153
+0.0703067904076113
+0.0680733885017375
+0.0663630563101409
+0.0665390656000251
+0.0655239390707338
+0.0667366602500787
+0.0666097009975957
+0.0633378253844885
+0.064002009348592
+0.0633973372237708
+0.0633977398186727
+0.0661009318476133
+0.0661391099774624
+0.0682816999598117
+0.063905331996486
+0.063622805255648
+0.0640483109860104
+0.0603180394778629
+0.0670559862484348
+0.0665722541963114
+0.0643772487580612
+0.0659421079406952
+0.0635566101710712
+0.0600946484855767
+0.0638736447007093
+0.0627688643158248
+0.0655357700530605
+0.0618236899836866
+0.0622058317138445
+0.0584807059277361
+0.0566737528844232
+0.059848368561799
+0.064489990573434
+0.0561353200922277
+0.0605261305818328
+0.0556108979027519
+0.0450255109799906
+0.0495754643831567
+0.0489754680491576
+0.0523232447068436
+0.0511867958772245
+0.0503120276538982
+0.0436152534163616
+0.029982412819388
+0.0398691658175547
+0.0399662749661411
+0.0440023824730389
+0.0694465901873338
+
+# Dynamic constraint 1 (y_dot - f = 0) : 
+0 0 4
+-0.0175548461174025
+-0.0329824131644579
+-0.0393440199283294
+-0.0423079249669012
+-0.0434903584776466
+-0.0450449479077442
+-0.0453784675238528
+-0.0465100447216362
+-0.0477867641889448
+-0.046258933769139
+-0.0465810642519888
+-0.0449868613017088
+-0.0441667556903529
+-0.0449627555441064
+-0.045526640176022
+-0.0484021258241826
+-0.0480588440289758
+-0.0471278777124705
+-0.0471061682142705
+-0.0431964572988323
+-0.0441780521021511
+-0.0450664751460432
+-0.0451931150594024
+-0.0487213400885378
+-0.0481385904909249
+-0.0455648675499841
+-0.0478666432488603
+-0.0437918987679139
+-0.045131920158775
+-0.0454981315745066
+-0.0465982392142549
+-0.0464341503690114
+-0.0444214929673925
+-0.0457245302020391
+-0.049074322431002
+-0.0433131366976828
+-0.0496146012472206
+-0.0482709076416051
+-0.0424556047432477
+-0.0436802478263595
+-0.0417382510296137
+-0.0437809816092511
+-0.0467707708782814
+-0.0483568318846418
+-0.0540280032528996
+-0.042762994511511
+-0.0444451887092518
+-0.044190444021882
+-0.0405026992373732
+-0.0560977372661231
+
+# Dynamic constraint 2 (y_dot - f = 0) : 
+0 0 4
+-0.000842077387022898
+-0.000926028799608904
+-0.000968151269067158
+-0.00098830670427558
+-0.000997034946521745
+-0.00100149681582835
+-0.00100115111002995
+-0.00100327618259772
+-0.00100584562373862
+-0.00100420900410807
+-0.00100491813621518
+-0.00100007516160627
+-0.000995907037804939
+-0.000995131139997878
+-0.000995340129227179
+-0.00100220837774361
+-0.00100329479858297
+-0.00100271626790038
+-0.00100204007081967
+-0.000990651745033803
+-0.000990550101540066
+-0.000990514023696329
+-0.000994676423330424
+-0.00100501643767808
+-0.00100496566086703
+-0.00100009542514607
+-0.00100117485252776
+-0.000986475335146079
+-0.000989749129863763
+-0.000995183782490785
+-0.00100230393072222
+-0.00100357871190219
+-0.000999020423659884
+-0.000999118313975072
+-0.000997049505453205
+-0.000984542047659494
+-0.00100296859297777
+-0.0010079609560228
+-0.00100338878895753
+-0.00100673015016578
+-0.00100034672350429
+-0.00100181305585874
+-0.00100562241541904
+-0.00102250877592957
+-0.0010430014089211
+-0.0010387599928127
+-0.00104706954027697
+-0.00103727167832263
+-0.000978037034478982
+-0.00089292606849557
+
+# Dynamic constraint 3 (y_dot - f = 0) : 
+0 0 4
+24.0117101781056
+21.7440218549978
+21.3338066310695
+21.2396525308034
+21.2120214412248
+21.2025851349656
+21.1990804693931
+21.2023447349796
+21.2084119706326
+21.2100638111077
+21.2089516031514
+21.2006520640799
+21.1930611022977
+21.1924591491755
+21.19800841212
+21.2102578594263
+21.2166010157474
+21.2142318646367
+21.2051512633954
+21.1897532502974
+21.1871363734715
+21.1935850423028
+21.2066385816676
+21.2207445132701
+21.2183983243819
+21.2042972596271
+21.1939316610561
+21.1843735671534
+21.1936123435583
+21.2078625616267
+21.2193429483611
+21.2178630710058
+21.202829290693
+21.1884954962507
+21.1865019919435
+21.1905042978451
+21.2175293461445
+21.2277898619841
+21.2175195720216
+21.2002005047961
+21.1771616199643
+21.1750397650856
+21.1914848014668
+21.2174249526488
+21.2373371567452
+21.2087682265801
+21.1462756073895
+20.9760002996733
+20.440312041056
+18.2567568671147
+
+# Dynamic constraint 4 (y_dot - f = 0) : 
+0 0 4
+1.59106522706145
+1.89427712727735
+2.01517325500266
+2.06460444991513
+2.08585978711214
+2.09635945921486
+2.09887756696834
+2.10041535080456
+2.09864397112271
+2.09473486228509
+2.09719005334491
+2.09946022579125
+2.10180185973729
+2.10376793371761
+2.10089168381331
+2.09924107898733
+2.09284716715226
+2.09515991631245
+2.10034096965286
+2.10031130441756
+2.10786075572728
+2.10254703324096
+2.09457978534018
+2.09399423176048
+2.09460980032239
+2.09734164255943
+2.10653376496486
+2.10616073707003
+2.10391382116864
+2.09334080185352
+2.09237737444026
+2.09147714780712
+2.09787872021814
+2.10803055810885
+2.11392567904715
+2.09926984719826
+2.09611006409238
+2.08913281951457
+2.08397832335225
+2.10114074707965
+2.10967295273848
+2.11413348235525
+2.10573755922663
+2.09604181224292
+2.08366410358782
+2.07061208061897
+2.08285916900916
+2.06038794363566
+1.97649989000004
+1.69578858504881
+
+# Dynamic constraint 5 (y_dot - f = 0) : 
+0 0 4
+-0.11872363418389
+-0.117840159366864
+-0.117068279296961
+-0.11659988050758
+-0.116333149164809
+-0.116184367274242
+-0.116102492431237
+-0.116057223051626
+-0.116028960330763
+-0.116008657501224
+-0.115994169658519
+-0.115985744903341
+-0.115985666050429
+-0.115991066550497
+-0.115996566001377
+-0.11599691470233
+-0.115989578738379
+-0.11597974924364
+-0.115972766768599
+-0.115974018810065
+-0.115984454550684
+-0.115994701692299
+-0.115998877978117
+-0.115992803029831
+-0.115979977994977
+-0.115971589781084
+-0.115972245626782
+-0.115980730010076
+-0.115993522329294
+-0.115997517585518
+-0.115990585639934
+-0.115977482607208
+-0.1159687477552
+-0.115970300384219
+-0.115978369609927
+-0.115987233190204
+-0.115985986354691
+-0.115961645351482
+-0.115925369218502
+-0.115883627172815
+-0.115829814290598
+-0.11574250805868
+-0.115570889392993
+-0.115235931577921
+-0.11461085036625
+-0.113492979098705
+-0.11151636184091
+-0.107985526684576
+-0.101627998512415
+-0.0899928675110045
+
+# Dynamic constraint 6 (y_dot - f = 0) : 
+0 0 4
+-1011.69819473841
+-1014.91938831313
+-1014.94336736024
+-1014.94102334697
+-1014.93965806307
+-1014.93749389304
+-1014.9353987828
+-1014.93233535142
+-1014.93052000859
+-1014.93421078771
+-1014.94087134255
+-1014.94739742346
+-1014.94947326236
+-1014.94335833345
+-1014.92950604484
+-1014.91750978798
+-1014.91733518611
+-1014.92674028884
+-1014.94647211097
+-1014.9642044874
+-1014.96345709361
+-1014.94766340378
+-1014.92468073505
+-1014.90399103761
+-1014.90425561096
+-1014.92654790856
+-1014.95118539173
+-1014.96852135962
+-1014.96779267026
+-1014.94877159406
+-1014.92226145004
+-1014.91011207841
+-1014.91080862978
+-1014.92524052122
+-1014.94491118437
+-1014.95459182608
+-1014.95094311287
+-1014.94550168568
+-1014.9417656326
+-1014.93535580927
+-1014.9348415691
+-1014.92727601573
+-1014.91698754166
+-1014.91485532053
+-1014.92302470674
+-1014.94183187358
+-1014.95053069726
+-1014.92753581187
+-1015.16303248295
+-1055.4956473816
+
+# Dynamic constraint 7 (y_dot - f = 0) : 
+0 0 4
+0.117211395205342
+0.0829470842078912
+0.0862169898985181
+0.0410512787739354
+0.0218649414101546
+0.00455165392630441
+-0.0260442719256608
+-0.0145869717919229
+-0.0353789529254191
+-0.0124364186543744
+-0.0456602879641372
+-0.0347167686301932
+-0.0388507431013778
+-0.0256767428605937
+-0.0189664323867862
+-0.0378308509342333
+-0.0291062725173723
+-0.0653475961872587
+-0.0589811773854887
+-0.0794518446301238
+-0.041656855643359
+-0.0232464779421346
+-0.0059652386900102
+-0.00665343354003634
+-0.0366840841204965
+-0.0452234720037588
+-0.0811260382677621
+-0.0552727308584986
+-0.0431888622872707
+0.0061135305933866
+0.0129273524887674
+0.00889144677231624
+-0.0109210901074595
+-0.0460844191876206
+-0.0478213689110265
+-0.0547757646041851
+-0.00793529802877035
+0.00829772986794008
+0.0314457783172863
+0.011792220118009
+-0.00930620042214114
+-0.0250626380055348
+-0.0352641139604497
+-0.00658265270645053
+0.0117825135015148
+0.0516869875792301
+0.0548356376622574
+0.0664317108810311
+0.0753583865809071
+0.128526387045038
+
+# Dynamic constraint 8 (y_dot - f = 0) : 
+0 0 4
+-0.0296316551407673
+-0.00635933484472484
+0.0352580180355092
+0.0221898475006934
+0.0405197710096946
+0.013254869125061
+0.0278619603285482
+0.0120779232405092
+0.0293667187734491
+0.0478721141120997
+0.046751561353189
+0.0431491172407065
+0.00225062415042654
+0.0114504551107691
+-0.00729394705843678
+0.0200339264833271
+0.0214125712549669
+0.0411882236219012
+0.0360242167630009
+0.00504337998595639
+-0.0111887221359277
+-0.0363150059042512
+-0.0070259249125233
+-0.00712254291259418
+0.026867421557258
+0.0209714221784307
+0.0154991472470705
+-0.0136594318655752
+-0.0391958241880282
+-0.0292422379652899
+-0.0229044946111001
+0.0155280596782187
+0.0152603063209147
+0.0290598957614595
+0.00142530469974522
+-0.0170254307404398
+-0.0319414818244139
+-0.0247039799374059
+0.00686854243161683
+0.0178298409742295
+0.0352883961956266
+0.0127021448988243
+0.00225753980515297
+-0.0246471593193889
+-0.0241831281091026
+-0.0139527085595839
+-0.000192257108456939
+0.010514011970347
+-0.0111089260052724
+-0.0390209094208419
+
+# Dynamic constraint 9 (y_dot - f = 0) : 
+0 0 4
+-0.000465890037325995
+-0.000321397814609053
+-0.00022449487246091
+-0.000154324588781333
+-0.000106062215336133
+-7.49311063315387e-05
+-4.93487763621751e-05
+-3.4401375524927e-05
+-1.89474878811912e-05
+-1.25691946272768e-05
+-5.92893216714587e-06
+-4.40169518649215e-06
+-2.52355212704172e-06
+1.98502070322031e-07
+2.17670373026655e-06
+7.45744961229509e-06
+8.82527840215925e-06
+1.19269313849015e-05
+9.77161581419955e-06
+8.74781847294863e-06
+6.2278008872449e-06
+5.93474919094884e-06
+7.536473358263e-06
+9.22334531862075e-06
+1.27258673190758e-05
+1.2702855608331e-05
+1.33378636609492e-05
+1.02377434201327e-05
+8.89638049565234e-06
+7.05758540168111e-06
+7.48136761268047e-06
+9.10063120606978e-06
+1.04263488460131e-05
+1.23975577513999e-05
+1.1030294045333e-05
+1.04712621675398e-05
+7.32177572638788e-06
+6.02538975734727e-06
+4.01324385892196e-06
+3.14904829962106e-06
+1.2909489436341e-06
+-3.75919969731369e-06
+-1.12176720677309e-05
+-2.52038361931563e-05
+-4.42826406369389e-05
+-7.58845563956186e-05
+-0.000125996828709564
+-0.0002190969186127
+-0.000418122806997604
+-0.000943571604317573
+
+# Dynamic constraint 10 (y_dot - f = 0) : 
+0 0 4
+0.0480502958822657
+0.0387929197500707
+0.00107051704438854
+0.0455765517254321
+0.00515581799539788
+0.0576089079296915
+0.0174011842812449
+0.0379282647852723
+0.0158175774225513
+0.0127741059156938
+0.0392671321109717
+0.0273964957003354
+0.0754805946508181
+0.0283187398047398
+0.0505714473774126
+-0.00686431811663413
+0.00483217714965534
+-0.000776163934178342
+0.0208380746371519
+0.0635206470963348
+0.0523170779176358
+0.0774790309177775
+0.0106115317842046
+0.0176230447303314
+-0.0283595025946015
+0.00602522404892358
+0.0240899374687089
+0.0543394250709541
+0.0774198777451311
+0.0430302572268091
+0.0413927978527928
+-0.0190630581687308
+0.00295368261819684
+-0.00957483123808789
+0.0387807196316681
+0.0521650902142965
+0.055667899796914
+0.0442168642391803
+-0.00170791911901613
+0.00137460524038602
+-0.0233823866707343
+0.0162079965423243
+0.0113845672510178
+0.0255534328299341
+-0.00298911937609647
+-0.0415607946251075
+-0.0752444288908629
+-0.124981588857645
+-0.145026726306733
+-0.217852027483546
+
+# Dynamic constraint 11 (y_dot - f = 0) : 
+0 0 4
+0.106523462747973
+0.074554007177273
+0.121729928996309
+0.0888977387157124
+0.0868816900076812
+0.0770063984258085
+0.0384087437310943
+0.0598664900424307
+0.00703459156318909
+0.045098670749542
+0.00772606205554061
+0.0561681524662223
+0.056651391768727
+0.0790655777906976
+0.0868879275014265
+0.0467997374801636
+0.0502529924288517
+-0.0143305889989087
+0.0182047038248234
+-0.00126254337298026
+0.0660430594355088
+0.0803773960240426
+0.0983318531507753
+0.0847873174429788
+0.0260558772295654
+0.0175417345204695
+-0.0284615740235394
+0.0268781679169847
+0.0330662115766995
+0.0960622116599323
+0.0887537919362069
+0.0767984314740535
+0.0447227999998036
+-0.0023283916254252
+0.0108290835865119
+0.00120813151248766
+0.0621501857356195
+0.0605724377332195
+0.0837276109096727
+0.0483371406723125
+0.0225544394032098
+0.00464935318876636
+-0.0118626766837477
+0.0136053569590764
+-0.00306009316447553
+0.000617955964165029
+-0.0667959747304454
+-0.131289888774422
+-0.238101423429032
+-0.337133157304793
+
+# Dynamic constraint 12 (y_dot - f = 0) : 
+0 0 4
+-0.00331936595564865
+-0.002055715031389
+-0.00130517374564462
+-0.000838119817061907
+-0.000541178666586345
+-0.000350587751071671
+-0.000227676963710654
+-0.000148225409306303
+-9.67506554173747e-05
+-6.33231219370287e-05
+-4.1559760586497e-05
+-2.73260420272699e-05
+-1.80004348494522e-05
+-1.18601108423174e-05
+-7.84375850666221e-06
+-5.20985616504874e-06
+-3.49931696343132e-06
+-2.38532305942376e-06
+-1.64940266227727e-06
+-1.15736403425814e-06
+-8.10139693474847e-07
+-5.92241696627119e-07
+-4.6307036353165e-07
+-4.34411779762743e-07
+-4.84191969881429e-07
+-6.12784423613833e-07
+-8.01331068781691e-07
+-1.04056709365925e-06
+-1.35827533603882e-06
+-1.77707324919003e-06
+-2.37043584766787e-06
+-3.2079275185436e-06
+-4.41470563948727e-06
+-6.11803286176132e-06
+-8.5097572749028e-06
+-1.18678968669364e-05
+-1.65965401808562e-05
+-2.33093681834635e-05
+-3.29044464084075e-05
+-4.67470760712936e-05
+-6.68377338057346e-05
+-9.61815614159418e-05
+-0.0001392882146355
+-0.000202973376915342
+-0.000297554035263745
+-0.000438638372973832
+-0.000649691313200322
+-0.000965106517078399
+-0.00143188600748168
+-0.00210028412209964
+
+# Dynamic constraint 13 (y_dot - f = 0) : 
+0 0 4
+-0.128231904608413
+-0.0919067737581827
+-0.0679241426414592
+-0.0520548817167423
+-0.0415015998094077
+-0.0344271509417808
+-0.0296284966195799
+-0.0263187536852456
+-0.023983472251075
+-0.0222863675966778
+-0.0210076229548122
+-0.0200035450089899
+-0.0191801915666474
+-0.0184761349640894
+-0.0178511970644308
+-0.0172790870847166
+-0.0167425900579019
+-0.0162304221523186
+-0.015735175238774
+-0.0152519731775556
+-0.0147775930240641
+-0.0143098897470395
+-0.0138474188057103
+-0.0133891872716276
+-0.0129344877880158
+-0.0124827848790119
+-0.0120336327318569
+-0.0115866093564705
+-0.0111412550379555
+-0.0106970037822407
+-0.0102530951732547
+-0.00980845046251488
+-0.00936149014682996
+-0.00890985954799817
+-0.0084500120208304
+-0.00797657327768775
+-0.00748137012629968
+-0.00695194529407672
+-0.00636928556639305
+-0.0057043456916972
+-0.0049127280909147
+-0.0039265348074764
+-0.00264187023907425
+-0.00089960465737704
+0.0015444900054149
+0.00506704600769581
+0.0102554955208802
+0.0180504530226813
+0.0300472069629905
+0.0492688268220149
+
+# Dynamic constraint 14 (y_dot - f = 0) : 
+0 0 4
+1.04307141622532
+-0.16047012723216
+0.0643858119278814
+-0.1497311438681
+-0.0170727964830579
+-0.00452894850181071
+-0.0104450685971048
+-0.015198169676876
+-0.00956703790306897
+-0.0077518257400359
+-0.00907135135206388
+-0.00758593501138183
+-0.00831851452797633
+-0.0179507263723018
+-0.0141756063285416
+-0.00958630742055352
+-0.00610300050132995
+-0.0151702187615041
+-0.0181016514228975
+-0.010613199539639
+0.0035708113212025
+-0.00510084702489455
+-0.0308810169388596
+-0.0154897277534928
+0.00562176814715547
+0.00612629077991021
+-0.0409714161236496
+-0.0177786612679173
+-0.00385043723909645
+-0.00925679492751758
+-0.0204768332926736
+-0.0120318106294845
+-0.00752598227838916
+-0.00979414765558115
+-0.0174838878871181
+-0.0102790007439953
+-0.0118353116301203
+-0.0129064295843976
+-0.0139779098635245
+-0.0093589859111895
+-0.0167866666041936
+-0.0191965076040486
+-0.00641734763130045
+0.0114715368596852
+0.0854126266388413
+-0.112442403876988
+0.503510582915335
+-1.39704016228164
+-0.0418249926929434
+-0.189504157325394
+
+# Dynamic constraint 15 (y_dot - f = 0) : 
+0 0 4
+-0.00201666670875798
+0.0148428638689688
+-0.136700610059691
+-0.0845842790229355
+-0.0612564230805288
+-0.0633548700323276
+-0.0717432001730038
+-0.0796258061355646
+-0.0738977432926854
+-0.0551204078447972
+-0.0658637772564567
+-0.0875729298936499
+-0.0716708187212145
+-0.0418694743832942
+-0.048636929783963
+-0.0805820994101614
+-0.0721347522132429
+-0.0431267755965254
+-0.0402238154741627
+-0.0775523815113113
+-0.0739290053545434
+-0.0360315661822248
+-0.0550879115724872
+-0.0698380976619205
+-0.0812113338631769
+-0.0236381251821359
+-0.0706594548716144
+-0.0645461577645042
+-0.0911435511114666
+-0.0550573786216674
+-0.0379420904033538
+-0.0591130102644678
+-0.0893678928918669
+-0.0658981953769429
+-0.0334454111780715
+-0.0517076423082764
+-0.0791831241244345
+-0.0668905721197311
+-0.0347972546171801
+-0.0485496069301517
+-0.0675302809903127
+-0.0610252894220628
+-0.0457502122214828
+-0.0519416984934694
+-0.0420540842676476
+0.00800073574725779
+-0.0419667031024055
+-0.223889237403391
+-0.0661360240349433
+0.128296346626
+
+# Dynamic constraint 16 (y_dot - f = 0) : 
+0 0 4
+0.00453347304886058
+-0.000285972300663345
+-0.000124699213453522
+-0.000924817975749125
+-0.000272417403446727
+-6.52613727107e-05
+-0.000212608647292834
+-0.000601357588937486
+-0.000478419459226029
+0.000124618215372925
+-5.18165173398835e-05
+-0.000763819318020004
+-0.000630365561358845
+0.000310505152139907
+0.0003209656906671
+-0.000672847428066019
+-0.000795234947354612
+0.000318180287300108
+0.000582719405436931
+-0.000426888498760771
+-0.000617103139551473
+0.000483521985227066
+0.00017651185298662
+-0.000270286381538328
+-0.000690904419004854
+0.000691537989229852
+-0.000250507865824219
+-6.93941993531737e-05
+-0.000900979062615567
+-0.00019929323317869
+0.000658636338494701
+0.000254333393931375
+-0.000755744072585766
+-0.000439160776075671
+0.00060571984768274
+0.000417428497439827
+-0.000399310996451797
+-0.000337815904165371
+0.000409139275351375
+0.000338286149460838
+-0.000174855745953952
+-0.000240763214911624
+0.000141532085662432
+0.000199492832504485
+0.000285225984404567
+-0.000928686367177289
+0.00149356511150418
+-0.000808902920841034
+-0.000275841953191329
+-0.000269737597363062
+
+# Dynamic constraint 17 (y_dot - f = 0) : 
+0 0 4
+-2.24290992113303
+-2.18295021848764
+-2.15479129889718
+-2.11876119776268
+-2.11494050941171
+-2.11673671606335
+-2.10971907464145
+-2.10176944801297
+-2.10439264538455
+-2.11016907432619
+-2.10605007059442
+-2.09834207848626
+-2.10076585752536
+-2.10859917032229
+-2.10642650153305
+-2.09809817979702
+-2.09863872303185
+-2.10715947409493
+-2.10694989448048
+-2.09976513777076
+-2.09874183793353
+-2.1067821375133
+-2.10674560338279
+-2.10049091354011
+-2.09830695304655
+-2.1058548476975
+-2.10683836384045
+-2.10192645331068
+-2.09732783443846
+-2.10318746266128
+-2.10922957333572
+-2.10468444867248
+-2.09682342899582
+-2.10057698154298
+-2.10862586195717
+-2.10579627017026
+-2.09713167144767
+-2.09862810386977
+-2.10681248030511
+-2.10536864950373
+-2.09610258576028
+-2.09381229054456
+-2.10109596841762
+-2.10203328325095
+-2.09122657785545
+-2.06825851783975
+-2.06812105784942
+-2.06220326270369
+-1.91633357216523
+-1.64922090496913
+
+# Dynamic constraint 18 (y_dot - f = 0) : 
+0 0 4
+-27.8414620384712
+-26.5939479586626
+-26.4312616158168
+-26.3712127275952
+-26.4035878534803
+-26.4303327566554
+-26.3933806991469
+-26.3588849290531
+-26.3880589753901
+-26.4253488988402
+-26.3994462207526
+-26.3569686117035
+-26.3760358431419
+-26.421387374408
+-26.4064904265278
+-26.3582321662292
+-26.3659796462868
+-26.4151452366247
+-26.4134365566228
+-26.3651540555936
+-26.3599706057317
+-26.4091358267935
+-26.4194040886265
+-26.3714026547898
+-26.3539993712831
+-26.3998771691675
+-26.4227039236398
+-26.3812302800783
+-26.3509830348598
+-26.3897250433335
+-26.4271071657257
+-26.3921642972197
+-26.3485321376405
+-26.3769657066286
+-26.4240137659724
+-26.4014033560676
+-26.3507397952229
+-26.3664860094398
+-26.4202675618615
+-26.4094359958647
+-26.3518114415562
+-26.3536645436404
+-26.4104903016544
+-26.4133997004056
+-26.3529011987384
+-26.3249814120744
+-26.3664287448269
+-26.3118546461233
+-25.8129695623856
+-23.1581572597949
+
+# Dynamic constraint 19 (y_dot - f = 0) : 
+0 0 4
+-0.0212751194668825
+-0.0223426203423171
+-0.0228734278802636
+-0.0231556738054552
+-0.0233064693489336
+-0.0233947527022836
+-0.0234462991159375
+-0.02347156361857
+-0.0234824888232955
+-0.0234922754188601
+-0.023502608435773
+-0.0235054872503599
+-0.0235019065720249
+-0.0235025952252375
+-0.0235093963373146
+-0.0235114222515953
+-0.023505592807215
+-0.0235031082018156
+-0.0235090270004341
+-0.0235122659561641
+-0.0235067829577871
+-0.0235039631136577
+-0.0235101966730569
+-0.0235129789427077
+-0.0235076748664238
+-0.0235031132416292
+-0.0235090778330981
+-0.0235117520993427
+-0.0235089337721376
+-0.0235025117956456
+-0.0235044749014769
+-0.0235103772333687
+-0.02350831092108
+-0.023500018327107
+-0.0234981031912506
+-0.023502145239856
+-0.0234994818312576
+-0.0234893587927203
+-0.0234825560896967
+-0.0234794020576964
+-0.0234666986177825
+-0.0234389972135415
+-0.0233999807060042
+-0.0233424815464305
+-0.0232404909216969
+-0.0230557845686952
+-0.0227328225738197
+-0.0221714841673898
+-0.0211100540093822
+-0.0189464510628497
+
+# Dynamic constraint 20 (y_dot - f = 0) : 
+0 0 4
+-921.467417040942
+-1013.73329811991
+-1014.61594292083
+-1014.67747148362
+-1014.71190686525
+-1014.72869053452
+-1014.72311829645
+-1014.71493101926
+-1014.72123875841
+-1014.72964454843
+-1014.72370737025
+-1014.71467930567
+-1014.72082023812
+-1014.73285075457
+-1014.72910497893
+-1014.71601335467
+-1014.71593738589
+-1014.7262009199
+-1014.7252185411
+-1014.71488159486
+-1014.7160649992
+-1014.73017360879
+-1014.73333397154
+-1014.7213560203
+-1014.71501559726
+-1014.72322012034
+-1014.72608492809
+-1014.71642053074
+-1014.71139402687
+-1014.72416780326
+-1014.73592026337
+-1014.72838833426
+-1014.71618973846
+-1014.71955827451
+-1014.72712137113
+-1014.71983775163
+-1014.70840234909
+-1014.71525144117
+-1014.7324151183
+-1014.73275077501
+-1014.7189260981
+-1014.7163939146
+-1014.72501286234
+-1014.72139508387
+-1014.70484072914
+-1014.6964694231
+-1014.70973526159
+-1014.71114867677
+-1014.84251030882
+-1043.50057942203
+
+# Dynamic constraint 21 (y_dot - f = 0) : 
+0 0 4
+0.0306078837916355
+0.0720880463065161
+0.0302623451406168
+-0.0260152627321866
+-0.0933605774537103
+-0.120433737984017
+-0.089059351100506
+-0.0188030159840229
+0.0582813393325263
+0.102669605283285
+0.0919937076004602
+0.0374015219605728
+-0.0293957344901767
+-0.0822108041450913
+-0.0918031159573371
+-0.057976566622008
+5.54507089356449e-07
+0.0570339799647284
+0.0849782962475132
+0.0691420832535767
+0.0205908886955131
+-0.0346147947013966
+-0.0702168540526469
+-0.068030963095205
+-0.034013288281685
+0.0114249309314511
+0.048657195281397
+0.0615191963659345
+0.0445859891379377
+0.00804603330989173
+-0.0296835506019735
+-0.0505892473222018
+-0.0443673607869193
+-0.0171994544723226
+0.0146131045745677
+0.0369617477757072
+0.0408049127572576
+0.0256888586139268
+0.00133408968457571
+-0.0179281737742301
+-0.0222892613586754
+-0.0105800649087291
+0.00978846133792066
+0.0300231372736879
+0.04697962152922
+0.0619856008285862
+0.0846493427700912
+0.164810350703592
+0.171054022591748
+0.353211728676096
+
+# Dynamic constraint 22 (y_dot - f = 0) : 
+0 0 4
+-0.000776198972489539
+-0.0460016500902242
+-0.0864367411558491
+-0.101336899943354
+-0.0565189529487433
+-0.00460912436735014
+0.0452343760390497
+0.0704088829449433
+0.0608061098674626
+0.0237498036908297
+-0.0235944696279232
+-0.0596053364775424
+-0.060351044739008
+-0.0307572456569461
+0.0118205084251644
+0.0492495468402855
+0.0630153907899173
+0.0476647803518049
+0.0129930253055082
+-0.0249199080069735
+-0.0485750460635814
+-0.0438368008792691
+-0.0171969636775152
+0.016639689377712
+0.042772655469364
+0.0487754709293973
+0.0327387819952859
+0.00450742328798509
+-0.0220823891784186
+-0.0346383413814436
+-0.0271631067320541
+-0.00598583499940233
+0.0174161982772301
+0.0326328913040133
+0.0330596224429638
+0.0197404829068469
+0.000794956315527309
+-0.0143953380674632
+-0.0192825470165245
+-0.0126300745241919
+0.000656571351560109
+0.0133584929238473
+0.0197088358322327
+0.0171650746481661
+0.00802425196112297
+-0.00207479803184821
+-0.00532869761109286
+0.0538346370657723
+-0.0609229736202568
+-0.0395475800596675
+
+# Dynamic constraint 23 (y_dot - f = 0) : 
+0 0 4
+5.99670826254274e-05
+4.65374558255229e-05
+2.23353211137193e-05
+4.3362811806701e-05
+2.75870996954148e-05
+1.21009755471191e-05
+6.57764567655473e-06
+6.08609769408732e-06
+7.37451221613644e-06
+8.12752658745755e-06
+7.14185884415615e-06
+4.8070811610632e-06
+2.28871173360387e-06
+1.19387136410769e-09
+-6.57154005786636e-07
+5.41268637563407e-07
+2.7981956146332e-06
+4.99829016975493e-06
+6.02918578618438e-06
+5.41524957541929e-06
+3.65472785294151e-06
+1.64414091224329e-06
+2.54312883825458e-07
+2.48356936765634e-07
+1.5189388157817e-06
+3.30680600426644e-06
+4.76328728640792e-06
+5.21605520166673e-06
+4.53358449463899e-06
+3.17605981016518e-06
+1.76647888593512e-06
+9.25153290870861e-07
+1.03765350073373e-06
+1.85777721903573e-06
+2.69612103883394e-06
+2.85843984933292e-06
+1.82235316143533e-06
+-6.29270400460707e-07
+-4.50163624968933e-06
+-9.96725952467713e-06
+-1.78008718707454e-05
+-2.98382021776597e-05
+-4.96811576798652e-05
+-8.34202567973283e-05
+-0.000139702072006543
+-0.000222367935914933
+-0.000253740077440212
+0.000897206606830003
+-0.00173040029666661
+-0.00172803698153823
+
+# Dynamic constraint 24 (y_dot - f = 0) : 
+0 0 4
+-0.045044848543193
+-0.0698281444477723
+-0.0936848088671186
+-0.0896661977277989
+-0.050659986475283
+0.00659780468354226
+0.0600343153215895
+0.0876263455907184
+0.0783126966304207
+0.0383181981955784
+-0.0108528973045402
+-0.0431419623679786
+-0.0425021195661282
+-0.012433167311201
+0.0296712886274339
+0.0647893011665287
+0.0785247190464064
+0.0647455074612547
+0.0292128812983735
+-0.0102715498166399
+-0.0324321751175929
+-0.0258896979809262
+0.00324440809822441
+0.0372547818488924
+0.0596419635715512
+0.0625252344419212
+0.0469233083926733
+0.0202557477725821
+-0.00557913431970419
+-0.0177748526011198
+-0.00996798384134157
+0.0123955787418567
+0.0361136140455257
+0.0496090450620678
+0.0480605141960201
+0.0338488605597953
+0.0144583369383007
+-0.000949157219561181
+-0.00532412454068115
+0.00235909526768216
+0.0154712414201286
+0.0247091461599218
+0.0255221032680999
+0.0184389297881368
+0.00483766635653904
+-0.0146158287199024
+-0.0388659364603727
+-0.0658599636049373
+-0.105306125559393
+-0.169986127198251
+
+# Dynamic constraint 25 (y_dot - f = 0) : 
+0 0 4
+0.0264652918230728
+0.035266764717214
+0.0199579933520131
+-0.00777540967378765
+-0.0288198268578244
+-0.034433361534145
+-0.0250377619922391
+-0.00547595878773866
+0.0166535537071495
+0.029505134253877
+0.0254228808548
+0.00763468350187924
+-0.0135018266543845
+-0.0267246436700035
+-0.0269096734913326
+-0.0168945569444012
+-0.00151121092549555
+0.0150194764811331
+0.024308506153506
+0.0193583490976159
+0.0029083613985903
+-0.014680774415645
+-0.0234034956018498
+-0.0195059671570668
+-0.00800228594534858
+0.00388665441136649
+0.0129713444816248
+0.0164770775145251
+0.0116264975282394
+0.000100759686615381
+-0.0115842783709379
+-0.0169641943106871
+-0.0135131547786098
+-0.00457799796263436
+0.00422039585298184
+0.00945038540836429
+0.00906147580431349
+0.00259223559436172
+-0.00710206758276555
+-0.0150241052862554
+-0.0182515641090595
+-0.0184065932790769
+-0.0202003492216565
+-0.0267741901202141
+-0.0388872196360435
+-0.0596814367036829
+-0.0975650093088798
+-0.171231839920603
+-0.348623542932506
+-0.804947395383496
+
+# Dynamic constraint 26 (y_dot - f = 0) : 
+0 0 4
+-0.00118356887070897
+-0.000767742782992852
+-0.000497455247927142
+-0.000322384553315116
+-0.000209216724782993
+-0.000135962645103075
+-8.84866931299138e-05
+-5.76935061023518e-05
+-3.77063640405982e-05
+-2.4720589887606e-05
+-1.62668580674082e-05
+-1.07413179424205e-05
+-7.10757095058446e-06
+-4.70207753228082e-06
+-3.10092007782775e-06
+-2.03874648915326e-06
+-1.34616120493042e-06
+-9.09208447485944e-07
+-6.45594846012797e-07
+-4.93647172694189e-07
+-4.09869574120219e-07
+-3.70232023150447e-07
+-3.67527748862439e-07
+-4.07431988113695e-07
+-5.04662487023702e-07
+-6.76250587697312e-07
+-9.38619296145205e-07
+-1.30893775069935e-06
+-1.81083105365871e-06
+-2.48326849957973e-06
+-3.39035887050366e-06
+-4.62908531769076e-06
+-6.33928903011468e-06
+-8.71741144556717e-06
+-1.20372033830776e-05
+-1.66849581435982e-05
+-2.32152144602103e-05
+-3.24354769334666e-05
+-4.55325644316642e-05
+-6.42601268882837e-05
+-9.1217920027844e-05
+-0.000130275168997786
+-0.000187216016744355
+-0.000270725753429034
+-0.000393899683096166
+-0.000576549466048225
+-0.000848745919852908
+-0.00125665812001531
+-0.00187423590325654
+-0.00280397208876552
+
+# Dynamic constraint 27 (y_dot - f = 0) : 
+0 0 4
+-0.135356964134928
+-0.096160671030475
+-0.0704675003196371
+-0.0535064552551034
+-0.042228486090039
+-0.0346594616824518
+-0.029514189725262
+-0.0259540705279164
+-0.0234313794202876
+-0.021588218523334
+-0.0201906732843327
+-0.0190858350911753
+-0.0181737291630952
+-0.017388972872709
+-0.0166887901883683
+-0.0160451791097103
+-0.0154397928870367
+-0.0148605946200746
+-0.0142996706885583
+-0.0137518013605131
+-0.0132135260338373
+-0.0126825314106327
+-0.0121572502429217
+-0.0116365969491312
+-0.0111197915564958
+-0.0106062396325797
+-0.010095446169089
+-0.00958694760151957
+-0.00908024949228547
+-0.00857475843628208
+-0.00806969569714511
+-0.00756397671688092
+-0.00705603439183733
+-0.00654355366810933
+-0.00602306874066016
+-0.00548934891145336
+-0.00493446034562339
+-0.00434633144413965
+-0.00370655829692623
+-0.00298704671070027
+-0.00214487206119429
+-0.00111440477451197
+0.000204776027771914
+0.0019665183179427
+0.00440714651273311
+0.00789190978434817
+0.0129935217204888
+0.02064021364572
+0.0324463144768856
+0.0516063117012777
+
+# Dynamic constraint 28 (y_dot - f = 0) : 
+0 0 4
+0.947665838358711
+0.339241278002404
+0.314467806567055
+0.363737779499346
+0.316360319825967
+0.256609901147139
+0.278854823030798
+0.337039391752182
+0.345526720162182
+0.277068145385211
+0.146592045303133
+0.0801049990242229
+0.142808174676962
+0.215392029710117
+0.201186259982318
+0.100242903720487
+-0.0149546051037959
+-0.0270624502455563
+0.0639404316537799
+0.139841168682916
+0.122741208067994
+0.0100156963065974
+-0.0794602418713088
+-0.069566269158722
+0.0475379525356523
+0.120911346538153
+0.0716520138661121
+-0.0651579345112658
+-0.128896666186303
+-0.0442231318671382
+0.0897042310786418
+0.129487843431566
+0.00763304515132646
+-0.106565739008559
+-0.114251951310023
+0.0142598890771337
+0.0957022668809326
+0.0822957319787996
+-0.0238259312929516
+-0.132565263362094
+-0.137364495561938
+-0.0762026158032105
+-0.0228302873208106
+-0.159301482250522
+-0.374028784152127
+-0.598081146390417
+-0.696889942666378
+-0.72495743485016
+-0.910818383978993
+-1.25754409429313
+
+# Dynamic constraint 29 (y_dot - f = 0) : 
+0 0 4
+-0.378872808609569
+0.0232766651447436
+-0.140204151563652
+-0.235711921696185
+-0.24275226064945
+-0.266653078492544
+-0.291950117027689
+-0.325730078104415
+-0.362086610249577
+-0.324057543220345
+-0.247323047735842
+-0.231938352657742
+-0.252175595239853
+-0.263836319952475
+-0.263787615486269
+-0.209481246059243
+-0.13869737624061
+-0.135630819711841
+-0.176528261044224
+-0.196295757401992
+-0.17615203266917
+-0.123398564571251
+-0.076185041694651
+-0.104720277038796
+-0.150925951449853
+-0.162967899486473
+-0.136837794699014
+-0.0934168269774185
+-0.0862827202312242
+-0.116057351347919
+-0.149138332747567
+-0.15837202891768
+-0.147073411615168
+-0.111281636665083
+-0.111530022291389
+-0.141535391005117
+-0.193204294303448
+-0.226232349279144
+-0.183491012940693
+-0.145653957794824
+-0.172474040872208
+-0.241318770430884
+-0.269995958052336
+-0.250790179800506
+-0.136548015945911
+-0.00266693978415633
+0.0918673524998104
+0.275422022491776
+0.657549241824364
+1.30449852064338
+
+# Dynamic constraint 30 (y_dot - f = 0) : 
+0 0 4
+-0.0157802682870911
+0.00560504173388631
+0.00243285379563704
+3.22611545298217e-05
+-0.000513220887633234
+-0.000427945347830435
+-0.000584162422324246
+-0.00102503274655345
+-0.0011511774232526
+-0.000629666839585812
+0.000115776884886072
+0.000359455004110918
+-0.000123395786555472
+-0.000764812165171481
+-0.000783983288473664
+-7.76880754801389e-05
+0.000613802018090311
+0.000529242269306548
+-0.000249023471704267
+-0.000885253424066222
+-0.000706811806938316
+7.31889243441725e-05
+0.000592090226459539
+0.000268869753404569
+-0.000561647109085409
+-0.000991777557050696
+-0.000559240837276733
+0.000221723518000237
+0.00042933737449647
+-0.000235655541532022
+-0.00111835098864395
+-0.00130401276040173
+-0.000611240063951541
+0.000165910910738708
+0.000104618309093658
+-0.000835526546253355
+-0.00174203983158174
+-0.00172371234402622
+-0.000854953856862632
+-0.000121627540874095
+-0.000373295110747494
+-0.00131673285705393
+-0.0017108760701062
+-0.000683911506697596
+0.00124068296422014
+0.00273942696759364
+0.00325135415808847
+0.00378742429329701
+0.00599747980098036
+0.0105675058983523
+
+# Dynamic constraint 31 (y_dot - f = 0) : 
+0 0 4
+-2.91777299367427
+-2.939443891317
+-2.91499942962115
+-2.88131456953099
+-2.86819235771063
+-2.87649014104605
+-2.90347568764114
+-2.92141708037942
+-2.90491851298745
+-2.87586650338388
+-2.87017656525632
+-2.88578998773598
+-2.91925690124381
+-2.93387137077771
+-2.90255416724788
+-2.86921447071407
+-2.87146382061684
+-2.90355421371783
+-2.93342216902494
+-2.92423749089796
+-2.89727546506119
+-2.87730453401496
+-2.89225125477244
+-2.91726550612892
+-2.93209201282611
+-2.9168496650936
+-2.89092869265806
+-2.87422753530246
+-2.88720394943108
+-2.92577136236312
+-2.94748485928032
+-2.92463068715179
+-2.86884305088815
+-2.86377302426194
+-2.8964058453352
+-2.94619574297025
+-2.93300567249474
+-2.88881516304788
+-2.8776295873526
+-2.89084155384775
+-2.92884901536227
+-2.93005143371213
+-2.91972027907207
+-2.88390629630046
+-2.87778470283207
+-2.89487851549383
+-2.91209291739792
+-2.89855526669283
+-2.73915448100944
+-2.21422892601444
+
+# Dynamic constraint 32 (y_dot - f = 0) : 
+0 0 4
+-36.5242142671582
+-35.8091038627493
+-35.7735044633237
+-35.7844072874598
+-35.8065847995638
+-35.8207391357744
+-35.8264090226835
+-35.7905838168877
+-35.764761201868
+-35.7899380728834
+-35.8142767153266
+-35.8253112608379
+-35.8107834037886
+-35.7715253228034
+-35.7663416818137
+-35.8017149330296
+-35.8163782238577
+-35.8084120628175
+-35.796237506834
+-35.7670196347617
+-35.7584088631729
+-35.794637297021
+-35.8109927535249
+-35.8185084814224
+-35.7755846544461
+-35.7561838675125
+-35.7655205003608
+-35.8186942540603
+-35.8379273859099
+-35.7980620120624
+-35.7525260083073
+-35.7440376435824
+-35.8173659364456
+-35.828781277658
+-35.8164812750023
+-35.7612415136522
+-35.769647786739
+-35.7848822758086
+-35.7989167906551
+-35.8010310829915
+-35.7864173594001
+-35.8037414058449
+-35.7499865011281
+-35.7815465583679
+-35.7977472409373
+-35.8083267709713
+-35.7622703226371
+-35.6067528058733
+-35.150831982236
+-31.7717504718982
+
+# Dynamic constraint 33 (y_dot - f = 0) : 
+0 0 4
+-0.0294097649761451
+-0.0306714905013646
+-0.0313435022983231
+-0.0316974706336024
+-0.0318955284957579
+-0.0320173026063654
+-0.0320939425795499
+-0.0321346077428766
+-0.0321481598011544
+-0.0321531715225846
+-0.0321660901000211
+-0.032186930589787
+-0.0322033577153416
+-0.0322044439548812
+-0.0321940646761052
+-0.0321888968036377
+-0.032199125638034
+-0.0322168425046546
+-0.032226330588097
+-0.0322203521119113
+-0.0322074592596896
+-0.0322036092242166
+-0.0322151280574462
+-0.0322314867000228
+-0.0322377903615355
+-0.0322299683435388
+-0.0322214851404421
+-0.0322277543343261
+-0.0322499705491126
+-0.0322727954259372
+-0.0322827016112327
+-0.0322843006937419
+-0.0322977448452556
+-0.0323390918159396
+-0.0324034322045345
+-0.0324788251348553
+-0.0325640116358246
+-0.0326833130760885
+-0.0328773202851898
+-0.0331921809278655
+-0.0336835923185743
+-0.0344470686362223
+-0.0356733199527502
+-0.0377191963263821
+-0.0412166786667336
+-0.0472752688495006
+-0.0579776688855342
+-0.0777640786186716
+-0.118619295483069
+-0.22485267497618
+
+# Dynamic constraint 34 (y_dot - f = 0) : 
+0 0 4
+-933.7668281688
+-1013.69632123969
+-1014.36082941218
+-1014.4422463009
+-1014.47134233225
+-1014.48191955577
+-1014.48745331302
+-1014.48378127516
+-1014.48200968456
+-1014.48734323465
+-1014.48961379871
+-1014.4905975149
+-1014.48780454846
+-1014.48086481862
+-1014.48181042333
+-1014.4879271388
+-1014.48808029864
+-1014.4863110024
+-1014.48601385566
+-1014.48266892493
+-1014.48080920888
+-1014.4845360436
+-1014.48478453362
+-1014.48678184122
+-1014.48018355454
+-1014.47924533618
+-1014.48212172686
+-1014.49183352316
+-1014.49467032952
+-1014.48521008104
+-1014.47542211143
+-1014.47521290455
+-1014.49096451639
+-1014.49098290514
+-1014.48737216058
+-1014.47752087566
+-1014.48361427623
+-1014.48876022374
+-1014.48673726209
+-1014.48148867729
+-1014.47746888878
+-1014.48434986938
+-1014.47702597107
+-1014.48449664792
+-1014.48397728168
+-1014.47893303387
+-1014.45340274751
+-1014.38426436792
+-1013.92157093778
+-958.975288431093
+
+# Dimension of the constraints multipliers : 
+3691
+
+# Constraint Multipliers : 
+
+# Multipliers associated to the boundary conditions : 
+1.15239213902955e+15
+-190771732000603
+-7873893492950.52
+2.11100937759321e+17
+-3.82340215246908e+16
+-2.55055523256788e+15
+200238849194808
+-1.39227189495449e+16
+2.44608975381713e+16
+-420947718579.715
+-1.00250284301844e+17
+-1.07117561276152e+16
+349515263928298
+-450337475050299
+775631700154789
+186020097418406
+707056663754631
+2.60165117239633e+15
+4.62126745303273e+15
+-139155876564470
+-3942972000040.35
+100177296277308
+-681983712555560
+299348765948.805
+-507495932868889
+2.52658983333696e+15
+-17046575516555
+221839019797921
+-2.98048568405309e+16
+9.44975225643675e+15
+573048405133347
+1.71337342937158e+16
+1.02152735406497e+18
+21432398295586.6
+-4.06445236660562e+15
+1.05227856874433e+16
+5.5770873054873e+15
+-54066234241886.5
+-1.30283939903448e+16
+-2.25537034232693e+17
+3.4184843230836e+15
+
+# Path constraint 0 multipliers : 
+3.62458570901263e+16
+3.72136696453166e+16
+3.72500267106316e+16
+3.72483282303635e+16
+3.72612619264575e+16
+3.73089525430734e+16
+3.73588344038915e+16
+3.7328561766286e+16
+3.72676066032769e+16
+3.7255314163698e+16
+3.7265782669488e+16
+3.72627254114636e+16
+3.72003885896894e+16
+3.72121570661654e+16
+3.73734151096765e+16
+3.7492334095176e+16
+3.74457436981494e+16
+3.72666326079401e+16
+3.71849341539851e+16
+3.72028084887299e+16
+3.71431115853539e+16
+3.7129562208553e+16
+3.72632787447338e+16
+3.75349990954055e+16
+3.76878129038477e+16
+3.74893116333783e+16
+3.71036785594424e+16
+3.70099804665945e+16
+3.71052299893188e+16
+3.71853768116055e+16
+3.71978488792009e+16
+3.73933973944611e+16
+3.76774555847243e+16
+3.76944196663871e+16
+3.7321333528039e+16
+3.70135513699466e+16
+3.69087315647772e+16
+3.72145593381841e+16
+3.73273922583833e+16
+3.71732406905014e+16
+3.73435815289362e+16
+3.76378007489118e+16
+3.76925372587215e+16
+3.73531948143238e+16
+3.69772308568025e+16
+3.70208942986616e+16
+3.71662463119969e+16
+3.71973251795175e+16
+3.70333098313041e+16
+3.70591775240452e+16
+
+# Path constraint 1 multipliers : 
+3.54570326523499e+16
+3.70964992439737e+16
+3.69682939968753e+16
+3.70113816529118e+16
+3.71258574469916e+16
+3.70632645621658e+16
+3.69376708615342e+16
+3.6960599804142e+16
+3.70594677598563e+16
+3.70200900769693e+16
+3.68930884415465e+16
+3.69091743724868e+16
+3.70478924937098e+16
+3.70724419777184e+16
+3.69493329577031e+16
+3.69170645847877e+16
+3.70159890908751e+16
+3.70331054033647e+16
+3.68997769894821e+16
+3.68529515870065e+16
+3.69799539834122e+16
+3.70813075454246e+16
+3.6996557276268e+16
+3.69207249797906e+16
+3.69909704401859e+16
+3.70567565101568e+16
+3.69368348704259e+16
+3.68260141690408e+16
+3.69021792013673e+16
+3.70595685827106e+16
+3.70508605287029e+16
+3.69472677601787e+16
+3.69726599142587e+16
+3.70788647176959e+16
+3.7024393908717e+16
+3.68490430362111e+16
+3.68347836450949e+16
+3.70018089982434e+16
+3.70839424196856e+16
+3.69903825562836e+16
+3.69748435170275e+16
+3.70992664519461e+16
+3.71287414302276e+16
+3.69428801537257e+16
+3.68323709376986e+16
+3.69399198366991e+16
+3.70846765317838e+16
+3.39988474287191e+16
+3.67992388000868e+16
+3.70235549498464e+16
+
+# Path constraint 2 multipliers : 
+8.98944739260579e+15
+8.38766306098379e+15
+8.76796263246958e+15
+9.23158714874395e+15
+9.39063299294851e+15
+8.99838593468907e+15
+8.31839934381095e+15
+7.55420480632646e+15
+7.45478700921171e+15
+7.94897038368464e+15
+8.17327366523849e+15
+8.10484150331128e+15
+7.90874934803705e+15
+7.86769099417271e+15
+8.49328642084065e+15
+9.24279704017579e+15
+9.20314974698867e+15
+8.72671109342318e+15
+8.2537984591624e+15
+7.86534926852846e+15
+7.89472450784165e+15
+8.04478902837531e+15
+7.67044998496212e+15
+7.12525313050652e+15
+6.44838322729636e+15
+6.576435867208e+15
+7.19621976228737e+15
+7.93330641287391e+15
+7.84688035338449e+15
+7.48385079267972e+15
+7.60288615341036e+15
+8.53918362810149e+15
+9.61041753182497e+15
+9.49319254232132e+15
+9.03634212574801e+15
+8.38899122613825e+15
+8.40018621359005e+15
+8.11613620410151e+15
+7.53597472980699e+15
+6.77150195140842e+15
+6.14269317444968e+15
+5.83431941232126e+15
+5.46900502931635e+15
+6.62222639226973e+15
+7.7365956562944e+15
+8.58245002196585e+15
+8.56957190188004e+15
+8.51250205571259e+15
+9.00205286505684e+15
+9.57726714815348e+15
+
+# Dynamic constraint 0 (y_dot - f = 0) multipliers : 
+-1.09968065941098e+16
+-5.01430623493032e+15
+-2.82503385496118e+15
+-2.59699346230124e+15
+-3.46371630371126e+15
+-3.82784583397033e+15
+-2.42885764860771e+15
+-1.74528082335219e+15
+-2.51232148343521e+15
+-3.01321912601838e+15
+-2.99774500318616e+15
+-2.0412034752725e+15
+-3.00540527154222e+15
+-5.07511751095749e+15
+-3.72467412014044e+15
+-422171141585822
+746585169269560
+-3.12408734673256e+15
+-6.02244787539522e+15
+-3.98642415238404e+15
+-2.29244228199603e+15
+-2.06397469951254e+15
+-3.32287646670304e+15
+-2.72691594780473e+15
+435831532867728
+-29915041866552.9
+-6.72629436139931e+15
+-7.93680981530988e+15
+-2.86943555263654e+15
+2.41792639881619e+15
+-168390823020053
+-5.04411464593142e+15
+-5.1462361890441e+15
+-1.35561153523196e+15
+-2.31298560222054e+15
+-3.7022096264981e+15
+-6.08081918544133e+15
+202662340222430
+4.19188639244286e+15
+-4.49858328984765e+15
+-1.02363388845821e+16
+-7.06338235497109e+15
+1.8905959899103e+15
+4.24456699842943e+15
+-3.20762473999224e+15
+-5.76873631689213e+15
+-3.80419879794426e+15
+1.09282336154343e+15
+1.08130733520375e+15
+6.33406631180771e+15
+
+# Dynamic constraint 1 (y_dot - f = 0) multipliers : 
+3.21646942446309e+15
+1.38216998584886e+15
+659432107692250
+590381303244869
+910632689720254
+1.03171959099876e+15
+504540431530742
+326592237984053
+685692423982367
+919585200283846
+769461510585674
+270502884360811
+551359252002385
+1.27753794454582e+15
+1.04632664803868e+15
+159747629706045
+-384442303081183
+770433810689292
+1.78421134920871e+15
+862286883361859
+304218737374860
+373173437495739
+994737723925124
+947710497710188
+-322397496900322
+-323212558050454
+1.65789035708395e+15
+2.22491936828752e+15
+970687716547434
+-943490947822675
+-155424914675258
+1.42982233429358e+15
+1.3241293603649e+15
+118841677325722
+298835690747481
+1.08522794433159e+15
+2.04740335256014e+15
+76411319417142.7
+-1.79123832153268e+15
+787723239670999
+2.50826128693005e+15
+2.05623235452789e+15
+-641790812795641
+-1.07908132343877e+15
+1.07624855140545e+15
+1.85427670342225e+15
+797013480287337
+-1.38780296238938e+15
+-2.39316896022963e+15
+-7.24546575413987e+15
+
+# Dynamic constraint 2 (y_dot - f = 0) multipliers : 
+29842874679515.8
+27562075590556.5
+26515838958248.2
+26414091604154.1
+26966394548658.4
+27042192341264.6
+25895108149601.7
+25546457839204.5
+26050720308727.7
+26379925876232.5
+26381976784828.7
+25588973845114
+26139313429300.1
+27269897919914
+26288013540024.6
+24573769240619.1
+23980232669443.6
+26519917293546.5
+28406197196716.2
+26510826421543.1
+25294996437897.5
+25089616404010
+26154947035767.6
+26162353706275.2
+24291633974247.5
+24459865475649.1
+28703884066502.4
+28913657754918
+25431401190014.6
+22551840938398.9
+24610346251087.1
+27699834107273.8
+27790528117149.4
+25168649140107.5
+25375020524538.4
+25978929145449
+27702086488378.4
+24491428948516.8
+22223349219368.3
+27351405723188.7
+30920403669464.3
+28241935252241.6
+22590640512076.7
+22248996236764.6
+26444859621126.7
+27744797481432.2
+26095147219714.7
+21182075393232.4
+18098474312970
+10862808425269.7
+
+# Dynamic constraint 3 (y_dot - f = 0) multipliers : 
+-8.22865397710688e+16
+-2.63333603836295e+16
+-8.09997796295481e+15
+-2.48161572174777e+15
+-897624044006263
+-337806612698700
+266298011052685
+244190603817006
+-317224524398484
+-605501889578506
+-343960230882569
+421939544022802
+464930555256852
+-137265290221975
+-152853097414476
+104427355495091
+300879672720199
+-700518342124833
+-1.06096228561878e+15
+458899490279951
+1.00009623406966e+15
+495994225068465
+-716441715836638
+-1.01788526397861e+15
+281504708251366
+882708296514861
+-448082711487878
+-662228022830736
+81304377767010.4
+1.09434078446004e+15
+-223565028736920
+-1.51105080126415e+15
+-470667192344481
+1.41099267957702e+15
+1.21305805973317e+15
+-282694194098590
+-2.0440248684376e+15
+-647113327240661
+1.52783981002431e+15
+-53036112002011.1
+-577852707743164
+203434010262431
+1.73882327755711e+15
+726194565211039
+-1.94404408876621e+15
+-1.16400393874888e+15
+4.32175477651724e+15
+1.80262741391379e+16
+5.58407916979587e+16
+2.02556265479428e+17
+
+# Dynamic constraint 4 (y_dot - f = 0) multipliers : 
+1.0349178048343e+16
+5.73256026804833e+15
+2.16229315685722e+15
+186476715262016
+-1.28419900130576e+15
+-1.70751803159421e+15
+-205757107996405
+565311500973804
+-59945610687019.9
+-327601338490411
+-211511369109234
+737595185196834
+-314388231779629
+-2.49319822863182e+15
+-1.06835206063363e+15
+2.28503046208998e+15
+3.52772498295023e+15
+-208329856115637
+-3.08400869489094e+15
+-1.07346707727704e+15
+382097957089626
+531542071836666
+-695928225470728
+53485731567314
+3.28474713616043e+15
+2.87660724177011e+15
+-3.92667663330567e+15
+-5.13524107066531e+15
+-106584842830062
+5.10477939995448e+15
+2.61963126962924e+15
+-2.17696524150479e+15
+-2.31234757160989e+15
+1.45221888077989e+15
+149386046475704
+-968062143947726
+-3.42038663709029e+15
+3.19471305476881e+15
+7.12489530857353e+15
+-1.76060594773724e+15
+-7.60908983736809e+15
+-4.73959608083631e+15
+4.04279278182415e+15
+6.57012401635185e+15
+-766667860909959
+-3.12657058142634e+15
+-1.48259180831898e+15
+2.47785193675382e+15
+-1.88207654212154e+15
+-3.00653438726025e+16
+
+# Dynamic constraint 5 (y_dot - f = 0) multipliers : 
+430468073617007
+88356074226797
+18103107870805.6
+-1958474538044.19
+-8935629731748.72
+-11347205985228.9
+-11674706996360.1
+-10694030254182.2
+-9230008013049.75
+-7809630869145.77
+-6619149415396.88
+-5748285496314.16
+-5207407467706.59
+-5376231845161.75
+-5792735335798.35
+-5304557274036.67
+-3822518487760.98
+-2480050931194.87
+-2681833355757.3
+-3802595677273.21
+-4437488119651.56
+-4536550778838.5
+-4188605113684.62
+-3660981554020.75
+-2760676013076.14
+-1617413932947.16
+-1849111852325.27
+-3975709093307.64
+-5344330983039.69
+-4410819902752.42
+-2211221834726.89
+-1075513979467.18
+-1472908788701.31
+-2193300844541.95
+-2457257061301.77
+-2504079110545.12
+-2019787630835.36
+-859385057448.823
+1924046279761.28
+3612162554537.35
+992136833429.37
+-4613600228905.89
+-11232768265418.2
+-21158281764799.7
+-43258622551155.9
+-90686799992510.2
+-183451270178056
+-357609308473964
+-677804277750614
+-1.25638129200186e+15
+
+# Dynamic constraint 6 (y_dot - f = 0) multipliers : 
+-3.41212470922163e+15
+-940640611371584
+-45053828657955.8
+53164191498269.3
+-254096266883676
+-365120155631656
+134978871538358
+325312080027545
+8974567566134.83
+-121632026475827
+-5527688540297.19
+374042397680762
+-64742527202332.7
+-925416923059393
+-465614439593240
+824872388071790
+1.35128549677216e+15
+-84567872059890.6
+-1.12661677686194e+15
+-345235903942373
+143972046837644
+74615124719149.9
+-433089890590562
+-20223800416518.9
+1.40535033015224e+15
+1.18096570189196e+15
+-1.37563479326072e+15
+-1.98612408170126e+15
+-247791401030565
+1.84523193292866e+15
+984419592745616
+-819994502955161
+-647503068948799
+678179902678001
+99928647962073.2
+-680033215425965
+-1.64745994000579e+15
+1.16531003472807e+15
+2.97929921986254e+15
+-411082956800519
+-2.55002037566089e+15
+-1.61876456628895e+15
+1.43557630751982e+15
+2.44416195860138e+15
+-348292280138842
+-1.10966990503415e+15
+-31964678288917.6
+1.50368573459041e+15
+983757956512447
+1.68069162579152e+15
+
+# Dynamic constraint 7 (y_dot - f = 0) multipliers : 
+-5.44384276669508e+15
+2.79229426416197e+16
+-2.13435231202182e+16
+-1.90692516973346e+16
+-2.05745990943727e+16
+-2.20057887475937e+16
+2.43253640258355e+16
+4.38293644400349e+15
+4.19454586605144e+16
+-3.32464902501863e+15
+1.00015897918496e+15
+-2.03871589141032e+16
+-2.72801264630957e+16
+4.02418188330327e+15
+-1.08450454631465e+16
+3.47780163296819e+16
+369216880358087
+1.91436824286922e+16
+-1.07725671897874e+16
+-1.49187685956383e+16
+-2.325818391178e+15
+-1.81117741655373e+16
+2.32822359723649e+16
+-8.42445230480168e+15
+2.12915480835467e+16
+-9.75267610513277e+15
+-2.09509702856454e+15
+-852217957116496
+-1.18833345472875e+16
+1.96924664508744e+16
+-1.24421438360297e+16
+1.89235524641164e+16
+-1.60369951513225e+16
+56134921783170
+-5.25543029057294e+15
+-6.21120673678896e+15
+2.05348107942632e+16
+-6.49201745523039e+15
+2.26365114121233e+16
+-1.81714138070665e+16
+-311981806856599
+-1.39386204667849e+16
+-7.64758648161521e+15
+1.56807455736479e+16
+-2.43004024449359e+15
+2.8049805637415e+16
+-1.16704240016927e+16
+6.37675169126474e+15
+-1.47878639456556e+16
+76560606358858
+
+# Dynamic constraint 8 (y_dot - f = 0) multipliers : 
+4.33100300457596e+15
+2.71654912277826e+16
+7.65529596959482e+15
+2.75436061651269e+16
+-2.20593896604502e+16
+-4.63440460871226e+15
+-3.16805161379205e+16
+-8.4395795540114e+15
+6.46351947962232e+15
+7.86515054846603e+15
+3.42857428523588e+16
+-5.78227138067534e+15
+1.29934851127241e+16
+-2.77883098751532e+16
+-9.24454764232698e+15
+-1.09377711486149e+16
+-2.6886876164094e+15
+2.32850198832908e+16
+-2.26292586807696e+15
+2.37599076696313e+16
+-1.92053756306176e+16
+2.07318230903516e+15
+-1.45010088589254e+16
+-3.86040506965676e+15
+1.10179146005075e+16
+-6.23524482506174e+15
+1.97860178183062e+16
+-1.74275867031056e+16
+9.68860609621427e+15
+-1.31355281035348e+16
+3.41770485013573e+15
+7.58615676700933e+15
+-4.22999042402786e+15
+1.48270457076769e+16
+-1.9472719762971e+16
+7.08101040807821e+15
+-1.73072735082338e+16
+7.02595239977023e+15
+7.24788612972039e+15
+3.62137765595273e+15
+1.63024179335476e+16
+-1.66400946066737e+16
+5.12824298845351e+15
+-2.29017441372276e+16
+3.89755697799658e+15
+979841073678435
+7.39126111765479e+15
+1.70896670333179e+16
+-9.36515921090828e+15
+-606747644504922
+
+# Dynamic constraint 9 (y_dot - f = 0) multipliers : 
+129128548770.123
+-3146869228894.15
+1881815690547.83
+2722277885673.27
+974959323917.566
+1955231631433.8
+-3940254740131.37
+-786735877930.062
+-3615943636208.6
+636393521551.875
+1269461118968.96
+1457388692354.1
+2555800690118.16
+-1190898744320.33
+580518903844.656
+-2874957503464.5
+-36143989887.2581
+-475939655829.983
+692710019944.106
+1589617566128.46
+-291332770248.408
+1156545703102.16
+-1689373248773.7
+480980681716.872
+-967954928163.692
+457871269148.92
+640251117188.516
+-292585116381.991
+874172779419.523
+-1296632883063.99
+844580007249.047
+-943155446722.615
+928972255829.247
+389861998638.201
+-120866082945.097
+548431681901.799
+-1539494581066.34
+574115852807.153
+-1306994588337.95
+1357352083731.81
+491818501158.739
+522385641718.563
+668676048939.277
+-1637207238908.77
+77484427892.8329
+-2737071116546.68
+-2487276616865.43
+-13258905927278.4
+-50013574157837.7
+-189008323127605
+
+# Dynamic constraint 10 (y_dot - f = 0) multipliers : 
+5.72102772415586e+15
+-5.29751502196272e+16
+-1.04062784343986e+16
+-5.30964478289406e+16
+4.80974098616176e+16
+1.06836242793538e+16
+5.9130110315831e+16
+1.46603852445509e+16
+-1.99584741325591e+16
+-1.45503893353596e+16
+-6.83948388435942e+16
+1.61559896027813e+16
+-2.24197094710169e+16
+5.43657357650274e+16
+1.8436912038058e+16
+1.51765585224911e+16
+5.02591265138541e+15
+-4.96353098911759e+16
+7.37119073768696e+15
+-4.53350562002392e+16
+3.90445073744393e+16
+-2.80145908365224e+15
+2.50194770696513e+16
+8.25118183750454e+15
+-2.59978099015163e+16
+1.43761641882186e+16
+-4.00945251406612e+16
+3.57110985884756e+16
+-1.88738057082308e+16
+2.41338210334369e+16
+-5.73680208935488e+15
+-1.82940171380252e+16
+1.09522249172089e+16
+-3.12189323325012e+16
+4.02433454435311e+16
+-1.51099349198312e+16
+3.28127411592804e+16
+-1.40248809165386e+16
+-1.73546800019365e+16
+-4.41609811450581e+15
+-3.38906797987346e+16
+3.60842492688286e+16
+-1.12887413364364e+16
+4.44273317125652e+16
+-8.87008514617062e+15
+-5.81540481928906e+15
+-1.30211544637257e+16
+-3.66216701497671e+16
+2.29325421919561e+16
+-749690407821435
+
+# Dynamic constraint 11 (y_dot - f = 0) multipliers : 
+-1.65635333266206e+16
+4.93619455373302e+16
+-3.72273647075994e+16
+-3.03682331020354e+16
+-3.52732035662733e+16
+-3.95550473743969e+16
+3.95450188727101e+16
+3.05335597974405e+15
+7.2645426178362e+16
+-7.5060330715754e+15
+5.08661776134958e+15
+-3.54216931109873e+16
+-4.70322619447971e+16
+6.15739696225038e+15
+-2.22101065852787e+16
+6.0328877528296e+16
+-2.7576658781898e+15
+3.5419383150549e+16
+-2.03985171493274e+16
+-2.53238764911797e+16
+-4.41561383822465e+15
+-3.34266890777622e+16
+4.13932408169107e+16
+-1.7495747030619e+16
+3.8448811668252e+16
+-1.95462881814874e+16
+-3.24466521139273e+15
+-2.79248222282303e+15
+-2.20805567363444e+16
+3.49725588077731e+16
+-2.35373676406868e+16
+3.42754607247889e+16
+-2.98297731625989e+16
+622508443110904
+-1.10893236376212e+16
+-1.21873860422516e+16
+3.52697917702672e+16
+-1.30374699980433e+16
+4.0254427504943e+16
+-3.25498801458476e+16
+714750037269904
+-2.57271092386252e+16
+-1.40939309177652e+16
+2.56606113167815e+16
+-6.01958953391137e+15
+4.8290189343151e+16
+-2.051757094912e+16
+1.30002841766237e+16
+-2.59188190807211e+16
+-1.42978571609315e+15
+
+# Dynamic constraint 12 (y_dot - f = 0) multipliers : 
+-86463006061536.3
+-19067128743532.4
+-2607928450816.46
+852423908208.91
+1206752869793.01
+942328133151.172
+648793404096.846
+429686714485.635
+287607422756.03
+204575233553.145
+140107948277.019
+99003644046.4238
+67895583439.9395
+48443738164.4994
+29768153795.5596
+24046243963.1164
+26551151177.2797
+24016296738.7851
+23004674606.2318
+22022673983.6339
+21699667828.8894
+13615344626.0274
+13856845288.6118
+17798254039.9226
+18973678040.0959
+19400144785.8397
+23328116744.6721
+25414879595.0252
+18916544684.0212
+16417507034.0506
+16241495056.8585
+12327967570.2216
+6523867861.32602
+7202404540.31441
+8022924397.34233
+4679738371.12467
+5484045787.89426
+13235685995.5081
+18700131659.2995
+26415226210.8853
+46703410216.491
+81799849142.2085
+138718001000.178
+244414008451.879
+445439053530.162
+826806822389.932
+1671239773043.91
+3891760326725.36
+10730960499012.5
+34192925653351.5
+
+# Dynamic constraint 13 (y_dot - f = 0) multipliers : 
+120658274540849
+32327798632141
+8661540769576.63
+2320674188975.57
+621774904072.52
+166591266682.479
+44634549703.5106
+11958873766.3256
+3204115025.04344
+858491302.807744
+230014372.017737
+61635916.4789792
+16490276.2253572
+4429610.37900174
+1188798.86935183
+302981.118558
+77737.2006472335
+16227.7636037071
+-4034.18373301798
+2290.30337190487
+8158.90497578504
+1903.63820187862
+1198.25733377875
+-5708.25193775984
+-8829.30374812763
+-3731.79603883755
+-7503.36815993182
+-5337.59468462386
+-5434.8252000931
+-4043.12631114849
+-426.451549153429
+2585.51327286927
+-4895.29502466798
+-10179.5530477674
+4946.75035584484
+9550.26834336326
+32096.1160166031
+139134.050099579
+533773.08384949
+2028238.23005316
+7509060.47665743
+28052977.5976265
+104719562.441319
+390789759.49211
+1458599635.8752
+5444004612.53621
+20318904231.8382
+75836926640.8702
+283049081025.749
+1056434830062.02
+
+# Dynamic constraint 14 (y_dot - f = 0) multipliers : 
+-2.42193090919805e+15
+1.17839873395724e+16
+-1.47174899226963e+16
+1.99750369122953e+16
+3.40781361372097e+15
+-25522520723219.8
+-694714012613030
+-762982431481640
+-1.24233001770941e+15
+590372614667134
+254920189615847
+-1.59899144535015e+15
+-1.4086807306968e+15
+2.1811510241081e+15
+2.06226679901984e+15
+-743021133891880
+-3.16745344314016e+15
+711758326886689
+4.5399629470583e+15
+-725195482206822
+-7.75104998549706e+15
+-3.99899801023975e+15
+1.04893971568248e+16
+1.94139250607014e+15
+-8.55440017713837e+15
+-8.02408772753157e+15
+1.37566041613803e+16
+3.73163489524447e+15
+-3.63069380749825e+15
+-2.47960843952537e+15
+5.15011758560462e+15
+1.14262969542751e+15
+-2.08554987006467e+15
+-1.80563749322893e+15
+2.62510252333468e+15
+924097341355460
+-1.23990438192349e+15
+-718369545395645
+1.58536327500902e+15
+905140226095420
+209988983447292
+-201575889956835
+-860755354534354
+-7.61991407924354e+15
+-9.94944125843078e+15
+7.03954749229674e+16
+1.08539603737553e+16
+-8.04581284623127e+16
+1.53473264117232e+15
+-415627932284857
+
+# Dynamic constraint 15 (y_dot - f = 0) multipliers : 
+1.65745836817011e+16
+-3.53494506738949e+16
+2.58741000395311e+16
+-8.29277998593858e+15
+-661310246529071
+104778360773870
+1.09333815181763e+15
+2.8811535313913e+15
+2.68185738069573e+15
+637503091973284
+845529310332368
+3.28060110956098e+15
+2.5565764224428e+15
+-426671149778106
+-1.14262898526992e+15
+2.22300853905407e+15
+1.18300976330549e+15
+-1.08994335116592e+15
+-1.2267685836515e+15
+1.25841645666647e+15
+-927311430882011
+-2.11673943762921e+15
+1.99758428388932e+15
+1.43689015378306e+15
+-119941358126946
+-2.52247200005835e+15
+3.07240049382552e+15
+1.58045095458576e+15
+2.89081684408352e+15
+-414770172451478
+-347277280596334
+-336896445011380
+3.05136693044219e+15
+1.19375320645346e+15
+-1.7248891336233e+15
+-1.74635065199708e+15
+1.36718526603077e+15
+1.40544498382842e+15
+-1.70459444174528e+15
+-2.11995284776151e+15
+354793393945521
+1.14875240385979e+15
+-450787941605012
+177698511174366
+7.64674199772478e+15
+2.29767964158967e+16
+3.1153199159113e+17
+-3.34868839178107e+17
+-7.01987042179351e+15
+2.62390579469279e+15
+
+# Dynamic constraint 16 (y_dot - f = 0) multipliers : 
+680858559989584
+148552167810184
+121401451782596
+99456202661761.1
+32593873423079.7
+12175411488024.7
+23166696889419.3
+48158712334310.8
+28561969971938.3
+12653924841711.5
+25258245282493
+60489105119378.5
+30713151591132.9
+1144156934007.89
+755489837419.999
+57530052218492.5
+-1474660482316.31
+-34932125902522.9
+14209783059827.5
+20788342624645.2
+-108808149882545
+-132889888209382
+160357540109220
+54233007992050
+-101974406447360
+-212809979647278
+245791732333126
+73072171199527
+22870776210482.4
+-61861110594652.2
+19642336190534.6
+-17720551386513.4
+32267917384419.2
+-17113043889019.4
+-34867030814446.1
+-47954958366473.5
+-3445040248599.35
+-8247796981889.04
+-39489768360704.8
+-43212708524239.4
+-10004512993692.4
+-7269165295515.02
+-28153378090794.9
+-62601350028488.9
+-65690638299646.7
+328132457554391
+-815816100590903
+490011101830022
+21467027237991.2
+-917863332330.747
+
+# Dynamic constraint 17 (y_dot - f = 0) multipliers : 
+3.39370505753528e+15
+2.58188105705565e+15
+1.20891565137542e+15
+580421857035464
+367384041527998
+336264794846385
+113340489092923
+-64265664836487.3
+45975887763164.7
+190178328098635
+60023868682505.8
+-120755623658658
+-23650293919686.1
+164567560057143
+74634549329607.9
+-139160418211449
+-94088171676334.4
+129753730954348
+113761210196334
+-114911770819033
+-133441297208619
+107154786154210
+161805511672956
+-96041284067403.3
+-182859459838432
+54698617310208.9
+193547774622383
+-38443434086055
+-166460854176450
+26871680512083.9
+189406674439826
+3167328564052.34
+-183094760068403
+-44012588703213.3
+159911194071646
+45106701532392.3
+-163986498256194
+-73377407377889.1
+150018526858628
+77369416986063.4
+-176962671009189
+-183187623454971
+32832055409210.3
+90562414265898.3
+460933907044517
+3.78403628816554e+15
+2.19161898665564e+16
+-2.56926408537851e+16
+-8.2096278623738e+15
+2.13893885155364e+15
+
+# Dynamic constraint 18 (y_dot - f = 0) multipliers : 
+3.04954345263375e+16
+1.04454061684143e+16
+2.6408562934473e+15
+39267751797157.1
+456611286275412
+1.02428364028059e+15
+133326946110288
+-714508841777301
+-13179030618407.6
+892150161679490
+290904218563121
+-722028489739955
+-275403425626244
+794316310575639
+452103807889957
+-699920965606325
+-539235233826281
+626238970978831
+622965586869855
+-544855877824903
+-706313725006473
+476755238286084
+793202089388279
+-388171630368692
+-878532586452639
+222176080350891
+865863737307589
+-145329560673913
+-911072405021589
+8707280225195.33
+929653145786536
+88721760723382.4
+-973327821015495
+-315832193112485
+813713671629199
+291120714597636
+-917621769875420
+-545388637430965
+747919227806672
+515045384720190
+-875485352464939
+-866487282711938
+504030270127242
+691610282723893
+-250870167320209
+2.09538851823595e+15
+1.67683246640978e+16
+-2.52089027703397e+16
+-1.90805861748581e+16
+-1.00412937827211e+16
+
+# Dynamic constraint 19 (y_dot - f = 0) multipliers : 
+-28030729191722.4
+-35812136553063
+-23069914192629.5
+-13202525308437.4
+-7383318927044.18
+-4199329686970.24
+-2389391788141.18
+-1208990272174.99
+-599032806234.396
+-404432802308.814
+-275181819927.364
+-52758745565.3227
+15748397657.2584
+-73649135623.6468
+-111722700164.984
+9407248776.42807
+-18819795110.9843
+-43749416044.9474
+-92806001163.1974
+-238350700674.77
+-315529570604.157
+64879183847.2602
+343985776059.972
+-278990340654.173
+-444311721167.765
+39527512399.3062
+649272662544.682
+-124036603409.634
+-114453585735.506
+-75678659633.676
+-54919965103.7689
+-233383123183.399
+-69747322853.4042
+-126501780795.895
+-306985938597.377
+-463856981979.392
+-354176159306.055
+-381169721068.324
+-706387123640.975
+-1120735890498.83
+-1443092808325.27
+-2026263139616.69
+-3406357727669.39
+-5831551669022.95
+-9309130988105.51
+-16032527357391.3
+-27608794523889.5
+-40622593821797.8
+-49851703181160.2
+63698686796932.4
+
+# Dynamic constraint 20 (y_dot - f = 0) multipliers : 
+14460265565040.6
+31353393784951
+-32749036094870.8
+2418584648780.88
+-503629768328.544
+-3191570716720.47
+-2942515142278.02
+-1423031254835.07
+-1113878500050.75
+-375728442961.984
+-841240817907.395
+-725014012664.944
+544566127456.952
+1327186743428.23
+540549368208.705
+-147926735744.71
+-1413220884760.65
+114357574514.403
+2985404791368.06
+-961232206277.735
+-6494465191987.54
+-2861222661970.06
+7922989155095.64
+1623504133957.1
+-6901967501403.04
+-4301470545376.4
+9111175367485.24
+2936416165973.62
+-2522240771047.35
+-1829368138581.5
+4055092040387.29
+91799508254.5847
+-1163122697366.11
+-365030144662.484
+1394819939333.35
+-628395439377.979
+-1047043380412.91
+813847961552.436
+1911046209995.34
+1418850905378.82
+5207630253164.13
+18422445204372.6
+61403695921847.3
+221983210468326
+855484671307208
+3.20605523005644e+15
+1.13806938586978e+16
+-1.15449362505497e+16
+-3.08962388524889e+15
+-827919068338418
+
+# Dynamic constraint 21 (y_dot - f = 0) multipliers : 
+14918107620614.3
+45987343021724.5
+35092041132633.8
+766916034012.776
+-38096089770569.1
+-63419514487292.6
+-64570737267564.5
+-42605564955773.2
+-9568072725824.24
+17837118054572
+26580803713839
+13178153376088.9
+-14979151561894.5
+-43569202734194.2
+-58856362710740.1
+-54245536402853.6
+-32886650628831.2
+-5883669535518.23
+13487385107711.9
+16414133120059.5
+2403852986700.67
+-20888046824976.1
+-41684240931317.5
+-50197704122134.7
+-43229187277692.4
+-25092851090761.1
+-5179725587830.43
+6889640115660.99
+6001125340533.17
+-6442537204417.53
+-23681364551312.9
+-37133718668185.2
+-40762958677989.9
+-33791288200339.4
+-20476992541317.6
+-7696503764602.35
+-1423903350884.29
+-3867608923408.48
+-12871016863583.2
+-23471294375958.5
+-30543527508442.2
+-31323874602679.7
+-26436076782343.1
+-19001463234602.9
+-12796242387047.6
+-10486662495180.9
+-13056879781488.3
+-21867558437143.1
+2.7027201370914e+15
+8.11811172665124e+15
+
+# Dynamic constraint 22 (y_dot - f = 0) multipliers : 
+104029522215110
+-40906348329421.4
+-68728945325206.1
+-73224241051577
+-82543484108634.5
+-100885072559028
+-121873508668201
+-136378340718579
+-138209080763507
+-127187976917890
+-109326104547142
+-93671051929229.4
+-87703306634090.2
+-93828393631752.8
+-108557266133221
+-124361150558080
+-133614073098998
+-132273699146827
+-121485259342419
+-106928131120876
+-95853284562724.8
+-93385925922521.1
+-100159249482116
+-112378600048495
+-123827485282100
+-129087902413987
+-126136182827745
+-116947100071409
+-106350253133099
+-99540396477231.5
+-99493994285175.2
+-105694286297651
+-114744642997557
+-122165112023919
+-124666973851175
+-121687991403256
+-115336167082135
+-109154648780524
+-106287005253796
+-107972169554440
+-113166358720701
+-119412651414025
+-124207423678245
+-126272224481956
+-126203192217806
+-126606622881287
+-133536571594566
+-164597765622106
+-926722603845282
+-2.65448250144385e+15
+
+# Dynamic constraint 23 (y_dot - f = 0) multipliers : 
+-279531921611.658
+-217450796131.167
+-165496175666.92
+-129728001646.291
+-106740108221.095
+-92455767631.6185
+-83785374908.5659
+-78639232877.8422
+-75660729831.3361
+-73986253917.9678
+-73076891875.7959
+-72607103990.173
+-72389065361.4263
+-72318718029.7504
+-72339227719.6719
+-72416216466.9989
+-72522977573.8056
+-72636521177.7138
+-72739433067.9349
+-72823771851.5556
+-72893260257.8232
+-72961099819.4743
+-73044550235.651
+-73159626289.4797
+-73317352602.3094
+-73523307572.7414
+-73781874686.0401
+-74102416204.8143
+-74505077577.53
+-75024263378.9549
+-75708908641.1681
+-76621150304.983
+-77836003624.9759
+-79443704732.7343
+-81555630803.193
+-84314122861.4456
+-87903995635.2516
+-92563720482.2552
+-98594541009.8726
+-106365797541.17
+-116314029392.616
+-128929019105.077
+-144705635949.927
+-163996035341.978
+-186547658218.088
+-209976754157.055
+-224465960589.137
+-193718625488.137
+-52458769690178.2
+-156539015309720
+
+# Dynamic constraint 24 (y_dot - f = 0) multipliers : 
+-108956569115381
+-669010222907607
+-1.09731626484253e+15
+-1.30053786981887e+15
+-1.23423804493354e+15
+-984717451966882
+-705259070782796
+-518687411032628
+-498475774630466
+-680353070162196
+-976884671155080
+-1.21473226676537e+15
+-1.2755431264971e+15
+-1.16334885808816e+15
+-954046276420260
+-764530151345946
+-653226251353732
+-641723259615271
+-772339360378524
+-1.00741473102235e+15
+-1.20208381462539e+15
+-1.23469085412242e+15
+-1.10274386473346e+15
+-902494384732145
+-768611168816595
+-749266872324823
+-801195759877617
+-897942748407545
+-1.02197737653338e+15
+-1.11657576386894e+15
+-1.11916970653025e+15
+-1.02137400556444e+15
+-876624008837936
+-773810667601724
+-761736210118357
+-822934073622020
+-922137749045152
+-1.01508061956736e+15
+-1.04986306944207e+15
+-1.00348841476943e+15
+-911114435536338
+-835719822890850
+-812571805989896
+-819279857741078
+-824884757914419
+-848883404513391
+-931447097356842
+-1.11241111458843e+15
+-1.54563438600778e+15
+-5.07074279788468e+15
+
+# Dynamic constraint 25 (y_dot - f = 0) multipliers : 
+-65065905827538.8
+748553603070013
+728348689488167
+248201729414287
+-318126659311740
+-658753588706086
+-628507445981792
+-244172022104641
+310756833764604
+763881318652222
+888540686076721
+625069538760683
+131751469363857
+-319449477780477
+-525188255360082
+-439243068735164
+-123340102961275
+291231733202890
+619055619731946
+682467567890362
+428826756065000
+1510355518432.41
+-347619222756758
+-441246602845328
+-284835009450398
+-3579766187122.14
+263168158687782
+416057927874047
+396544974776460
+198748908786544
+-90349592163765.1
+-312615997613179
+-351320994964384
+-211896871474433
+12219682486924.1
+204144806863675
+276927789479373
+205439910374388
+30305548779161.4
+-154764956057639
+-248599627651923
+-224131284598569
+-151726799468348
+-136629417099619
+-346220195245794
+-1.33791424321346e+15
+-5.19812012473852e+15
+-1.96442803595392e+16
+-7.33495021625727e+16
+-2.73783070159666e+17
+
+# Dynamic constraint 26 (y_dot - f = 0) multipliers : 
+4487614965225.09
+1147937564951.3
+264371095364.149
+26837686669.4931
+-10298940165.9143
+-12732951867.9188
+-13906793259.1843
+-14678954825.4395
+-13281043305.5917
+-9137969439.53093
+-3526305846.35489
+1396984490.43982
+3760507078.98342
+2576532969.6718
+-1071035052.29058
+-5192981473.3219
+-7713970897.22635
+-7488750994.27243
+-4682600400.46599
+-766929252.587392
+2364418472.83105
+3207320387.73203
+1472521709.99893
+-1785691608.51756
+-4935376245.73865
+-6504318117.48444
+-5912076675.10976
+-3594793643.05565
+-835100327.364639
+956464276.454128
+869806941.785841
+-974427749.719957
+-3700292945.76829
+-6145283811.21393
+-7439335832.55486
+-7464001584.02604
+-6804563432.77474
+-6499096905.76644
+-7475677304.06898
+-10118261246.7994
+-14202110309.9122
+-19398463507.9486
+-25908351374.992
+-35904028812.9179
+-57511858518.2975
+-117108051757.565
+-297474426539.562
+-828877736264.156
+-1728891565988.62
+-6087439013048.82
+
+# Dynamic constraint 27 (y_dot - f = 0) multipliers : 
+-59437010784749.4
+-15924873151799.2
+-4266728436493.2
+-1143178457317.71
+-306290182542.618
+-82063886724.137
+-21987281956.6186
+-5891018044.47859
+-1578392260.90257
+-422877801.534554
+-113324821.017806
+-30366465.9961438
+-8140009.378521
+-2168922.75570131
+-579337.527820932
+-157522.793328678
+-48753.3158251417
+-8364.10126395641
+-15327.9889835124
+-435.13636045847
+-2853.66055471485
+5699.51836169572
+474.920103304858
+10779.0156458885
+-3705.40214908085
+-3818.35610575562
+-5201.11166914778
+-236.412925071907
+-8159.15454005435
+3981.20113969598
+5424.99268345859
+57671.666583856
+208080.491650894
+755109.580930861
+2866665.71587549
+10692494.9465428
+39908971.5675212
+149027824.645493
+556212596.214304
+2075927379.90332
+7748035864.55456
+28918337267.8399
+107932989241.128
+402842406134.129
+1503544092120.75
+5611734920219.41
+20944892033420.5
+78173418518903.8
+291769628293471
+1.08898289987863e+15
+
+# Dynamic constraint 28 (y_dot - f = 0) multipliers : 
+1.09946000894497e+17
+-1.16796858419549e+16
+-3.5341132338085e+16
+-1.8435634817064e+16
+9.86116999579383e+15
+2.60054767480226e+16
+2.38171082051419e+16
+3.72661596514237e+15
+-1.20660733153683e+16
+-1.06203094050526e+16
+-2.44181344690613e+15
+1.81114511803346e+15
+-5.12599000923867e+15
+-2.22558673438381e+16
+-2.61329465829671e+16
+-5.7399752000114e+15
+1.58824239265627e+16
+2.31362349911379e+16
+1.65005702034077e+16
+3.6750862027602e+15
+2.9229511931408e+15
+1.59538598233135e+16
+2.41591861253705e+16
+2.07131616519206e+16
+-2.2926469623921e+15
+-1.98740967540711e+16
+-2.30306553906617e+16
+-7.98200436398041e+15
+149059927130042
+-1.02946990526433e+16
+-3.16503019907289e+16
+-3.5112150840834e+16
+-1.04914050141438e+16
+1.27197140062256e+16
+2.5922311843987e+16
+1.74170685075473e+16
+1.72446266532706e+16
+2.56361259062016e+16
+3.30034364802194e+16
+3.06882570599627e+16
+1.80678697589147e+16
+-1.27671813332551e+15
+-3.71460860658026e+16
+-4.93087857043977e+16
+-3.99385196181106e+16
+-1.43709204362401e+16
+-7.69886783897923e+15
+-1.62605947644155e+16
+-2.35865247795357e+16
+-3.15683570616257e+16
+
+# Dynamic constraint 29 (y_dot - f = 0) multipliers : 
+-3.58943845640312e+16
+1.91171315256983e+16
+1.62671553249057e+15
+-9.44148431807786e+15
+-9.44492050725469e+15
+-5.36248839885701e+15
+396356284492211
+-4.7705994304551e+15
+-1.97869065451932e+16
+-2.37634722644807e+16
+-1.81140585497243e+16
+-1.17471700350413e+16
+-7.68925600077367e+15
+-1.30297557397815e+16
+-2.02007344063876e+16
+-1.65169467753801e+16
+-1.07225187708075e+16
+-4.82034302489041e+15
+-1.62075643983248e+15
+-1.0116037588142e+16
+-1.85198076953604e+16
+-1.67075098346436e+16
+-6.53829957345401e+15
+-419679871312438
+-7.43348956234791e+15
+-1.9813806665489e+16
+-2.59443965429131e+16
+-1.886334798422e+16
+-1.27501451401372e+16
+-8.85612697273093e+15
+-1.4371770047357e+16
+-1.86403464723479e+16
+-1.57545524071751e+16
+-1.19752699616342e+16
+-6.58408532795318e+15
+-2.25951475591209e+15
+-3.48637647334894e+15
+-1.38402873769764e+16
+-1.5521153036408e+16
+-9.77172587818098e+15
+2.07663987289877e+15
+-3.64246273739082e+15
+-2.63099866453411e+16
+-3.45986315802693e+16
+-2.57040059327768e+16
+-1.30126153395778e+16
+-9.50456161104369e+15
+-9.8704368700379e+15
+-1.55832758178215e+16
+-1.67312619172141e+16
+
+# Dynamic constraint 30 (y_dot - f = 0) multipliers : 
+-1.76422789409424e+15
+1.18913275627075e+15
+780882252072848
+323485574591718
+102041697942619
+29246709331056.5
+16001540509114.2
+17208894272735.2
+13203655069969.7
+5759839888249.23
+-52132779156.8743
+-2601499144431.72
+-2541433768154.11
+-1680078511301.99
+-2198015145115.25
+-4513516575501.99
+-6498421193449.37
+-7055210953540.26
+-6485456439356.58
+-5697204055039.66
+-5727004848988.99
+-6517520896979.78
+-6982418600178.13
+-6700866881308.33
+-5499543352720.2
+-4493346533134.72
+-4203622300687.14
+-4892992174481.68
+-5365337562311.65
+-4918308682407.16
+-3799543953387.12
+-3450815701475.51
+-4706383283535.09
+-5964089725717.78
+-6570130893861.62
+-5981288878304.44
+-5664723488870.77
+-5766401707774.97
+-5722065904557.46
+-4953243302090.94
+-3104888360951.82
+-380434104907.669
+3572652537448.16
+7988462280245.5
+13230978440021.4
+20945559813915.8
+35589696176558.4
+61585759173175.3
+103348667591034
+162198702722360
+
+# Dynamic constraint 31 (y_dot - f = 0) multipliers : 
+-1.98263008736789e+16
+-4.36472110191324e+15
+6.80943087672814e+15
+6.76441283329223e+15
+-648258520535885
+-6.87427728658608e+15
+-1.32396244473859e+16
+-6.50992326226009e+15
+1.04004739510433e+16
+1.21551658310076e+16
+4.2830743867826e+15
+-1.75927895081284e+15
+-4.15972246592029e+15
+4.09234375929392e+15
+1.16651627485836e+16
+4.54460331900473e+15
+-1.91071343091344e+15
+-6.48265245517059e+15
+-9.00867631860811e+15
+734035803024519
+8.91002465447742e+15
+5.50093575361621e+15
+-5.8815441846129e+15
+-1.19202464742364e+16
+-3.00024649884519e+15
+1.01152535963657e+16
+1.52050578995333e+16
+4.93542145277081e+15
+-782444278632402
+-2.67663459157913e+15
+6.54358471850469e+15
+1.0722515702155e+16
+3.43611897798124e+15
+-1.20444372415061e+15
+-4.91378334269406e+15
+-6.68948948270492e+15
+-6.03240608747858e+15
+4.51948624143686e+15
+5.20633194684452e+15
+-932560721185019
+-1.47852724362281e+16
+-9.4191006696095e+15
+1.60456848544495e+16
+2.29192357151698e+16
+1.22001390908049e+16
+-1.22882485395384e+15
+-3.07341221084792e+15
+-3.69458387864662e+15
+-485836479141406
+3.9085181971013e+16
+
+# Dynamic constraint 32 (y_dot - f = 0) multipliers : 
+-2.43644981677539e+16
+-9.0012955296494e+15
+-1.46851573059241e+16
+-5.58819440690549e+15
+1.52064179769824e+16
+2.85777455821558e+16
+2.70275668742472e+16
+5.09508429613834e+15
+-1.22263709505763e+16
+-8.29181405522168e+15
+2.0641034658795e+15
+7.38292996329016e+15
+21240812299176
+-2.03232215102875e+16
+-2.55254321907028e+16
+-3.30927944301208e+15
+1.7668320711596e+16
+2.27320870141496e+16
+1.46056841567111e+16
+-745053100252618
+-2.1086005866595e+15
+1.38806089591561e+16
+2.35874351005763e+16
+2.22313558230374e+16
+-2.84140780475859e+15
+-2.01553430124139e+16
+-2.19005572489818e+16
+-1.87138242391502e+15
+7.99361238680712e+15
+-4.89855122492187e+15
+-3.02151638221501e+16
+-3.4812393713911e+16
+-5.75394058946404e+15
+1.55957907295358e+16
+2.57532699812211e+16
+1.04378074138379e+16
+9.76674185576337e+15
+1.93344873836519e+16
+2.8664174388913e+16
+2.82046449868626e+16
+1.7394693573238e+16
+3.58264078400965e+15
+-3.47400965151766e+16
+-4.3128173842344e+16
+-3.28631971469751e+16
+-6.66135000108345e+15
+-5.85509920061816e+15
+-1.93387425130832e+16
+3.02634969088681e+16
+6.76611102693361e+17
+
+# Dynamic constraint 33 (y_dot - f = 0) multipliers : 
+-188618728390612
+-124092555857023
+-71633531654767
+-39277576955731.1
+-20918960032351.2
+-10507526763623.9
+-4199165173820.62
+66799554270.5112
+2758158475188.22
+3735924846260.59
+3522431251011.29
+3069770706933.04
+2997778661691.66
+3301440597558.56
+3252875653110.04
+2588879597807.24
+2108544863597.37
+2253429671337.48
+3050944838161.09
+4154582037339.6
+4916517941588.18
+5158982952005.7
+5288301304555.1
+5725332225717.85
+6626597644522.73
+7548940922394.32
+7793079528383.71
+7314193425777.36
+7006446063370.35
+7526214076334.29
+8849348035649.72
+10298637477185.9
+11795140126306.7
+14416985540010.6
+18947196971802.9
+26063165744649.4
+36254066828256.1
+50506336489644.5
+70775774769859.9
+100938127829926
+147663108573408
+222044157911927
+342574690890783
+541681058478531
+877587830921089
+1.45110316046981e+15
+2.41034336876192e+15
+3.79628196117105e+15
+4.10378652747583e+15
+-1.02554529686881e+16
+
+# Dynamic constraint 34 (y_dot - f = 0) multipliers : 
+1.51699377601308e+16
+1.78260823236768e+15
+-2.84146240024448e+15
+-1.34564807364474e+15
+3.86447045308159e+15
+7.41608534856863e+15
+7.13234068650705e+15
+1.9324338907712e+15
+-3.09372401307697e+15
+-2.92820110253724e+15
+-646279129423709
+421548718013360
+-1.29359645319223e+15
+-5.77379620942203e+15
+-6.97856813776509e+15
+-1.53752113071818e+15
+4.16617479133333e+15
+6.05774131187344e+15
+4.5887777447237e+15
+1.13228466165613e+15
+599364834649595
+4.16368570256684e+15
+6.43741587886364e+15
+5.65566018025553e+15
+-463498568178852
+-5.31118887571261e+15
+-6.20944659750722e+15
+-1.92016101328539e+15
+91423158841330.5
+-2.81563434418006e+15
+-8.41247194966741e+15
+-9.20210829929032e+15
+-2.68635452964808e+15
+3.33099816443613e+15
+6.69333554024081e+15
+4.54279248178213e+15
+4.79888737068584e+15
+6.66381546211522e+15
+8.82369115294273e+15
+8.23548700927149e+15
+4.9427481008132e+15
+337315003709016
+-1.00158304092347e+16
+-1.32678567361661e+16
+-1.06426123861433e+16
+-3.84772952153446e+15
+-2.12927571054805e+15
+-4.19224986451126e+15
+-5.90685074926077e+15
+-7.32822597424631e+15
+
+# Coefficients of discretization method : 
+
+# a(i,j) by column : 
+0.5
+
+# b  : 
+1
+
+# c  : 
+0.5
+
+# z_L and z_U : 
+
+# z_L corresponding to state variable 0 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 1 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 2 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 3 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 4 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 5 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 6 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 7 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 8 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 9 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 10 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 11 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 12 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 13 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 14 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 15 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 16 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 17 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 18 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 19 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 20 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 21 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 22 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 23 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 24 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 25 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 26 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 27 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 28 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 29 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 30 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 31 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 32 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 33 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to state variable 34 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_L corresponding to control variable 0 : 
+1182918.69518681
+1191375.84493116
+1192190.62392238
+1192139.95121078
+1190671.46940757
+1189813.46359595
+1191172.00551388
+1193025.13596862
+1193133.59059331
+1191660.21914607
+1191294.44499088
+1191367.01269958
+1190265.50149368
+1189019.57320079
+1190543.13256914
+1194890.66292499
+1197408.91762828
+1192339.18847244
+1185971.82809228
+1186535.55213575
+1191095.6922802
+1193942.72895175
+1193566.98066358
+1193842.33334882
+1194956.54198054
+1192046.84793836
+1186125.54388699
+1183123.03565002
+1190602.14253292
+1200822.18860719
+1199328.67700437
+1190723.75462031
+1185475.994236
+1187547.34759737
+1191422.60671452
+1189735.49657448
+1192618.6761932
+1196881.98569804
+1199744.98996426
+1191321.39408508
+1179256.34936934
+1182453.85779982
+1195996.80770263
+1201608.83323719
+1197774.67831245
+1187419.94456058
+1185237.24965122
+1188327.39568554
+1186688.23335605
+1185263.19933379
+
+# z_L corresponding to control variable 1 : 
+874946.733456983
+881605.546299066
+882026.252715184
+881881.72292801
+880235.660844544
+879345.110997328
+881606.025328218
+885194.353102127
+884842.238017453
+880379.575632389
+878171.22086237
+879848.856678126
+881575.341442257
+880628.503773051
+881136.160388508
+886186.196970404
+888430.150446426
+881499.446071872
+872703.551048315
+873082.610912108
+883341.085500517
+889807.918550385
+885749.052603487
+880464.4626788
+880924.036590263
+882322.197600875
+877553.71285817
+873011.492943169
+880722.14007615
+892835.802698318
+891591.142662183
+876800.313447444
+868328.694096678
+876946.468328703
+889052.506315883
+887906.41469059
+881070.111964181
+880375.165656249
+884522.194319502
+879094.854025407
+868826.5375522
+872076.394106715
+891656.016090554
+903742.164724395
+889272.136438865
+865601.214929575
+864571.988816049
+878331.842799774
+884862.04534709
+883016.350459498
+
+# z_L corresponding to control variable 2 : 
+911850.116432271
+910936.962082317
+910908.210075762
+910941.332230234
+910969.186040274
+910922.969864195
+910863.491236098
+910856.43633479
+910910.044710254
+910943.756377012
+910911.172050226
+910943.910636346
+911010.08211493
+910982.200727553
+910812.848645822
+910692.427025106
+910848.696193001
+911079.064559219
+911095.832167519
+910972.142513769
+910849.279904471
+910887.708318362
+910874.166129125
+910760.768425161
+910809.626848438
+911052.659041452
+911248.416455935
+911129.335214155
+910690.247181267
+910646.485026463
+910909.552646799
+911091.591135279
+910994.815226021
+910827.287753187
+910989.439406413
+911109.238275013
+910800.090118305
+910669.017957925
+910904.80952548
+911295.073705277
+911316.808578279
+910800.373599061
+910500.357787562
+910681.963264368
+911021.607524734
+911197.939229805
+910979.157152345
+911045.453278912
+911482.709199978
+911145.162851164
+
+# z_L corresponding to control variable 3 : 
+1173819.86077165
+1055206.36875322
+1040554.32355868
+1062440.50152371
+1115137.13016536
+1114595.55592542
+1115106.24410402
+1127074.81047366
+1145280.59558508
+1155081.22889556
+1147445.25612044
+1156159.50050343
+1187179.95601184
+1195509.88772133
+1170068.82976008
+1156904.76128972
+1181631.98848977
+1192257.9495723
+1169071.05662655
+1146564.92887019
+1169764.92063453
+1186249.2602504
+1153745.35774313
+1146200.60059478
+1157438.23363748
+1184644.84589985
+1135654.10497573
+1146815.10092077
+1152872.71162009
+1188145.62001911
+1178098.98483339
+1149657.23766756
+1149862.84688974
+1183548.67333593
+1185026.05848294
+1151669.86480426
+1147141.07150762
+1169837.50087061
+1171999.18072811
+1142096.36350735
+1130958.20436043
+1139998.52752565
+1136035.89358995
+1117705.69251314
+1104496.61982017
+1023903.18895324
+1018306.02505089
+1054689.65783179
+1058489.30126169
+1125496.96666837
+
+# z_L corresponding to control variable 4 : 
+1070413.19985226
+715740.391077469
+715310.253416917
+717956.598979466
+736943.289543838
+736938.281025461
+736069.676666945
+739691.880764267
+747719.281580149
+752168.247754401
+747998.292751964
+751222.422039722
+767161.69832058
+771946.970961049
+758015.310393451
+751489.477666902
+764115.799995129
+770299.847532998
+757747.979176846
+747362.809863975
+758177.566814972
+767186.84711649
+751121.59036533
+747305.435671898
+752355.999892662
+766361.678142061
+743622.290768654
+747666.575644823
+750202.136699138
+768188.064360612
+762762.854631425
+748921.091437252
+748509.74696695
+765559.78263854
+766429.746151455
+749908.721741923
+747393.993972742
+758445.680509551
+760253.615782801
+746323.264750742
+741151.601836085
+745314.036446836
+745105.636908253
+737949.702862303
+732519.967126341
+704883.57796648
+705191.673950873
+729193.511916622
+711999.162853728
+740947.308225057
+
+# z_L corresponding to control variable 5 : 
+1003013.09169577
+910610.289240011
+908991.076266175
+909123.197668483
+909384.048640501
+909483.835137071
+909501.953109427
+909613.678340417
+910028.995292603
+910406.435728675
+910225.544390793
+910219.584050806
+911085.043245656
+911773.035639483
+911018.401177638
+910442.946304171
+911181.327412851
+912074.265828311
+911386.194072454
+910452.018248391
+910909.698748129
+911826.48128666
+911031.070224978
+910479.905813749
+910620.838976428
+911680.831160549
+910649.010489146
+910600.794612074
+910459.900241111
+911612.55770625
+911680.50292713
+910590.945911427
+910244.580347857
+911143.636229931
+911524.18427831
+910530.163542044
+910055.212896491
+910438.803558278
+910649.777537438
+910024.986028379
+909639.958812439
+909696.439376355
+909710.084430613
+909507.918849097
+909350.237815473
+909191.372129962
+909194.026107959
+909195.062214614
+909514.951261105
+909382.127253164
+
+# z_L corresponding to control variable 6 : 
+929743.96987185
+1089559.61186342
+1091065.59674069
+1090866.77842187
+1089505.61422073
+1087166.89397302
+1086014.849453
+1086857.25990287
+1089827.81552843
+1092759.68456946
+1092918.52978144
+1091928.76140058
+1092066.15488164
+1094409.12363874
+1095857.00387565
+1093986.92668652
+1090135.98334955
+1086530.67211835
+1086318.3187336
+1088395.82801864
+1090364.59637066
+1090483.36953337
+1087863.97012851
+1088004.71462725
+1089804.24148352
+1091455.45773592
+1091867.32085531
+1090223.30375106
+1087196.49440439
+1085875.80268511
+1089852.76985838
+1093557.1375073
+1096828.69755382
+1094508.95258312
+1090060.28089687
+1089350.66501353
+1092483.00808555
+1093187.70312429
+1089527.77735781
+1085021.67480783
+1081534.15677724
+1082654.84833559
+1085084.74072971
+1088904.26727931
+1088497.3227148
+1086988.44797391
+1090359.07932318
+1094328.421182
+1097615.59691751
+1095267.87715488
+
+# z_L corresponding to control variable 7 : 
+1101864.53097567
+923276.259349052
+931409.175189111
+936895.791460215
+935384.258631726
+929404.615376492
+919451.45852865
+918286.801373653
+920468.094783273
+915154.296708171
+905446.067653677
+897187.792069007
+894400.436873493
+901425.969996238
+912367.730322938
+916016.293677637
+913017.002315825
+908066.136640178
+903638.073643921
+909937.383644066
+912139.80758778
+906373.305311357
+900121.243878028
+894448.674630107
+898675.569035711
+906014.07334426
+909387.791403978
+905190.886898822
+901061.193470178
+895677.956061574
+893096.759236635
+899228.567111545
+902465.10023599
+897841.035472508
+892659.780609859
+895759.424008459
+904544.059479953
+917096.955822449
+917486.525107379
+914834.448685206
+907212.846306869
+903851.045261534
+904820.750952834
+897702.837707874
+888038.031308475
+871098.046363911
+873291.931308448
+881257.426039077
+901922.530529859
+916464.966259657
+
+# z_L corresponding to control variable 8 : 
+907956.092847719
+908995.342605869
+909091.659504628
+909090.13585389
+909070.127719281
+909075.033663058
+909098.10666502
+909116.923861421
+909142.486047836
+909133.794211657
+909078.928865166
+909037.927786198
+909017.393174185
+909023.501865066
+909045.643916399
+909032.259732747
+909005.27531579
+909001.699278842
+909023.209749038
+909057.200745588
+909077.571008197
+909067.149439482
+909036.107751034
+909028.594881071
+909029.538499262
+909054.701268814
+909067.405745861
+909058.034351818
+909030.351911602
+909006.014861702
+909028.055859336
+909071.581671324
+909079.627418073
+909004.557145813
+908949.314461675
+908934.132798114
+908976.088626732
+909005.865381922
+908995.442279867
+908998.624322821
+909013.246715435
+909048.917199412
+909068.624263632
+909097.490098663
+909045.483217074
+908976.328170896
+908938.467636142
+908952.322831754
+909042.509427916
+909111.030547843
+
+# z_L corresponding to parameters : 
+490652.724755285
+3840946.78743526
+556285.400004
+2.57806561954276e+21
+314119.448069267
+
+# z_U corresponding to state variable 0 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 1 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 2 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 3 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 4 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 5 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 6 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 7 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 8 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 9 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 10 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 11 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 12 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 13 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 14 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 15 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 16 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 17 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 18 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 19 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 20 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 21 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 22 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 23 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 24 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 25 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 26 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 27 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 28 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 29 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 30 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 31 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 32 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 33 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to state variable 34 : 
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+# z_U corresponding to control variable 0 : 
+737013.327709138
+733745.266131167
+733430.663368046
+733447.418208625
+734014.153877041
+734349.051374119
+733821.856906021
+733102.848388002
+733066.160725419
+733648.262951027
+733793.408696613
+733738.907088457
+734140.504317447
+734641.373260679
+734088.727030666
+732422.910908428
+731432.053653304
+733348.150719592
+735846.110758715
+735650.263938828
+733836.543141868
+732706.368905718
+732898.640603051
+732870.809296968
+732428.592734344
+733430.654819071
+735685.369669103
+736960.61263119
+734121.671937105
+730175.516432855
+730646.28600625
+733974.911940703
+736125.70271231
+735272.823279097
+733618.056041174
+734261.83885061
+733341.900698428
+731811.885963479
+730569.486982157
+733567.332299752
+738398.874521098
+737343.309646536
+732090.08591674
+729759.150943098
+731164.773849551
+735384.664420758
+736345.171688713
+734861.36595646
+735259.461170862
+736054.71675073
+
+# z_U corresponding to control variable 1 : 
+944716.386073696
+937081.655684609
+936607.497056757
+936770.240467585
+938632.793192682
+939645.26488104
+937080.221405858
+933061.691387089
+933452.786058523
+938470.701881505
+940991.703757284
+939073.830113738
+937113.031261973
+938184.256035394
+937609.236439667
+931970.187990308
+929493.721850367
+937196.708301047
+947339.057928577
+946884.042895907
+935128.804782977
+927976.212627565
+932438.625979975
+938379.523068634
+937864.283753956
+936269.876656729
+941698.676103741
+946971.095644483
+938070.830969703
+924744.980074089
+926015.780568542
+942561.474464594
+952515.889283765
+942369.202972812
+928801.126069178
+930033.941737962
+937687.334860982
+938498.599374672
+933832.899641287
+939895.92364436
+951980.972268231
+947994.167685218
+926026.003122375
+913248.628212191
+928445.890450964
+955844.891827516
+956986.755979609
+940794.29789438
+933385.872446515
+935474.604751884
+
+# z_U corresponding to control variable 2 : 
+905166.223772277
+906067.884732898
+906096.332164943
+906063.559378396
+906036.00367904
+906081.728233644
+906140.587092442
+906147.56617778
+906094.513312016
+906061.161095394
+906093.401156443
+906061.009609064
+905995.551627956
+906023.129232089
+906190.716338863
+906309.94589019
+906155.221940905
+905927.32648174
+905910.754456743
+906033.091611375
+906154.645268184
+906116.614203383
+906130.018196309
+906242.273575321
+906193.896523848
+905953.437640332
+905759.935725113
+905877.648631421
+906312.121094594
+906355.432160357
+906094.990018633
+905914.935239339
+906010.664340048
+906176.408200733
+906015.945763615
+905897.50287429
+906203.341800057
+906333.144160376
+906099.668040198
+905713.842254473
+905692.365359667
+906203.107010751
+906500.21898979
+906320.266460275
+905984.128304316
+905809.817365253
+906026.148132357
+905960.487133256
+905528.568545507
+905861.97018018
+
+# z_U corresponding to control variable 3 : 
+741158.724308715
+797647.984840929
+806233.307921569
+793526.966373615
+766632.079781191
+766886.792440595
+766630.935612002
+761098.438151614
+753031.896591848
+748890.257029766
+752118.946872315
+748401.231881694
+736016.379439012
+732867.907879632
+742722.326466241
+748109.617269161
+738147.689152617
+734091.110163849
+743145.851161479
+752473.114109878
+742846.247303221
+736379.310028864
+749405.532516385
+752645.512649127
+747894.329569515
+736985.473500986
+757202.109493954
+752385.550058341
+749785.91009504
+735667.344338162
+739540.706657139
+751162.71408507
+751078.616551598
+737403.364643908
+736868.337553228
+750324.853096978
+752214.088055028
+742825.829722996
+741971.947097693
+754411.853877416
+759345.689602918
+755327.705556382
+757078.945711063
+765446.532191323
+771709.957807761
+816466.362368163
+820048.796552015
+797962.526963486
+796043.826908069
+761793.950671048
+
+# z_U corresponding to control variable 4 : 
+789209.612180026
+1243884.3086044
+1245239.07634577
+1237662.34776813
+1184362.34957459
+1184427.05113003
+1186720.73703459
+1177331.52439431
+1157533.36941123
+1146978.37981163
+1156850.64186445
+1149258.04108605
+1113708.69748622
+1103781.81964159
+1133664.86039561
+1148580.88961153
+1120235.12689308
+1107170.97121362
+1134226.62076793
+1158429.14346222
+1133260.27137791
+1113676.300252
+1149543.29798256
+1158533.17900458
+1146536.95030272
+1115441.03123467
+1167649.85313171
+1157663.68144932
+1151646.21579464
+1111524.09151352
+1123176.09128913
+1154679.03564094
+1155607.39500849
+1117141.20899634
+1115250.25395087
+1152296.42606925
+1158370.93416044
+1132621.02326793
+1128622.49674509
+1160938.51082876
+1173646.97773496
+1163339.32999531
+1163866.27341987
+1181769.96543721
+1196091.44992918
+1279020.15478858
+1277451.92604215
+1204933.77230358
+1255340.05639144
+1174275.7747343
+
+# z_U corresponding to control variable 5 : 
+830291.848262524
+906391.363532866
+908001.248451471
+907869.453587425
+907609.476463301
+907510.102851669
+907492.064520518
+907380.861869435
+906967.972984359
+906593.405504441
+906772.834872701
+906778.74409521
+905921.503580587
+905242.368329932
+905987.395166584
+906557.188032682
+905826.323078215
+904945.688217902
+905623.980159983
+906548.19009631
+906094.923556122
+905189.702787328
+905974.852760837
+906520.556097721
+906380.891711014
+905333.279256833
+906352.969713642
+906400.749334161
+906540.383546006
+905400.61306988
+905333.597021
+906410.514379352
+906753.940467617
+905863.582031223
+905487.806824209
+906470.73852537
+906941.927235881
+906561.305268436
+906352.23496142
+906971.956421424
+907354.712582532
+907298.523057553
+907284.955388238
+907486.126302318
+907643.155485102
+907801.476011672
+907798.832740723
+907797.800421595
+907479.125783745
+907611.387859509
+
+# z_U corresponding to control variable 6 : 
+888163.756600123
+779022.89834071
+778239.339733354
+778356.309452217
+779070.945688337
+780289.235611783
+780908.378662635
+780505.92261336
+779005.81243563
+777485.284188678
+777361.69098509
+777847.763665403
+777759.716151913
+776555.825408633
+775816.4211475
+776772.996240915
+778737.348716424
+780600.460776849
+780713.759617495
+779642.692118894
+778625.177102363
+778558.298918272
+779899.767547415
+779823.65250573
+778900.886870129
+778072.692378737
+777884.828460222
+778728.051339362
+780284.465495835
+780971.21944907
+778946.5913531
+777072.221528232
+775416.172651442
+776552.076823064
+778797.925600759
+779154.586646058
+777555.458611162
+777200.019712448
+779063.806873776
+781384.985967382
+783200.615900764
+782603.299476743
+781309.549143155
+779311.853954496
+779524.530386044
+780313.957032355
+778582.516341213
+776602.953293932
+775042.208443773
+776252.943229755
+
+# z_U corresponding to control variable 7 : 
+772915.540387004
+894121.356582311
+886617.298217705
+881758.591339879
+883131.331647896
+888542.937002242
+897931.578651687
+899102.743248423
+896977.15152517
+901934.506721664
+911388.259569456
+919861.539313414
+922725.572399467
+915379.425653925
+904440.720040844
+900986.581882035
+903920.830647197
+908902.796448591
+913366.998047217
+906980.834115259
+904764.238898693
+910500.495250602
+916937.769517034
+922920.159361648
+918521.718751298
+911079.608167827
+907770.16493358
+911992.545356395
+916254.976158486
+921879.192280255
+924563.01481336
+917967.235664964
+914517.308703441
+919230.243106594
+924762.010439895
+921472.566952684
+912360.173662307
+899967.427800229
+899610.888364776
+902206.44289395
+909717.63542095
+912944.327976589
+911760.302754753
+918925.990196385
+929284.646418785
+948850.880899112
+946679.996013449
+938093.460637349
+915860.222104573
+901044.506405755
+
+# z_U corresponding to control variable 8 : 
+909036.433973287
+907996.993934428
+907900.912433415
+907902.432874129
+907922.387407129
+907917.491615406
+907894.475631616
+907875.705260989
+907850.210418135
+907858.876349975
+907913.597242927
+907954.5001464
+907974.989032082
+907968.896390527
+907946.808411433
+907960.161075413
+907987.082695144
+907990.650298435
+907969.187900865
+907935.27769255
+907914.958868078
+907925.355370466
+907956.322927374
+907963.819729253
+907962.879542251
+907937.777948472
+907925.103668201
+907934.448341491
+907962.061352686
+907986.340440021
+907964.348251556
+907920.927098152
+907912.902253186
+907987.794304052
+908042.921887346
+908058.074728757
+908016.203984944
+907986.492030694
+907996.891369093
+907993.715118286
+907979.124324419
+907943.537012388
+907923.880419899
+907895.095287639
+907946.977158041
+908015.977164741
+908053.7598911
+908039.931153247
+907949.941701437
+907881.587630686
+
+# z_U corresponding to parameters : 
+0
+0
+0
+0
+0
+
+# Cpu time : 
+464.548
+
+# Iterations : 
+35
