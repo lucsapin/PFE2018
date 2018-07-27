@@ -9,7 +9,7 @@ options_bocop = struct('t0','0','tf','1','freetf','none','disc_steps',options.di
 % -----------------------------------
 % IPOPT options
 % -----------------------------------
-options_ipopt = [{'max_iter','1000' };
+options_ipopt = [{'max_iter','1' };
                  {'tol','1e-10'};
                  {'mu_strategy','adaptive'};
                  {'print_level','5'};

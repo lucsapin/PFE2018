@@ -21,7 +21,7 @@ addpath('hampath/libhampath3Mex/');
 
 % ------------------------------------------------------------------------------
 % Definition of all the parameters
-numAsteroid         = 12;
+numAsteroid         = 1;
 numOpti             = 1;        % Numero of optimization for this asteroid
 TmaxN               = 10000;       % Newton
 dist                = 0.01;     % We propagate the trajectory to the distance dist (in AU) of EMB
@@ -130,7 +130,7 @@ fprintf('\n');
 % impulse_Hill_bocop        = [];
 
 % parameters
-par_bocop = [Tmax; beta; muCR3BP; muSun; rhoSun; q0; qf; thetaS0; omegaS; m0];
+par_bocop = [Tmax; beta; muCR3BP; muSun; rhoSun; q0; qf; thetaS0; omegaS; m0]
 % par_bocop = [18366.1811174018; 0.2781732195; 0.0121505298; 328900.57263154; 389.1724003642;
 %              3.1726866765; -2.2537912313; 0.0002415389; -5.0462014285; 0.4203995399; -0.0014357139;
 %              1.1556819508; 0; 0; 0; 0; 0; 6.0847870924; -0.9211841499; 60000];
@@ -230,7 +230,6 @@ if(results.exec_min_3B_impulse_bocop==-1)
     if(outputB.status ~= 0)
       disp('Bocop did not converge for the minimal dV problem!');
       results.exec_min_3B_impulse_bocop = -1;
-      results.min_3B_impulse_bocop = {};
       save(file_results, 'results');
     end
 
@@ -279,7 +278,7 @@ if results.exec_min_5p_continuous_bocop==1
 end
 fprintf('\n');
 % parameters
-par_bocop = [Tmax; beta; muCR3BP; muSun; rhoSun; q0; qf; thetaS0; omegaS; m0];
+par_bocop = [Tmax; beta; muCR3BP; muSun; rhoSun; q0; qf; thetaS0; omegaS; m0]
 
 n = 6;
 
@@ -440,7 +439,6 @@ if(results.exec_min_5p_continuous_bocop==-1)
     if(outputB.status ~= 0)
       disp('Bocop did not converge for the minimal transfert with 3 bangs problem!');
       results.exec_min_5p_continuous_bocop = -1;
-      results.min_5p_continuous_bocop = {};
       save(file_results, 'results');
     end
 
@@ -628,7 +626,6 @@ end
 %     if(outputB.status ~= 0)
 %       disp('Bocop did not converge for the minimal transfert with 3 bangs and constant mass problem!');
 %       results.exec_min_5p_continuous_m_const_bocop = -1;
-%       results.min_5p_continuous_m_const_bocop = {};
 %       save(file_results, 'results');
 %     end
 %
@@ -746,7 +743,6 @@ end
 %     if(outputB.status ~= 0)
 %         disp('Bocop did not converge for the minimal dV problem!');
 %         results.exec_min_3p_continuous_bocop = -1;
-%         results.exec_min_3p_continuous_bocop = {};
 %         save(file_results, 'results');
 %     end
 %
