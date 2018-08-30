@@ -1,9 +1,9 @@
 # Starting point file.
-# This file contains initialization values
-# for variable state.11
+# This file contains the values of the initial points
+# for variable q26
 
 # Type of initialization :
 constant
 
-# Constant value for the starting point : 
--0.001210
+# Constant value for the starting point :
+-0.00121
