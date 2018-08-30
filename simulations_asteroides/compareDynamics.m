@@ -63,9 +63,9 @@ Q_CR3BP_AH    = resDrift_AH.Q_CR3BP; % trajectory in rotating frame
 
 times_out     = resP2H.times;
 Q_P2H         = resP2H.traj_out;
-time_Hill     = resP2H.time_Hill
+time_Hill     = resP2H.time_Hill;
 
-q0_SUN_AU = resDrift_3BP.q0_SUN_AU
+q0_SUN_AU = resDrift_3BP.q0_SUN_AU;
 
 % Get theta0 :
 % [~,~,~,~,theta_Sun] = Helio2CR3BP(Q_P2H(1:6,1),time_Hill);
@@ -154,11 +154,11 @@ if plot
   display_L2(); hold on;
   display_asteroid(Helio2CR3BP(q0, t0_r), 'propagate'); hold on;
 
-  plot3(traj_out(1,:), traj_out(2,:), traj_out(3,:), 'r', 'LineWidth', DC.LW); traj = 'Spacecraft trajectory';
-  plot3(statesOpti(1,:), statesOpti(2,:), statesOpti(3,:), 'b', 'LineWidth', DC.LW); trajComp = 'Opti Spacecraft trajectory';
-  plot3(q1_CR3BP(1), q1_CR3BP(2), q1_CR3BP(3), 'mo');
+  plot3(traj_out(1,:), traj_out(2,:), traj_out(3,:), 'r', 'LineWidth', DC.LW); traj = 'Spacecraft trajectory 2B';
+  % plot3(statesOpti(1,:), statesOpti(2,:), statesOpti(3,:), 'b', 'LineWidth', DC.LW); trajComp = 'Spacecraft trajectory Ad-Hoc';
+  % plot3(q1_CR3BP(1), q1_CR3BP(2), q1_CR3BP(3), 'mo');
 
-  legend('Moon', 'Earth', 'L2', 'Asteroid', traj, trajComp, 'Second boost');
+  legend('Moon', 'Earth', 'L2', 'Asteroid', traj); % , trajComp, 'Second boost');
   title('Propagate from Asteroid to L2 without Hill''s sphere');
   xlabel('q_1');
   ylabel('q_2');

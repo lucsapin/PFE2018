@@ -23,9 +23,9 @@ addpath('hampath/libhampath3Mex/');
 % Definition of all the parameters
 numAsteroid         = 1;
 numOpti             = 1;        % Numero of optimization for this asteroid
-TmaxN               = 10000;       % Newton
+TmaxN               = 10000;    % Newton
 dist                = 0.01;     % We propagate the trajectory to the distance dist (in AU) of EMB
-m0                  = 10;      % kg
+m0                  = 10;       % kg
 
 DC          = get_Display_Constants(); % Display constants
 UC          = get_Univers_Constants(); % Univers constants

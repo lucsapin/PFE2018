@@ -1,5 +1,6 @@
 function [cin, ceq] = parking_impulse_nonlcon(X, xOrb_epoch_t0_Ast, q0_SUN_AU, t0_p, ratio)
-  tic;
+  % disp('begin nonlcon');
+  % tic;
   UC          = get_Univers_Constants(); % Univers constants
 
   %
@@ -80,8 +81,9 @@ function [cin, ceq] = parking_impulse_nonlcon(X, xOrb_epoch_t0_Ast, q0_SUN_AU, t
              qf(4:6) + delta_Vf_p - qL2_SUN_AU(4:6)];
 
   cin     = [];
-
-  toc
+  
+  % toc
+  % disp('end nonlcon');
 return
 
 

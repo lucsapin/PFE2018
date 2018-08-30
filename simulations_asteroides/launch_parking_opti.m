@@ -1,8 +1,12 @@
 % Script pour lancer les optimisations return
 addpath('tools/');
 UC = get_Univers_Constants();
-
-repOutput = ['results/return_impulse_L2/'];
+Sansmax = true;
+if Sansmax
+  repOutput = ['results/total_impulse_L2/without_g_assist/'];
+else
+  repOutput = ['results/total_impulse_L2/gravity_assist/'];
+end
 
 if (~exist(repOutput,'dir'))
   error('Wrong result directory name!');
@@ -13,8 +17,8 @@ for numAsteroid=1:10
   if (exist([file2load '.mat'],'file')==2)
     load(file2load);
     nbOpti = length(allResults);
-    for numOptiReturn=1:min(20,nbOpti)
-      parking_impulse_optimization(numAsteroid, numOptiReturn);
+    for numOptiTotal=1:min(10,nbOpti)
+      parking_impulse_optimization(numAsteroid, numOptiTotal, Sansmax);
     end
   clear allResults;
   end

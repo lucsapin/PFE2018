@@ -1,4 +1,4 @@
-function outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti)
+function outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax)
 % Inputs :
 %   - destination : 'L2' or 'EMB'
 %   - typeSimu : 'total' or 'outbound' or 'return'
@@ -8,8 +8,11 @@ function outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOp
 %               attraction for the last boost or not.
 % Output :
 %   - outputOptimization : loaded file result
-
-dirLoad = ['results/' typeSimu '_impulse_' destination '/'];
+if Sansmax
+  dirLoad = ['results/' typeSimu '_impulse_' destination '/without_g_assist/' ];
+else
+  dirLoad = ['results/' typeSimu '_impulse_' destination '/gravity_assist/' ];
+end
 
 if(~exist(dirLoad,'dir')); error('Wrong directory name!'); end
 

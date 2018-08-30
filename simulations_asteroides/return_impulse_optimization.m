@@ -1,4 +1,4 @@
-function return_impulse_optimization(numAsteroid, tour_init, destination)
+function return_impulse_optimization(numAsteroid, tour_init, destination, Sansmax)
 % Script to optimize the return 3 impulse manoeuver: from asteroid to EMB
 %
 % numAsteroid: the numero of the asteroid for which we perform the optimization
@@ -13,7 +13,11 @@ format shortE;
 addpath('tools/');
 
 %
-repOutput = ['results/return_impulse_' destination '/'];
+if Sansmax
+  repOutput = ['results/return_impulse_' destination '/without_g_assist/'];
+else
+  repOutput = ['results/return_impulse_' destination '/gravity_assist/'];
+end
 
 if(~exist(repOutput,'dir')); error('Wrong result directory name!'); end
 
@@ -92,7 +96,7 @@ UB      = [d_t0(2); d_dt1(2); d_dt2(2);  ratio*dVmax*ones(6,1)];
 nonlc               = @(X) return_impulse_nonlcon  (X, xOrb_epoch_t0_Ast, ratio, destination);
 
 % Criterion
-F0                  = @(X) return_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, destination);
+F0                  = @(X) return_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, destination, Sansmax);
 
 % Solver
 [Xsol,Fsol,exitflag,output,~,~,~] = fmincon(F0,X0,[],[],[],[],LB,UB,nonlc,optionsFmincon);

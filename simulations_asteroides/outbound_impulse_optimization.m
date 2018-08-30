@@ -1,7 +1,7 @@
 % Script to optimize the outbound 3 impulse manoeuver: from EMB to asteroid
 %
 
-function outbound_impulse_optimization(numAsteroid, numOptiReturn, departure)
+function outbound_impulse_optimization(numAsteroid, numOptiReturn, departure, Sansmax)
 
 % numAsteroid: the numero of the asteroid for which we perform the optimization
 % numOptiReturn: the outbound trip is optimize with the constraint that the spacecraft must
@@ -23,8 +23,13 @@ format shortE;
 addpath('tools/');
 
 %
-repOutput = ['results/outbound_impulse_' departure '/'];
-repOutputReturn  = ['results/return_impulse_' departure '/'];
+if Sansmax
+  repOutput = ['results/outbound_impulse_' departure '/without_g_assist/'];
+  repOutputReturn  = ['results/return_impulse_' departure '/without_g_assist/'];
+else
+  repOutput = ['results/outbound_impulse_' departure '/gravity_assist/'];
+  repOutputReturn  = ['results/return_impulse_' departure '/gravity_assist/'];
+end
 
 
 if (~exist(repOutput,'dir')); error('Wrong result directory name!'); end
@@ -126,7 +131,7 @@ nonlc        = @(X) outbound_impulse_nonlcon(X, xOrb_epoch_t0_Ast, ratio, tfmin,
 
 
 % Criterion
-F0           = @(X) outbound_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, departure);
+F0           = @(X) outbound_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, departure, Sansmax);
 
 % Solver
 [Xsol,Fsol,exitflag,output,~,~,~] = fmincon(F0,X0,[],[],[],[],LB,UB,nonlc,optionsFmincon);

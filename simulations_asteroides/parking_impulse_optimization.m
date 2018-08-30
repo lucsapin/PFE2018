@@ -1,4 +1,4 @@
-function parking_impulse_optimization(numAsteroid, numOptiReturn)
+function parking_impulse_optimization(numAsteroid, numOptiTotal, Sansmax)
 % Impulsionnel sur la PHASE PARKING
 % min \Delta V = \sum_{i=1}^{nbImpulse} \delta V_i  # Objective
 % s.c. \cdot{x} (t) = f(t, x(t))                    # Dynamics
@@ -11,31 +11,37 @@ format shortE;
 addpath('tools/');
 
 %
-repOutput = ['results/parking_impulse_L2/'];
-repOutputReturn  = ['results/return_impulse_L2/'];
+if Sansmax
+  repOutput = ['results/parking_impulse_L2/without_g_assist/'];
+  repOutputTotal  = ['results/total_impulse_L2/without_g_assist/'];
+else
+  repOutput = ['results/parking_impulse_L2/gravity_assist/'];
+  repOutputTotal  = ['results/total_impulse_L2/gravity_assist/'];
+end
 
 if (~exist(repOutput,'dir'))
   error('Wrong result directory name!');
 end
-if (~exist(repOutputReturn,'dir'))
+if (~exist(repOutputTotal,'dir'))
   error('Wrong result directory name!');
 end
 
-file2loadReturn = [repOutputReturn 'asteroid_no_' int2str(numAsteroid)];
+file2loadTotal = [repOutputTotal 'asteroid_no_' int2str(numAsteroid)];
 
-if (exist([file2loadReturn '.mat'],'file')~=2)
+if (exist([file2loadTotal '.mat'],'file')~=2)
     error(['there is no return optimization done for asteroid number ' int2str(numAsteroid)]);
 end
 
-% We get the data of the numero numOptiReturn of the return optimizations for asteroid numAsteroid
-load(file2loadReturn);
-allResultsReturn = allResults;
+% We get the data of the numero numOptiTotal of the return optimizations for asteroid numAsteroid
+load(file2loadTotal);
+allResultsTotal = allResults;
 clear allResults;
-nbOpti      = length(allResultsReturn); fprintf('nbOpti = %d \n', nbOpti);
-if (0<numOptiReturn && numOptiReturn<=nbOpti)
-    outputOptiReturn  = allResultsReturn{numOptiReturn};
+nbOpti      = length(allResultsTotal)
+numOptiTotal
+if (0<numOptiTotal && numOptiTotal<=nbOpti)
+    outputOptiTotal  = allResultsTotal{numOptiTotal};
 else
-    error('numOptiReturn is invalid!');
+    error('numOptiTotal is invalid!');
 end
 % ----------------------------------------------------------------------------------------------------
 % Load the 4258 asteroid's orbital parameters
@@ -52,7 +58,7 @@ period_Ast          = 2*pi*sqrt(xOrb_epoch_t0_Ast(1)^3/UC.mu0SunAU);
 % outputOpti = loadFile('L2', 'total', numAsteroid, tour_init, Sansmax);
 
 % Get initial condition for time and state
-[~, ~, time_Hill, state_Hill, ~, ~, ~, ~, ~] = propagate2Hill(outputOptiReturn, 0.01);
+[~, ~, time_Hill, state_Hill, ~, ~, ~, ~, ~] = propagate2Hill(outputOptiTotal, 0.01);
 % The solution is given in HELIO frame
 t0_p        = time_Hill;                % the initial time in Day
 q0_SUN_AU   = state_Hill(1:6);          % q0 in HELIO frame in AU unit
@@ -72,7 +78,7 @@ LB = [];
 UB = [];
 
 % Initial Guess
-tf_r      = outputOptiReturn.t0 + outputOptiReturn.dt1 + outputOptiReturn.dtf;
+tf_r      = outputOptiTotal.t0_r + outputOptiTotal.dt1_r + outputOptiTotal.dtf_r;
 diff_time = tf_r - t0_p;
 tf_p      = diff_time;
 t1_p      = (tf_p-t0_p)/2; % au hasard
@@ -81,7 +87,7 @@ dt1_p = t1_p; %%% Convertir Temps système pour l'intégration
 dtf_p = tf_p - t1_p; %%% Convertir Temps système pour l'intégration
 delta_V0_p  = 1e-5*[1; 1; 1];
 delta_V1_p  = 1e-5*[1; 1; 1];
-delta_Vf_p  = outputOptiReturn.dVf;
+delta_Vf_p  = outputOptiTotal.dVf_r;
 X0          = [dt1_p;
                dtf_p;
                ratio*delta_V0_p;
@@ -92,7 +98,7 @@ X0          = [dt1_p;
 nonlc               = @(X) parking_impulse_nonlcon(X, xOrb_epoch_t0_Ast, q0_SUN_AU, t0_p, ratio);
 
 % Criterion
-F0                  = @(X) parking_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio);
+F0                  = @(X) parking_impulse_criterion(X, xOrb_epoch_t0_Ast, ratio, Sansmax);
 
 % Solver
 [Xsol, Fsol, exitflag, output, ~, ~, ~] = fmincon(F0, X0, [], [], [], [], LB, UB, nonlc, optionsFmincon);
@@ -118,20 +124,18 @@ if(exitflag == 1)
     outputOptimization.UB           = UB;
     outputOptimization.X0           = X0;
     outputOptimization.Xsol         = Xsol;
-    outputOptimization.t0           = Xsol(1);
-    outputOptimization.dt1          = Xsol(2);
-    outputOptimization.dtf          = Xsol(3);
-    outputOptimization.dV0          = Xsol(4:6)/ratio;
-    outputOptimization.dV1          = Xsol(7:9)/ratio;
-    outputOptimization.dVf          = delta_Vf_o;
+    outputOptimization.t0           = t0_p;
+    outputOptimization.dt1          = Xsol(1);
+    outputOptimization.dtf          = Xsol(2);
+    outputOptimization.dV0          = Xsol(3:5)/ratio;
+    outputOptimization.dV1          = Xsol(6:8)/ratio;
+    outputOptimization.dVf          = Xsol(9:11)/ratio;
     outputOptimization.cin          = cin;
     outputOptimization.ceq          = ceq;
     outputOptimization.Fsol         = Fsol;
     outputOptimization.exitflag     = exitflag;
     outputOptimization.output       = output;
-    outputOptimization.tfmin        = tfmin;
-    outputOptimization.tfmax        = tfmax;
-    outputOptimization.optiReturn   = outputOptiReturn;
+    outputOptimization.optiTotal   = outputOptiTotal;
 
     t0  = outputOptimization.t0;
     dt1 = outputOptimization.dt1;
@@ -166,7 +170,7 @@ if(exitflag == 1)
             fini = 0;
             while ((fini==0) && (i<=n))
                 oo  = allResults{i}; i=i+1;
-                if((oo.Fsol+oo.optiReturn.Fsol)>=(outputOptimization.Fsol+outputOptimization.optiReturn.Fsol))
+                if((oo.Fsol+oo.optiTotal.Fsol)>=(outputOptimization.Fsol+outputOptimization.optiTotal.Fsol))
                     fini=1;
                     k   = i-1;
                 end

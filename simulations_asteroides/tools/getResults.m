@@ -10,8 +10,8 @@ function [delta_V_o, delta_V_r, t0_o, tf_o, t0_r, tf_r] = getResults(destination
     for numAst=1:10
         outputOptimization = loadFile(destination, typeSimu, numAst, 1, Sansmax);
         if typeSimu == 'outbound'
-            delta_V_o(numAst) = outputOptimization.delta_V;
-            delta_V_r(numAst) = outputOptimization.optiReturn.delta_V;
+            delta_V_o(numAst) = outputOptimization.Fsol;
+            delta_V_r(numAst) = outputOptimization.optiReturn.Fsol;
             t0_o(numAst) = outputOptimization.t0;
             tf_o(numAst) = t0_o(numAst) + outputOptimization.dt1 + outputOptimization.dtf;
 
