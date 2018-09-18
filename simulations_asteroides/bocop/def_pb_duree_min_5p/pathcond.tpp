@@ -41,8 +41,8 @@
 	Tdouble u52   = control[7];
 	Tdouble u53   = control[8];
 
-  path_constraints[0] = sqrt(u11*u11 + u12*u12 + u13*u13) - 1;
-  path_constraints[1] = sqrt(u31*u31 + u32*u32 + u33*u33) - 1;
-  path_constraints[2] = sqrt(u51*u51 + u52*u52 + u53*u53) - 1;
+  path_constraints[0] = u11*u11 + u12*u12 + u13*u13 - 1;
+  path_constraints[1] = u31*u31 + u32*u32 + u33*u33 - 1;
+  path_constraints[2] = u51*u51 + u52*u52 + u53*u53 - 1;
 
 }

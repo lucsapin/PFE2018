@@ -1,9 +1,9 @@
 # Starting point file.
-# This file contains initialization values
-# for variable control.1
+# This file contains the values of the initial points
+# for variable u12
 
 # Type of initialization :
 constant
 
-# Constant value for the starting point : 
+# Constant value for the starting point :
 -0.898171

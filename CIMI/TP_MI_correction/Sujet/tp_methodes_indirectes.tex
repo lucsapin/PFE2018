@@ -1,0 +1,106 @@
+\documentclass[11pt,onecolumn,twoside]{style_tp}
+
+\newif\ifVIEWALL
+\VIEWALLfalse %Ne pas afficher le contenu pour le prof
+%\VIEWALLtrue %Afficher tout le contenu (prof + eleve)
+%\VIEWALLTOCHOOSE
+
+%Le r\'epertoire contenant les ressources
+\def\repRessource{ressources}
+
+%Le repertoire contenant les listings
+\def\repList{ressources/listings}
+
+%Le fichier contenant toutes les d\'efinitions des macros
+\input{defs.tex}
+
+\makeatletter
+\renewcommand{\@chapapp}{\textsc{Sujet}}
+\makeatother
+
+\begin{document}
+
+\dominitoc
+\dominilof
+\dominilot
+
+\frontmatter
+
+{
+\pagestyle{empty}
+
+    \input{\repRessource/title_page.tex}
+
+%    \cleardoublepage
+
+    \tableofcontents
+
+%    \cleardoublepage
+}
+
+\mainmatter
+
+%-------------------------------------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------------------------------------
+% Fancy Header Style Options
+\pagestyle{fancy}                       % Sets fancy header and footer
+\fancyfoot{}                            % Delete current footer settings
+%\renewcommand{\chaptermark}[1]{         % Lower Case Chapter marker style
+%  \markboth{\chaptername\ \thechapter.\ #1}}{}} %
+%\renewcommand{\sectionmark}[1]{         % Lower case Section marker style
+%  \markright{\thesection.\ #1}}         %
+\fancyhead[LE,RO]{\bfseries\thepage}    % Page number (boldface) in left on even
+% pages and right on odd pages
+\fancyhead[RE]{\bfseries\nouppercase{\leftmark}}      % Chapter in the right on even pages
+\fancyhead[LO]{\bfseries\nouppercase{\rightmark}}     % Section in the left on odd pages
+\let\headruleORIG\headrule
+\renewcommand{\headrule}{\color{black} \headruleORIG}
+\renewcommand{\headrulewidth}{1.0pt}
+\arrayrulecolor{black}
+\fancypagestyle{plain}{
+  \fancyhead{}
+  \fancyfoot{}
+  \renewcommand{\headrulewidth}{0pt}
+}
+%-------------------------------------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------------------------------------
+
+%\cleardoublepage
+\chapter{M\'ethode de tir simple}
+\label{chap:tir_simple}
+%\minitoc
+\input{\repRessource/tir_simple.tex}
+%
+%\cleardoublepage
+\chapter{Tir simple versus tir multiple}
+\label{chap:tir_simple_vs_multiple}
+%\minitoc
+\input{\repRessource/tir_simple_vs_multiple.tex}
+
+%\cleardoublepage
+\chapter{M\'ethode homotopique, r\'egularisation et tir multiple}
+\label{chap:homotopie}
+%\minitoc
+\input{\repRessource/homotopie.tex}
+
+%\cleardoublepage
+\chapter{Transfert orbital}
+\label{chap:transfert_orbital}
+%\minitoc
+\input{\repRessource/transfert_orbital.tex}
+
+
+\makeatletter
+\renewcommand{\@chapapp}{\textsc{Annexe}}
+\makeatother
+
+\begin{appendix}
+
+\chapter{(Annexe) Principe du Maximum de Pontryagin (PMP)}
+\label{chap:pmp_fort}
+\input{\repRessource/pmp_fort.tex}
+
+\end{appendix}
+
+
+\end{document}

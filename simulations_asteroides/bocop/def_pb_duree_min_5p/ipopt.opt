@@ -1,4 +1,4 @@
-max_iter 1
+max_iter 13
 tol 1e-10
 mu_strategy adaptive
 print_level 5

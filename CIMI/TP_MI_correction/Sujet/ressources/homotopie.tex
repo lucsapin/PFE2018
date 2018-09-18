@@ -1,0 +1,110 @@
+Consid\'erons le probl\`eme de contr\^ole optimal suivant (double int\'egrateur, minimisation $L^1$) :
+\leqnomode
+\begin{equation*}
+\tagProblem
+    \left\{ 
+        \begin{array}{l}
+            \displaystyle J(u(\cdot)) \coloneqq \displaystyle \int_0^{t_f} \abs{u(t)} \, \diff t\longrightarrow \min            \\[1.0em]
+            \dot{x}_1(t)    =  \displaystyle x_2(t)                                                                                     \\[0.5em]
+            \dot{x}_2(t)    =  \displaystyle u(t), \quad \abs{u(t)} \le u_\mathrm{max}, \quad t \in \intervalleff{0}{t_f} \text{ p.p.}, \\[1.0em]
+            x(0) = x_0 , \quad x(t_f) = x_f,
+        \end{array}
+    \right. 
+    \label{eq:ocp_DI_min_L1}
+\end{equation*}
+\reqnomode
+avec $t_f \coloneqq 3$, $x_0 \coloneqq (-1,0)$, $x_f \coloneqq (0,0)$ et $\forall\, t \in\intervalleff{0}{t_f}$, $x(t) = (x_1(t), x_2(t)) \in \R^2$.
+%
+Notons 
+\[
+    H(x,p,p^0,u) \coloneqq p_1\, x_2 + p_2\, u + p^0\, \abs{u}, \quad x = (x_1, x_2), \quad p = (p_1, p_2),
+\]
+le pseudo-hamiltonien. On consid\`ere le cas normal et on fixe $p^0 = -1$. La condition de maximisation
+nous donne comme loi de contr\^ole~:
+\begin{equation*}
+    u(t) = 
+    \left\{
+        \begin{array}{ll}
+            \sign(p_2(t))\, u_\mathrm{max}      & \text{ si } \abs{p_2(t)}+p^0 > 0, \\[0.5em]
+            0                   & \text{ si } \abs{p_2(t)}+p^0 < 0, \\[0.5em]
+            ?                   & \text{ si } \abs{p_2(t)}+p^0 = 0.
+        \end{array}
+    \right.
+\end{equation*}
+%
+
+Nous voulons ici r\'esoudre le probl\`eme par une m\'ethode de tir multiple. Nous avons donc besoin dans un premier temps, 
+de d\'eterminer la structure du contr\^ole. Pour ce faire, nous pourrions utiliser un m\'ethode de tir simple en prenant certaines
+pr\'ecautions, notamment sur le calcul de la jacobienne de la fonction de tir. Une autre possibilit\'e est d'utiliser une
+m\'ethode homotopique diff\'erentielle de suivi de chemin combin\'ee \`a une m\'ethode de r\'egularisation.
+%
+Nous introduisons donc le crit\`ere suivant afin de r\'egulariser le contr\^ole optimal : 
+\begin{equation}
+    J_\lambda(u(\cdot)) \coloneqq \displaystyle \int_0^{t_f} \abs{u(t)}^{2-\lambda} \, \diff t, \quad \lambda \in \intervallefo{0}{1}.
+    \label{eq:critere_regularisant}
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------------------------------
+\section{R\'esolution du probl\`eme r\'egularis\'e}
+
+Nous consid\'erons ici le probl\`eme \eqref{eq:ocp_DI_min_L1} o\`u l'on remplace le crit\`ere $J$ par $J_\lambda$ d\'efinit
+en \eqref{eq:critere_regularisant}. Le pseudo-hamiltonien est donn\'e par :
+\[
+    H_\lambda(x,p,p^0,u) \coloneqq p_1\, x_2 + p_2\, u + p^0\, \abs{u}^{2-\lambda}
+\]
+et le contr\^ole maximisant s'\'ecrit
+\[
+    u(t) = \sign(p_2(t))\, \left( - \frac{\abs{p_2(t)}}{p^0\, (2-\lambda)} \right)^{\frac{1}{1-\lambda}}.
+\]
+La fonction de tir est simplement donn\'ee par :
+\begin{equation*}
+    \begin{array}{rlll}
+        S \colon    & \R^2    & \longrightarrow   & \R^2 \\
+                    & y       & \longmapsto       & S(y) \coloneqq x(t_f,x_0,y) - x_f.
+    \end{array}
+\end{equation*}
+
+\begin{myExercice} Se rendre dans le r\'epertoire \cmd{TP3\_homotopie\_regularisation\_double\_integrateur/}\cmd{exo\_1\_regularisation}.
+    \begin{enumerate}
+        \item Compl\'eter seulement \cmd{hfun} dans \cmd{hfun.f90}.
+        \item Compiler le probl\`eme.
+        \item Jeter un \oe il au script \matlab\ \cmd{main31.m} puis l'ex\'ecuter.
+    \end{enumerate}
+\end{myExercice}
+
+%---------------------------------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------------------------------
+\section{R\'esolution du probl\`eme de minimisation $L^1$}
+
+D'apr\`es la r\'egularisation (pour $\lambda$ proche de 1), le contr\^ole optimal solution du probl\`eme \eqref{eq:ocp_DI_min_L1}
+poss\`ede trois arcs : $u=u_\mathrm{max}$ suivi de $u=0$ puis $u=-u_\mathrm{max}$.
+On note $H_+(z) \coloneqq H(z, p^0, u_\mathrm{max})$, $H_-(z) \coloneqq H(z, p^0, -u_\mathrm{max})$, $H_0(z) \coloneqq H(z, p^0, 0)$
+et $\vv{H_+}$, $\vv{H_-}$, $\vv{H_0}$ les syst\`emes hamiltoniens associ\'es.
+La fonction de tir correspondant \`a cette structure s'\'ecrit :
+\begin{equation*}
+    \begin{array}{rlll}
+        S \colon    & \R^4          & \longrightarrow   & \R^4 \\
+        & y\coloneqq(p_0, t_1, t_2) & \longmapsto       & S(y) \coloneqq
+        \begin{bmatrix}
+            \Pi_{p_2}\left( z_1 \right) + p^0   \\[0.5em]
+            \Pi_{p_2}\left( z_2 \right) - p^0   \\[0.5em]
+            \Pi_x\left( z_f \right) - x_f
+        \end{bmatrix},
+    \end{array}
+\end{equation*}
+o\`u
+\[
+    z_1 \coloneqq \expmap{x_0,p_0}{t_1}{\vv{H_+}}, \quad z_2 \coloneqq \expmap{z_1}{(t_2-t_1)}{\vv{H_0}},
+    \quad z_f \coloneqq \expmap{z_2}{(t_f-t_2)}{\vv{H_-}}.
+\]
+
+\begin{myExercice} Se rendre dans le r\'epertoire \cmd{TP3\_homotopie\_regularisation\_double\_integrateur/}\cmd{exo\_2\_min\_L1}.
+    \begin{enumerate}
+        \item Compl\'eter \cmd{control}, \cmd{hfun} et \cmd{sfun}, respectivement dans les fichiers \cmd{afun.f90}, \cmd{hfun.f90} et \cmd{sfun.f90}.
+        \item Compiler le probl\`eme.
+        \item Compl\'eter le script \matlab\ \cmd{main32.m} puis l'ex\'ecuter. Il faut fournir au solveur des \'equations de tir, la pr\'ediction
+            initiale du vecteur adjoint initial $p_0$ et des instants de commutations $t_1$ et $t_2$. Utiliser pour cela, la solution du probl\`eme 
+            r\'egularis\'e avec $\lambda$ proche de $1$.
+    \end{enumerate}
+\end{myExercice}

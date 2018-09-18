@@ -32,10 +32,10 @@ UC          = get_Univers_Constants(); % Univers constants
 
 destination = 'L2';
 typeSimu = 'total';
-
+Sansmax = true;
 % ------------------------------------------------------------------------------
 % Computation of trajectories for each destination
-[resDrift, resP2H, ~, ~] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, 4);
+[resDrift, resP2H, ~, ~] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, 4, Sansmax);
 
 % ------------------------------------------------------------------------------
 % Results affectation

@@ -1,0 +1,693 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{pdfsync}
+%\usepackage{hyperlatex}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{verbatim}
+\usepackage{xcolor}
+\definecolor{linkcol}{rgb}{0.06,0.06,0.6}
+\definecolor{citecol}{rgb}{0.6,0.04,0.04}
+\definecolor{red}{rgb}{0.6,0.04,0.04}
+\definecolor{blue}{rgb}{0.06,0.06,0.6}
+\definecolor{grey}{rgb}{0.4,0.4,0.4}
+\newcommand{\empha}[1]{\textbf{\textcolor{blue}{#1}}}
+\newcommand{\emphb}[1]{\textcolor{red}{#1}}
+\newcommand{\colorSection}{blue}
+\newcommand{\colorSubSection}{blue}
+\newcommand{\colorSubSubSection}{blue}
+\newcommand{\colorChapter}{blue}
+
+%Les chemins o\`u se trouvent les figures et les extensions de figures
+% My pdf code
+\usepackage{ifpdf}
+\ifpdf
+  \usepackage[pdftex]{graphicx}
+  \DeclareGraphicsExtensions{.jpg,.pdf,.png}
+  \usepackage[pagebackref,hyperindex=true,linktoc=all]{hyperref}
+\else
+  \usepackage{graphicx}
+  \DeclareGraphicsExtensions{.ps,.eps}
+  \usepackage[dvipdfm,pagebackref,hyperindex=true,linktocpage]{hyperref}
+\fi
+\hypersetup
+{
+pdfauthor="Olivier COTS", %auteur du document
+pdfstartview={XYZ null null 1},
+pdfhighlight=/O, %effet d'un clic sur un lien hypertexte
+colorlinks=true, %couleurs sur les liens hypertextes
+linkcolor=linkcol, %couleur des liens hypertextes internes
+citecolor=citecol, %couleur des liens pour les citations
+urlcolor=linkcol %couleur des liens pour les url
+}
+%\usepackage{graphicx}
+\graphicspath{{\repRessource/figures/}}
+
+%Les marges
+\usepackage[a4paper,includeheadfoot,margin=2.54cm]{geometry}
+
+%Hampath website
+\newcommand{\homepage}{http://cots.perso.enseeiht.fr}
+\newcommand{\resources}{\homepage/resources}
+
+%Les maths et ams
+\usepackage{amsfonts}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{xstring}
+\usepackage{dsfont}
+
+%Theorem style
+%%-------------------
+%\theoremstyle{plain}
+%%-------------------
+%\newtheorem{thrm}{Theorem}[section]
+%\newtheorem{lmm}[thrm]{Lemma}
+%\newtheorem{crllr}[thrm]{Corollary}
+%\newtheorem{prpstn}[thrm]{Proposition}
+%\newtheorem{crtrn}[thrm]{Criterion}
+%\newtheorem{lgrthm}[thrm]{Algorithm}
+%%------------------------
+%\theoremstyle{definition}
+%%------------------------
+%\newtheorem{dfntn}[thrm]{Definition}
+%\newtheorem{cnjctr}[thrm]{Conjecture}
+%\newtheorem{xmpl}[thrm]{Example}
+%\newtheorem{prblm}[thrm]{Problem}
+%\newtheorem{rmrk}[thrm]{Remark}
+%\newtheorem{nt}[thrm]{Note}
+%\newtheorem{clm}[thrm]{Claim}
+%\newtheorem{smmr}[thrm]{Summary}
+%\newtheorem{cs}[thrm]{Case}
+%\newtheorem{bsrvtn}[thrm]{Observation}
+%
+% Definitions des environnements des theoremes,...
+%-------------------
+\newtheoremstyle{mystyleTheorem}%       % Name
+  {}%                                     % Space above
+  {}%                                     % Space below
+  {\itshape}%                             % Body font
+  {}%                                     % Indent amount
+  {}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+%  {}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  {\noindent\textbf{\thmname{#1}\thmnumber{~#2}}\thmnote{\color{blue}~(#3)}}%
+
+\newtheoremstyle{mystyleDefinition}%       % Name
+  {}%                                     % Space above
+  {}%                                     % Space below
+  {}%                             % Body font
+  {}%                                     % Indent amount
+  {}%                            % Theorem head font
+  {.}%                                    % Punctuation after theorem head
+  { }%                                    % Space after theorem head, ' ', or \newline
+%  {}%                                     % Theorem head spec (can be left empty, meaning `normal')
+  {\noindent\textbf{\thmname{#1}\thmnumber{~#2}}\thmnote{\color{blue}~(#3)}}%
+
+\theoremstyle{mystyleTheorem}
+%-------------------
+\newtheorem{theorem}{Th\'eor\`eme}[chapter]         % Theoreme
+\newtheorem{proposition}[theorem]{Proposition}      % Proposition
+\newtheorem{lemma}[theorem]{Lemme}                  % Lemme
+\newtheorem{cor}[theorem]{Corollaire}               % Corollaire d'un theoreme
+%---------------------------------------------------------
+%\newtheorem{question}{Question}                     % Question
+\newtheorem{difficulty}{Difficult\'e}               % Difficult\'e
+%------------------------
+
+\theoremstyle{mystyleDefinition}
+%------------------------
+\newtheorem{definition}{D\'efinition}[chapter]      % Definition
+%
+\newtheorem{example}{Exemple}[chapter]              % Exemple
+\newtheorem{counterexample}[example]{Contre-exemple}% Contre Exemple
+\newtheorem{exercice}[example]{Exercice}            % Exercice
+%
+\newtheorem{assumption}{Hypoth\`ese}[chapter]       % Hypoth\`ese
+%------------------------
+\theoremstyle{remark}
+%------------------------
+\newtheorem{remark}{Remarque}[chapter]              % Remarque
+
+%%%% Environnement pour les exercices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \theoremstyle{plain}
+\theoremstyle{mystyleDefinition}
+\newtheorem{Exercice}{{\makebox[0pt][r]{$\rhd$\hspace*{1ex}}Exercice}}[chapter]
+\newtheorem{Question}{Question}%[Exercice]
+\newtheorem{SousQuestion}{\hspace*{1em}}[Question]
+\newtheorem{Exemple}{Exemple}
+\newcounter{exercice}
+\newcounter{question}[exercice]
+\renewcommand{\theexercice}{\arabic{exercice}}
+\renewcommand{\thequestion}{\theexercice.\arabic{question}}
+\theoremstyle{definition}
+\newtheorem{Guide}{{\makebox[0pt][r]{$\blacktriangleright$\hspace*{1ex}}Guide}}
+\renewcommand{\theGuide}{\hspace*{-0.9ex}}
+
+%Tag \`a gauche ou \`a droite
+\makeatletter
+\newcommand{\reqnomode}{\tagsleft@false\let\veqno\@@eqno}
+\newcommand{\leqnomode}{\tagsleft@true\let\veqno\@@leqno}
+\makeatother
+
+%Exigences
+\reversemarginpar
+%\newcommand{\attB}{\textcolor{green}{\textbullet}}
+%\newcommand{\attM}{\textcolor{green}{\textbullet}\textcolor{orange}{\textbullet}}
+%\newcommand{\attH}{\textcolor{green}{\textbullet}\textcolor{orange}{\textbullet}\textcolor{red}{\textbullet}}
+\newcommand{\anoter}{ {\Large \textcolor{orange}{\ding{45}}} }
+
+%Elements differentiel
+%\newcommand{\diff}{\mathop{}\mathopen{}\mathrm{d}}
+\newcommand{\xDif}{{\rm D}}
+\newcommand{\xdif}{\,{\rm d}}
+\newcommand{\diff}{\xdif}
+\newcommand{\Diff}{{\rm \partial}}
+
+%Les ensembles
+%\newcommand{\U}{\mbox{$\mathbf{U}$}\xspace}
+%\newcommand{\X}{\mbox{$\mathbf{X}$}\xspace}
+%\newcommand{\M}{\mbox{$\mathbf{M}$}\xspace}
+\newcommand{\U}{U}
+\newcommand{\X}{X}
+%\newcommand{\M}{M}
+\newcommand{\Lcal}{\mathcal{L}}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\A}{\mathcal{A}}
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\D}{\mathcal{D}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\xLn}[1]{{\rm L}^#1}
+\newcommand{\xCn}[1]{{\rm C}^#1}
+
+%Les softs et librairies
+\newcommand{\pcr}[1]{{\fontfamily{pcr}\selectfont #1}}
+%\newcommand{\vrb}[1]{{\fontfamily{ttfamily}\selectfont #1}}
+\newcommand{\vrb}[1]{\texttt{#1}}
+\newcommand{\cmd}[1]{\texttt{#1}}
+\newcommand{\lib}[1]{\textsc{#1}}
+\newcommand{\hampath}{\texttt{HamPath}}
+\newcommand{\cotcot}{\texttt{cotcot}}
+\newcommand{\matlab}{\lib{Matlab}}
+\newcommand{\octave}{\lib{Octave}}
+\newcommand{\fortran}{\lib{Fortran}}
+\newcommand{\python}{\lib{Python}}
+\newcommand{\interface}{\lib{Interface}}
+
+%Intervalle
+\newcommand{\intervalle}[4]{\mathopen{#1}#2
+                                \mathclose{}\mathpunct{},#3
+                                \mathclose{#4}}
+\newcommand{\intervalleff}[2]{\intervalle{[}{#1}{#2}{]}}
+\newcommand{\intervalleof}[2]{\intervalle{]}{#1}{#2}{]}}
+%\newcommand{\intervalleof}[2]{\intervalle{(}{#1}{#2}{]}}
+\newcommand{\intervallefo}[2]{\intervalle{[}{#1}{#2}{[}}
+%\newcommand{\intervallefo}[2]{\intervalle{[}{#1}{#2}{)}}
+\newcommand{\intervalleoo}[2]{\intervalle{]}{#1}{#2}{[}}
+%\newcommand{\intervalleoo}[2]{\intervalle{(}{#1}{#2}{)}}
+\newcommand{\intervalleentier}[2]{\intervalle{\llbracket}{#1}{#2}{\rrbracket}}
+
+%L'arc de cercle pour les champs de Jacobi
+\usepackage{yhmath}
+
+%Misc
+\newcommand\ie{\textit{i.e. }}
+\newcommand\cf{\textit{cf. }}
+\newcommand{\myemph}[1]{\textit{#1}}
+\newcommand{\refcite}[1]{r\'ef.~\cite{#1}}
+\newcommand{\refscite}[1]{r\'efs.~\cite{#1}}
+\newcommand{\figsref}[1]{figs.~\ref{#1}}
+\newcommand{\figref}[1]{fig.~\ref{#1}}
+\newcommand{\frp}[2]{\frac{\Diff #1}{\Diff #2}}
+\newcommand{\frpp}[2]{{\Diff #1}/{\Diff #2}}
+
+%La commande pour la todo_list
+\newcommand{\todo}[1]{\noindent {\color{red} \it TODO!!! #1}~\\}
+
+%Ensembles de nombres
+\newcommand{\nbSet}[1]{\mathbb{#1}}
+\newcommand{\setPositive}{\text{\bf{\tiny+}}}
+\newcommand{\setNegative}{\mathbb{\tiny-}}
+\newcommand{\setStar}{\text{*}}
+\newcommand{\M}{\nbSet{M}}
+\newcommand{\N}{\nbSet{N}}
+\newcommand{\Z}{\nbSet{Z}}
+\newcommand{\Q}{\nbSet{Q}}
+\newcommand{\R}{\nbSet{R}} %\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\nbSet{C}}
+
+
+\newcommand{\setDeco}[2]{
+    \IfEqCase{#2}{
+        {s}{\nbSet{#1}^{\setStar}}
+        {n}{\nbSet{#1}^{\phantom{\setStar}}_{\setNegative}}
+        {p}{\nbSet{#1}^{\phantom{\setStar}}_{\setPositive}}
+        {sn}{\nbSet{#1}^{\setStar}_{\setNegative}}
+        {sp}{\nbSet{#1}^{\setStar}_{\setPositive}}
+    }
+}
+
+\newcommand{\Ns}{ \ensuremath{\setDeco{N}{s}} }
+\newcommand{\Rn}{ \ensuremath{\setDeco{R}{n}} }
+\newcommand{\Rp}{ \ensuremath{\setDeco{R}{p}} }
+\newcommand{\Rs}{ \ensuremath{\setDeco{R}{s}} }
+\newcommand{\Rsp}{ \ensuremath{\setDeco{R}{sp}} }
+\newcommand{\Rsn}{ \ensuremath{\setDeco{R}{sn}} }
+
+%Valeur absolue et norme
+\newcommand{\abs}[1]{\lvert#1\rvert} 
+\newcommand{\absStyle}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norme}[1]{\lVert#1\rVert}
+\newcommand{\normeStyle}[1]{\left\lVert#1\right\rVert}
+
+%Petit o et grand O
+\newcommand{\petito}[1]{o\mathopen{}\left(#1\right)}
+\newcommand{\grandO}[1]{O\mathopen{}\left(#1\right)}
+
+%Ensemble des .. tels que ..
+\newcommand{\enstq}[2]{\left\{#1\mathrel{}\middle|\mathrel{}#2\right\}}
+
+%Produit scalaire
+\newcommand{\prodscal}[2]{\left(#1 \,|\, #2\right)}
+\newcommand{\crochetDualite}[2]{\left\langle#1,#2\right\rangle}
+
+%Fl\`eche
+\usepackage[f]{esvect}
+%\newcommand\vvec{\vec}
+\newcommand\vvec{\overrightarrow}
+\renewcommand\tilde{\widetilde}
+
+%Solutions du PMP
+\newcommand\lsol{\bar{\lambda}}
+\newcommand\xsol{\bar{x}}
+\newcommand\ysol{\bar{y}}
+\newcommand\usol{\bar{u}}
+\newcommand\zsol{\bar{z}}
+\newcommand\psol{\bar{p}}
+\newcommand\tfsol{\bar{t}_f}
+\newcommand\tsol{\bar{t}\hspace{0.1em}}
+
+% Lettres avec tilde
+\def\xt{\widetilde{x}}
+\def\ut{\widetilde{u}}
+\def\pt{\widetilde{p}}
+\def\ft{\widetilde{f}}
+
+%Op\'erateur math
+\DeclareMathOperator{\argmax}{arg\,max}
+%\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\rang}{rang}
+\DeclareMathOperator{\rank}{rang}
+\DeclareMathOperator{\vect}{Vect}
+\DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\comp}{num}
+
+%exponential mapping
+\newcommand{\expmap}[3]{\exp({#2 #3}) (#1)}
+
+%Fonction homotopique
+\renewcommand{\hom}{\Phi}
+
+%Epsilon, phi, theta, etc.
+\newcommand{\veps}{\varepsilon}
+\newcommand\vphi{\phi}
+\newcommand\pth{p_\theta}
+\renewcommand\th{\theta}
+
+\newcommand{\arc}{\gamma}
+
+%Les dessins
+\usepackage{tikz}
+\usepackage{pgfkeys}
+\usepackage{circuitikz}
+\usetikzlibrary{arrows,shapes,backgrounds,patterns}
+\usepackage{pifont}
+\usepackage{tikzgraphicx}
+\tikzstyle{every picture}+=[remember picture]
+\tikzstyle{na} = [baseline=-.5ex]
+\makeatletter
+\newcommand{\gettikzxy}[3]{%
+  \tikz@scan@one@point\pgfutil@firstofone#1\relax
+  \edef#2{\the\pgf@x}%
+  \edef#3{\the\pgf@y}%
+}
+\makeatother
+
+% Définition des nouvelles options xmin, xmax, ymin, ymax
+% Valeurs par défaut : -3, 3, -3, 3
+\tikzset{
+    xmin/.store in=\xmin, xmin/.default=-3, xmin=-3,
+    xmax/.store in=\xmax, xmax/.default=3, xmax=3,
+    ymin/.store in=\ymin, ymin/.default=-3, ymin=-3,
+    ymax/.store in=\ymax, ymax/.default=3, ymax=3,
+}
+% Commande qui trace la grille entre (xmin,ymin) et (xmax,ymax)
+\newcommand {\grille}
+    {\draw[help lines] (\xmin,\ymin) grid (\xmax,\ymax);}
+% Commande \axes
+\newcommand {\axes}[2] {
+    \draw[->,gray] (\xmin,0) -- (\xmax,0);
+    \draw[->,gray] (0,\ymin) -- (0,\ymax);
+    \draw (\xmax,0) node[below]{#1};
+    \draw (0,\ymax) node[left]{#2};
+}
+% Commande qui limite l’affichage à (xmin,ymin) et (xmax,ymax)
+\newcommand {\fenetre}
+    {\clip (\xmin,\ymin) rectangle (\xmax,\ymax);}
+
+%Les tableaux
+\usepackage{calc}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright}p{#1}}
+
+%Tableau : \'epaisseur des lignes
+\usepackage{booktabs}
+\newcommand{\smallhrule}{\specialrule{0.02em}{0.25em}{0.25em}}
+\newcommand{\medhrule}{\specialrule{0.05em}{0.3em}{0.3em}}
+\newcommand{\bighrule}{\specialrule{0.1em}{0.3em}{0.5em}}
+
+%Passage seulement pour la version prof
+\newcommand{\noi}{\noindent}
+\newcommand{\HRule}{\noi\rule{\linewidth}{0.3mm}}
+\newcommand{\onlyForProf}[1]{
+\ifVIEWALL
+    {
+    \newpage
+    {\color{grey}
+        \noindent\fbox{\parbox{\linewidth-2\fboxrule-2\fboxsep}{\centering \textbf{Remarques personnelles}}}
+        ~\\
+        #1
+        ~\\
+        \HRule
+    }
+    \newpage
+    } \else
+\fi}
+
+%Pour avoir des notes dans la marge
+\newcommand{\noteInMarge}[1]{\ifVIEWALL{ \marginpar{{\color{red} #1}} }\else\fi}
+
+
+%-------------------------------------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------------------------------------
+%Pour le style du manuscrit
+
+\usepackage{fancyhdr}                    % Fancy Header and Footer
+\usepackage{colortbl}
+
+% Clear Header Style on the Last Empty Odd pages
+\makeatletter
+\def\cleardoublepage{
+    \clearpage
+    \if@twoside 
+        \ifodd
+            \c@page
+        \else%
+            \hbox{}%
+            \thispagestyle{empty}%              % Empty header styles
+            \newpage%
+            \if@twocolumn\hbox{}\newpage
+            \fi
+        \fi
+    \fi}
+\makeatother
+
+%minitoc
+%\usepackage[nottoc, notlof, notlot]{tocbibind}
+\usepackage[french]{minitoc}
+\setcounter{minitocdepth}{2}
+\setlength{\mtcindent}{18pt} 
+\renewcommand{\mtcfont}{\small\rm} 
+\renewcommand{\mtcSfont}{\small\bf}
+
+%\let\minitocORIG\minitoc
+%\renewcommand{\minitoc}{\minitocORIG \vspace{1.5em}}
+
+%table des mati\`eres et compteurs de titres
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{2}
+
+% centered page environment
+\newenvironment{vcenterpage}
+{\newpage\vspace*{\fill}\thispagestyle{empty}\renewcommand{\headrulewidth}{0pt}}
+{\vspace*{\fill}}
+
+%nicer backref links
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{%
+\ifcase #1 %
+%
+\or
+$\hookleftarrow$~#2.%
+\else
+$\hookleftarrow$~#2.%
+\fi}
+\renewcommand*{\backrefsep}{, }
+\renewcommand*{\backreftwosep}{ et~}
+\renewcommand*{\backreflastsep}{ et~}
+%-------------------------------------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------------------------------%
+%Compteur pour les probl\`emes
+\usepackage{totcount}
+\newcounter{problem}%[chapter]
+\regtotcounter{problem}
+\newcommand{\tagProblem}[1][]{%
+    \addtocounter{problem}{1}
+    \tag{P\theproblem#1}
+    %\tag{P\thechapter.\theproblem#1}
+}
+%Compteur pour les hypoth\`eses
+\newcounter{assumptionx}[chapter]
+\regtotcounter{assumptionx}
+\newcommand{\tagAssumption}{%
+    H\thechapter.\theassumptionx
+}
+
+\newenvironment{myassumption}
+{\addtocounter{assumptionx}{1}
+ \renewcommand\theassumption{\tagAssumption}
+ \addtocounter{assumption}{-1}
+ \begin{flushleft}
+ \begin{tabular}{|| L{0.94\textwidth}}
+  \assumption
+  \vspace{-1em}
+}
+{\vspace{-1em}
+\endassumption
+\end{tabular}
+ \end{flushleft}
+ }
+
+% \newenvironment{myassumption}{
+%    \begin{flushright}
+%        \begin{tabular}{|| L{0.94\textwidth} }
+%            %\begin{assumption}
+%            \textbf{Hypoth\`ese \tagAssumption.}
+%            %\vspace{-1em}
+%    }
+%    {
+%            %\vspace{-1em}
+%            %\end{assumption}
+%        \end{tabular}
+%    \end{flushright}
+%}
+
+%Remarque perso
+%\newcommand{\myremark}[1]{
+%    \begin{flushright}
+%        \begin{tabular}{| L{0.94\textwidth} }
+%            \begin{remark}
+%            \vspace{-1em}
+%                #1
+%            \vspace{-1em}
+%            \end{remark}
+%        \end{tabular}
+%    \end{flushright}
+%}
+\newenvironment{myremark}{
+    \begin{flushright}
+        \begin{tabular}{| L{0.94\textwidth} }
+            \begin{remark}
+            \vspace{-1em}
+    }
+    {
+            \vspace{-1em}
+            \end{remark}
+        \end{tabular}
+    \end{flushright}
+}
+
+\newenvironment{myQuestion}{
+    \begin{flushright}
+        \begin{tabular}{| L{0.94\textwidth} }
+            \begin{Question}
+            \vspace{-1em}
+    }
+    {
+            \vspace{-1em}
+            \end{Question}
+        \end{tabular}
+    \end{flushright}
+}
+
+\newenvironment{myExercice}{
+    \begin{flushright}
+        \begin{tabular}{| L{0.94\textwidth} }
+            \begin{Exercice}
+            \vspace{-1em}
+    }
+    {
+            \vspace{-1em}
+            \end{Exercice}
+        \end{tabular}
+    \end{flushright}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[many]{tcolorbox}% http://ctan.org/pkg/tcolorbox
+%\definecolor{mycolor}{rgb}{0.2,0.4,0.6}% Rule colour
+%\definecolor{mycolor}{rgb}{0.122, 0.435, 0.698}% Rule colour
+\makeatletter
+%\newcommand{\myfbox}[2]{%
+%  \setbox0=\hbox{#2}%
+%  %\setlength{\@tempdima}{\dimexpr\wd0+13pt}%
+%  \setlength{\@tempdima}{#1\textwidth}%
+%  \begin{tcolorbox}[colframe=mycolor,boxrule=0.5pt,arc=4pt,
+%      left=6pt,right=6pt,top=6pt,bottom=6pt,boxsep=0pt,width=\@tempdima]
+%    #2
+%  \end{tcolorbox}
+%}
+\newcommand{\myfbox}[4][]{%
+%  \setbox0=\hbox{#3}%
+    \setlength{\@tempdima}{#2\textwidth}%
+    %\begin{tcolorbox}[colback=#3!2!white,colframe=#3,boxrule=0.5pt,arc=4pt,left=6pt,right=6pt,
+    \begin{tcolorbox}[colback=white,colframe=#3,boxrule=0.8pt,arc=6pt,left=6pt,right=6pt,
+          top=6pt,bottom=6pt,boxsep=0pt,width=\@tempdima,#1]
+        #4
+    \end{tcolorbox}
+}
+\makeatother
+
+%\newcommand{\envbox}[2][theorem]{%
+%    \begin{center}
+%    \begin{minipage}[h!]{0.98\textwidth}
+%        \myfbox{1.0}{blue}{
+%        \begin{#1}
+%            #2
+%        \end{#1}
+%        }
+%    \end{minipage}
+%    \end{center}
+%}
+
+\usepackage{xargs}
+\newcommandx{\envbox}[3][1=theorem,2=]{%
+    \begin{center}
+    \begin{minipage}[h!]{0.999\textwidth}
+        \myfbox{1.0}{blue}{
+        \begin{#1}[#2]
+            #3
+        \end{#1}
+        }
+    \end{minipage}
+    \end{center}
+}
+
+%Pr\'erequis
+\newcommand{\prerequis}[1]{
+%    \noindent\fbox{\parbox{\linewidth-2\fboxrule-2\fboxsep}{\textbf{Pr\'e-requis :} #1}}
+%    \vspace{0.5em}
+    \begin{center}
+    \begin{minipage}[h!]{0.98\textwidth}
+        \myfbox{1.0}{gray}{
+        \textbf{Pr\'e-requis :} #1
+        }
+    \end{minipage}
+    \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Proof
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{
+    \par\pushQED{\qed}\small\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\itshape#1\@addpunct{.}]\ignorespaces
+}{
+    \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+%Les itemize
+\usepackage{marvosym}
+\usepackage{enumitem}
+\frenchbsetup{CompactItemize=false}
+\setlist{itemsep=0.25em}
+\setitemize[1]{label={\small \Football}}
+\setitemize[2]{label=$\diamond$}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+\newcommand{\pgftextcircled}[1]{
+    \setbox0=\hbox{#1}%
+    \dimen0\wd0%
+    \divide\dimen0 by 2%
+    \begin{tikzpicture}[baseline=(a.base)]%
+        \useasboundingbox (-\the\dimen0,0pt) rectangle (\the\dimen0,1pt);
+        \node[circle,draw,outer sep=0pt,inner sep=0.1ex] (a) {#1};
+    \end{tikzpicture}
+}
+
+%Les enumerations
+%\usepackage{enumerate}
+
+\usepackage{listings}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\small,               % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{blue},       % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{red},        % keyword style
+  otherkeywords={*,...},           % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{gray},   % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  %title=\lstname,                 % show the filename of files included with \lstinputlisting; also try caption instead of title
+  frameround=tttt                  % frameround=⟨t|f⟩⟨t|f⟩⟨t|f⟩⟨t|f⟩ ffff
+                                   % The four letters designate the top right, bottom right, bottom left and top left corner. 
+                                   % In this order. t makes the according corner round.
+}

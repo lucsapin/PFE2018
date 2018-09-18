@@ -97,11 +97,11 @@ bcv = [-1 1; -1 1; -1 1; % u1
 bav = [];
 
 % Bounds for the optimization parameters :
-bop = [0     2e20;
-       0     2e20;
-       0     2e20;
-       0     2e20;
-       0     2e20];
+bop = [1e-3     100;
+       1e-3     100;
+       1e-3     100;
+       1e-3     100;
+       1e-3     100];
 
 % Bounds for the path constraints :
 bpc = [0 0;

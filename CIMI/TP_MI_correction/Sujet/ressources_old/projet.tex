@@ -1,0 +1,59 @@
+
+Vous d\'eposerez sous Moodle (la date limite est indiqu\'ee sur la page Moodle du cours) une archive contenant les codes et le rapport,
+sur la base des consid\'erations donn\'ees ci-apr\`es.
+
+\paragraph*{Les codes~:}
+
+Vous retournerez l'ensemble des codes, pour tous les sujets, en gardant la hi\'earchie de base des r\'epertoires. Les scripts devront pouvoir \^etre ex\'ecut\'es
+sans modification de la part de l'enseignant afin de valider les exercices (seulement ceux pr\'esents dans le tableau \ref{table:evaluation_code_rapport}).
+
+\paragraph*{Le rapport~:}
+
+Vous r\'epondrez dans le rapport aux questions suivantes~:
+\ref{question:hamiltonien}                page \pageref{question:hamiltonien}~;
+\ref{question:tir_simple}                 page \pageref{question:tir_simple}~;
+\ref{question:diff_finies}                page \pageref{question:diff_finies}~;
+\ref{question:continuation}               page \pageref{question:continuation}~;
+\ref{question:bang_bang_hamiltonien}      page \pageref{question:bang_bang_hamiltonien}~;
+\ref{question:bang_bang_fonction_de_tir}  page \pageref{question:bang_bang_fonction_de_tir}~;
+\ref{question:bang_bang_jacobienne}       page \pageref{question:bang_bang_jacobienne}~;
+\ref{question:transfert_hamiltonien}      page \pageref{question:transfert_hamiltonien}~;
+\ref{question:transfert_control}          page \pageref{question:transfert_control}~;
+\ref{question:transfert_fonction_de_tir}  page \pageref{question:transfert_fonction_de_tir}.
+
+Vous compl\`eterez dans votre rapport la colonne 3 (travail r\'ealis\'e) du tableau \ref{table:evaluation_code_rapport}.
+Vous mettrez \textbf{oui} si vous estimez que vous avez r\'ealis\'e le travail
+et que l'enseignant peut le valider \`a l'aide du script associ\'e, sans aucune modification de sa part.
+Sinon, vous mettrez \textbf{non}. Si par exemple, vous estimez pour la question 6.1 avoir fait les figures mais que votre solution n'est
+pas correcte, alors vous mettrez non dans la colonne 3.
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{lll}
+        \medhrule
+        Exercice                                & Rendu attendu & Travail r\'ealis\'e (oui/non)             \\
+        \bighrule
+%        1.1 \`a 1.4                             & figure \ref{fig:results_tests_tir_simple}             &  \\ \smallhrule
+        1.5                                     & figure \ref{fig:results_tests_tir_simple_contraint}   &  \\ \smallhrule
+        1.6                                     & figure \ref{fig:results_tests_tir_simple_dim2}        &  \\ \smallhrule
+        2.1                                     & figure \ref{fig:results_ocpBangRegControl}            &  \\ \smallhrule
+        2.3 \`a 2.5                             & figure \ref{fig:results_jacobienne}                   &  \\ \smallhrule
+        3.1                                     & figures \ref{fig:results_tests_continuation_1} et \ref{fig:results_tests_continuation} & \\ \smallhrule
+        4.1                                     & figure trajectoire et contr\^ole                      & \\
+                                                & + affichage des sorties de \cmd{ssolve}               & \\ \smallhrule
+        4.2                                     & figure trajectoire et contr\^ole                      & \\
+                                                & + affichage des sorties de \cmd{ssolve}               & \\ \smallhrule
+        5.2                                     & figure \ref{fig:results_tests_continuation} (avec \hampath) & \\ \smallhrule
+        5.4                                     & figure trajectoire et contr\^ole                      & \\
+                                                & + affichage des sorties de \cmd{ssolve} (avec \hampath) & \\ \smallhrule
+        6.1                                     & fig. trajectoire avec orbites initial et final, et contr\^ole & \\
+                                                & + affichage des sorties de \cmd{ssolve} (avec \hampath) & \\
+        \medhrule
+    \end{tabular}
+    \caption{Table d'\'evaluation des TP. Vous rendrez dans le rapport ce tableau avec la colonne 3 remplie par vos soins.
+    Si vous n'\^etes pas s\^ur, vous pouvez mettre un ``?''.}
+    \label{table:evaluation_code_rapport}
+\end{table}
+
+\paragraph*{Evaluation~:}
+Vous serez \'evalu\'e sur les r\'eponses aux questions et sur les validations des tests. 

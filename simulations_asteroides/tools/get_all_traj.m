@@ -1,6 +1,6 @@
-function [resDrift, resP2H, correspondingPoint, resFig] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choixDyn)
+function [resDrift, resP2H, correspondingPoint, resFig] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choixDyn, Sansmax)
 
-  outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti);
+  outputOptimization = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax);
 
   UC = get_Univers_Constants();
 

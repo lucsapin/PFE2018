@@ -1,4 +1,4 @@
-function [status, iterations, objective, constraints, zB] = loadResultsBocop(destination, numAst, TmaxN, m0, beta)
+function [status, iterations, objective, constraints, zB, optimvarsB] = loadResultsBocop(destination, numAst, TmaxN, m0, beta)
 
     liste_status = zeros(1, 10);
     liste_iterations = zeros(1, 10);
@@ -16,12 +16,13 @@ function [status, iterations, objective, constraints, zB] = loadResultsBocop(des
 
     if(~exist(dirLoad,'dir')); error('Wrong directory name!'); end
 
-    file_results= [dirLoad case_name]
+    file_results= [dirLoad case_name];
 
     if(exist([file_results '.mat'],'file')==2); load(file_results); end
 
 
     zB = results.min_3B_impulse_bocop.zB(1:6,:);
+    optimvarsB = results.min_3B_impulse_bocop.optimvarsB;
     outputB = results.min_3B_impulse_bocop.outputB;
     status = outputB.status;
     iterations = outputB.iterations;

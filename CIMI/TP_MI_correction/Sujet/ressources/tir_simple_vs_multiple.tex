@@ -1,0 +1,166 @@
+%---------------------------------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------------------------------
+\section{Double int\'egrateur : \'energie min}
+
+Consid\'erons le probl\`eme de contr\^ole optimal suivant :
+\leqnomode
+\begin{equation*}
+\tagProblem
+    \left\{ 
+        \begin{array}{l}
+            \displaystyle J(u(\cdot)) \coloneqq \displaystyle \frac{1}{2} \int_0^{t_f} u(t)^2 \, \diff t\longrightarrow \min            \\[1.0em]
+            \dot{x}_1(t)    =  \displaystyle x_2(t)                                                                                     \\[0.5em]
+            \dot{x}_2(t)    =  \displaystyle u(t), \quad \abs{u(t)} \le u_\mathrm{max}, \quad t \in \intervalleff{0}{t_f} \text{ p.p.}, \\[1.0em]
+            x(0) = x_0 , \quad x(t_f) = x_f,
+        \end{array}
+    \right. 
+    \label{eq:ocp_DI_min_E}
+\end{equation*}
+\reqnomode
+avec $t_f \coloneqq 1$, $x_0 \coloneqq (-1,0)$, $x_f \coloneqq (0,0)$ et $\forall\, t \in\intervalleff{0}{t_f}$, $x(t) = (x_1(t), x_2(t)) \in \R^2$.
+Notons 
+\[
+    H(x,p,p^0,u) \coloneqq p_1\, x_2 + p_2\, u + p^0\, \frac{1}{2} u^2, \quad x = (x_1, x_2), \quad p = (p_1, p_2),
+\]
+le pseudo-hamiltonien. On consid\`ere le cas normal et on fixe $p^0 = -1$. La condition de maximisation
+nous donne comme loi de contr\^ole~:
+\begin{equation*}
+    u(t) = 
+    \left\{
+        \begin{array}{ll}
+            u_s(x(t),p(t)) \coloneqq p_2(t)   & \text{ si } \abs{p_2(t)} \le u_\mathrm{max}, \\[0.5em]
+            +u_\mathrm{max}                      & \text{ si } p_2(t) > u_\mathrm{max}, \\[0.5em]
+            -u_\mathrm{max}                      & \text{ si } p_2(t) < -u_\mathrm{max}.
+        \end{array}
+    \right.
+\end{equation*}
+%
+La fonction de tir est donn\'ee par :
+\begin{equation*}
+    \begin{array}{rlll}
+        S \colon    & \R^2    & \longrightarrow   & \R^2 \\
+                    & y       & \longmapsto       & S(y) \coloneqq x(t_f,x_0,y) - x_f,
+    \end{array}
+\end{equation*}
+o\`u $y$ joue ici le r\^ole du vecteur adjoint initial $p(0)$.
+
+\begin{myExercice} Se rendre dans le r\'epertoire \cmd{TP\_2\_tir\_simple\_et\_multiple\_double\_integrateur/exo\_1\_energie\_min}.
+    \begin{enumerate}
+        \item Compl\'eter \cmd{control}, \cmd{hfun} et \cmd{sfun}, respectivement dans les fichiers \cmd{afun.f90}, \cmd{hfun.f90} et \cmd{sfun.f90}.
+            Attention pour \cmd{sfun}, m\^eme si $x_f = (0,0)$, il est pass\'e en param\`etre \`a l'aide du vecteur \cmd{par} : $x_f = par(5:6)$.
+        \item Compiler le probl\`eme.
+        \item Jeter un \oe il au script \matlab\ \cmd{main21.m} puis l'ex\'ecuter. Vous pouvez tester la r\'esolution du probl\`eme pour deux valeurs de
+            $u_\mathrm{max}$.
+    \end{enumerate}
+\end{myExercice}
+
+\begin{myremark}
+    \anoter
+    La loi de commande $\usol(\cdot)$ associ\'ee \`a la solution des \'equations de tir est lisse lorsque $u_\mathrm{max} \ge 6$.
+    Pour $u_\mathrm{max} < 6$, la loi de commande perd en r\'egularit\'e. Pour $u_\mathrm{max} = 4.5$, elle est continue mais pas $C^1$,
+    seulement $C^1$ par morceaux (elle est m\^eme lisse par morceaux).
+\end{myremark}
+
+%---------------------------------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------------------------------
+\section{Double int\'egrateur : temps min}
+
+Consid\'erons le probl\`eme \eqref{eq:ocp_DI_min_E} o\`u l'on remplace le crit\`ere par le suivant : $J(u(\cdot), t_f) \coloneqq t_f$.
+On remarque alors que dans ce cas, le temps final $t_f$ est libre. Fixons de plus la borne sur le contr\^ole : $u_\mathrm{max} = 1$.
+%
+Notons le pseudo-hamiltonien
+\[
+    H(x,p,u) \coloneqq p_1\, x_2 + p_2\, u.
+\]
+La condition de maximisation nous donne comme loi de contr\^ole~:
+\begin{equation*}
+    u(t) = 
+    \left\{
+        \begin{array}{ll}
+            +u_\mathrm{max}  & \text{ si } p_2(t) > 0, \\[0.5em]
+            -u_\mathrm{max}  & \text{ si } p_2(t) < 0, \\[0.5em]
+            ?                & \text{ si } p_2(t) = 0.
+        \end{array}
+    \right.
+\end{equation*}
+
+\begin{myremark}
+    \anoter
+    Il n'est pas possible d'avoir $p_2(t) = 0$ sur un intervalle de temps non r\'eduit \`a un point. Ainsi, nous pouvons ignorer ce cas.
+\end{myremark}
+
+Puisque $t_f$ est libre, le PMP nous donne la condition de transversalit\'e \[H(x(t_f), p(t_f), u(t_f)) = -p^0, \]
+o\`u l'on fixe toujours $p^0=-1$ car nous ne consid\'erons que le cas normal. 
+%
+
+%-----------------------------------------------------
+\subsection{Tir simple}
+
+La fonction de tir simple est donn\'ee par~:
+\begin{equation*}
+    \begin{array}{rlll}
+        S \colon    & \R^3      & \longrightarrow   & \R^3 \\
+        & y\coloneqq(p_0, t_f)  & \longmapsto       & S(y) \coloneqq
+        \begin{bmatrix}
+            x(t_f,x_0,p_0) - x_f \\
+            H(x(t_f,x_0,p_0),p(t_f,x_0,p_0),u(t_f))+p^0
+        \end{bmatrix}.
+    \end{array}
+\end{equation*}
+
+\begin{myExercice} Se rendre dans le r\'epertoire \cmd{TP\_2\_tir\_simple\_et\_multiple\_double\_integrateur/} \cmd{exo\_2\_temps\_min\_tir\_simple}.
+    \begin{enumerate}
+        \item Compl\'eter \cmd{control}, \cmd{hfun} et \cmd{sfun}, respectivement dans les fichiers \cmd{afun.f90}, \cmd{hfun.f90} et \cmd{sfun.f90}.
+            Attention pour \cmd{sfun}, m\^eme si $x_f = (0,0)$, il est pass\'e en param\`etre \`a l'aide du vecteur \cmd{par} : $x_f = par(3:4)$.
+        \item Compiler le probl\`eme.
+        \item Jeter un \oe il au script \matlab\ \cmd{main22.m} puis l'ex\'ecuter.
+    \end{enumerate}
+\end{myExercice}
+
+\begin{myremark}
+    \anoter
+    Remarquer que le solveur \cmd{fsolve} de \matlab\ ne fait qu'une it\'eration mais ne progresse pas.
+\end{myremark}
+
+%-----------------------------------------------------
+\subsection{Tir multiple}
+
+Nous introduisons quelques notations pour clarifier l'expression de la fonction de tir multiple que l'on d\'efinit ci-apr\`es.
+On note $H_+(z) \coloneqq H(z, u_\mathrm{max})$, $H_-(z) \coloneqq H(z, -u_\mathrm{max})$ et $\vv{H_+}$, $\vv{H_-}$ les syst\`emes hamiltoniens associ\'es.
+Pour d\'efinir la fonction de tir multiple, nous devons n\'ecessairement conna\^itre la structure du contr\^ole. Ici, nous savons que la structure 
+contient deux arcs : $+u_\mathrm{max}$ suivi de $-u_\mathrm{max}$. Le PMP nous donne qu'\`a l'instant de la commutation (not\'e $t_1$), on a $p_2(t_1) = 0$.
+Nous pouvons maintenant d\'efinir la fonction de tir multiple (de structure), qui est donn\'ee par~:
+\begin{equation*}
+    \begin{array}{rlll}
+        S \colon    & \R^4          & \longrightarrow   & \R^4 \\
+        & y\coloneqq(p_0, t_f, t_1) & \longmapsto       & S(y) \coloneqq
+        \begin{bmatrix}
+            \Pi_x\left( z_f \right) - x_f \\[0.5em]
+            H_-(z_f)+p^0                  \\[0.5em]
+            \Pi_{p_2}\left( z_1 \right)
+        \end{bmatrix},
+    \end{array}
+\end{equation*}
+o\`u
+\[
+    z_1 \coloneqq \expmap{x_0,p_0}{t_1}{\vv{H_+}}, \quad z_f \coloneqq \expmap{z_1}{(t_f-t_1)}{\vv{H_-}}.
+\]
+On rappelle que $\Pi_x(z) = x$ avec $z=(x,p)$, $p=(p_1, p_2)$, et on d\'efinit $\Pi_{p_2}(z) = p_2$.
+
+\begin{myExercice} Se rendre dans le r\'epertoire \cmd{TP\_2\_tir\_simple\_et\_multiple\_double\_integrateur/}
+    \cmd{exo\_3\_temps\_min\_tir\_multiple\_de\_structure}.
+    \begin{enumerate}
+        \item Jeter un \oe il \`a la routine \cmd{control} de \cmd{afun.f90}. Noter l'utilisation de la variable \cmd{iarc} indiquant si l'on se trouve
+            sur le premier o\`u le second arc.
+        \item Jeter un \oe il \`a la routine \cmd{hfun} de \cmd{hfun.f90}. Elle reste inchang\'ee.
+        \item Compl\'eter \cmd{sfun} de \cmd{sfun.f90}. Attention \`a bien utiliser la variable \cmd{iarc}.
+        \item Compiler le probl\`eme.
+        \item Jeter un \oe il au script \matlab\ \cmd{main23.m} puis l'ex\'ecuter.
+    \end{enumerate}
+\end{myExercice}
+
+\begin{myremark}
+    \anoter
+    Comparer la pr\'ecision de la solution num\'erique entre le tir multiple et le tir simple. On notera que pour le tir multiple, nous avons
+    besoin d'une information suppl\'ementaire : la structure du contr\^ole optimal.
+\end{myremark}

@@ -1,0 +1,78 @@
+%%%% Identification Part %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tp}[06/10/2005 jb d'apres xavier et marc]
+
+%%%% Package loading %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{amsthm}
+\RequirePackage{amssymb}
+\RequirePackage{fancyheadings}
+\RequirePackage{graphics}
+
+%%%% Declaration of options %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancyplain}
+\newcommand{\tp@lfoot}{}
+\newcommand{\tp@cfoot}{{\textrm{\thepage}}}
+\newcommand{\tp@rfoot}{}
+
+%%%% Modification de la page %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addtolength{\headheight}{\baselineskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+%%%% Page de titre %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\@title}{}
+\newcommand{\@shorttitle}{}
+\newcommand{\@numero}{}
+\renewcommand{\@date}{}
+\newcommand{\@discipline}{}
+\newcommand{\@promotion}{}
+\renewcommand{\title}[1]
+  {\renewcommand{\@title}{{#1}}}
+\newcommand{\numero}[1]
+  {\renewcommand{\@numero}{{#1}}}
+\newcommand{\shorttitle}[1]
+  {\renewcommand{\@shorttitle}{{#1}}}
+\renewcommand{\date}[1]
+  {\renewcommand{\@date}{{#1}}}
+\newcommand{\discipline}[1]
+  {\renewcommand{\@discipline}{{#1}}}
+\newcommand{\promotion}[1]
+  {\renewcommand{\@promotion}{{#1}}}
+\renewcommand{\maketitle}
+  {\par\begin{center}
+  {\includegraphics[width=5cm]{logo}}
+  \vspace*{1.0em}\par
+  \LARGE\bf \@title
+  \end{center}%
+  \thispagestyle{plain}
+  \addvspace{2em}}
+
+%%%% Environnement pour les exercices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \theoremstyle{plain}
+\theoremstyle{definition}
+\newtheorem{Exercice}{{\makebox[0pt][r]{$\rhd$\hspace*{1ex}}Exercice}}
+\newtheorem{Question}{}[Exercice]
+\newtheorem{SousQuestion}{\hspace*{1em}}[Question]
+\newtheorem{Exemple}{Exemple}
+\newcounter{exercice}
+\newcounter{question}[exercice]
+\renewcommand{\theexercice}{\arabic{exercice}}
+\renewcommand{\thequestion}{\theexercice.\arabic{question}}
+\theoremstyle{definition}
+\newtheorem{Guide}{{\makebox[0pt][r]{$\blacktriangleright$\hspace*{1ex}}Guide}}
+\renewcommand{\theGuide}{\hspace*{-0.9ex}}
+
+%%%% Special commands for package and class files %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginDocument
+{%
+  \lhead{\fancyplain
+  {{\scriptsize \emph{\@promotion}\\[-2pt] \textsc{\@discipline}}}
+  {\textsc{\small \@discipline}}}
+  \chead{}
+  \rhead{\fancyplain
+  {{\scriptsize \@date\\[-2pt] \@numero}}
+  {{\small \textbf{\@shorttitle}}}}
+  \lfoot{\tp@lfoot}
+  \cfoot{\tp@cfoot}
+  \rfoot{\tp@rfoot}
+}

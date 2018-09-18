@@ -1,0 +1,182 @@
+Dans ce chapitre nous pr\'esentons le \emph{principe du maximum de Pontryagin} :
+\begin{quotation}
+\newblock L.~S. Pontryagin, V.~G. Boltyanski{\u\i}, R.~V. Gamkrelidze \& E.~F. Mishchenko,
+\newblock \emph{The Mathematical Theory of Optimal Processes},
+\newblock Translated from the Russian by K. N. Trirogoff, edited by L. W. Neustadt, Interscience Publishers John Wiley \& Sons, Inc., New York-London, 1962.
+\end{quotation}
+Pour un probl\`eme de contr\^ole optimal donn\'e, ce principe nous fournit des conditions n\'ecessaires d'optimalit\'e
+que doit v\'erifier toute solution de ce probl\`eme.
+
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------------------------------------------------------
+\section{Formulation du probl\`eme de contr\^ole optimal}
+
+Consid\'erons le probl\`eme de contr\^ole optimal suivant~:
+\leqnomode
+\begin{equation}
+\tag{$\mathrm{OCP}$}
+    \left\{ 
+        \begin{array}{l}
+            \displaystyle J(x_0,u(\cdot),t_0,t_f)   \coloneqq   \displaystyle g(t_0, x_0, t_f, x(t_f)) +
+                                                \int_{t_0}^{t_f} f^0(t,x(t),u(t)) \, \diff t\longrightarrow \min \\[1.0em]
+            \dot{x}(t)                      =   \displaystyle f(t,x(t),u(t)), 
+                                                \quad  u(t) \in \U, 
+                                                \quad t \in \intervalleff{t_0}{t_f} \text{ p.p.},
+                                                \quad x(t_0) = x_0, \\[1.0em]
+            c(t_0,x_0,t_f,x(t_f)) = 0,
+        \end{array}
+    \right. 
+\label{eq:ocpGeneral}
+\end{equation}
+\reqnomode
+
+C'est un probl\`eme tr\`es g\'en\'eral sous la forme de Bolza avec une dynamique non autonome, 
+dont les instants initial et final sont libres, o\`u l'on consid\`ere des conditions aux limites m\'elang\'ees
+et o\`u le contr\^ole peut \'eventuellement \^etre contraint. On d\'efinit les hypoth\`eses suivantes.
+
+\begin{myassumption}
+    \label{hyp:pmp}
+    Consid\'erons une EDO contr\^ol\'ee non autonome $\dot{x}(t) = f(t,x(t),u(t)),$ o\`u $f$ est une application de classe
+    $\xCn{1}$ de $\I \times \Omega \times \U$ dans $\R^n$, $\I$ un intervalle ouvert de $\R$, $\Omega$ un ouvert de $\R^n$
+    et $\U$ un ensemble \empha{quelconque} de $\R^m$. Consid\'erons de plus une fonction $f^0$ de classe
+    $\xCn{1}$ sur $\I \times \Omega \times \U$ et deux applications\footnotemark\ $g$ et $c$ de classe $\xCn{1}$ de
+    $\I \times \Omega \times \I \times \Omega$ respectivement sur $\R$ et $\R^p$, $p \le 2(n+1)$.
+    Notons $$X_c \coloneqq \enstq{(t_0,x_0,t_f,x_f) \in \I \times \Omega \times \I \times \Omega}{c(t_0,x_0,t_f,x_f) = 0}$$
+    et supposons que $c'(t_0,x_0,t_f,x_f)$ est surjective pour tout
+    $(t_0,x_0,t_f,x_f) \in X_c$.
+\end{myassumption}
+\footnotetext{On notera $(t_0, x_0, t_f, x_f)$ l'argument des applications $g$ et $c$. On \'ecrira donc $\frp{g}{x_f}$ la d\'eriv\'ee
+        partielle de $g$ par rapport \`a la quatri\`eme variable.}
+
+\begin{myremark}
+    On peut supposer seulement que $f$ et $f^0$ sont $\xCn{0}$ par rapport \`a $t$ et $u$.
+\end{myremark}
+
+%\pagebreak
+
+%
+On cherche alors une solution $(x_0,u(\cdot),t_0,t_f)$, $x_0 \in \Omega$, $u(\cdot) \in L^\infty(\intervalleff{t_0}{t_f},\U)$, 
+$0 \le t_0 \le t_f$ dans $\R$, telle que la trajectoire associ\'ee \empha{$\mathbf{t \mapsto x(t) \coloneqq x(t,t_0,x_0,u(\cdot))}$} soit d\'efinie sur 
+$\intervalleff{t_0}{t_f}$ et telle que la contrainte diff\'erentielle, la contrainte sur le contr\^ole et les conditions
+aux limites soient v\'erifi\'ees, et qui de plus minimise le crit\`ere.
+
+
+%-------------------------------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------------------------------
+\section{Principe du Maximum de Pontryagin}
+
+\'Enon\c cons maintenant le Principe du Maximum de Pontryagin (PMP).
+
+\envbox[theorem][Principe du Maximum de Pontryagin]{
+    Si $(x_0,u(\cdot),t_0,t_f)$, avec $x(\cdot)$ la trajectoire associ\'ee, est solution du probl\`eme \eqref{eq:ocpGeneral} 
+    sous les hypoth\`eses \ref{hyp:pmp},
+    alors il existe un \emph{vecteur adjoint} $p(\cdot) \in AC(\intervalleff{t_0}{t_f},(\R^n)^*)$, un r\'eel $p^0\le 0$,
+    tels que \emphb{$(p(\cdot),p^0)\ne(0,0)$}, et un multiplicateur \emphb{$\lambda \in (\R^p)^*$}, 
+    tels que les \'equations suivantes sont v\'erifi\'ees pour $t\in\intervalleff{t_0}{t_f}$ p.p.~:
+    \begin{equation}
+        \label{eq:pmp_equations_hamilton}
+        \begin{aligned}
+            \dot{x}(t)              &= \phantom{-}\frp{H}{p}(t,x(t),p(t),p^0,u(t)), \\
+            \dot{p}(t)              &=           -\frp{H}{x}(t,x(t),p(t),p^0,u(t)),
+        \end{aligned}
+    \end{equation}
+    o\`u $
+            H(t,x,p,p^0,u) \coloneqq p\, f(t,x,u) + p^0 \, f^0(t,x,u)
+        $
+    est le pseudo-hamiltonien associ\'e au probl\`eme \eqref{eq:ocpGeneral},
+    et on a la condition de maximisation du hamiltonien suivante pour $t\in\intervalleff{t_0}{t_f}$ p.p.~:
+    \begin{equation}
+        \label{eq:pmp_condition_maximisation}
+            H(t,x(t),p(t),p^0,u(t)) = \max_{\footnotesize w\in\U} H(t,x(t),p(t),p^0,w).
+    \end{equation}
+    Les conditions aux limites $c(t_0,x_0,t_f,x(t_f)) = 0$ et $x(t_0)=x_0$ sont v\'erifi\'ees et on a en plus les conditions de transversalit\'e suivantes~:
+    \begin{equation}
+        p(t_0) = - \left( \lambda \, \frp{c}{x_0} + p^0 \, \frp{g}{x_0} \right), \quad
+        p(t_f) = \left( \lambda \, \frp{c}{x_f} + p^0 \, \frp{g}{x_f} \right),
+        \label{eq:pmp_conditions_transversalite}
+    \end{equation}
+    appliqu\'e en $(t_0,x_0,t_f,x(t_f))$.
+    %
+    Enfin, puisque les temps initial et final sont libres, si $u(\cdot)$ est continu aux temps $t_0$, respectivement $t_f$, alors on a
+    les conditions sur le hamiltonien suivantes~:
+    \begin{equation}
+        H[t_0] = \left( \lambda \, \frp{c}{t_0} + p^0 \, \frp{g}{t_0} \right), \quad
+        H[t_f] = - \left( \lambda \, \frp{c}{t_f} + p^0 \, \frp{g}{t_f} \right),
+%        H(x(t_f),p(t_f),p^0,u(t_f)) = - \left( \sum_{i=1}^{p} \mu_i \, \frp{c_i}{t}(t_f,x(t_f)) + p^0 \, \frac{\partial g}{\partial t}(t_f,x(t_f)) \right).
+        \label{eq:pmp_conditions_hamiltonien}
+    \end{equation}
+    toujours appliqu\'e en $(t_0,x_0,t_f,x(t_f))$ et o\`u $[t] \coloneqq (t,x(t),p(t),p^0,u(t))$.
+    \label{thm:pmp_fort_general}
+}
+
+\begin{myremark}
+    On rappelle~:
+    $\displaystyle \lambda \frp{c}{x_0} = \sum_{i=1}^{p} \lambda_i \, \frp{c_i}{x_0},$ avec $\lambda \coloneqq (\lambda_1, \cdots, \lambda_p)$.
+\end{myremark}
+
+\begin{myremark}
+    La convention $p^0\le 0$ conduit au principe du \emph{maximum} tandis que $p^0 \ge 0$ conduit au principe du \emph{minimum}, \ie 
+    la condition \eqref{eq:pmp_condition_maximisation} serait une minimisation.
+\end{myremark}
+
+\begin{myremark}
+    Dans le cas o\`u $\U$ est un ouvert de $\R^m$, \ie lorsqu'il n'y a pas de contraintes sur le contr\^ole, 
+    la condition de maximisation \eqref{eq:pmp_condition_maximisation} implique $\partial_u H[t] = 0$.%, car pour presque tout $t$,
+    %le contr\^ole optimal $u(t)$ est un point critique de l'application partielle $u \mapsto H(t,x(t),p(t),p^0,u)$.
+\end{myremark}
+
+%-------------------------------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------------------------------
+\section{D\'efinitions et propri\'et\'es importantes}
+
+\envbox[definition]{ On introduit les d\'efinitions suivantes.
+    \label{def:extremale_autres}
+    \begin{itemize}
+        \item Une \emph{extr\'emale} du probl\`eme \eqref{eq:ocpGeneral} est un quadruplet $(x(\cdot),p(\cdot),p^0,u(\cdot))$ 
+            solution des \emph{\'equations hamiltoniennes} \eqref{eq:pmp_equations_hamilton} et de la \emph{condition de maximisation} 
+            \eqref{eq:pmp_condition_maximisation}.
+        \item On parle de \emph{BC--extr\'emale} (BC vient de ``Boundary Conditions'') si l'extr\'emale v\'erifie en plus
+            les \emph{conditions aux limites} $c(t_0,x_0,t_f,x(t_f)) = 0$, $x(t_0) = x_0$,
+            les \emph{conditions de transversalit\'e} \eqref{eq:pmp_conditions_transversalite}
+            et les \emph{conditions sur le hamiltonien} \eqref{eq:pmp_conditions_hamiltonien}.
+        \item Une extr\'emale $(x(\cdot),p(\cdot),p^0,u(\cdot))$ est dite \emph{anormale} si $p^0=0$ et \emph{normale} dans le cas contraire. 
+            Dans le cas normal on peut fixer $p^0$ \`a $-1$ par exemple, par homog\'en\'eit\'e.
+%            Une fois la valeur de $p^0$ fix\'e, on peut \'ecrire $H(t,x,p,u)$.
+        \item Une extr\'emale d\'efinie sur un intervalle $I \subset \intervalleff{t_0}{t_f}$, $t_0 < t_f$, est dite
+            \emph{singuli\`ere} si $\partial_{u} H[t]=0$ pour tout $t \in I$, elle est dite \emph{r\'eguli\`ere} sinon.
+            On appelle \emph{arc bang}, une portion d'extr\'emale r\'eguli\`ere sur laquelle le contr\^ole $u(t)$ est de norme constante.
+        %\item Si le hamiltonien est nul le long d'une extr\'emale alors elle est appel\'ee \emph{exceptionnelle}.
+    \end{itemize}
+}
+
+\begin{myremark}
+    Le probl\`eme important du \emph{temps minimal} correspond \`a 
+    $
+        f^0 \equiv 1$ et $g \equiv 0
+    $
+    ou bien \`a
+    $
+        f^0 \equiv 0$ et $g(t_0,x_0,t_f,x_f) = t_f.
+    $
+    Dans tous les cas, les conditions de transversalit\'e obtenues sont bien les m\^emes.
+\end{myremark}
+
+On peut de plus d\'efinir un v\'eritable hamiltonien et son syst\`eme hamiltonien 
+sous certaines conditions, d'apr\`es la proposition suivante.
+\envbox[proposition]{
+    \label{prop:ham_vrai}
+    Soit $(\xsol(\cdot),\psol(\cdot),p^0,\usol(\cdot))$ une extr\'emale du probl\`eme \eqref{eq:ocpGeneral}.
+    On note $z(\cdot) \coloneqq (x(\cdot),p(\cdot))$. Si pour presque tout $t \in \intervalleff{t_0}{t_f}$, le \empha{hamiltonien maximis\'e}
+    \[
+        z\coloneqq(x,p) \mapsto h(t,z) \coloneqq \max_{\footnotesize u\in\U} H(t,x,p,p^0,u)
+    \]
+    est d\'efini et lisse sur un voisinage de l'extr\'emale, 
+    alors pour presque tout $t \in \intervalleff{t_0}{t_f}$
+    \begin{equation*}
+        \dot \zsol(t) = \vvec{h}(t,\zsol(t)) \coloneqq \left( \frp{h}{p}(t,\zsol(t)),-\frp{h}{x}(t,\zsol(t)) \right),
+    \end{equation*}
+    et $h(t,z)$ d\'efinit un v\'eritable hamiltonien (il ne d\'epend pas de $u$).
+}
+
+
+

@@ -1,10 +1,10 @@
 %%%%% Propagate 2 L2 directly with the 2 Body dynamics on one side,
 %%%%% with the Ad Hoc dynamic on the other
-function [statesOpti, traj_out, q0, q1, t0_r, dt1_r] = propagate2L2(destination, typeSimu, numAsteroid, numOpti)
+function [statesOpti, traj_out, q0, q1, t0_r, dt1_r] = propagate2L2(destination, typeSimu, numAsteroid, numOpti, Sansmax)
 
 % ----------------------------------------------------------------------------------------------------
 % Load results of the optimization
-outputTotalOpti = loadFile(destination, typeSimu, numAsteroid, numOpti);
+outputTotalOpti = loadFile(destination, typeSimu, numAsteroid, numOpti, Sansmax);
 
 % Get initial condition
 time_Hill   = 0;

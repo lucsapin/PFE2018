@@ -1,0 +1,46 @@
+
+On consid\`ere le probl\`eme de contr\^ole optimal \eqref{eq:ocpBangReg}$_{|\veps=0}$. Dans ce cas, le contr\^ole optimal poss\`ede une discontinuit\'e
+et nous allons donc utiliser une m\'ethode dite de tir multiple. On introduit le param\`etre \cmd{iarc} dans les fonctions \cmd{control}, \cmd{hvfun},
+\cmd{exphvfun} et \cmd{expcost} qui correspond \`a l'indice de l'arc courant. On notera $y = (p_0, t_1, z_1)$ l'inconnue de la fonction de tir,
+o\`u $p_0$ est le vecteur adjoint initial, $t_1$ est l'instant de transition entre l'arc 1 et l'arc 2 et o\`u $z_1$ est la valeur de l'\'etat et \'etat adjoint
+\`a cet instant. La fonction de tir $S \colon \R^4 \to \R^4$ aura une \'equation permettant d'atteindre la cible $x_f$, une \'equation permettant la commutation
+entre les arcs 1 et 2, et une derni\`ere \'equation (dite de raccordement) assurant la continuit\'e de l'\'etat et de l'\'etat adjoint \`a l'instant $t_1$.
+
+\begin{myremark}
+    Attention, les commandes \cmd{expcost} pour le calcul du co\^ut et \cmd{ssolve} sont d\'ej\`a \'ecrites !
+\end{myremark}
+
+\begin{myQuestion}
+    \label{question:bang_bang_hamiltonien}
+    Donner le pseudo-hamiltonien associ\'e au probl\`eme \eqref{eq:ocpBangReg}$_{|\veps=0}$ et d\'eterminer la fonction de commutation
+    permettant la transition entre arcs $\arc_\pm$ et $\arc_0$.
+\end{myQuestion}
+
+\begin{myQuestion}
+    \label{question:bang_bang_fonction_de_tir}
+    D\'eterminer la fonction de tir $S$.
+\end{myQuestion}
+
+\begin{myExercice}
+    \label{exo:tir_multiple} Tir multiple et contr\^ole bang-bang.
+    \begin{enumerate}
+        \item Se rendre dans le r\'epertoire \cmd{sujet4\_bang\_bang}.
+        \item Impl\'ementer dans le r\'epertoire \cmd{lib} les fonctions \cmd{control}, \cmd{hvfun},
+            \cmd{exphvfun}, \cmd{sfun}, \cmd{finiteDiff} et \cmd{sjac} (seulement la partie par diff\'erences finies).
+            Attention, on a introduit l'argument \cmd{iarc} !
+        \item Utiliser la BC-extr\'emale du probl\`eme \eqref{eq:ocpBangReg} avec $\veps$ petit (voir sujet \ref{chap:homotopie_discrete})
+            pour initialiser la m\'ethode de tir (dans le fichier \cmd{main.m}) et r\'esoudre le syst\`eme d'\'equations $S(y) = 0$.
+        \item Retrouver comme solution $p_0 \approx 0.270671$, $t_1 \approx 1.30685$ et $z_1 = (0,1)$ et v\'erifier que la valeur du crit\`ere est bien la valeur
+            limite donn\'ee par la figure \ref{fig:results_tests_continuation_1}.
+    \end{enumerate}
+\end{myExercice}
+
+\begin{myQuestion}
+    \label{question:bang_bang_jacobienne}
+    D\'eterminer la jacobienne de la fonction de tir.
+\end{myQuestion}
+
+\begin{myExercice}
+    R\'esoudre le syst\`eme d'\'equations $S(y) = 0$ en utilisant l'IND de Bock pour le calcul de la jacobienne de la fonction de tir.
+\end{myExercice}
+

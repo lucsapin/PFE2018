@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Erreur  : manque argument"
+    echo "Syntaxe : doCompile fileName"
+    echo 'Exemple : doCompile main.tex'
+    exit
+fi
+
+dir=`pwd`
+cd ..
+./doCompile ${1}
+cd ${dir}

@@ -4,10 +4,10 @@ clear all;
 close all;
 % ------------------------------------------------------------------------------
 % Display settings
-set(0,  'defaultaxesfontsize'   ,  16     , ...
+set(0,  'defaultaxesfontsize'   ,  25     , ...
     'DefaultTextVerticalAlignment'  , 'bottom', ...
     'DefaultTextHorizontalAlignment', 'left'  , ...
-    'DefaultTextFontSize'           ,  16     , ...
+    'DefaultTextFontSize'           ,  25     , ...
     'DefaultFigureWindowStyle','docked');
 
 axisColor = 'k--';
@@ -39,19 +39,19 @@ Tmax    = 50*1e-3*(UC.time_syst)^2/UC.LD;
 
 destination = 'L2';
 typeSimu = 'total';
-
+Sansmax = 'true';
 % ------------------------------------------------------------------------------
 % Computation of trajectories for each destination
 
 % --------------------- Get trajectory with Hill''s sphere ---------------------
 choix = 3; dynamic1 = '3B Perturbated'; traj1 = dynamic1;
-[resDrift_3BP, resP2H, pointMinDistL2_3BP, ~] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choix);
+[resDrift_3BP, resP2H, pointMinDistL2_3BP, ~] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choix, Sansmax);
 
 choix = 4; dynamic2 = '2B Sun'; traj2 = dynamic2;
-[resDrift_2BS, ~, pointMinDistL2_2BS, ~] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choix);
+[resDrift_2BS, ~, pointMinDistL2_2BS, ~] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choix, Sansmax);
 
 choix = 6; dynamic3 = '2B Ad Hoc'; traj3 = dynamic3;
-[resDrift_AH, ~, pointMinDistL2_AH, ~] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choix);
+[resDrift_AH, ~, pointMinDistL2_AH, ~] = get_all_traj(destination, typeSimu, numAsteroid, numOpti, dist, TmaxN, m0, choix, Sansmax);
 
 % ------------------------------------------------------------------------------
 % Affectation des résultats
@@ -77,7 +77,7 @@ end
 
 
 % ----------------- Get trajectory without Hill''s sphere -----------------
-[statesOpti, traj_out, q0, q1, t0_r, dt1_r] = propagate2L2(destination, typeSimu, numAsteroid, numOpti);
+[statesOpti, traj_out, q0, q1, t0_r, dt1_r] = propagate2L2(destination, typeSimu, numAsteroid, numOpti, Sansmax);
 
 q1_CR3BP    = Helio2CR3BP(q1, t0_r+dt1_r);
 
@@ -149,20 +149,34 @@ if plot
   % subplot(3,2,6);
 
   figure;
-  display_Moon(); hold on;
-  display_Earth(); hold on;
-  display_L2(); hold on;
   display_asteroid(Helio2CR3BP(q0, t0_r), 'propagate'); hold on;
 
-  plot3(traj_out(1,:), traj_out(2,:), traj_out(3,:), 'r', 'LineWidth', DC.LW); traj = 'Spacecraft trajectory 2B';
-  % plot3(statesOpti(1,:), statesOpti(2,:), statesOpti(3,:), 'b', 'LineWidth', DC.LW); trajComp = 'Spacecraft trajectory Ad-Hoc';
+  plot3(traj_out(1,:), traj_out(2,:), traj_out(3,:), 'r', 'LineWidth', DC.LW); hold on; traj = 'Spacecraft trajectory 2B';
+  % plot3(statesOpti(1,:), statesOpti(2,:), statesOpti(3,:), 'm', 'LineWidth', DC.LW); traj = 'Spacecraft trajectory Ad-Hoc';
   % plot3(q1_CR3BP(1), q1_CR3BP(2), q1_CR3BP(3), 'mo');
 
-  legend('Moon', 'Earth', 'L2', 'Asteroid', traj); % , trajComp, 'Second boost');
+  legend('Asteroid', traj); % , trajComp, 'Second boost');
   title('Propagate from Asteroid to L2 without Hill''s sphere');
   xlabel('q_1');
   ylabel('q_2');
   zlabel('q_3');
+
+  figure;
+  % plot3(traj_out(1,:), traj_out(2,:), traj_out(3,:), 'r', 'LineWidth', DC.LW); hold on; traj = 'Spacecraft trajectory 2B';
+  plot3(statesOpti(1,:), statesOpti(2,:), statesOpti(3,:), 'm', 'LineWidth', DC.LW); hold on; traj = 'Spacecraft trajectory Ad-Hoc';
+  display_Moon(); hold on;
+  display_Earth(); hold on;
+  display_L2();
+
+  legend(traj, 'Moon', 'Earth', 'L2');
+  title('Propagate from Asteroid to L2 without Hill''s sphere : ZOOM');
+  xlim([-1 2.5]);
+  ylim([-2.5 1]);
+  xlabel('q_1');
+  ylabel('q_2');
+  zlabel('q_3');
+  grid on;
   view(0,90);
+
 
 end

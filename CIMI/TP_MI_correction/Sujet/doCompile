@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Erreur  : manque argument"
+    echo "Syntaxe : doCompile fileName"
+    echo 'Exemple : doCompile main.tex'
+    exit
+fi
+
+tmpDir='tmp'
+mkdir ${tmpDir} &> /dev/null
+mv ${tmpDir}/*.{blg,bbl,toc,out,log,aux,pdf,dvi,maf,mtc*,nlo,brf,synctex.gz,nav,snm,idx,mlt,mlf,lof,lot}* . &> /dev/null
+
+file=${1}
+
+options='-halt-on-error --shell-escape -file-line-error -interaction=nonstopmode -synctex=1'
+pdflatex ${options} ${file}
+
+mv *.{blg,bbl,toc,out,log,aux,maf,mtc*,nlo,brf,synctex.gz,nav,snm,idx,mlt,mlf,lof,lot}* ${tmpDir}/ &> /dev/null
