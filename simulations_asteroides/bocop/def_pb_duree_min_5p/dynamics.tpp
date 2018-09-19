@@ -58,15 +58,15 @@
 	double qH4    = constants[8];
 	double qH5    = constants[9];
 	double qH6    = constants[10];
-	double qL21   = constants[12];
-	double qL22   = constants[13];
-	double qL23   = constants[14];
-	double qL24   = constants[15];
-	double qL25   = constants[16];
-	double qL26   = constants[17];
-	double theta0 = constants[18];
-	double omegaS = constants[19];
-	double m0     = constants[20];
+	double qL21   = constants[11];
+	double qL22   = constants[12];
+	double qL23   = constants[13];
+	double qL24   = constants[14];
+	double qL25   = constants[15];
+	double qL26   = constants[16];
+	double theta0 = constants[17];
+	double omegaS = constants[18];
+	double m0     = constants[19];
 
 	Tdouble x1    = state[0];
 	Tdouble y1    = state[1];
@@ -133,9 +133,9 @@
 	state_dynamics[0] = dt1 * xdot1;
 	state_dynamics[1] = dt1 * ydot1;
 	state_dynamics[2] = dt1 * zdot1;
-	state_dynamics[3] = dt1 * (2*ydot1 + x1 - (1-mu)*(x1+mu)/rho11/rho11/rho11 - mu*(x1-1+mu)/rho12/rho12/rho12 - muS*(x1-rS*cos(theta1))/rhoS1/rhoS1/rhoS1 - muS*cos(theta1)/rS/rS) + (Tmax/m1)*u11;
-	state_dynamics[4] = dt1 * (-2*xdot1 + y1 - (1-mu)*y1/rho11/rho11/rho11 - mu*y1/rho12/rho12/rho12 - muS*(y1-rS*sin(theta1))/rhoS1/rhoS1/rhoS1 - muS*sin(theta1)/rS/rS) + (Tmax/m1)*u12;
-	state_dynamics[5] = dt1 * (-(1-mu)*z1/rho11/rho11/rho11 - mu*z1/rho12/rho12/rho12 - muS*z1/rhoS1/rhoS1/rhoS1) + (Tmax/m1)*u13;
+	state_dynamics[3] = dt1 * (2*ydot1 + x1 - (1-mu)*(x1+mu)/rho11/rho11/rho11 - mu*(x1-1+mu)/rho12/rho12/rho12 - muS*(x1-rS*cos(theta1))/rhoS1/rhoS1/rhoS1 - muS*cos(theta1)/rS/rS + (Tmax/m1)*u11);
+	state_dynamics[4] = dt1 * (-2*xdot1 + y1 - (1-mu)*y1/rho11/rho11/rho11 - mu*y1/rho12/rho12/rho12 - muS*(y1-rS*sin(theta1))/rhoS1/rhoS1/rhoS1 - muS*sin(theta1)/rS/rS + (Tmax/m1)*u12);
+	state_dynamics[5] = dt1 * (-(1-mu)*z1/rho11/rho11/rho11 - mu*z1/rho12/rho12/rho12 - muS*z1/rhoS1/rhoS1/rhoS1 + (Tmax/m1)*u13);
 	state_dynamics[6] = dt1 * (-beta*Tmax);
 // DEUXIEME ARC
 	state_dynamics[7]  = dt2 * xdot2;
@@ -149,9 +149,9 @@
 	state_dynamics[14] = dt3 * xdot3;
 	state_dynamics[15] = dt3 * ydot3;
 	state_dynamics[16] = dt3 * zdot3;
-	state_dynamics[17] = dt3 * (2*ydot3 + x3 - (1-mu)*(x3+mu)/rho31/rho31/rho31 - mu*(x3-1+mu)/rho32/rho32/rho32 - muS*(x3-rS*cos(theta3))/rhoS3/rhoS3/rhoS3 - muS*cos(theta3)/rS/rS) + (Tmax/m3)*u31;
-	state_dynamics[18] = dt3 * (-2*xdot3 + y3 - (1-mu)*y3/rho31/rho31/rho31 - mu*y3/rho32/rho32/rho32 - muS*(y3-rS*sin(theta3))/rhoS3/rhoS3/rhoS3 - muS*sin(theta3)/rS/rS) + (Tmax/m3)*u32;
-	state_dynamics[19] = dt3 * (-(1-mu)*z3/rho31/rho31/rho31 - mu*z3/rho32/rho32/rho32 - muS*z3/rhoS3/rhoS3/rhoS3) + (Tmax/m3)*u33;
+	state_dynamics[17] = dt3 * (2*ydot3 + x3 - (1-mu)*(x3+mu)/rho31/rho31/rho31 - mu*(x3-1+mu)/rho32/rho32/rho32 - muS*(x3-rS*cos(theta3))/rhoS3/rhoS3/rhoS3 - muS*cos(theta3)/rS/rS + (Tmax/m3)*u31);
+	state_dynamics[18] = dt3 * (-2*xdot3 + y3 - (1-mu)*y3/rho31/rho31/rho31 - mu*y3/rho32/rho32/rho32 - muS*(y3-rS*sin(theta3))/rhoS3/rhoS3/rhoS3 - muS*sin(theta3)/rS/rS + (Tmax/m3)*u32);
+	state_dynamics[19] = dt3 * (-(1-mu)*z3/rho31/rho31/rho31 - mu*z3/rho32/rho32/rho32 - muS*z3/rhoS3/rhoS3/rhoS3 + (Tmax/m3)*u33);
 	state_dynamics[20] = dt3 * (-beta*Tmax);
 // QUATRIEME ARC
 	state_dynamics[21]  = dt4 * xdot4;
@@ -165,8 +165,8 @@
 	state_dynamics[28] = dtf * xdot5;
 	state_dynamics[29] = dtf * ydot5;
 	state_dynamics[30] = dtf * zdot5;
-	state_dynamics[31] = dtf * (2*ydot5 + x5 - (1-mu)*(x5+mu)/rho51/rho51/rho51 - mu*(x5-1+mu)/rho52/rho52/rho52 - muS*(x5-rS*cos(theta5))/rhoS5/rhoS5/rhoS5 - muS*cos(theta5)/rS/rS) + (Tmax/m5)*u51;
-	state_dynamics[32] = dtf * (-2*xdot5 + y5 - (1-mu)*y5/rho51/rho51/rho51 - mu*y5/rho52/rho52/rho52 - muS*(y5-rS*sin(theta5))/rhoS5/rhoS5/rhoS5 - muS*sin(theta5)/rS/rS) + (Tmax/m5)*u52;
-	state_dynamics[33] = dtf * (-(1-mu)*z5/rho51/rho51/rho51 - mu*z5/rho52/rho52/rho52 - muS*z5/rhoS5/rhoS5/rhoS5) + (Tmax/m5)*u53;
+	state_dynamics[31] = dtf * (2*ydot5 + x5 - (1-mu)*(x5+mu)/rho51/rho51/rho51 - mu*(x5-1+mu)/rho52/rho52/rho52 - muS*(x5-rS*cos(theta5))/rhoS5/rhoS5/rhoS5 - muS*cos(theta5)/rS/rS + (Tmax/m5)*u51);
+	state_dynamics[32] = dtf * (-2*xdot5 + y5 - (1-mu)*y5/rho51/rho51/rho51 - mu*y5/rho52/rho52/rho52 - muS*(y5-rS*sin(theta5))/rhoS5/rhoS5/rhoS5 - muS*sin(theta5)/rS/rS + (Tmax/m5)*u52);
+	state_dynamics[33] = dtf * (-(1-mu)*z5/rho51/rho51/rho51 - mu*z5/rho52/rho52/rho52 - muS*z5/rhoS5/rhoS5/rhoS5 + (Tmax/m5)*u53);
 	state_dynamics[34] = dtf * (-beta*Tmax);
 }

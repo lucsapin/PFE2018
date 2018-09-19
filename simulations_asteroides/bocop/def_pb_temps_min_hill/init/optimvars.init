@@ -3,11 +3,7 @@
 # for all optimization parameters
 
 # Number of optimization parameters :
-5
+1
 
 # Initial values :
-0.05
-10
-0.05
-0
-0.05
+0.0

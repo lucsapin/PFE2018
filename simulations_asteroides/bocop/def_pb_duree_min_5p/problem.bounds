@@ -53,58 +53,58 @@
 -10 10 both
 -10 10 both
 -10 10 both
+0 0 free
+0 0 free
+0 0 free
+0 2e+20 lower
 -10 10 both
 -10 10 both
 -10 10 both
+0 0 free
+0 0 free
+0 0 free
+0 2e+20 lower
 -10 10 both
 -10 10 both
 -10 10 both
+0 0 free
+0 0 free
+0 0 free
+0 2e+20 lower
 -10 10 both
 -10 10 both
 -10 10 both
+0 0 free
+0 0 free
+0 0 free
+0 2e+20 lower
 -10 10 both
 -10 10 both
 -10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
--10 10 both
+0 0 free
+0 0 free
+0 0 free
+0 2e+20 lower
 
 # Bounds for the control variables :
--1 1 both
--1 1 both
--1 1 both
--1 1 both
--1 1 both
--1 1 both
--1 1 both
--1 1 both
--1 1 both
+-10 10 both
+-10 10 both
+-10 10 both
+-10 10 both
+-10 10 both
+-10 10 both
+-10 10 both
+-10 10 both
+-10 10 both
 
 # Bounds for the algebraic variables :
 
 # Bounds for the optimization parameters :
-0.001 100 both
-0.001 100 both
-0.001 100 both
-0.001 100 both
-0.001 100 both
+1e-05 100 both
+1e-05 100 both
+1e-05 100 both
+1e-05 100 both
+1e-05 100 both
 
 # Bounds for the path constraints :
 0 0 equal

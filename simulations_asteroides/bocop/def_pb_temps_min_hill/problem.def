@@ -1,0 +1,91 @@
+# This file defines all dimensions and parameters
+# values for your problem :
+
+# Initial and final time :
+time.free string none
+time.initial double 0
+time.final double 1
+
+# Dimensions :
+state.dimension integer 6
+control.dimension integer 3
+algebraic.dimension integer 0
+parameter.dimension integer 1
+constant.dimension integer 20
+boundarycond.dimension integer 12
+constraint.dimension integer 1
+
+# Discretization :
+discretization.steps integer 100
+discretization.method string midpoint
+
+# Optimization :
+optimization.type string single
+batch.type integer 0
+batch.index integer 0
+batch.nrange integer 1
+batch.lowerbound double 0
+batch.upperbound double 0
+batch.directory string none
+
+# Initialization :
+initialization.type string from_init_file
+initialization.file string none
+
+# Parameter identification :
+paramid.type string false
+paramid.separator string ,
+paramid.file string no_directory
+paramid.dimension integer 0
+
+# Names :
+state.0 string state.0
+state.1 string state.1
+state.2 string state.2
+state.3 string state.3
+state.4 string state.4
+state.5 string state.5
+control.0 string control.0
+control.1 string control.1
+control.2 string control.2
+parameter.0 string parameter.0
+boundarycond.0 string boundarycond.0
+boundarycond.1 string boundarycond.1
+boundarycond.2 string boundarycond.2
+boundarycond.3 string boundarycond.3
+boundarycond.4 string boundarycond.4
+boundarycond.5 string boundarycond.5
+boundarycond.6 string boundarycond.6
+boundarycond.7 string boundarycond.7
+boundarycond.8 string boundarycond.8
+boundarycond.9 string boundarycond.9
+boundarycond.10 string boundarycond.10
+boundarycond.11 string boundarycond.11
+constraint.0 string constraint.0
+constant.0 string constant.0
+constant.1 string constant.1
+constant.2 string constant.2
+constant.3 string constant.3
+constant.4 string constant.4
+constant.5 string constant.5
+constant.6 string constant.6
+constant.7 string constant.7
+constant.8 string constant.8
+constant.9 string constant.9
+constant.10 string constant.10
+constant.11 string constant.11
+constant.12 string constant.12
+constant.13 string constant.13
+constant.14 string constant.14
+constant.15 string constant.15
+constant.16 string constant.16
+constant.17 string constant.17
+constant.18 string constant.18
+constant.19 string constant.19
+
+# Solution file :
+solution.file string problem.sol
+
+# Iteration output frequency :
+iteration.output.frequency integer 0
+
