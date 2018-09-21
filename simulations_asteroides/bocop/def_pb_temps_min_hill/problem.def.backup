@@ -7,16 +7,16 @@ time.initial double 0
 time.final double 1
 
 # Dimensions :
-state.dimension integer 1
-control.dimension integer 0
+state.dimension integer 7
+control.dimension integer 3
 algebraic.dimension integer 0
-parameter.dimension integer 0
-constant.dimension integer 0
-boundarycond.dimension integer 1
-constraint.dimension integer 0
+parameter.dimension integer 1
+constant.dimension integer 20
+boundarycond.dimension integer 13
+constraint.dimension integer 1
 
 # Discretization :
-discretization.steps integer 100
+discretization.steps integer 150
 discretization.method string midpoint
 
 # Optimization :
@@ -29,8 +29,8 @@ batch.upperbound double 0
 batch.directory string none
 
 # Initialization :
-initialization.type string from_init_file
-initialization.file string none
+initialization.type string from_sol_file_warm
+initialization.file string problem.sol
 
 # Parameter identification :
 paramid.type string false
@@ -39,8 +39,51 @@ paramid.file string no_directory
 paramid.dimension integer 0
 
 # Names :
-state.0 string state.0
-boundarycond.0 string boundarycond.0
+state.0 string q1
+state.1 string q2
+state.2 string q3
+state.3 string q4
+state.4 string q5
+state.5 string q6
+state.6 string m
+control.0 string u1
+control.1 string u2
+control.2 string u3
+parameter.0 string finalTime
+boundarycond.0 string q1i-qH1
+boundarycond.1 string q2i-qH2
+boundarycond.2 string q3i-qH3
+boundarycond.3 string q4i-qH4
+boundarycond.4 string q5i-qH5
+boundarycond.5 string q6i-qH6
+boundarycond.6 string mi-mH
+boundarycond.7 string q1f-qL21
+boundarycond.8 string q2f-qL22
+boundarycond.9 string q3f-qL23
+boundarycond.10 string q4f-qL24
+boundarycond.11 string q5f-qL25
+boundarycond.12 string q6f-qL26
+constraint.0 string norm(u)-1
+constant.0 string Tmax
+constant.1 string beta
+constant.2 string mu
+constant.3 string muS
+constant.4 string rS
+constant.5 string qH1
+constant.6 string qH2
+constant.7 string qH3
+constant.8 string qH4
+constant.9 string qH5
+constant.10 string qH6
+constant.11 string qL21
+constant.12 string qL22
+constant.13 string qL23
+constant.14 string qL24
+constant.15 string qL25
+constant.16 string qL26
+constant.17 string thetaS0
+constant.18 string omegaS
+constant.19 string m0
 
 # Solution file :
 solution.file string problem.sol

@@ -1,7 +1,7 @@
 // Function for the path constraints of the problem
 // a <= g(t,y,u,z,p) <= b
 
-// The following are the input and output available variables 
+// The following are the input and output available variables
 // for the path constraints of your optimal control problem.
 
 // Input :
@@ -31,7 +31,12 @@
 {
 	// HERE : description of the path constraints
 	// Please give a function or a value for each path constraint
-	//path_constraints[0] = ;
+  Tdouble finalTime = optimvars[0];
+
+	Tdouble u1 = control[0];
+	Tdouble u2 = control[1];
+	Tdouble u3 = control[2];
+
+  path_constraints[0] = u1*u1 + u2*u2 + u3*u3 - 1;
+
 }
-
-

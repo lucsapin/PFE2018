@@ -1,7 +1,7 @@
 // Function for the criterion of the problem
 // Min criterion(z)
 
-// The following are the input and output available variables 
+// The following are the input and output available variables
 // for the criterion of your optimal control problem.
 
 // Input :
@@ -30,7 +30,8 @@
 {
 	// HERE : description of the function for the criterion
 	// "criterion" is a function of all variables X[]
-	criterion = final_state[0];
+  Tdouble finalTime = optimvars[0];
+
+  criterion  = finalTime; // min tf
+	// criterion  = final_time;  temps libre
 }
-
-
