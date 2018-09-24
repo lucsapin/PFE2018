@@ -1,0 +1,48 @@
+--- Constantes du problèmes ---
+
+- pousee max : Tmax = 50 N
+- efficacite moteur : beta = Isp*g0 = 375*9.80665 m/s
+- position terre dans repere tournant : mu = 0.01215361914d0
+- position soleil dans repere tournant : muS = 3.289005726315398d5
+- distance du soleil a EMB : rS = 3.891779396462019d2 LD
+- etat à l'instant initial (sur la sphère de Hill) : qH1 = -1.6645995924124463e-01
+                                                     qH2 = 3.8881610671067879e+00
+                                                     qH3 = -3.2122657929792298e-03
+                                                     qH4 = 3.8430600789772758e+00
+                                                     qH5 = -4.6870891025230490e+00
+                                                     qH6 = -5.2642616547474153e-03
+
+- etat FINAL ??? à l'instant initial (sur la sphère de Hill) : qL21 = 0.1155681950839609E+01
+                                                     qL22 = 0.
+                                                     qL23 = 0.
+                                                     qL24 = 0.
+                                                     qL25 = 0.
+                                                     qL26 = 0.
+
+- anomalie initiale du Soleil : thetaS0 =  0.810663322440545
+- vitesse angulaire du soleil : omegaS = -0.925d0
+- masse intiale : m0 = 0.7845839311207292E+05
+
+
+
+--- Initialisation des etats/paramètres d'opti/contrôles ---
+
+- Initialisation de l'état : q11 = -0.9780303159664378E+001
+                             q12 = -0.5556946236599978E+002
+                             q13 = 0.4327808449622655E-001
+                             q14 = -0.5347357557501495E+002
+                             q15 = 0.1643219776010145E+002
+                             q16 = -0.4427715660150466E-002
+
+- Initialisation des paramètres d'optimisation (durées des arcs) : dt1 = 0.098280003052123
+                                                                   dt2 = 3.457478990983899
+                                                                   dt3 = 10.628462529374698
+(ici c'est donc pour deux arcs contrôlés et un arcs balistique)
+
+- Initialisation des controles sur chaque arc contrôlé : u11 = 0.9631611684799687E+000
+                                                         u12 = 0.2689247601201879E+000
+                                                         u13 = 0.1921629537698495E-003
+                                                       
+                                                         u31 = -0.3347455479623621E+000
+                                                         u32 = 0.9423073212352094E+000
+                                                         u33 = 0.1526586355830300E-002

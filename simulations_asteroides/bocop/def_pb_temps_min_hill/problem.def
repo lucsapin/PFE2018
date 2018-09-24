@@ -16,7 +16,7 @@ boundarycond.dimension integer 13
 constraint.dimension integer 1
 
 # Discretization :
-discretization.steps integer 150
+discretization.steps integer 100
 discretization.method string midpoint
 
 # Optimization :
